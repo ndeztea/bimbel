@@ -17,7 +17,12 @@ class Auth extends CI_Controller {
 
 	function index()
 	{
-		$this->load->view('login');
+
+		if($this->session->userdata('nisn')!= NULL OR $this->session->userdata('nisn') != ""):
+			redirect(base_url().'home','refresh');
+		else:
+			$this->load->view('login');
+		endif;
 	}
 
 	function daftar(){
@@ -73,6 +78,7 @@ class Auth extends CI_Controller {
 			if($login):
 				$data = $login->row_array();
 				$this->session->set_userdata('nisn', 		$data['nisn']);
+				$this->session->set_userdata('nama', 		$data['nama']);
 				$this->session->set_userdata('avatar', 		$data['avatar']);
 				$this->session->set_userdata('pendidikan', 	$data['tingkat_sekolah']);
 				$this->session->set_userdata('kelas',		$data['kelas']);
@@ -109,10 +115,11 @@ class Auth extends CI_Controller {
 	function logout(){
 	    $this->session->sess_destroy();
 	    $data = array('nisn',
-				    	'avatar',
-				    	'pendidikan',
-				    	'kelas',
-				    	'wids');
+	    			  'nama',
+				      'avatar',
+				      'pendidikan',
+				      'kelas',
+				   	  'wids');
 	    $this->session->unset_userdata($data);
 	    redirect(base_url());
 	}
