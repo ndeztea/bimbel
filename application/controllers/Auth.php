@@ -8,6 +8,7 @@ class Auth extends CI_Controller {
 		parent::__construct();
 		// load Model
 		$this->load->model('users');
+		$this->load->model('login');
 
 		//set error delimiter untuk form validation
 		$this->form_validation->set_error_delimiters('<div class="alert alert-danger">
@@ -21,7 +22,7 @@ class Auth extends CI_Controller {
 
 	function daftar(){
 		$this->form_validation->set_rules('nama_lengkap', 'Nama Lengkap', 'required|xss_clean');
-		$this->form_validation->set_rules('NISN', 'NISN', 'required|xss_clean');
+		$this->form_validation->set_rules('NISN', 'NISN', 'required|xss_clean|callback_cek_nisn');
 		$this->form_validation->set_rules('jkel', 'Jenis Kelamin', 'required|xss_clean');
 		$this->form_validation->set_rules('password', 'Password', 'required|xss_clean');
 		$this->form_validation->set_rules('confirm_password', 'Konfirmasi Password', 'required|xss_clean|matches[password]');
@@ -32,10 +33,9 @@ class Auth extends CI_Controller {
 		$this->form_validation->set_rules('no_rek', 'Nomor Rekening', 'xss_clean|numeric');
 
 
-		if ($this->form_validation->run() == FALSE){
+		if ($this->form_validation->run() == FALSE):
  			$this->load->view('login');
- 		}
-		else{
+		else:
 			$users = array('nisn' 			=> $this->input->post('NISN'),
 						   'nama' 			=> $this->input->post('nama_lengkap'),
 						   'gender' 		=> $this->input->post('jkel'),
@@ -50,13 +50,72 @@ class Auth extends CI_Controller {
 
 
 			$this->users->add($users);
-			$this->session->set_flashdata('msg', 'Anda berhasil mendaftar, Silakan login untuk mengakses menu selanjutnya ');
+			die();
+			$this->session->set_flashdata('msg', 'Kamu berhasil mendaftar, Silakan login untuk mengakses menu selanjutnya ');
 			redirect(base_url(),'refresh');
 
+		endif;
+	}
+
+
+	function authentication(){
+
+		$this->form_validation->set_rules('username', 'Username', 'required|xss_clean');
+		$this->form_validation->set_rules('password', 'Password', 'required|xss_clean');
+
+		if ($this->form_validation->run() == FALSE) {
+ 			$this->load->view('login');
+		} 
+		else {
+
+			$login = $this->login->login();
+
+			if($login):
+				$data = $login->row_array();
+				$this->session->set_userdata('nisn', 		$data['nisn']);
+				$this->session->set_userdata('avatar', 		$data['avatar']);
+				$this->session->set_userdata('pendidikan', 	$data['tingkat_sekolah']);
+				$this->session->set_userdata('kelas',		$data['kelas']);
+				$this->session->set_userdata('wids', 		$data['wids']);
+
+				redirect(base_url().'home','refresh');
+
+			else:
+				$this->session->set_flashdata('msg_error', 'Maaf NISN atau Password yang kamu masukan salah, silakan cek kembali');
+				redirect(base_url(),'refresh');
+
+			endif;
 		}
+		
+	}
+
+
+	function cek_nisn(){
+		$nisn = $this->input->post('NISN');
+
+		$cek_nisn = $this->login->cek_nisn($nisn);
+
+		if($cek_nisn):
+			$this->form_validation->set_message('cek_nisn', 'NISN yang kamu masukkan sudah terdaftar, silakan cek kembali NISN kamu.');
+			return FALSE;
+		else:
+			return TRUE;
+		endif;
 
 	}
 
+
+
+	function logout(){
+	    $this->session->sess_destroy();
+	    $data = array('nisn',
+				    	'avatar',
+				    	'pendidikan',
+				    	'kelas',
+				    	'wids');
+	    $this->session->unset_userdata($data);
+	    redirect(base_url());
+	}
 }
 
 /* End of file Auth.php */

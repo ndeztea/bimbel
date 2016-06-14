@@ -64,14 +64,14 @@
 						</li>
 					</ul>
 				</div> -->
-                <form class="navbar-form navbar-right" role="search">
+                <form method="post" action="<?= base_url() ?>login" class="navbar-form navbar-right" role="search">
                     <div class="form-group">
-                        <input type="text" class="form-control" name="username" placeholder="Username">
+                        <input type="text" class="form-control" name="username" placeholder="NISN">
                     </div>
                     <div class="form-group">
-                        <input type="text" class="form-control" name="password" placeholder="Password">
+                        <input type="password" class="form-control" name="password" placeholder="Password">
                     </div>
-                    <button type="submit" class="btn btn-default">Sign In</button>
+                    <button type="submit" class="btn btn-default">Masuk !</button>
                 </form>
 			</div>
 		</nav>
@@ -87,6 +87,13 @@
                                 <div class="alert alert-info">
                                 <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
                                 <?= $this->session->flashdata('msg'); ?>
+                                </div>
+                            <?php endif; ?>
+
+                            <?php if($this->session->flashdata('msg_error') != NULL): ?>
+                                <div class="alert alert-danger">
+                                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                <?= $this->session->flashdata('msg_error'); ?>
                                 </div>
                             <?php endif; ?>
                             <h1><strong>Bootstrap</strong> Registration Form</h1>
