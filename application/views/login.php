@@ -34,7 +34,7 @@
     <body>
 
 		<!-- Top menu -->
-		<!-- <nav class="navbar navbar-inverse navbar-no-bg" role="navigation">
+		<nav class="navbar navbar-inverse navbar-no-bg" role="navigation">
 			<div class="container">
 				<div class="navbar-header">
 					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#top-navbar-1">
@@ -45,7 +45,7 @@
 					</button>
 					<a class="navbar-brand" href="index.html">Bootstrap Registration Form Template</a>
 				</div>
-				<div class="collapse navbar-collapse" id="top-navbar-1">
+				<!-- <div class="collapse navbar-collapse" id="top-navbar-1">
 					<ul class="nav navbar-nav navbar-right">
 						<li>
 							<span class="li-text">
@@ -63,9 +63,18 @@
 							</span>
 						</li>
 					</ul>
-				</div>
+				</div> -->
+                <form class="navbar-form navbar-right" role="search">
+                    <div class="form-group">
+                        <input type="text" class="form-control" name="username" placeholder="Username">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control" name="password" placeholder="Password">
+                    </div>
+                    <button type="submit" class="btn btn-default">Sign In</button>
+                </form>
 			</div>
-		</nav> -->
+		</nav>
 
         <!-- Top content -->
         <div class="top-content">
@@ -73,7 +82,13 @@
             <div class="inner-bg">
                 <div class="container">
                     <div class="row">
-                        <div class="col-sm-7 text">
+                        <div class="col-sm-5 text">
+                            <?php if($this->session->flashdata('msg') != NULL): ?>
+                                <div class="alert alert-info">
+                                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                <?= $this->session->flashdata('msg'); ?>
+                                </div>
+                            <?php endif; ?>
                             <h1><strong>Bootstrap</strong> Registration Form</h1>
                             <div class="description">
                             	<p>
@@ -86,36 +101,110 @@
                             	<a class="btn btn-link-2" href="#">Button 2</a>
                             </div>
                         </div>
-                        <div class="col-sm-5 form-box">
+                        <div class="col-sm-7 form-box">
                         	<div class="form-top">
                         		<div class="form-top-left">
-                        			<h3>Sign up now</h3>
-                            		<p>Fill in the form below to get instant access:</p>
+                        			<h3>Daftar Sekarang</h3>
+                                    <?= validation_errors() ?>
+                            		<!-- <p>Fill in the form below to get instant access:</p> -->
                         		</div>
-                        		<div class="form-top-right">
+                        		<!-- <div class="form-top-right">
                         			<i class="fa fa-pencil"></i>
-                        		</div>
+                        		</div> -->
                             </div>
                             <div class="form-bottom">
-			                    <form role="form" action="" method="post" class="registration-form">
-			                    	<div class="form-group">
-			                    		<label class="sr-only" for="form-first-name">First name</label>
-			                        	<input type="text" name="form-first-name" placeholder="First name..." class="form-first-name form-control" id="form-first-name">
-			                        </div>
-			                        <div class="form-group">
-			                        	<label class="sr-only" for="form-last-name">Last name</label>
-			                        	<input type="text" name="form-last-name" placeholder="Last name..." class="form-last-name form-control" id="form-last-name">
-			                        </div>
-			                        <div class="form-group">
-			                        	<label class="sr-only" for="form-email">Email</label>
-			                        	<input type="text" name="form-email" placeholder="Email..." class="form-email form-control" id="form-email">
-			                        </div>
-			                        <div class="form-group">
-			                        	<label class="sr-only" for="form-about-yourself">About yourself</label>
-			                        	<textarea name="form-about-yourself" placeholder="About yourself..." 
-			                        				class="form-about-yourself form-control" id="form-about-yourself"></textarea>
-			                        </div>
-			                        <button type="submit" class="btn">Sign me up!</button>
+			                    <form role="form" action="<?= base_url() ?>register" method="post" class="registration-form">
+                                    <div class="col-md-12">
+    			                    	<div class="form-group">
+    			                    		<label class="sr-only" for="form-first-name">Nama Lengkap</label>
+    			                        	<input type="text" name="nama_lengkap" placeholder="Nama Lengkap" class="form-control" value="<?= set_value('nama_lengkap') ?>">
+    			                        </div>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                    <div class="col-md-12">
+    			                        <div class="form-group">
+    			                        	<label class="sr-only" for="form-jkel">Jenis Kelamin</label>
+    			                        	<div class="form-inline">
+                                                <div class="radio">
+                                                    <label>
+                                                    <input type="radio" name="jkel" value="l" <?= set_radio('jkel', 'l', TRUE); ?>>
+                                                    Laki - laki
+                                                    </label>
+                                                </div>
+                                                <div class="radio">
+                                                    <label>
+                                                    <input type="radio" name="jkel" value="p" <?= set_radio('jkel', 'p') ?> >
+                                                    Perempuan
+                                                    </label>
+                                                </div>
+                                            </div>
+    			                        </div>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                    <div class="col-md-12">
+    			                        <div class="form-group">
+    			                        	<label class="sr-only" for="form-nisn">NISN</label>
+    			                        	<input type="text" name="NISN" placeholder="NISN" class="form-control" value="<?= set_value('NISN') ?>">
+    			                        </div>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="sr-only" for="form-password">Password</label>
+                                            <input type="password" name="password" placeholder="Password" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="sr-only" for="form-confirm-password">Password</label>
+                                            <input type="password" name="confirm_password" placeholder="Konfirmasi Password" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="sr-only" for="form-pendidikan">Tingkatan Sekolah</label>
+                                            <select name="pendidikan" class="form-control" id="pendidikan" onchange="changePendidikan(this)">
+                                                <option value="">-- Pilih Pendidikan--</option>
+                                                <option value="SD">SD / Sederajat</option>
+                                                <option value="SMP">SMP / Sederajat</option>
+                                                <option value="SMA">SMA / Sederajat</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="sr-only" for="form-kelas">Kelas</label>
+                                            <select name="kelas" class="form-control" id="kelas">
+                                                <option value="" <?= set_select('kelas', '', true) ?>>-- Pilih Kelas--</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="sr-only" for="form-no-hp">No HP</label>
+                                            <input type="text" name="no_hp" class="form-control" placeholder="Nomor HP" value="<?= set_value('no_hp') ?>">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="sr-only" for="form-email">Email</label>
+                                            <input type="text" name="email" class="form-control" placeholder="E-Mail" value="<?= set_value('email') ?>">
+                                        </div>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label class="sr-only" for="form-rekening">No Rekening</label>
+                                            <input type="text" name="no_rek" class="form-control" placeholder="Nomor Rekening" value="<?= set_value('no_rek') ?>">
+                                        </div>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                    <div class="col-md-12">
+			                             <button type="submit" class="btn">Daftar !!</button>
+                                    </div>
+                                    <div class="clearfix"></div>
 			                    </form>
 		                    </div>
                         </div>
@@ -127,10 +216,11 @@
 
 
         <!-- Javascript -->
-        <script src="<?= base_url() ?>/assets/login/form-1/assets/js/jquery-1.11.1.min.js"></script>
-        <script src="<?= base_url() ?>/assets/login/form-1/assets/bootstrap/js/bootstrap.min.js"></script>
-        <script src="<?= base_url() ?>/assets/login/form-1/assets/js/jquery.backstretch.min.js"></script>
-        <script src="<?= base_url() ?>/assets/login/form-1/assets/js/retina-1.1.0.min.js"></script>
+        <script src="<?= base_url() ?>assets/login/form-1/assets/js/jquery-1.11.1.min.js"></script>
+        <script src="<?= base_url() ?>assets/login/form-1/assets/bootstrap/js/bootstrap.min.js"></script>
+        <script src="<?= base_url() ?>assets/login/form-1/assets/js/jquery.backstretch.min.js"></script>
+        <script src="<?= base_url() ?>assets/login/form-1/assets/js/retina-1.1.0.min.js"></script>
+        <script src="<?= base_url() ?>assets/jquery-validation/dist/jquery.validate.min.js"></script>
         <!-- <script src="<?= base_url() ?>/assets/login/form-1/assets/js/scripts.js"></script> -->
         <script>
 
@@ -164,8 +254,143 @@
                 
                 
             });
-
         </script>
+        <script type="text/javascript">
+        //<![CDATA[ 
+         var pendidikan = new Array(4) 
+         pendidikan[""] = ["-- Pilih Kelas --"]; 
+         pendidikan["SD"] = ["1", "2", "3", "4", "5", "6"]; 
+         pendidikan["SMP"] = ["7", "8", "9"]; 
+         pendidikan["SMA"] = ["10", "11", "12"]; 
+         
+         function changePendidikan(selectObj) { 
+             var idx = selectObj.selectedIndex; 
+             var which = selectObj.options[idx].value; 
+             pList = pendidikan[which];
+
+             var pSelect = document.getElementById("kelas"); 
+             var len = pSelect.options.length; 
+
+             while (pSelect.options.length > 0) 
+             { 
+                pSelect.remove(0); 
+             } 
+
+
+
+            var newOption; 
+            for (var i=0; i<pList.length; i++) { 
+                newOption = document.createElement("option"); 
+                newOption.value = pList[i];
+                newOption.text  = pList[i]; 
+                     try { 
+                        pSelect.add(newOption); 
+                     } 
+                     catch (e) { 
+                        pSelect.appendChild(newOption); 
+                     } 
+                 } 
+             } 
+            //]]>
+            </script>
+
+            <script type="text/javascript">
+                (function($,W,D)
+                    {
+                        var JQUERY4U = {};
+                        JQUERY4U.UTIL =
+                        {
+                            setupFormValidation: function()
+                            {
+                                //form validation rules
+                                $(".registration-form").validate({
+                                    rules: {
+                                        nama_lengkap: "required",
+                                        NISN: {
+                                            required:true,
+                                            number:true
+                                        },
+                                        jkel: "required",
+                                        password: {
+                                            required: true,
+                                            minlength: 5
+                                        },
+                                        confirm_password: {
+                                            required: true,
+                                            minlength: 5
+                                        },
+                                        pendidikan: "required",
+                                        kelas: "required",
+                                        no_hp:{
+                                            required:true,
+                                            number:true,
+                                            minlength: 10
+                                        },
+                                        email: {
+                                            required: true,
+                                            email: true
+                                        },
+                                        no_rek: {
+                                            required: false,
+                                            number: true
+                                        },
+                                    },
+                                    messages: {
+                                        nama_lengkap: "Masukkan Nama Lengkap Anda",
+                                        jkel: "Masukkan Jenis Kelamin Anda",
+                                        NISN: {
+                                            required:"Masukkan NISN Anda",
+                                            number:"NISN hanya boleh diisi dengan angka"
+                                        },
+                                        password: {
+                                            required: "Masukkan password",
+                                            minlength: "Password minimal 5 karakter"
+                                        },
+                                        confirm_password: {
+                                            required: "Masukkan Konfirmasi Password",
+                                            minlength: "Konfirmasi Password minimal 5 karakter"
+                                        },
+                                        pendidikan:{
+                                            required:"Pilih tingkatan pendidikan sesuai dengan tingkatan pendidikan anda"
+                                        },
+                                        kelas:{
+                                            required:"Pilih kelas sesuai dengan tingkatan pendidikan anda"
+                                        },
+                                        no_hp: {
+                                            required:"Masukkan Nomor HP Anda",
+                                            number:"Nomor HP hanya boleh diisi dengan angka"},
+                                            minlength: "Nomor HP minimal 12 karakter diawali dengan 0"
+
+
+                                        email: "Masukkan email yang valid",
+                                    },
+                                    submitHandler: function(form) {
+                                        form.submit();
+                                    },
+                                    errorContainer : "#errors",
+                                });
+                            }
+                        }
+                        var errMsgTmpl = '<small style="color:red; font-size:smaller; font-weight:"><label   for="{{LABEL-FOR}}">{{ERROR-MSG}}</label></small>';
+
+                        $.validator.setDefaults({            
+                            errorElement: "section", 
+                            showErrors: function (errorMap, errorList) {
+                                var i, elements;
+                                for (i = 0; errorList[i]; i++) {
+                                    errorList[i].message = errMsgTmpl
+                                    .replace(/{{ERROR-MSG}}/, errorList[i].message)
+                                    .replace(/{{LABEL-FOR}}/, $(errorList[i].element).attr('id'));
+                                }
+                                this.defaultShowErrors();
+                            }
+                        });
+                        //when the dom has loaded setup form validation rules
+                        $(D).ready(function($) {
+                            JQUERY4U.UTIL.setupFormValidation();
+                        });
+                    })(jQuery, window, document);
+            </script>
         <!--[if lt IE 10]>
             <script src="assets/js/placeholder.js"></script>
         <![endif]-->
