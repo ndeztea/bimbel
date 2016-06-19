@@ -40,7 +40,8 @@ class Home extends CI_Controller {
 
 		if($users):
 
-			$this->form_validation->set_rules('nama_lengkap', 'Nama Lengkap', 'required|xss_clean');
+			$this->form_validation->set_rules('nama', 'Nama Lengkap', 'required|xss_clean');
+			$this->form_validation->set_rules('password', 'Password', 'required|xss_clean|callback_cek_password');
 			$this->form_validation->set_rules('jkel', 'Jenis Kelamin', 'required|xss_clean');
 			$this->form_validation->set_rules('pendidikan', 'Tingkatan Sekolah', 'required|xss_clean');
 			$this->form_validation->set_rules('kelas', 'Kelas', 'required|xss_clean');
@@ -53,17 +54,18 @@ class Home extends CI_Controller {
 				$data['users'] = $users->row_array();
 				$this->load->view('user/edit_profil', $data);
 			} else {
-				$users = array('nama' 			=> $this->input->post('nama_lengkap'),
+				$users = array('nama' 			=> $this->input->post('nama'),
 							   'gender' 		=> $this->input->post('jkel'),
 							   'tingkat_sekolah'=> $this->input->post('pendidikan'),
 							   'kelas' 			=> $this->input->post('kelas'),
-							   'sekolah' 		=> $this->input->post('nama_sekolah'),
+							   'nama_sekolah' 		=> $this->input->post('sekolah'),
 							   'hp' 			=> $this->input->post('no_hp'),
 							   'email' 			=> $this->input->post('email'),
 							   'rekening_bank' 	=> $this->input->post('no_rek'));
 
 				$this->users->update($users, $this->session->userdata('nisn'));
 				$this->session->set_flashdata('msg_success', 'Profil Berhasil Diubah');
+				$this->session->set_userdata($this->input->post('nama'));
 				redirect(base_url().'profil','refresh');
 			}
 			
@@ -126,6 +128,17 @@ class Home extends CI_Controller {
 		return $wids;
 	}
 
+	function cek_password(){
+		$password = $this->users->cek_password($this->session->userdata('nisn'), sha1(md5(strrev($this->input->post('password')))));
+
+		if($password){
+			return TRUE;
+		}
+		else{
+			$this->form_validation->set_message('cek_password', 'Password yang anda masukkan salah, data gagal diubah');
+			return FALSE;
+		}
+	}
 }
 
 /* End of file Home.php */

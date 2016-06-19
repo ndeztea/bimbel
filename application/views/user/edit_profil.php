@@ -9,15 +9,17 @@
               <?php
               if($this->session->flashdata('msg_error') != NULL){
               echo '<div class="alert alert-danger" role="alert" style="padding: 6px 12px;height:34px;">';
-              echo "<i class='fa fa-info-circle'></i> <strong><span style='margin-left:10px;'>".$this->session->flashdata('msg')."</span></strong>";
+              echo "<i class='fa fa-info-circle'></i> <strong><span style='margin-left:10px;'>".$this->session->flashdata('msg_error')."</span></strong>";
               echo '</div>';
               }?>
               <?php
               if($this->session->flashdata('msg_success') != NULL){
               echo '<div class="alert alert-info" role="alert" style="padding: 6px 12px;height:34px;">';
-              echo "<i class='fa fa-info-circle'></i> <strong><span style='margin-left:10px;'>".$this->session->flashdata('msg')."</span></strong>";
+              echo "<i class='fa fa-info-circle'></i> <strong><span style='margin-left:10px;'>".$this->session->flashdata('msg_success')."</span></strong>";
               echo '</div>';
               }?>
+
+              <?= validation_errors() ?>
     </div>
 
 		<div class="col-md-8">
@@ -41,6 +43,7 @@
                 </form>
               </div>
               <div class="col-md-9">
+                <form method="post" action="<?= base_url() ?>update_profil">
                   <table class="table">
                     <tr>
                       <td style="border-top: 0px solid #f4f4f4;">Nama Lengkap</td>
@@ -133,11 +136,17 @@
                         <input type="email" name="no_rek" value="<?= $users['rekening_bank'] ?>" class="form-control">
                       </td>
                     </tr>
+                     <tr>
+                      <td style="border-top: 0px solid #f4f4f4;" colspan="2">Masukkan password anda untuk merubah data</td>
+                      <td style="border-top: 0px solid #f4f4f4;">
+                        <input type="password" name="password" class="form-control">
+                      </td>
+                    </tr>
                   </table>
               </div>
             </div>
             <div class="box-footer">
-              <
+              <button class="btn btn-info pull-right" type="submit">Ubah Data</button>
             </div>
           </div>
         </div>

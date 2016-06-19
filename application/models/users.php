@@ -30,7 +30,7 @@ class Users extends CI_Model {
 	//Update one item
 	function update($data, $id)
 	{
-		$this->db->where('nisn', $id_user);
+		$this->db->where('nisn', $id);
 		$this->db->update('users', $data);
 	}
 
@@ -45,6 +45,21 @@ class Users extends CI_Model {
 		$this->db->from('users');
 
 		return $this->db->get();
+	}
+
+	function cek_password($nisn, $password){
+		$this->db->select('nisn, password');
+		$this->db->from('users');
+		$this->db->where('nisn', $nisn);
+		$this->db->where('password', $password);
+
+		$return = $this->db->get();
+
+		if($return->num_rows() > 0):
+			return $return;
+		else:
+			return false;
+		endif;
 	}
 }
 

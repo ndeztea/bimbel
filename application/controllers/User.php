@@ -45,7 +45,6 @@ class User extends CI_Controller {
 		$data['users'] = $this->users->get_all_users($config['per_page'], $page);
 		$data['no'] = 1;
 
-		echo $this->db->last_query();
 		$this->load->view('user/data_user', $data);
 	}
 

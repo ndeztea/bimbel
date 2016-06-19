@@ -31,6 +31,7 @@
 					        <form method="post" action="<?= base_url() ?>ajukan_pertanyaan">
 			                    <textarea id="editor1" name="pertanyaan" rows="10" cols="80" placeholder="Tulis pertanyaanmu disini">
 			                    </textarea>
+			                    
 					      </div>
 					      <div class="modal-footer">
 					        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
