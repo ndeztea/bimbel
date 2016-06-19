@@ -1,0 +1,84 @@
+$boxBorderColor: $graySecondary;
+$boxBackgroundDark: $graySecondaryLight;
+$boxBorderRadius: 22px;
+$boxBorderSize: 1px;
+
+$includeHtml: false !default;
+
+@if ($includeHtml) {
+
+  .sg-box {
+    @include component;
+    @include hole;
+    display: inline-flex;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    min-height: rhythm(3);
+    border-radius: $boxBorderRadius;
+    border: $boxBorderSize solid $boxBorderColor;
+    padding: (gutter(1) - $boxBorderSize);
+    overflow: visible;
+
+    &__image {
+      max-width: 100%;
+      max-height: 100%;
+    }
+
+    &--full {
+      width: 100%;
+
+      .sg-box__hole {
+        width: 100%;
+      }
+    }
+
+    &--no-border {
+      border: none;
+      padding: rhythm(1) gutter(1);
+    }
+
+    &--no-border-small {
+      border: none;
+      padding: rhythm(1 / 2) gutter(1 / 2);
+    }
+
+    &--no-border-large {
+      border: none;
+      padding: rhythm(2) gutter(2);
+    }
+
+    &--small-padding {
+      padding: (gutter(1 / 2) - $boxBorderSize);
+    }
+
+    &--large-padding {
+      padding: (gutter(2) - $boxBorderSize);
+    }
+
+    &--blue-secondary-light {
+      background-color: $blueSecondaryLight;
+    }
+
+    &--mint-secondary {
+      background-color: $mintSecondary;
+    }
+
+    &--lavender {
+      background-color: $lavenderPrimary;
+    }
+
+    &--dark {
+      border-color: $boxBackgroundDark;
+      background: $boxBackgroundDark;
+    }
+
+    &--image-wrapper {
+      height: rhythm(4);
+      width: rhythm(4);
+      padding: (gutter(0.5) - $boxBorderSize);
+      align-items: center;
+      justify-content: center;
+    }
+  }
+
+}

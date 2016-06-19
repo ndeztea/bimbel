@@ -1,0 +1,125 @@
+$dropdownIconSize: rhythm(0.333);
+$dropdownHeight: toPx(rhythm(1.5));
+$dropdownBorderSize: 1px;
+$dropdownBackground: $white;
+$dropdownHoverColor: $graySecondary;
+$dropdownBorderColor: $grayAltLight;
+$dropdownOpenedBorderColor: $grayPrimary;
+
+$includeHtml: false !default;
+
+@if ($includeHtml) {
+
+  .sg-dropdown {
+    @include component;
+    @include hole;
+
+    overflow: visible;
+    background-color: $grayAltLight;
+    border: $dropdownBorderSize solid $dropdownBorderColor;
+    border-radius: $dropdownHeight / 2;
+    min-height: $dropdownHeight;
+    height: $dropdownHeight;
+    cursor: pointer;
+    user-select: none;
+    z-index: 1;
+
+    &:hover,
+    &:active {
+      background-color: $dropdownHoverColor;
+      border-color: $dropdownHoverColor;
+    }
+
+    &__icon {
+      width: $dropdownIconSize;
+      height: $dropdownIconSize;
+      display: flex;
+      position: absolute;
+      top: rhythm(0.667) - $selectIconSize / 2;
+      right: rhythm(0.667) - $selectIconSize / 2;
+      z-index: 2;
+      transition: transform 0.3s;
+    }
+
+    &--full {
+      width: 100%;
+    }
+
+    &__hole {
+      justify-content: flex-start;
+      min-height: $dropdownHeight - (2 * $dropdownBorderSize);
+      padding: 0 rhythm(1.333) 0 rhythm(0.667);
+      white-space: nowrap;
+      overflow: hidden;
+
+      &--active {
+        display: none;
+      }
+    }
+
+    &__items {
+      position: absolute;
+      top: $dropdownHeight - 2 * $dropdownBorderSize;
+      visibility: hidden;
+      overflow: hidden;
+      padding: 0;
+      margin: 0 0 gutter(0.5);
+      background-color: $dropdownBackground;
+      border: $dropdownBorderSize solid $dropdownOpenedBorderColor;
+      border-top: none;
+      border-radius: 0 0 $dropdownHeight / 2 $dropdownHeight / 2;
+      left: -$dropdownBorderSize;
+      right: -$dropdownBorderSize;
+      z-index: 1;
+    }
+
+    &__item-hole {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      height: 100%;
+      padding: gutter(0.25) $dropdownHeight / 2;
+      white-space: nowrap;
+      overflow: hidden;
+      text-decoration: none;
+
+      &:hover,
+      &:active {
+        background-color: $dropdownBorderColor;
+      }
+    }
+
+    &--opened {
+      background-color: $dropdownBackground;
+      border-color: $dropdownOpenedBorderColor;
+      border-radius: $dropdownHeight / 2 $dropdownHeight / 2 0 0;
+      border-bottom-color: transparent;
+
+      &:hover,
+      &:active {
+        background-color: $dropdownBackground;
+        border-color: $dropdownOpenedBorderColor;
+        border-bottom-color: transparent;
+      }
+
+      .sg-dropdown__icon {
+        transform: rotate(180deg);
+      }
+
+      .sg-dropdown__hole {
+
+        &--inactive {
+          display: none;
+        }
+
+        &--active {
+          display: flex;
+        }
+      }
+
+      .sg-dropdown__items {
+        visibility: visible;
+      }
+    }
+  }
+}

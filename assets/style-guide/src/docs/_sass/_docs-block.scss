@@ -1,0 +1,104 @@
+.docs-block {
+  margin: 0 0 50px;
+  display: flex;
+
+  &__header {
+    color: $grayPrimary;
+    display: block;
+    font-size: 24px;
+    font-weight: $fontWeightNormal;
+    margin: 0;
+  }
+
+  &__info {
+    flex: 0 1 auto;
+    padding: 0 20px 0 0;
+    width: 230px;
+  }
+
+  &__content {
+    flex: 1 1 auto;
+
+    &--centered {
+      display: flex;
+      align-items: center;
+    }
+
+    &--align-top {
+
+      & > * {
+        vertical-align: top;
+      }
+    }
+
+    &:hover {
+      position: relative;
+
+      .docs-highlight-placeholder {
+        outline: 2px dashed white;
+        box-shadow: black 0 0 10px 0;
+      }
+    }
+
+    // This is a hotfix for animation that is triggering
+    // repaints of elements with border radius (avatars for example)
+    // Link to issue: http://crbug.com/157218
+    &--animation-container {
+      position: relative;
+      z-index: 1;
+    }
+  }
+
+  &__contrast-box {
+    background-color: $grayPrimary;
+    padding: $baseline;
+    display: inline-block;
+  }
+
+  &__content-box {
+    padding: $baseline;
+    display: inline-block;
+  }
+}
+
+body.show-vr-lines {
+  .docs-block__content:hover {
+    &:before {
+      z-index: 1;
+      content: '';
+      background: linear-gradient(to bottom, #0ff 0, rgba(255, 255, 255, 0) 1px) repeat-y;
+      background-size: 100% rhythm(1);
+      height: 100%;
+      width: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      padding: 1px;
+      pointer-events: none;
+    }
+  }
+}
+
+body.show-holes {
+  .sg-bubble__hole,
+  .sg-box__hole,
+  .sg-promo-box__content,
+  .sg-header__left,
+  .sg-header__middle,
+  .sg-header__right,
+  .sg-overlayed-box,
+  .sg-overlayed-box__overlay,
+  .sg-footer__line,
+  .sg-content-box__header,
+  .sg-content-box__title,
+  .sg-content-box__footer,
+  .sg-content-box__content,
+  .sg-toplayer__content,
+  .sg-toplayer__actions,
+  .sg-dropdown__hole,
+  .sg-dropdown__item-hole,
+  .sg-popup-menu__hole,
+  .sg-text-bit__hole {
+    @extend .docs-highlight-placeholder;
+  }
+}

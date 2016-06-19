@@ -1,0 +1,93 @@
+$avatarDefaultBackgroundColor: $grayPrimary;
+$avatarSmallSize: 24px;
+$avatarMediumSize: 32px;
+$avatarBigSize: 48px;
+$avatarXLargeSize: 64px;
+$avatarXXLargeSize: 96px;
+$avatarXXXLargeSize: 120px;
+$avatarSpacedMargin: 4px;
+$avatarBorderWidth: 1px;
+$avatarBorderColor: $white;
+
+$includeHtml: false !default;
+
+@if ($includeHtml) {
+
+  .sg-avatar {
+
+    @include component;
+
+    width: $avatarMediumSize;
+    height: $avatarMediumSize;
+    border-radius: 50%;
+    background: $avatarDefaultBackgroundColor;
+    // scss-lint:disable VendorPrefix
+    // workaround for the Chrome bug - crbug.com/157218
+    -webkit-perspective: 1px;
+    // scss-lint:enable VendorPrefix
+
+    &__image {
+      position: relative;
+      height: 100%;
+      width: 100%;
+
+      &--icon {
+        top: 3px;
+      }
+    }
+
+    &--small {
+      width: $avatarSmallSize;
+      height: $avatarSmallSize;
+
+      .sg-avatar__image--icon {
+        top: 2px;
+      }
+    }
+
+    &--large {
+      width: $avatarBigSize;
+      height: $avatarBigSize;
+
+      .sg-avatar__image--icon {
+        top: 5px;
+      }
+    }
+
+    &--with-border {
+      border: solid $avatarBorderColor $avatarBorderWidth;
+    }
+
+    &--xlarge {
+      width: $avatarXLargeSize;
+      height: $avatarXLargeSize;
+
+      .sg-avatar__image--icon {
+        top: 6px;
+      }
+    }
+
+    &--xxlarge {
+      width: $avatarXXLargeSize;
+      height: $avatarXXLargeSize;
+
+      .sg-avatar__image--icon {
+        top: 8px;
+      }
+    }
+
+    &--xxxlarge {
+      width: $avatarXXXLargeSize;
+      height: $avatarXXXLargeSize;
+
+      .sg-avatar__image--icon {
+        top: 10px;
+      }
+    }
+
+    &--spaced {
+      margin: 0 $avatarSpacedMargin $avatarSpacedMargin 0;
+    }
+  }
+
+}

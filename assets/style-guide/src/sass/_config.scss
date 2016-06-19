@@ -1,0 +1,95 @@
+/*
+ DO NOT USE THIS COLORS DIRECTLY!
+
+  !WRONG!
+  .box {
+    color: $black;
+  }
+
+  !GOOD!
+  $boxTextColor: $black;
+  .div {
+    color: $boxTextColor;
+  }
+*/
+
+// Primary colors
+$black: #000000;
+$mintPrimary: #6ed6a0;
+$mintSecondary: #a7e6c6;
+$mintSecondaryLight: #e1f6eb;
+$bluePrimary: #5bb8ff;
+$blueSecondary: #abe3ff;
+$blueSecondaryLight: #ddf3ff;
+
+// Secondary colors
+$lavenderPrimary: #6e85ff;
+$lavenderSecondary: #bdc8fc;
+$lavenderSecondaryLight: #e8ecff;
+$peachPrimary: #ff8073;
+$peachSecondary: #fdc7c1;
+$peachSecondaryLight: #ffe5e2;
+$mustardPrimary: #ffbe32;
+$mustardSecondary: #ffdb8d;
+$mustardSecondaryLight: #fff1d5;
+
+// Grey colors
+$white: #ffffff;
+$grayPrimary: #999999;
+$graySecondary: #d6d7d7;
+$graySecondaryLight: #f0f2f5;
+$grayAltLight: #e9ecee;
+
+// Shadows
+$defaultBottomShadowColor: rgba(0, 0, 0, 0.25);
+$defaultBottomShadow: 0 3px 5px -1px $defaultBottomShadowColor;
+
+// Fonts
+$fontFamilyProximaNova: 'ProximaNova';
+$fontFamilyPrimary: $fontFamilyProximaNova, 'Helvetica', 'Arial', sans-serif;
+$fontWeightNormal: 400;
+$fontWeightBold: 700;
+$fontWeightBlack: 900;
+
+// Vertical rhythm
+$baseFont: 16px;
+$baseline: 1.5rem;
+
+// Typo
+$fontSizes: (
+  default: 1rem,      // 16px
+  xsmall: 0.625rem,     // 10px
+  small: 0.875rem,   // 14px
+  medium: 0.9375rem,  // 15px
+  large: 3.625rem,    // 58px
+  xlarge: 4.5rem,     // 72px
+  xxlarge: 5rem,      // 80px
+  obscure: 0.75rem,   // 12px
+  standout: 1.125rem, // 18px
+  subheadline: 1.25rem, // 20px
+  headline: 1.75rem,  // 28px
+  subheader: 2.75rem, // 44px
+  header: 3rem
+);
+
+  // Layout
+$layoutMaximumWidth: 960px;
+$layoutDefaultPadding: 24px;
+$defaultComponentHeight: 20px;
+
+// Vertical stack
+$sgHeaderZIndex: 101;
+$overlayZIndex: 999;
+$toplayerZIndex: 1000;
+
+// Breakpoints
+$breakpointMedium: 768px !default;
+$breakpointLarge: 1024px !default;
+
+$breakpointsMap: (
+  'small-only': '(max-width: #{$breakpointMedium - 1px})',
+  'medium-only': '(min-width: #{$breakpointMedium}) and (max-width: #{$breakpointLarge - 1px})',
+  'medium-down': '(max-width: #{$breakpointLarge - 1px})',
+  'medium-up': '(min-width: #{$breakpointMedium})',
+  'large-only': '(min-width: #{$breakpointLarge})'
+);

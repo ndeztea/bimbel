@@ -1,0 +1,112 @@
+$listFontSize: fontSize(headline);
+$smallListFontSize: fontSize(default);
+
+$menuListColor: $bluePrimary;
+$menuListFontSize: fontSize(small);
+$menuListBorderColor: $grayAltLight;
+
+$includeHtml: false !default;
+
+@if ($includeHtml) {
+
+  .sg-list {
+    @include sgListBasicStyles();
+    font-size: $listFontSize;
+    line-height: rhythm(2);
+
+    &__element {
+      display: flex;
+      align-items: center;
+    }
+
+    &__icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: gutter(0.333);
+      width: 18px;
+      height: 18px;
+
+      &--align-first-line {
+        align-self: flex-start;
+        height: rhythm(2);
+        display: flex;
+        align-items: center;
+      }
+    }
+
+    &--small {
+      line-height: rhythm(1);
+      font-weight: $fontWeightBold;
+      font-size: $smallListFontSize;
+
+      .sg-list__icon {
+        margin-right: gutter(0.167);
+        width: 14px;
+        height: 14px;
+
+        &--align-first-line {
+          height: rhythm(1);
+        }
+      }
+    }
+
+    &--spaced-elements &__element {
+      margin-bottom: rhythm(0.5);
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  .sg-menu-list {
+    @include sgListBasicStyles();
+    &__element {
+      box-sizing: border-box;
+      height: rhythm(2);
+      line-height: rhythm(2);
+      border-bottom: 1px solid $menuListBorderColor;
+
+      &:last-child {
+        border: none;
+      }
+
+      &--flex {
+        height: auto;
+      }
+    }
+
+    &__link {
+      color: $menuListColor;
+      text-decoration: none;
+      display: block;
+      font-size: $menuListFontSize;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+
+    &--side-spaced {
+      margin: 0 10px;
+    }
+
+    &--small {
+      .sg-menu-list__element {
+        height: rhythm(1.5);
+        line-height: rhythm(1.5);
+      }
+    }
+
+    &--large {
+      .sg-menu-list__element {
+        height: rhythm(2.5);
+        line-height: rhythm(2.5);
+      }
+    }
+  }
+}

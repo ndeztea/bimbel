@@ -1,0 +1,77 @@
+$logoDefaultHeight: 60px;
+$logoDefaultWidth: 134px;
+$logoLargeHeight: 81px;
+$logoLargeWidth: 180px;
+
+$includeHtml: false !default;
+
+@if ($includeHtml) {
+  .sg-logo {
+    @include component;
+    height: $logoDefaultHeight;
+    width: $logoDefaultWidth;
+
+    @include sgBreakpoint(medium-up) {
+      height: $logoLargeHeight;
+      width: $logoLargeWidth;
+    }
+
+    &--small {
+      height: $logoDefaultHeight / 2;
+      width: $logoDefaultWidth / 2;
+    }
+
+    &--eodev {
+      width: 114px;
+
+      @include sgBreakpoint(medium-up) {
+        width: 154px;
+      }
+
+      &.sg-logo--small {
+        width: 57px;
+      }
+    }
+
+    &--nosdevoirs {
+      width: 161px;
+
+      @include sgBreakpoint(medium-up) {
+        width: 217px;
+      }
+
+      &.sg-logo--small {
+        width: 81px;
+      }
+    }
+
+    &--zadane {
+      width: 130px;
+
+      @include sgBreakpoint(medium-up) {
+        width: 176px;
+      }
+
+      &.sg-logo--small {
+        width: 65px;
+      }
+    }
+
+    &--znanija {
+      width: 131px;
+
+      @include sgBreakpoint(medium-up) {
+        width: 176px;
+      }
+
+      &.sg-logo--small {
+        width: 65px;
+      }
+    }
+
+    &__image {
+      width: 100%;
+      height: 100%;
+    }
+  }
+}

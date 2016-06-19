@@ -1,0 +1,81 @@
+$rateHeight: $defaultComponentHeight;
+$rateStarColor: $graySecondary;
+$rateStarCheckedColor: $mustardPrimary;
+$rateStarActiveColor: $graySecondaryLight;
+$rateStarActiveCheckedColor: $mustardSecondary;
+$rateCounterColor: $grayPrimary;
+$rateFontSize: fontSize(obscure);
+$rateIconSize: rhythm(0.75);
+$rateSmallFontSize: fontSize(xsmall);
+$rateSmallIconSize: rhythm(0.667);
+
+$includeHtml: false !default;
+
+@if ($includeHtml) {
+
+  .sg-rate-box {
+    @include component;
+    display: flex;
+    align-items: center;
+    height: $rateHeight;
+
+    &--active {
+
+      .sg-rate-box__star:hover ~ .sg-rate-box__star {
+        fill: $rateStarColor;
+      }
+
+      &:active .sg-rate-box__star:hover ~ .sg-rate-box__star {
+        fill: $rateStarActiveColor;
+      }
+
+      &:hover .sg-rate-box__star {
+        fill: $rateStarCheckedColor;
+        transition: fill 0.1s ease-in;
+      }
+
+      &:active:hover .sg-rate-box__star {
+        fill: $rateStarActiveCheckedColor;
+        transition: none;
+      }
+    }
+
+    &__star {
+      fill: $rateStarColor;
+      width: $rateIconSize;
+      height: $rateIconSize;
+      padding: 0 1px;
+      display: flex;
+
+      &--checked {
+        fill: $rateStarCheckedColor;
+      }
+    }
+
+    &__counter {
+      @include fixText($rateFontSize, 0.125rem);
+      @include uppercaseText(0);
+      @include fixOperaMiniLabelText;
+
+      font-weight: $fontWeightBold;
+      color: $rateCounterColor;
+      margin: 0 0 0 gutter(0.25);
+    }
+
+    &--small {
+      height: rhythm(0.667);
+      min-height: 0;
+
+      .sg-rate-box__star {
+        height: $rateSmallIconSize;
+        width: $rateSmallIconSize;
+      }
+
+      .sg-rate-box__counter {
+        @include fixText($rateSmallFontSize, 0.125rem);
+        @include fixOperaMiniLabelText;
+      }
+    }
+  }
+
+}

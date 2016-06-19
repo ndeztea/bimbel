@@ -1,0 +1,23 @@
+$includeHtml: false !default;
+
+@mixin clearfix {
+  &::after {
+    content: '';
+    display: table;
+    clear: both;
+  }
+}
+
+@if ($includeHtml) {
+
+  @each $breakpointName, $media in $breakpointsMap {
+    .sg-hide-for-#{$breakpointName} {
+      @include sgBreakpoint($breakpointName) {
+        // scss-lint:disable ImportantRule
+        display: none !important;
+        // scss-lint:enable ImportantRule
+      }
+    }
+  }
+
+}

@@ -1,0 +1,29 @@
+$horizontalSeparatorHeight: 0.0625rem;
+$horizontalSeparatorColor: $grayAltLight;
+
+$includeHtml: false !default;
+
+@if ($includeHtml) {
+
+  .sg-horizontal-separator {
+    @include component();
+    min-height: 0;
+    display: block;
+    height: $horizontalSeparatorHeight;
+    border-bottom: $horizontalSeparatorHeight solid $horizontalSeparatorColor;
+    width: 100%;
+
+    &--spaced {
+      margin: (rhythm(0.5) - $horizontalSeparatorHeight) 0 rhythm(0.5);
+
+      @include sgBreakpoint(medium-up) {
+        margin: (rhythm(1) - $horizontalSeparatorHeight) 0 rhythm(1);
+      }
+    }
+
+    &--short-spaced {
+      margin: (rhythm(0.5) - $horizontalSeparatorHeight) 0 rhythm(0.5);
+    }
+  }
+
+}

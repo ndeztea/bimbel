@@ -1,0 +1,52 @@
+$includeHtml: false !default;
+
+@if ($includeHtml) {
+
+  .sg-header-primary {
+    @include component;
+    @include typeVariant(header, 2);
+    display: block;
+    color: $black;
+    font-weight: $fontWeightBold;
+    letter-spacing: -1px;
+    max-width: 100%;
+    overflow: visible;
+
+    @include sgBreakpoint('medium-up') {
+      font-weight: $fontWeightBlack;
+      letter-spacing: 0;
+    }
+
+    &--small {
+      @include typeVariant(headline);
+    }
+
+    &--xsmall {
+      @include typeVariant(subheadline, 1);
+    }
+
+    &--light {
+      color: $white;
+    }
+  }
+
+  .sg-header-secondary {
+    @include component;
+    @include typeVariant(default, 0.667);
+    @include uppercaseText;
+    min-height: rhythm(4 / 3);
+    display: block;
+    color: $black;
+    font-weight: $fontWeightBold;
+
+    &--small {
+      @include typeVariant(small, 0.667);
+      @include uppercaseText(0.0625rem);
+    }
+
+    &--light {
+      color: $white;
+    }
+  }
+
+}

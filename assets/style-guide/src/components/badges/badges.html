@@ -1,0 +1,28 @@
+<section class="docs-block">
+    <aside class="docs-block__info">
+        <h3 class="docs-block__header">Default</h3>
+    </aside>
+    <div class="docs-block__content">
+        <div class="sg-badge sg-badge--error">1</div>
+        <div class="sg-badge sg-badge--warning">hot</div>
+        <div class="docs-block__contrast-box">
+            <div class="sg-badge">4575</div>
+        </div>
+    </div>
+</section>
+<section class="docs-block">
+    <aside class="docs-block__info">
+        <h3 class="docs-block__header">With animation
+            <small>(click to reload)</small>
+        </h3>
+    </aside>
+    <div class="docs-block__content docs-block__content--animation-container">
+        <div class="sg-badge sg-badge--error sg-badge--with-animation">1</div>
+    </div>
+</section>
+<script>
+    $(document).on('click', '.sg-badge--with-animation', function () {
+        var $clone = $(this).clone();
+        $(this).replaceWith($clone);
+    });
+</script>

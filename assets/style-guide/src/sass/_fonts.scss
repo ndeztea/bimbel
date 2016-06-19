@@ -1,0 +1,28 @@
+$includeHtml: false !default;
+
+@if ($includeHtml) {
+
+  @font-face {
+    font-family: $fontFamilyProximaNova;
+    src: url($sgFontsPath + 'ProximaNova-Regular.woff2') format('woff2'),
+      url($sgFontsPath + 'ProximaNova-Regular.woff') format('woff');
+    font-weight: $fontWeightNormal;
+    font-style: normal;
+  }
+
+  @font-face {
+    font-family: $fontFamilyProximaNova;
+    src: url($sgFontsPath + 'ProximaNova-SemiBold.woff2') format('woff2'),
+      url($sgFontsPath + 'ProximaNova-SemiBold.woff') format('woff');
+    font-weight: $fontWeightBold;
+    font-style: normal;
+  }
+
+  @font-face {
+    font-family: $fontFamilyProximaNova;
+    src: url($sgFontsPath + 'ProximaNova-Black.woff2') format('woff2'),
+      url($sgFontsPath + 'ProximaNova-Black.woff') format('woff');
+    font-weight: $fontWeightBlack;
+    font-style: normal;
+  }
+}

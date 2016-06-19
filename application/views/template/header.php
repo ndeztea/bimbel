@@ -18,6 +18,15 @@
               <ul class="nav navbar-nav">
                 <li><a href="<?= base_url()?>">Home</a></li>
                 <li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown">Data Master <span class="caret"></span></a>
+                  <ul class="dropdown-menu" role="menu">
+                    <li><a href="<?= base_url() ?>pelajaran">Data Pelajaran</a></li>
+                    <li><a href="#">Data Pertanyaan</a></li>
+                    <li><a href="<?= base_url()?>users">Data User</a></li>
+                  </ul>
+                </li>
+                
+                <li class="dropdown">
                   <a href="#" class="dropdown-toggle" data-toggle="dropdown">Wids <span class="caret"></span></a>
                   <ul class="dropdown-menu" role="menu">
                     <li><a href="#">Pembelian Wids</a></li>

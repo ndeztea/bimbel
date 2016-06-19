@@ -1,0 +1,117 @@
+$toplayerHeaderDominantColor: #65a6a8;
+$toplayerCrossColor: $white;
+$toplayerBackgroundColor: $white;
+$toplayerShadow: $defaultBottomShadow;
+$toplayerMarginTop: 65px;
+$toplayerMarginBottom: rhythm(1);
+$toplayerHeaderHeight: rhythm(1.25);
+$toplayerBorderRadius: 10px;
+
+$toplayerFirstVerticalPadding: (rhythm(1) - ($toplayerHeaderHeight - rhythm(1)));
+
+$includeHtml: false !default;
+
+@if ($includeHtml) {
+
+  .sg-toplayer {
+    @include component;
+    overflow: visible;
+    border-radius: $toplayerBorderRadius;
+    width: 100%;
+    box-shadow: $toplayerShadow;
+    background-color: $toplayerBackgroundColor;
+
+    &--lead {
+      .sg-toplayer__wrapper {
+        @include sgBreakpoint(medium-up) {
+
+          padding: ($toplayerFirstVerticalPadding + rhythm(1)) gutter(2) rhythm(2);
+        }
+      }
+    }
+
+    &--fill {
+      position: absolute;
+      margin: 0;
+      bottom: 0;
+      right: 0;
+      top: 0;
+      left: 0;
+    }
+
+    &--small {
+      @include sgBreakpoint(medium-up) {
+        width: 410px;
+      }
+    }
+
+    &--medium {
+      @include sgBreakpoint(medium-up) {
+        width: 600px;
+      }
+    }
+
+    &--large {
+      @include sgBreakpoint(medium-up) {
+        width: 700px;
+      }
+    }
+
+    &--modal {
+      z-index: $toplayerZIndex;
+      position: relative;
+      margin-bottom: $toplayerMarginBottom;
+
+      @include sgBreakpoint(medium-up) {
+        margin-top: $toplayerMarginTop;
+      }
+    }
+
+    &--with-bugbox {
+      .sg-toplayer__wrapper {
+        @include sgBreakpoint(medium-up) {
+          @include image2x($sgImagesPath + 'bug_box@2x.png', 299px, 248px);
+          background-image: url($sgImagesPath + 'bug_box.png');
+          background-repeat: no-repeat;
+          background-position: bottom right;
+        }
+      }
+    }
+
+    &__header {
+      @include image2x($sgImagesPath + 'header_background_wide@2x.jpg', auto, 60px);
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      height: $toplayerHeaderHeight;
+      background-image: url($sgImagesPath + 'header_background_wide.jpg');
+      background-repeat: repeat-x;
+      background-color: $toplayerHeaderDominantColor;
+      border-top-left-radius: $toplayerBorderRadius;
+      border-top-right-radius: $toplayerBorderRadius;
+    }
+
+    &__close {
+      color: $toplayerCrossColor;
+      font-size: 32px;
+      height: 20px;
+      font-weight: $fontWeightBold;
+      padding: 0 gutter(0.25);
+      cursor: pointer;
+
+      &:hover {
+        text-decoration: none;
+      }
+    }
+
+    &__wrapper {
+      padding: $toplayerFirstVerticalPadding gutter(1) rhythm(1);
+    }
+
+    &__actions {
+      @include componentsContainer;
+      min-height: rhythm(2);
+    }
+  }
+
+}

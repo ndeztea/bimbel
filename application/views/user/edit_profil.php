@@ -53,7 +53,7 @@
                       <td style="border-top: 0px solid #f4f4f4;">NISN</td>
                       <td style="border-top: 0px solid #f4f4f4;">:</td>
                       <td style="border-top: 0px solid #f4f4f4;">
-                        <input type="text" name="nama" value="<?= $users['nisn'] ?>" class="form-control">
+                        <input type="text" value="<?= $users['nisn'] ?>" class="form-control" disabled>
                       </td>
                     </tr>
                     <tr>
@@ -109,32 +109,35 @@
                       <td style="border-top: 0px solid #f4f4f4;">Sekolah 
                       <td style="border-top: 0px solid #f4f4f4;">:</td>
                       <td style="border-top: 0px solid #f4f4f4;">
-                        <input type="text" name="nama" value="<?= $users['nama_sekolah'] ?>" class="form-control">
+                        <input type="text" name="sekolah" value="<?= $users['nama_sekolah'] ?>" class="form-control">
                       </td>
                     </tr>
                     <tr>
                       <td style="border-top: 0px solid #f4f4f4;">HP</td>
                       <td style="border-top: 0px solid #f4f4f4;">:</td>
                       <td style="border-top: 0px solid #f4f4f4;">
-                        <input type="text" name="nama" value="<?= $users['hp'] ?>" class="form-control">
+                        <input type="text" name="no_hp" value="<?= $users['hp'] ?>" class="form-control">
                       </td>
                     </tr>
                     <tr>
                       <td style="border-top: 0px solid #f4f4f4;">Email</td>
                       <td style="border-top: 0px solid #f4f4f4;">:</td>
                       <td style="border-top: 0px solid #f4f4f4;">
-                        <input type="email" name="nama" value="<?= $users['email'] ?>" class="form-control">
+                        <input type="email" name="email" value="<?= $users['email'] ?>" class="form-control">
                       </td>
                     </tr>
                     <tr>
                       <td style="border-top: 0px solid #f4f4f4;">No Rekening</td>
                       <td style="border-top: 0px solid #f4f4f4;">:</td>
                       <td style="border-top: 0px solid #f4f4f4;">
-                        <input type="email" name="nama" value="<?= $users['rekening_bank'] ?>" class="form-control">
+                        <input type="email" name="no_rek" value="<?= $users['rekening_bank'] ?>" class="form-control">
                       </td>
                     </tr>
                   </table>
               </div>
+            </div>
+            <div class="box-footer">
+              <
             </div>
           </div>
         </div>

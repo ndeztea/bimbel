@@ -1,0 +1,160 @@
+$iconAsButtonColor: $bluePrimary;
+$iconAsButtonActiveColor: rgba($iconAsButtonColor, 0.7);
+$iconAsButtonLightColor: $white;
+$iconAsButtonLightActiveColor: rgba($iconAsButtonLightColor, 0.7);
+$iconAsButtonGrayColor: $grayPrimary;
+$iconAsButtonGrayActiveColor: rgba($iconAsButtonGrayColor, 0.7);
+$iconAsButtonDarkColor: $black;
+$iconAsButtonDarkActiveColor: rgba($iconAsButtonDarkColor, 0.7);
+$iconAsButtonMintColor: $mintPrimary;
+$iconAsButtonMintActiveColor: rgba($iconAsButtonMintColor, 0.7);
+$iconAsButtonActionColor: $white;
+
+$includeHtml: false !default;
+
+@if ($includeHtml) {
+  .sg-icon-as-button {
+    display: inline-flex;
+    background: none;
+    border: none;
+    outline: none;
+    padding: 0;
+    cursor: pointer;
+    overflow: visible;
+    fill: $iconAsButtonColor;
+
+    &:hover,
+    &:active {
+      fill: $iconAsButtonActiveColor;
+    }
+
+    &__hole {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+    }
+
+    &--small {
+      .sg-icon-as-button__hole {
+        width: 30px;
+        height: 30px;
+      }
+    }
+
+    &--xsmall {
+      .sg-icon-as-button__hole {
+        width: 24px;
+        height: 24px;
+      }
+    }
+
+    &--with-border {
+      .sg-icon-as-button__hole {
+        border: solid $iconAsButtonColor 1px;
+        border-radius: 50%;
+      }
+    }
+
+    &--light {
+      fill: $iconAsButtonLightColor;
+
+      &:hover,
+      &:active {
+        fill: $iconAsButtonLightActiveColor;
+      }
+
+      .sg-icon-as-button__hole {
+        border-color: $iconAsButtonLightColor;
+      }
+    }
+
+    &--gray {
+      fill: $iconAsButtonGrayColor;
+
+      &:hover,
+      &:active {
+        fill: $iconAsButtonGrayActiveColor;
+      }
+
+      .sg-icon-as-button__hole {
+        border-color: $iconAsButtonGrayColor;
+      }
+    }
+
+    &--dark {
+      fill: $iconAsButtonDarkColor;
+
+      &:hover,
+      &:active {
+        fill: $iconAsButtonDarkActiveColor;
+      }
+
+      .sg-icon-as-button__hole {
+        border-color: $iconAsButtonDarkColor;
+      }
+    }
+
+    &--mint {
+      fill: $iconAsButtonMintColor;
+
+      &:hover,
+      &:active {
+        fill: $iconAsButtonMintActiveColor;
+      }
+
+      .sg-icon-as-button__hole {
+        border-color: $iconAsButtonMintColor;
+      }
+    }
+
+    &--action {
+      transition: background 0.3s ease-out, fill 0.3s ease-out;
+      border-radius: 50%;
+
+      &:hover {
+        background: $iconAsButtonColor;
+        fill: $iconAsButtonActionColor;
+
+        &.sg-icon-as-button--gray {
+          background: $iconAsButtonGrayColor;
+        }
+
+        &.sg-icon-as-button--dark {
+          background: $iconAsButtonDarkColor;
+        }
+
+        &.sg-icon-as-button--mint {
+          background: $iconAsButtonMintColor;
+        }
+      }
+    }
+
+    &--action-active {
+      background: $iconAsButtonColor;
+      fill: $iconAsButtonActionColor;
+      border-radius: 50%;
+
+      &:hover {
+        fill: $iconAsButtonActionColor;
+      }
+
+      &.sg-icon-as-button--gray {
+        background: $iconAsButtonGrayColor;
+      }
+
+      &.sg-icon-as-button--dark {
+        background: $iconAsButtonDarkColor;
+      }
+
+      &.sg-icon-as-button--mint {
+        background: $iconAsButtonMintColor;
+      }
+    }
+
+    &--rounded-square {
+      border-radius: 8px;
+    }
+  }
+}

@@ -1,0 +1,53 @@
+$homeButtonMobileHeight: 44px;
+$homeButtonDefaultHeight: 60px;
+$homeButtonDefaultWidth: 134px;
+
+$includeHtml: false !default;
+
+@if ($includeHtml) {
+
+  .sg-home-button {
+    @include component;
+
+    @include sgBreakpoint(medium-up) {
+      top: 10px;
+    }
+
+    &__logo-small {
+      border: none;
+      display: block;
+      width: $homeButtonMobileHeight;
+      height: $homeButtonMobileHeight;
+
+      @include sgBreakpoint(medium-up) {
+        display: none;
+      }
+    }
+
+    &__logo-big {
+      height: $homeButtonDefaultHeight;
+      width: $homeButtonDefaultWidth;
+      display: none;
+
+      @include sgBreakpoint(medium-up) {
+        display: block;
+      }
+    }
+
+    &--eodev &__logo-big {
+      width: 114px;
+    }
+
+    &--nosdevoirs &__logo-big {
+      width: 161px;
+    }
+
+    &--zadane &__logo-big {
+      width: 130px;
+    }
+
+    &--znanija &__logo-big {
+      width: 131px;
+    }
+  }
+}

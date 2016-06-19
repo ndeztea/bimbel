@@ -1,0 +1,70 @@
+$includeHtml: false !default;
+$sgTextDarkSemitransparentColor: rgba(0, 0, 0, 0.4);
+
+@if ($includeHtml) {
+
+  .sg-text {
+    @include typeVariant(default, 1);
+    font-family: $fontFamilyPrimary;
+    color: $black;
+
+    &--standout {
+      @include typeVariant(standout, 1);
+    }
+
+    &--obscure {
+      @include typeVariant(obscure, 1);
+    }
+
+    &--small {
+      @include typeVariant(small, 0.75);
+    }
+
+    &--headline {
+      @include typeVariant(headline, 1.334);
+      font-weight: $fontWeightNormal;
+      margin: 0;
+    }
+
+    &--emphasised {
+      font-weight: $fontWeightBold;
+    }
+
+    &--no-wrap {
+      white-space: nowrap;
+    }
+
+    &--gray {
+      color: $grayPrimary;
+    }
+
+    &--mint {
+      color: $mintPrimary;
+    }
+
+    &--light {
+      color: $white;
+    }
+
+    &--dark-semitransparent {
+      color: $sgTextDarkSemitransparentColor;
+    }
+
+    &--for-fine-print-light {
+      color: $blueSecondaryLight;
+    }
+
+    &--for-fine-print {
+      color: $blueSecondary;
+    }
+
+    &--warning {
+      color: $mustardPrimary;
+    }
+
+    &--error {
+      color: $peachPrimary;
+    }
+  }
+
+}

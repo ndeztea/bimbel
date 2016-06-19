@@ -1,0 +1,25 @@
+
+$includeHtml: false !default;
+
+@if ($includeHtml) {
+
+  .sg-search {
+    @include component;
+    overflow: visible;
+    width: 100%;
+
+    &__button {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      right: gutter(0.5);
+      display: flex;
+      align-items: center;
+    }
+
+    &--short &__button {
+      right: gutter(0.25);
+    }
+  }
+
+}

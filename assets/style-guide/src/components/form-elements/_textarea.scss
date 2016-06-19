@@ -1,0 +1,78 @@
+$textareaBackground: $white;
+$textareaBorderColor: $graySecondary;
+$textareaBorderRadius: 11px;
+$textareaFontSize: fontSize(default);
+$textareaLineHeight: rhythm(0.792);
+$textareaTextColor: $black;
+$textareaPadding: 11px;
+$textareaSmallPadding: 4px;
+$textareaFocusBorderColor: $grayPrimary;
+$textareaPlaceholderTextColor: $grayPrimary;
+$textareaPlaceholderFontSize: fontSize(medium);
+$textareaValidBorderColor: $mintSecondary;
+$textareaInvalidBorderColor: $peachSecondary;
+
+$includeHtml: false !default;
+
+@if ($includeHtml) {
+  .sg-textarea {
+    background: $textareaBackground;
+    border: 1px solid $textareaBorderColor;
+    border-radius: $textareaBorderRadius;
+    color: $textareaTextColor;
+    display: block;
+    font-size: $textareaFontSize;
+    line-height: $textareaLineHeight;
+    padding: $textareaPadding;
+    resize: none;
+    height: rhythm(4);
+    overflow-y: auto;
+    appearance: none;
+    position: relative;
+
+    &:focus {
+      border-color: $textareaFocusBorderColor;
+      outline: 0;
+    }
+
+    &::placeholder {
+      color: $textareaPlaceholderTextColor;
+      font-size: $textareaPlaceholderFontSize;
+      position: relative;
+    }
+
+    &--full {
+      width: 100%;
+    }
+
+    &--valid {
+      border-color: $textareaValidBorderColor;
+
+      &:focus {
+        border-color: $textareaValidBorderColor;
+      }
+    }
+
+    &--invalid {
+      border-color: $textareaInvalidBorderColor;
+
+      &:focus {
+        border-color: $textareaInvalidBorderColor;
+      }
+    }
+
+    &--short {
+      height: rhythm(1.5);
+      padding: $textareaSmallPadding $textareaPadding;
+      line-height: rhythm(5 / 6);
+    }
+
+    &--tall {
+      height: rhythm(6);
+    }
+
+    &--xtall {
+      height: rhythm(7);
+    }
+  }
+}

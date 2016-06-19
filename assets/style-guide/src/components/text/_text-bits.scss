@@ -1,0 +1,77 @@
+$textBitFontSize: subheader;
+$textBitColor: $mintSecondary;
+$textBitAltColor: $blueSecondary;
+$textBitWarningColor: $peachPrimary;
+$textBitLightColor: $white;
+$textBitDarkColor: $black;
+$textBitGrayColor: $graySecondary;
+
+$includeHtml: false !default;
+
+@if ($includeHtml) {
+
+  .sg-text-bit {
+    @include typeVariant($textBitFontSize, 2);
+    @include uppercaseText(-0.0625rem);
+    color: $textBitColor;
+    font-weight: $fontWeightBlack;
+    margin: 0;
+    position: relative;
+
+    @include sgBreakpoint(medium-up) {
+      &:not(.sg-text-bit--not-responsive) {
+        font-size: fontSize(large);
+      }
+    }
+
+    &__hole {
+      display: block;
+      position: absolute;
+      top: -22px;
+      left: -13px;
+      line-height: 0;
+
+      &--small {
+        top: -25px;
+        left: -10px;
+      }
+    }
+
+    &--alt {
+      color: $textBitAltColor;
+    }
+
+    &--light {
+      color: $textBitLightColor;
+    }
+
+    &--dark {
+      color: $textBitDarkColor;
+    }
+
+    &--gray {
+      color: $textBitGrayColor;
+    }
+
+    &--warning {
+      color: $textBitWarningColor;
+    }
+
+    &--large {
+      font-size: fontSize(large);
+    }
+
+    &--xlarge {
+      @include typeVariant(large, 2);
+      width: 100%;
+
+      @include sgBreakpoint(large-only) {
+        @include typeVariant(xxlarge, 3);
+      }
+    }
+
+    &--xxlarge {
+      @include typeVariant(xxlarge, 3);
+    }
+  }
+}

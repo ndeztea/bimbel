@@ -1,0 +1,42 @@
+$footerBackgroundColor: $bluePrimary;
+
+$includeHtml: false !default;
+
+@if ($includeHtml) {
+
+  .sg-footer {
+    background-color: $footerBackgroundColor;
+
+    &__container {
+      position: relative;
+      padding: gutter(1);
+
+      @include sgBreakpoint(medium-up) {
+        max-width: $layoutMaximumWidth;
+        margin-left: auto;
+        margin-right: auto;
+
+        padding: rhythm(1) gutter(1);
+      }
+    }
+
+    &__line {
+      margin-bottom: rhythm(1);
+
+      @include sgBreakpoint(medium-up) {
+        margin-bottom: rhythm(1);
+      }
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+
+    &__logo {
+      position: absolute;
+      left: gutter(1);
+      top: -20px;
+    }
+  }
+
+}

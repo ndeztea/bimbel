@@ -3,10 +3,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Users extends CI_Model {
 
+	function get_all_users($limit = NULL, $offset = NULL){
 
-	// List all your items
-	function get_all_data()
-	{
+		return $this->db->get('users', $limit, $offset);
 
 	}
 
@@ -31,7 +30,8 @@ class Users extends CI_Model {
 	//Update one item
 	function update($data, $id)
 	{
-
+		$this->db->where('nisn', $id_user);
+		$this->db->update('users', $data);
 	}
 
 	//Delete one item
@@ -40,14 +40,13 @@ class Users extends CI_Model {
 
 	}
 
+	function count_user(){
+		$this->db->select('COUNT(id) as id');
+		$this->db->from('users');
 
-	function upload_avatar($filename, $id_user){
-		$users = array('avatar' => $filename);
-
-		$this->db->where('nisn', $id_user);
-		$this->db->update('users', $users);
+		return $this->db->get();
 	}
 }
 
-/* End of file users.php */
-/* Location: ./application/models/users.php */
+/* End of file Users.php */
+/* Location: ./application/models/Users.php */

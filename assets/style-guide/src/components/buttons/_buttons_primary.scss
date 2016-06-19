@@ -1,0 +1,62 @@
+$buttonPrimaryHeight: rhythm(2);
+$buttonPrimaryFontSize: fontSize(default);
+$buttonPrimaryFontColor: $white;
+
+$buttonColor: $mintPrimary;
+$buttonColorGradient: #84ddaf;
+$buttonShadowColor: #67c996;
+
+$buttonAltColor: $bluePrimary;
+$buttonAltColorGradient: #73c3ff;
+$buttonAltShadowColor: #57aff2;
+
+$buttonDarkColor: $black;
+$buttonDarkColorGradient: #262626;
+$buttonDarkShadowColor: $black;
+
+$buttonFbColor: #3b5997;
+$buttonFbColorGradient: #4668b2;
+$buttonFbShadowColor: #355088;
+
+$includeHtml: false !default;
+
+
+@if ($includeHtml) {
+
+  // Primary buttons
+  .sg-button-primary {
+    @include sgButtonBasicStyles();
+    @include sgButtonBasicDimensions($buttonPrimaryHeight);
+    @include sgButtonBasicColors(transparent, $buttonPrimaryFontColor, $buttonColor);
+    @include sgButtonPrimaryThreeColorVariant($buttonColor, $buttonColorGradient, $buttonShadowColor);
+    @include sgButtonPrimaryActive($buttonPrimaryFontColor);
+    @include hole;
+
+    border: none;
+    font-size: $buttonPrimaryFontSize;
+
+    &--full {
+      width: 100%;
+      text-align: center;
+    }
+  }
+
+  .sg-button-primary--alt {
+    @include sgButtonPrimaryThreeColorVariant($buttonAltColor, $buttonAltColorGradient, $buttonAltShadowColor);
+  }
+
+  .sg-button-primary--dark {
+    @include sgButtonPrimaryThreeColorVariant($buttonDarkColor, $buttonDarkColorGradient, $buttonDarkShadowColor);
+  }
+
+  .sg-button-primary--fb {
+    @include sgButtonPrimaryThreeColorVariant($buttonFbColor, $buttonFbColorGradient, $buttonFbShadowColor);
+
+    .sg-button-primary__icon {
+      margin-right: gutter(0.5);
+      width: 20px;
+      height: 20px;
+    }
+  }
+}
+

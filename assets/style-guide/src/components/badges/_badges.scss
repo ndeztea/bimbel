@@ -1,0 +1,58 @@
+$badgeFontSize: fontSize(xsmall);
+$badgeDefaultBackgroundColor: $white;
+$badgeDefaultColor: $black;
+$badgeErrorBackgroundColor: $peachPrimary;
+$badgeErrorColor: $white;
+$badgeWarningBackgroundColor: $mustardPrimary;
+$badgeWarningColor: $white;
+
+$includeHtml: false !default;
+
+@if ($includeHtml) {
+
+  .sg-badge {
+    @include component;
+    @include fixText($badgeFontSize);
+    @include uppercaseText;
+    overflow: visible; // allow badges align as text
+    min-height: 0;
+    height: auto;
+
+    border-radius: $badgeFontSize;
+    font-weight: $fontWeightBold;
+    padding: 3px 6px;
+
+    background-color: $badgeDefaultBackgroundColor;
+    color: $badgeDefaultColor;
+
+    &--error {
+      background-color: $badgeErrorBackgroundColor;
+      color: $badgeErrorColor;
+    }
+
+    &--warning {
+      background-color: $badgeWarningBackgroundColor;
+      color: $badgeWarningColor;
+    }
+
+    &--with-animation {
+      transform: scale(0);
+      animation: sgBadgeAnimation 0.6s 2s forwards;
+    }
+  }
+
+  @keyframes sgBadgeAnimation {
+    0% {
+      transform: scale(0);
+    }
+
+    80% {
+      transform: scale(1.2);
+    }
+
+    100% {
+      transform: scale(1);
+    }
+  }
+
+}

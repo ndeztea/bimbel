@@ -1,0 +1,56 @@
+$breadcrumbListSeparatorColor: $grayPrimary;
+$breadcrumbListBlueSeparatorColor: $blueSecondary;
+$breadcrumbListLightBlueSeparatorColor: $blueSecondaryLight;
+
+$includeHtml: false !default;
+
+@if ($includeHtml) {
+  .sg-breadcrumb-list {
+    @include sgListBasicStyles();
+    display: inline-block;
+    color: $breadcrumbListSeparatorColor;
+
+    &__element {
+      display: inline-block;
+
+      &::after {
+        content: '·';
+        display: inline-block;
+        color: $breadcrumbListSeparatorColor;
+        padding: 0 2px;
+      }
+
+      &:last-child::after {
+        display: none;
+      }
+    }
+
+    &--short {
+      line-height: 1rem;
+      min-height: 1rem;
+    }
+
+    &--for-fine-print {
+      font-size: fontSize(small);
+      color: $breadcrumbListBlueSeparatorColor;
+
+      .sg-breadcrumb-list__element {
+        &::after {
+          color: $breadcrumbListBlueSeparatorColor;
+
+        }
+      }
+    }
+
+    &--for-fine-print-light {
+      font-size: fontSize(small);
+      color: $breadcrumbListLightBlueSeparatorColor;
+
+      .sg-breadcrumb-list__element {
+        &::after {
+          color: $breadcrumbListLightBlueSeparatorColor;
+        }
+      }
+    }
+  }
+}

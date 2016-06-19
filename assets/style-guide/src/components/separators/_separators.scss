@@ -1,0 +1,28 @@
+$separatorColor: $grayAltLight;
+$separatorHeight: rhythm(0.75);
+$separatorSpacing: 15px;
+$separatorHeightSmall: rhythm(0.417);
+$separatorSpacingSmall: 10px;
+
+$includeHtml: false !default;
+
+@if ($includeHtml) {
+
+  .sg-separator {
+    @include component;
+    min-height: 0;
+
+    margin-right: $separatorSpacing;
+    border-right: solid $separatorColor 1px;
+    padding-right: $separatorSpacing;
+    height: $separatorHeight;
+    vertical-align: inherit;
+
+    &--small {
+      margin-right: $separatorSpacingSmall;
+      padding-right: $separatorSpacingSmall;
+      height: $separatorHeightSmall;
+    }
+  }
+
+}

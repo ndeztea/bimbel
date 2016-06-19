@@ -1,0 +1,81 @@
+$selectBackground: $grayAltLight;
+$selectTextColor: $grayPrimary;
+$selectFontSize: fontSize(obscure);
+$selectIconSize: rhythm(0.333);
+$selectHeight: rhythm(2);
+$selectSmallHeight: rhythm(1.5);
+$selectBorderWidth: 1px;
+$selectHoverBackground: $graySecondary;
+$selectInvalidBorderColor: $peachSecondary;
+
+$includeHtml: false !default;
+
+@if ($includeHtml) {
+  .sg-select {
+    @include component;
+
+    font-size: $selectFontSize;
+    color: $selectTextColor;
+
+    &__element {
+      @include uppercaseText(0);
+      background: $selectBackground;
+      border: $selectBorderWidth solid $selectBackground;
+      border-radius: $selectHeight / 2;
+      font-size: inherit;
+      font-weight: $fontWeightBold;
+      color: inherit;
+      display: inline-block;
+      height: $selectHeight;
+      position: relative;
+      padding: 0 ($selectHeight / 2 + rhythm(0.667)) 0 ($selectHeight / 2);
+      outline: 0;
+      appearance: none;
+      width: 100%;
+
+      &::-ms-expand {
+        display: none;
+      }
+
+      &:hover,
+      &:focus,
+      &:active {
+        background: $selectHoverBackground;
+        border-color: $selectHoverBackground;
+      }
+    }
+
+    &__icon {
+      position: absolute;
+      right: ($selectHeight / 4 + rhythm(0.333)) - $selectIconSize / 2;
+      top: $selectHeight / 2 - $selectIconSize / 2;
+      height: $selectIconSize;
+      width: $selectIconSize;
+      pointer-events: none;
+      z-index: 1;
+      display: flex;
+    }
+
+    &--small {
+      .sg-select__icon {
+        top: $selectSmallHeight / 2 - $selectIconSize / 2;
+        right: $selectSmallHeight / 2 - $selectIconSize / 2;
+      }
+
+      .sg-select__element {
+        height: $selectSmallHeight;
+        padding: 0 rhythm(1.333) 0 rhythm(0.667);
+      }
+    }
+
+    &--full {
+      width: 100%;
+    }
+
+    &--invalid {
+      .sg-select__element {
+        border: $selectBorderWidth solid $selectInvalidBorderColor;
+      }
+    }
+  }
+}

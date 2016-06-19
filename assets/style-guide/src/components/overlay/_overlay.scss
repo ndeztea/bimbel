@@ -1,0 +1,21 @@
+$overlayBackgroundColor: rgba(0, 0, 0, 0.6);
+$includeHtml: false !default;
+
+@if ($includeHtml) {
+
+  .sg-overlay {
+    background-color: $overlayBackgroundColor;
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: $overlayZIndex;
+    overflow-x: hidden;
+    overflow-y: auto;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+  }
+
+}

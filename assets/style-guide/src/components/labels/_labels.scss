@@ -1,0 +1,139 @@
+$labelPrimaryColor: $black;
+$labelSecondaryColor: $grayPrimary;
+$labelInactiveColor: $grayPrimary;
+$labelFontSizePrimary: fontSize(obscure);
+$labelFontSizeSecondary: fontSize(xsmall);
+$labelFontSizeLarge: fontSize(standout);
+$labelIconSizePrimary: 16px;
+$labelIconSizeSecondary: 14px;
+$labelIconSizeLarge: 24px;
+$labelIconSizePrimaryLarge: 32px;
+$labelScaleFactor: 2 / 3;
+
+$includeHtml: false !default;
+
+@if ($includeHtml) {
+
+  .sg-label {
+    @include component;
+    overflow: visible;
+    display: flex;
+    align-items: center;
+
+    &__text,
+    &__number {
+      @include fixText($labelFontSizePrimary, 2 / 16);
+      @include fixOperaMiniLabelText;
+
+      display: block;
+      color: $labelPrimaryColor;
+      font-weight: $fontWeightBold;
+      margin-right: gutter(0.25);
+
+      &:last-child {
+        margin-right: 0;
+      }
+    }
+
+    &__icon {
+      width: $labelIconSizePrimary;
+      height: $labelIconSizePrimary;
+      display: flex;
+      flex-shrink: 0;
+      align-items: center;
+      margin-right: gutter(0.25);
+
+      &:last-child {
+        margin-right: 0;
+      }
+
+      &--large {
+        width: $labelIconSizePrimaryLarge;
+        height: $labelIconSizePrimaryLarge;
+      }
+    }
+
+    &--lite {
+      .sg-label__text,
+      .sg-label__number {
+        font-weight: $fontWeightBold;
+      }
+    }
+
+    &--unstyled {
+      .sg-label__text,
+      .sg-label__number {
+        color: inherit;
+      }
+    }
+
+    &--emphasised {
+      @include uppercaseText(0);
+    }
+
+    &--secondary {
+      .sg-label__text,
+      .sg-label__number {
+        color: $labelSecondaryColor;
+      }
+    }
+
+    &--inactive {
+      .sg-label__text,
+      .sg-label__number {
+        color: $labelInactiveColor;
+      }
+    }
+
+    &--full-width {
+      width: 100%;
+
+      .sg-label__text {
+        text-overflow: ellipsis;
+        max-width: 100%;
+      }
+    }
+
+    &--small {
+      min-height: 0;
+
+      .sg-label__text,
+      .sg-label__number {
+        @include fixText($labelFontSizeSecondary);
+        @include fixOperaMiniLabelText;
+
+        margin-right: $labelScaleFactor * gutter(0.25);
+
+        &:last-child {
+          margin-right: 0;
+        }
+      }
+
+      .sg-label__icon {
+        margin-right: $labelScaleFactor * gutter(0.25);
+        width: $labelIconSizeSecondary;
+        height: $labelIconSizeSecondary;
+      }
+    }
+
+    &--large {
+      .sg-label__text,
+      .sg-label__number {
+        @include fixText($labelFontSizeLarge);
+        @include fixOperaMiniLabelText;
+
+        &:last-child {
+          margin-right: 0;
+        }
+      }
+
+      .sg-label__icon {
+        margin-right: gutter(0.5);
+        width: $labelIconSizeLarge;
+        height: $labelIconSizeLarge;
+      }
+
+    }
+  }
+
+}

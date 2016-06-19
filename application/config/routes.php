@@ -62,3 +62,18 @@ $route['sign_out'] = 'Auth/logout';
 $route['profil'] = 'home/profil';
 $route['avatar'] = 'home/upload_avatar';
 $route['update_profil'] = 'home/update_profil';
+
+
+
+$route['pelajaran'] = 'pelajaran/data_pelajaran';
+$route['tambah_pelajaran'] = 'pelajaran/tambah_pelajaran';
+$route['delete_pelajaran/(:any)'] = 'pelajaran/delete_pelajaran/$1';
+$route['edit_pelajaran/(:any)'] = 'pelajaran/edit_pelajaran/$1';
+$route['set_active_pelajaran/(:any)'] = 'pelajaran/set_active/$1';
+
+
+
+$route['users'] = 'user/data_user';
+$route['users/(:any)'] = 'user/data_user/$1';
+
+$route['ajukan_pertanyaan'] = 'pertanyaan/ajukan_pertanyaan';

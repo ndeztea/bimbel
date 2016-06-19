@@ -1,0 +1,26 @@
+$includeHtml: false !default;
+
+@if ($includeHtml) {
+  html {
+    font-size: $baseFont;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  body {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+
+    font-size: fontSize(default);
+    font-family: $fontFamilyPrimary;
+    line-height: rhythm(1);
+  }
+
+}
