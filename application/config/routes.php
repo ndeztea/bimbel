@@ -60,3 +60,5 @@ $route['sign_out'] = 'Auth/logout';
 
 
 $route['profil'] = 'home/profil';
+$route['avatar'] = 'home/upload_avatar';
+$route['update_profil'] = 'home/update_profil';

@@ -39,6 +39,14 @@ class Users extends CI_Model {
 	{
 
 	}
+
+
+	function upload_avatar($filename, $id_user){
+		$users = array('avatar' => $filename);
+
+		$this->db->where('nisn', $id_user);
+		$this->db->update('users', $users);
+	}
 }
 
 /* End of file users.php */
