@@ -11,7 +11,7 @@ class Pelajaran extends CI_Controller {
 
 
 	function data_pelajaran(){
-		$data['database'] = $this->Mpelajaran->getdata()->result();
+		$data['data_pelajaran'] = $this->Mpelajaran->getdata()->result();
 		$this->load->view('pelajaran/data_pelajaran', $data);
 	}
 

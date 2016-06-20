@@ -83,19 +83,6 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-sm-5 text">
-                            <?php if($this->session->flashdata('msg') != NULL): ?>
-                                <div class="alert alert-info">
-                                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                                <?= $this->session->flashdata('msg'); ?>
-                                </div>
-                            <?php endif; ?>
-
-                            <?php if($this->session->flashdata('msg_error') != NULL): ?>
-                                <div class="alert alert-danger">
-                                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                                <?= $this->session->flashdata('msg_error'); ?>
-                                </div>
-                            <?php endif; ?>
                             <h1><strong>Bootstrap</strong> Registration Form</h1>
                             <div class="description">
                             	<p>
@@ -111,6 +98,19 @@
                         <div class="col-sm-7 form-box">
                         	<div class="form-top">
                         		<div class="form-top-left">
+                                    <?php if($this->session->flashdata('msg') != NULL): ?>
+                                        <div class="alert alert-info">
+                                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                        <?= $this->session->flashdata('msg'); ?>
+                                        </div>
+                                    <?php endif; ?>
+
+                                    <?php if($this->session->flashdata('msg_error') != NULL): ?>
+                                        <div class="alert alert-danger">
+                                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                        <?= $this->session->flashdata('msg_error'); ?>
+                                        </div>
+                                    <?php endif; ?>
                         			<h3>Daftar Sekarang</h3>
                                     <?= validation_errors() ?>
                             		<!-- <p>Fill in the form below to get instant access:</p> -->

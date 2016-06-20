@@ -76,4 +76,7 @@ $route['set_active_pelajaran/(:any)'] = 'pelajaran/set_active/$1';
 $route['users'] = 'user/data_user';
 $route['users/(:any)'] = 'user/data_user/$1';
 
-$route['ajukan_pertanyaan'] = 'pertanyaan/ajukan_pertanyaan';
+$route['add_pertanyaan'] = 'home/add_pertanyaan';
+$route['pertanyaan'] = 'home/data_pertanyaan';
+
+$route['pertanyaan_m'] = 'Pertanyaan/data_pertanyaan';

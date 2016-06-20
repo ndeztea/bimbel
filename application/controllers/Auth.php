@@ -75,6 +75,9 @@ class Auth extends CI_Controller {
 
 			if($login):
 				$data = $login->row_array();
+
+				$this->session->set_userdata('id', 			$data['id']);
+				$this->session->set_userdata('nisn', 		$data['nisn']);
 				$this->session->set_userdata('nisn', 		$data['nisn']);
 				$this->session->set_userdata('nama', 		$data['nama']);
 				$this->session->set_userdata('avatar', 		$data['avatar']);

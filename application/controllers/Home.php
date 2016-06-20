@@ -12,13 +12,17 @@ class Home extends CI_Controller {
 		}
 
 		$this->load->model('users');
+		$this->load->model('Mpertanyaan');
+		$this->load->model('Mpelajaran');
 		$this->form_validation->set_error_delimiters('<div class="alert alert-danger">
   		<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>', '</div>');
 	}
 
 	function index()
-	{
-		$this->load->view('home');
+	{	
+		$data['pertanyaan']   = $this->Mpertanyaan->get_pertanyaan()->result();
+		$data['pelajaran'] 	  = $this->Mpelajaran->getdata()->result();
+		$this->load->view('home', $data);
 	}
 
 
@@ -90,8 +94,8 @@ class Home extends CI_Controller {
 	            if(($this->session->userdata('avatar'))){
 	                unlink(FCPATH . "assets/images/avatar/".$this->session->userdata('avatar'));
 	            }
-	        $data = array('avatar', $this->upload->data()['file_name']);
-            $this->users->update($this->session->userdata('nisn'));
+	        $data = array('avatar' => $this->upload->data()['file_name']);
+            $this->users->update($data, $this->session->userdata('nisn'));
             $this->session->set_userdata('avatar', $this->upload->data()['file_name']);
             redirect(base_url().'profil', 'refresh');
         endif;
@@ -137,6 +141,34 @@ class Home extends CI_Controller {
 		else{
 			$this->form_validation->set_message('cek_password', 'Password yang anda masukkan salah, data gagal diubah');
 			return FALSE;
+		}
+	}
+
+
+
+	function add_pertanyaan(){
+		$this->form_validation->set_rules('pertanyaan', 'Pertanyaan', 'required|xss_clean');
+		$this->form_validation->set_rules('tingkat', 'Tingkat', 'required|xss_clean');
+		$this->form_validation->set_rules('mata_pelajaran', 'Mata Pelajaran', 'required|xss_clean');
+		$this->form_validation->set_rules('wids', 'Wids', 'required|xss_clean');
+
+
+
+		if ($this->form_validation->run() == FALSE) {
+			$this->session->set_flashdata('msg_error', validation_errors());
+			$this->load->view('home');
+			
+		} else {
+			$data = array('id_pelajaran' => $this->input->post('mata_pelajaran'),
+						  'tingkat'  	 => $this->input->post('tingkat'),
+						  'pertanyaan' 	 => $this->input->post('pertanyaan'),
+						  'wids'  		 => $this->input->post('wids'),	
+						  'id_user' 	 => $this->session->userdata('id'),
+						  'tgl_update'   => date("Y-m-d H:i:s")						  
+						  );
+			$this->Mpertanyaan->add_pertanyaan($data);
+			$this->session->set_flashdata('msg_success', 'Pertanyaan berhasil ditambahkan');
+			redirect(base_url().'home','refresh');
 		}
 	}
 }

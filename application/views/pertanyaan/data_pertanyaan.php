@@ -20,39 +20,34 @@
       <div class="col-md-12">
         <div class="box box-primary table-responsive">
           <div class="box-header with-border">
-            <h3 class="box-title">Table Pelajaran</h3>
+            <h3 class="box-title">Table Pertanyaan</h3>
             <button class="btn btn-info btn-md pull-right" onclick=location.href="<?= base_url() ?>tambah_pelajaran"><i class="fa fa-plus-circle"></i> Tambah Data</button>
           </div><!-- /.box-header -->
           <div class="box-body">
             <table class="table table-bordered">
               <tbody><tr>
                 <th style="width: 10px">#</th>
+                <th>Nama Penanya</th>
                 <th>Mata Pelajaran</th>
-                <th>Deskripsi</th>
-                <th>Icon</th>
-                <th>Status</th>
+                <th>Wids</th>
+                <th>Pertanyaan</th>
+                <th>Tingkat</th>
                 <th>Aksi</th>
               </tr>
               <?php
                   $no = 1;
-                  foreach ($data_pelajaran as $r):
+                  foreach ($data_pertanyaan as $r):
+               ?>
+               <hr>
+               <?php endforeach; ?>
               ?>
               <tr>
                 <td><?php echo $no++; ?></td>
-                <td><?php echo $r->pelajaran ?></td>
-                <td><?php echo $r->deskripsi ?></td>
-                <td><?php echo $r->params ?></td>
-                <td>
-                    <?php if($r->is_active == '1'): ?>
-                      <span class="label label-success">
-                        Aktif
-                      </span>
-                    <?php else: ?>
-                      <span class="label label-danger">
-                        Tidak Aktif
-                      </span>
-                    <?php endif; ?>
-                </td>
+                <td><?php echo $r->nama_penanya ?></td>
+                <td><?php echo $r->nama_pelajaran ?></td>
+                <td><?php echo $r->wids_penanya ?></td>
+                <td><?php echo $r->pertanyaan ?></td>
+                <td><?php echo $r->tingkat ?></td>
                 <td>
                     <button class="btn btn-success" onclick=location.href='<?= base_url() ?>edit_pelajaran/<?= $r->id ?>'><i class="fa fa-pencil"></i></button>
                     <button class="btn btn-danger" onclick=location.href='<?= base_url() ?>delete_pelajaran/<?= $r->id ?>'><i class="fa fa-trash"></i></button>

@@ -119,7 +119,7 @@
                       <td style="border-top: 0px solid #f4f4f4;">HP</td>
                       <td style="border-top: 0px solid #f4f4f4;">:</td>
                       <td style="border-top: 0px solid #f4f4f4;">
-                        <input type="text" name="no_hp" value="<?= $users['hp'] ?>" class="form-control">
+                        <input type="number" name="no_hp" value="<?= $users['hp'] ?>" class="form-control">
                       </td>
                     </tr>
                     <tr>
@@ -133,7 +133,7 @@
                       <td style="border-top: 0px solid #f4f4f4;">No Rekening</td>
                       <td style="border-top: 0px solid #f4f4f4;">:</td>
                       <td style="border-top: 0px solid #f4f4f4;">
-                        <input type="email" name="no_rek" value="<?= $users['rekening_bank'] ?>" class="form-control">
+                        <input type="number" name="no_rek" value="<?= $users['rekening_bank'] ?>" class="form-control">
                       </td>
                     </tr>
                      <tr>

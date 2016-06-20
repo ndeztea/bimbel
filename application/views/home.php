@@ -6,6 +6,21 @@
 	<div class="row">
 		<div class="col-md-8">
 			<!-- List Pertanyaan -->
+			<div class="box box-primary table-responsive">
+	          	<div class="box-header with-border">
+	          		<h2 class="box-title">Pertanyaan</h2><br><br>
+				<?php
+	                  foreach ($pertanyaan as $r):
+			             echo $r->nama_penanya." &middot; ";
+			         	 echo $r->nama_pelajaran." &middot; ";
+			         	 echo $r->wids_penanya;
+			         	 echo $r->pertanyaan;
+			         	 echo $r->tingkat;
+	             ?>
+	             <hr>
+	             <?php endforeach; ?>
+	             </div>
+	          </div>
 		</div>
 		<div class="col-md-4">
 			<div class="box box-primary">
@@ -14,7 +29,7 @@
 					</h3>
 				</div>
 				<div class="box-body">
-								<!-- Button trigger modal -->
+					<!-- Button trigger modal -->
 					<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
 					  Klik disini !!
 					</button>
@@ -28,9 +43,32 @@
 					        <h4 class="modal-title" id="myModalLabel">Pertanyaan</h4>
 					      </div>
 					      <div class="modal-body">
-					        <form method="post" action="<?= base_url() ?>ajukan_pertanyaan">
+					        <form method="post" action="<?= base_url() ?>add_pertanyaan">
 			                    <textarea id="editor1" name="pertanyaan" rows="10" cols="80" placeholder="Tulis pertanyaanmu disini">
-			                    </textarea>
+			                    </textarea><br>
+			                    <label>Tingkatan : </label>
+			                    <select name="tingkat">
+			                    	<option>SD</option>
+			                    	<option>SMP</option>
+			                    	<option>SMK</option>
+			                    </select>
+			                    <br>
+			                    <label>Mata Pelajaran : </label>
+			                    <select name="mata_pelajaran">
+			                    	<?php foreach ($pelajaran as $r): ?>
+			                    		<option value="<?= $r->id ?>"><?= $r->pelajaran ?></option>
+			                    	<?php	endforeach; ?>
+			                    </select>
+			                    <br>
+			                    <label>Wids</label>
+			                    <select name="wids">
+			                    	<?php for ($i=10; $i <=99 ; $i++) : ?>
+			                    		<option value="<?= $i ?>"><?= $i ?></option>
+			                    	<?php endfor; ?> 
+			                    </select>
+			                    <small>(Anda memiliki <?= $this->session->userdata('wids')?> Wids)</small>
+			                    <br>
+
 			                    
 					      </div>
 					      <div class="modal-footer">
