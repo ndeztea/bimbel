@@ -11,8 +11,18 @@ class Pertanyaan extends CI_Controller {
 
 
 	function data_pertanyaan(){
-		$data['data_pertanyaan	'] = $this->Mpertanyaan->get_pertanyaan()->result();
+		$data['data_pertanyaan'] = $this->Mpertanyaan->get_pertanyaan()->result();
 		$this->load->view('Pertanyaan/data_pertanyaan', $data);
 	}
+
+
+
+	function delete_pertanyaan(){
+		$id = $this->uri->rsegment(3);
+        $this->Mpertanyaan->delete_pertanyaan($id);
+		$this->session->set_flashdata('msg_success', 'Data berhasil dihapus');
+        redirect(base_url().'data_pertanyaan','refresh');
+    }
+
 
 }

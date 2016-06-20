@@ -79,4 +79,6 @@ $route['users/(:any)'] = 'user/data_user/$1';
 $route['add_pertanyaan'] = 'home/add_pertanyaan';
 $route['pertanyaan'] = 'home/data_pertanyaan';
 
-$route['pertanyaan_m'] = 'Pertanyaan/data_pertanyaan';
+$route['data_pertanyaan'] = 'Pertanyaan/data_pertanyaan';
+$route['delete_pertanyaan/(:any)'] = 'Pertanyaan/delete_pertanyaan/$1';
+

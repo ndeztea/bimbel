@@ -12,6 +12,7 @@ class Login extends CI_Model {
 		$this->db->select('*');
 		$this->db->from('users');
 		$this->db->where('nisn', $username);
+		$this->db->or_where('email', $username);
 		$this->db->where('password', $password);
 
 		$return = $this->db->get();

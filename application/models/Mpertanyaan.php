@@ -16,6 +16,7 @@ class Mpertanyaan extends CI_Model {
 		return $query;
 	}
 
+
 	function add_pertanyaan($data){	
         $this->db->insert('pelajaran_pertanyaan',$data);
 	}
@@ -23,5 +24,18 @@ class Mpertanyaan extends CI_Model {
 
 	function getdata(){
      return $this->db->get("pelajaran_pertanyaan");
+	}
+
+
+
+	function delete_pertanyaan($id){
+		$this->db->where('id',$id);
+		$this->db->delete('pelajaran_pertanyaan');
+	}
+
+
+
+	function get_detail_pertanyaan(){
+		
 	}
 }

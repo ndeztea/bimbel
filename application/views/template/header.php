@@ -21,7 +21,7 @@
                   <a href="#" class="dropdown-toggle" data-toggle="dropdown">Data Master <span class="caret"></span></a>
                   <ul class="dropdown-menu" role="menu">
                     <li><a href="<?= base_url() ?>pelajaran">Data Pelajaran</a></li>
-                    <li><a href="<?= base_url() ?>pertanyaan_m">Data Pertanyaan</a></li>
+                    <li><a href="<?= base_url() ?>data_pertanyaan">Data Pertanyaan</a></li>
                     <li><a href="<?= base_url()?>users">Data User</a></li>
                   </ul>
                 </li>

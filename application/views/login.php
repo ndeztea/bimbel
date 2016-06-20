@@ -66,7 +66,7 @@
 				</div> -->
                 <form method="post" action="<?= base_url() ?>login" class="navbar-form navbar-right" role="search">
                     <div class="form-group">
-                        <input type="text" class="form-control" name="username" placeholder="NISN">
+                        <input type="text" class="form-control" name="username" placeholder="NISN / Email">
                     </div>
                     <div class="form-group">
                         <input type="password" class="form-control" name="password" placeholder="Password">

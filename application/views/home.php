@@ -13,11 +13,10 @@
 	                  foreach ($pertanyaan as $r):
 			             echo $r->nama_penanya." &middot; ";
 			         	 echo $r->nama_pelajaran." &middot; ";
-			         	 echo $r->wids_penanya;
-			         	 echo $r->pertanyaan;
+			         	 echo $r->wids_penanya." &middot; ";
 			         	 echo $r->tingkat;
+			         	 echo $r->pertanyaan."<hr>";
 	             ?>
-	             <hr>
 	             <?php endforeach; ?>
 	             </div>
 	          </div>
