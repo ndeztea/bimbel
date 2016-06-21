@@ -32,9 +32,11 @@ class Home extends CI_Controller {
 	function profil(){
 		$users = $this->users->get_user_by_id($this->session->userdata('nisn'));
 		if($users):
-			$data['users'] 		= $users->row_array();
-			$data['wids']   	= $this->count_wids($this->session->userdata('nisn'));
-	    	$data['jawaban']	= $this->Mjawaban->get_jawaban_by_nisn('nisn');
+			$data['users'] 				= $users->row_array();
+			$data['wids']   			= $this->count_wids($this->session->userdata('nisn'));
+	    	$data['jawaban']			= $this->Mjawaban->get_jawaban_by_nisn('nisn');
+	    	$data['pertanyaan_saya']	= $this->Mpertanyaan->get_pertanyaan_by_nisn($this->session->userdata('nisn'), 4, 0);
+
 			$this->load->view('user/profil', $data);
 		else:
 			redirect(base_url().'404_override','refresh');

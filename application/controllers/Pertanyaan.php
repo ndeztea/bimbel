@@ -30,5 +30,4 @@ class Pertanyaan extends CI_Controller {
 
     }
 
-
 }

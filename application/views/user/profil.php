@@ -19,7 +19,7 @@
               echo '</div>';
               }?>
     </div>
-
+    <div class="col-xc-12">
 		<div class="col-md-8">
           <div class="box box-primary table-responsive">
             <div class="box-body box-profile">
@@ -125,14 +125,40 @@
                       </span>
                       <?= $r->pertanyaan ?>
                     </div> 
-              </div>
+                  </div>
               <?php endforeach; ?>
               </div>  
             </div>
             </div>
           </div>
         </div>
-    </div>
+        <div class="col-md-4">
+              <div class="box">
+                <div class="box-header with-border">
+                  <h3 class="box-title">List Pertanyaan Saya</h3>
+                </div><!-- /.box-header -->
+                <div class="box-body">
+                  <table class="table table-bordered">
+                    <tbody><tr>
+                      <th style="width: 10px">#</th>
+                      <th>Task</th>
+                    </tr>
+                    <?php
+                    $no =1;
+                     foreach ($pertanyaan_saya->result() as $r) : ?>
+
+                    <tr>
+                      <td><?= $no ++ ?></td>
+                      <td><?= $r->pertanyaan?></td>
+                    </tr>
+                  <?php endforeach ?>
+                  </tbody></table>
+                </div><!-- /.box-body -->
+                <div class="box-footer clearfix">
+                  <a href="">Tampilkan Semua Pertanyaan</a>
+                </div>
+              </div>
+            </div>
     </div>
 </section>
 
