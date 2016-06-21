@@ -16,12 +16,14 @@ class Home extends CI_Controller {
 		$this->load->model('Mpelajaran');
 		$this->form_validation->set_error_delimiters('<div class="alert alert-danger">
   		<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>', '</div>');
+
 	}
 
 	function index()
-	{	
-		$data['pertanyaan']   = $this->Mpertanyaan->get_pertanyaan()->result();
+	{		
+		$data['pertanyaan']   = $this->Mpertanyaan->get_pertanyaan();
 		$data['pelajaran'] 	  = $this->Mpelajaran->getdata()->result();
+		$data['wids'] 		  = $this->count_wids($this->session->userdata('nisn'));
 		$this->load->view('home', $data);
 	}
 

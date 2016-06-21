@@ -8,26 +8,77 @@
 			<!-- List Pertanyaan -->
 			<div class="box box-primary table-responsive">
 	          	<div class="box-header with-border">
-	          		<h2 class="box-title">Pertanyaan</h2><br><br>
-				<?php
-	                  foreach ($pertanyaan as $r):
-			             echo $r->nama_penanya." &middot; ";
-			         	 echo $r->nama_pelajaran." &middot; ";
-			         	 echo $r->wids_penanya." &middot; ";
-			         	 echo $r->tingkat;
-			         	 echo $r->pertanyaan."<hr>";
-	             ?>
-	             <?php endforeach; ?>
-	             </div>
+	          		<h2 class="box-title">Pertanyaan</h2>
+	            </div>
+	            <div class="box-body box-comments">
+	            	<?php foreach ($pertanyaan->result() as $r): ?>
+	            		<div class="box-comment"> 
+	            			<img class="img-circle img-sm" src="
+	            			<?php
+                                      if($r->avatar_penanya == NULL):
+                                        echo base_url()."assets/images/avatar/default.jpg";
+                                      else:
+                                        echo base_url()."assets/images/avatar/".$r->avatar_penanya;
+                                      endif;?>
+	            			" alt="user image">
+	            			<div class="comment-text">
+	            				<span class="username">
+	            					<?= $r->nama_pelajaran ?>&middot;
+					         	 	<?= $r->wids_pertanyaan ?> Wids &middot;
+					         	 	<?= $r->tingkat ?>
+	            				</span>
+	            				<?= $r->pertanyaan ?>
+	            			</div> 
+					    </div>
+			        <?php endforeach; ?>
+	            </div>	
 	          </div>
 		</div>
 		<div class="col-md-4">
+			<div class="box box-widget widget-user">
+                <!-- Add the bg color to the header using any of the bg-* classes -->
+                <div class="widget-user-header bg-aqua-active">
+                  <h3 class="widget-user-username"><?= $this->session->userdata('nama'); ?></h3>
+                  <h5 class="widget-user-desc"><?= $wids ?></h5>
+                </div>
+                <div class="widget-user-image">
+                  <img class="img-circle" src="<?php
+                                      if($this->session->userdata('avatar') == NULL):
+                                        echo base_url()."assets/images/avatar/default.jpg";
+                                      else:
+                                        echo base_url()."assets/images/avatar/".$this->session->userdata('avatar');
+                                      endif;?>" 
+                   alt="User Avatar" style="width:90px; height:90px; ">
+                </div>
+                <div class="box-footer">
+                  <div class="row">
+                    <div class="col-sm-4 border-right">
+                      <div class="description-block">
+                        <h5 class="description-header">0</h5>
+                        <span class="description-text">PERTANYAAN</span>
+                      </div><!-- /.description-block -->
+                    </div><!-- /.col -->
+                    <div class="col-sm-4 border-right">
+                      <div class="description-block">
+                        <h5 class="description-header">0</h5>
+                        <span class="description-text">WIDS</span>
+                      </div><!-- /.description-block -->
+                    </div><!-- /.col -->
+                    <div class="col-sm-4">
+                      <div class="description-block">
+                        <h5 class="description-header">0</h5>
+                        <span class="description-text">JAWABAN</span>
+                      </div><!-- /.description-block -->
+                    </div><!-- /.col -->
+                  </div><!-- /.row -->
+                </div>
+              </div>
 			<div class="box box-primary">
 				<div class="box-header">
 					<h3 class="box-title">Ajukan Pertanyaan
 					</h3>
 				</div>
-				<div class="box-body">
+				<div class="box-body text-center">
 					<!-- Button trigger modal -->
 					<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
 					  Klik disini !!
