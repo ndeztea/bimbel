@@ -8,13 +8,13 @@
         		<?php
                   if($this->session->flashdata('msg_error') != NULL){
                   echo '<div class="alert alert-danger" role="alert" style="padding: 6px 12px;height:34px;">';
-                  echo "<i class='fa fa-info-circle'></i> <strong><span style='margin-left:10px;'>".$this->session->flashdata('msg')."</span></strong>";
+                  echo "<i class='fa fa-info-circle'></i> <strong><span style='margin-left:10px;'>".$this->session->flashdata('msg_error')."</span></strong>";
                   echo '</div>';
                   }?>
                   <?php
                   if($this->session->flashdata('msg_success') != NULL){
                   echo '<div class="alert alert-info" role="alert" style="padding: 6px 12px;height:34px;">';
-                  echo "<i class='fa fa-info-circle'></i> <strong><span style='margin-left:10px;'>".$this->session->flashdata('msg')."</span></strong>";
+                  echo "<i class='fa fa-info-circle'></i> <strong><span style='margin-left:10px;'>".$this->session->flashdata('msg_success')."</span></strong>";
                   echo '</div>';
            }?>
         	</div>
@@ -43,9 +43,28 @@
                           <td><?= $r->nama ?></td>
                           <td><?= $r->kelas ?></td>
                           <td><?= $r->nama_sekolah ?></td>
-                          <td></td>
-                          <td></td>
+                          <td>
+                              <?php if($r->is_active == '1'): ?>
+                              <span class="label label-success">
+                                Aktif
+                              </span>
+                              <?php else: ?>
+                              <span class="label label-danger">
+                              Tidak Aktif
+                              </span>
+                              <?php endif; ?>
+                          </td>
+                          <td>
+                            <button class="btn btn-success" onclick=location.href='<?= base_url() ?>/<?= $r->nisn ?>'><i class="fa fa-pencil"></i></button>
+                            <button class="btn btn-danger" onclick=location.href='<?= base_url() ?>delete_user/<?= $r->nisn ?>'><i class="fa fa-trash"></i></button>
 
+
+                            <?php if($r->is_active == '1'): ?>
+                              <button class="btn btn-danger" onclick=location.href='<?= base_url() ?>set_active_user/<?= $r->nisn ?>'><i class="fa fa-times"></i></button>
+                            <?php else: ?>
+                              <button class="btn btn-success" onclick=location.href='<?= base_url() ?>set_active_user/<?= $r->nisn ?>'><i class="fa  fa-check"></i></button> 
+                            <?php endif; ?>
+                          </td>
                         </tr>
                       <?php endforeach ?>
                   </tbody>

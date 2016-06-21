@@ -27,8 +27,8 @@
 					         	 	<?= $r->wids_pertanyaan ?> Wids &middot;
 					         	 	<?= $r->tingkat ?>
 	            				</span>
-	            				<?= $r->pertanyaan ?>
-	            			</div> 
+	            				<a href=""><?= $r->pertanyaan ?></a>
+	            			</div>
 					    </div>
 			        <?php endforeach; ?>
 	            </div>	
@@ -85,7 +85,14 @@
 					</button>
 
 					<!-- Modal -->
-					<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 					  <div class="modal-dialog" role="document">
 					    <div class="modal-content">
 					      <div class="modal-header">
@@ -96,30 +103,38 @@
 					        <form method="post" action="<?= base_url() ?>add_pertanyaan">
 			                    <textarea id="editor1" name="pertanyaan" rows="10" cols="80" placeholder="Tulis pertanyaanmu disini">
 			                    </textarea><br>
-			                    <label>Tingkatan : </label>
-			                    <select name="tingkat">
-			                    	<option>SD</option>
-			                    	<option>SMP</option>
-			                    	<option>SMK</option>
-			                    </select>
-			                    <br>
-			                    <label>Mata Pelajaran : </label>
-			                    <select name="mata_pelajaran">
-			                    	<?php foreach ($pelajaran as $r): ?>
-			                    		<option value="<?= $r->id ?>"><?= $r->pelajaran ?></option>
-			                    	<?php	endforeach; ?>
-			                    </select>
-			                    <br>
-			                    <label>Wids</label>
-			                    <select name="wids">
-			                    	<?php for ($i=10; $i <=99 ; $i++) : ?>
-			                    		<option value="<?= $i ?>"><?= $i ?></option>
-			                    	<?php endfor; ?> 
-			                    </select>
-			                    <small>(Anda memiliki <?= $this->session->userdata('wids')?> Wids)</small>
-			                    <br>
-
-			                    
+			                    <div class="col-md-3">
+			                    	<div class="form-group">
+			                    		<label>Tingkatan : </label>
+					                    <select name="tingkat" class="form-control">
+					                    	<option>SD</option>
+					                    	<option>SMP</option>
+					                    	<option>SMK</option>
+					                    </select>
+			                    	</div>
+			                    </div>
+			                    <div class="col-md-4">
+			                    	<div class="form-group">
+			                    		 <label>Mata Pelajaran : </label>
+						                 <select name="mata_pelajaran" class="form-control">
+						                    <?php foreach ($pelajaran as $r): ?>
+						                    	<option value="<?= $r->id ?>"><?= $r->pelajaran ?></option>
+						                    <?php	endforeach; ?>
+						                 </select>
+			                    	</div>
+			                    </div>
+			                    <div class="col-md-5">
+			                   		<div class="form-group">
+			                   			<label>Wids</label>
+					                    <select name="wids" class="form-control">
+					                    	<?php for ($i=10; $i <=99 ; $i++) : ?>
+					                    		<option value="<?= $i ?>"><?= $i ?></option>
+					                    	<?php endfor; ?> 
+					                    </select>
+					                    <small>(Anda memiliki <?= $this->session->userdata('wids')?> Wids)</small>
+			                   		</div>
+			                    </div>
+			                    <div class="clearfix"></div>
 					      </div>
 					      <div class="modal-footer">
 					        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -129,11 +144,6 @@
 					    </div>
 					  </div>
 					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-</section>
 
 <?php $this->load->view('template/footer-js'); ?>
 <!-- custom JS -->

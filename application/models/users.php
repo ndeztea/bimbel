@@ -35,9 +35,10 @@ class Users extends CI_Model {
 	}
 
 	//Delete one item
-	function delete($id)
+	function delete_user($id)
 	{
-
+		$this->db->where('id',$id);
+		$this->db->delete('users');
 	}
 
 	function count_user(){
@@ -61,6 +62,8 @@ class Users extends CI_Model {
 			return false;
 		endif;
 	}
+
+
 }
 
 /* End of file Users.php */

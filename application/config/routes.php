@@ -75,10 +75,16 @@ $route['set_active_pelajaran/(:any)'] = 'pelajaran/set_active/$1';
 
 $route['users'] = 'user/data_user';
 $route['users/(:any)'] = 'user/data_user/$1';
+$route['set_active_user/(:any)'] = 'user/set_active/$1';
+$route['delete_user/(:any)'] = 'user/delete_user/$1';
+
+
 
 $route['add_pertanyaan'] = 'home/add_pertanyaan';
 $route['pertanyaan'] = 'home/data_pertanyaan';
 
 $route['data_pertanyaan'] = 'Pertanyaan/data_pertanyaan';
 $route['delete_pertanyaan/(:any)'] = 'Pertanyaan/delete_pertanyaan/$1';
+$route['detail_pertanyaan/(:any)'] = 'Pertanyaan/detail_pertanyaan/$1';
+
 

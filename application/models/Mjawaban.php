@@ -6,6 +6,7 @@ class Mjawaban extends CI_Model {
 	function get_jawaban_by_nisn($nisn){
 		$query = $this->db->query("SELECT penanya.nama AS nama_penanya,
 										  penanya.wids AS wids_penanya,
+										  penanya.avatar AS avatar_penanya,
 									      pelajaran.pelajaran AS nama_pelajaran,
 									      penjawab.nisn AS nisn_penjawab,
 									      pelajaran_pertanyaan.id AS pertanyaan,

@@ -100,6 +100,36 @@
                 <button class="btn btn-md btn-info pull-right" onClick=location.href="<?= base_url()?>update_profil/">Edit Profil</button>
               <?php endif; ?>
             </div>
+            <div>
+                <hr>
+                <div class="box box-primary table-responsive">
+              <div class="box-header with-border">
+                <h2 class="box-title">Pertanyaan yang saya jawab</h2>
+              </div>
+              <div class="box-body box-comments">
+                <?php foreach ($jawaban->result() as $r): ?>
+                  <div class="box-comment"> 
+                    <img class="img-circle img-sm" src="
+                    <?php
+                                      if($r->avatar_penanya == NULL):
+                                        echo base_url()."assets/images/avatar/default.jpg";
+                                      else:
+                                        echo base_url()."assets/images/avatar/".$r->avatar_penanya;
+                                      endif;?>
+                    " alt="user image">
+                    <div class="comment-text">
+                      <span class="username">
+                      <?= $r->nama_pelajaran ?>&middot;
+                      <?= $r->wids_pertanyaan ?> Wids &middot;
+                      <?= $r->tingkat ?>
+                      </span>
+                      <?= $r->pertanyaan ?>
+                    </div> 
+              </div>
+              <?php endforeach; ?>
+              </div>  
+            </div>
+            </div>
           </div>
         </div>
     </div>

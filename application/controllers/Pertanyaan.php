@@ -24,5 +24,11 @@ class Pertanyaan extends CI_Controller {
         redirect(base_url().'data_pertanyaan','refresh');
     }
 
+    function detail_pertanyaan(){
+		$data['detail_pertanyaan'] = $this->Mpertanyaan->get_pertanyaan();
+		$this->load->view('Pertanyaan/detail_pertanyaan', $data);
+
+    }
+
 
 }

@@ -91,7 +91,7 @@ class Pelajaran extends CI_Controller {
 					$this->session->set_flashdata('msg_success', 'Pelajaran berhasil dinon-aktifkan');
 				}
 
-				$this->Mpelajaran->edit_pelajaran($data, $get->row_array()['id']);
+				$this->User->edit_pelajaran($data, $get->row_array()['id']);
 				redirect(base_url().'pelajaran','refresh');
 
 			else:

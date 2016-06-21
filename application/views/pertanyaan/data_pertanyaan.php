@@ -46,7 +46,7 @@
                 <td><?php echo $r->tingkat ?></td>
                 <td>
                     <button class="btn btn-danger" onclick=location.href='<?= base_url() ?>delete_pertanyaan/<?= $r->id_pertanyaan ?>'><i class="fa fa-trash"></i></button>
-                    <button class="btn btn-info" onclick=location.href=''><i class="fa fa-eye"></i></button>
+                    <button class="btn btn-info" onclick=location.href='<?= base_url() ?>detail_pertanyaan/<?= $r->id_pertanyaan?>'><i class="fa fa-eye"></i></button>
                 </td>
               </tr>
               <?php endforeach; ?>

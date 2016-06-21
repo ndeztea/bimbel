@@ -14,6 +14,7 @@ class Home extends CI_Controller {
 		$this->load->model('users');
 		$this->load->model('Mpertanyaan');
 		$this->load->model('Mpelajaran');
+		$this->load->model('Mjawaban');
 		$this->form_validation->set_error_delimiters('<div class="alert alert-danger">
   		<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>', '</div>');
 
@@ -31,8 +32,9 @@ class Home extends CI_Controller {
 	function profil(){
 		$users = $this->users->get_user_by_id($this->session->userdata('nisn'));
 		if($users):
-			$data['users'] = $users->row_array();
-			$data['wids'] = $this->count_wids($this->session->userdata('nisn'));
+			$data['users'] 		= $users->row_array();
+			$data['wids']   	= $this->count_wids($this->session->userdata('nisn'));
+	    	$data['jawaban']	= $this->Mjawaban->get_jawaban_by_nisn('nisn');
 			$this->load->view('user/profil', $data);
 		else:
 			redirect(base_url().'404_override','refresh');

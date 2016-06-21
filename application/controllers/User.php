@@ -48,6 +48,39 @@ class User extends CI_Controller {
 		$this->load->view('user/data_user', $data);
 	}
 
+	function delete_user(){
+		$id = $this->uri->rsegment(3);
+        $this->users->delete_user($id);
+		$this->session->set_flashdata('msg_success', 'Data berhasil dihapus');
+        redirect(base_url().'user/data_user','refresh');
+    }
+
+
+
+    function set_active(){
+			$get = $this->users->get_user_by_id($this->uri->rsegment(3));
+
+			if ($get):
+				$status = $get->row_array()['is_active'];
+
+				if ($status == 0) {
+					$data = array('is_active' => 1);
+					$this->session->set_flashdata('msg_success', 'Pelajaran berhasil diaktifkan');
+				}
+				else{
+					$data = array('is_active' => 0);
+					$this->session->set_flashdata('msg_success', 'Pelajaran berhasil dinon-aktifkan');
+				}
+
+				$this->users->update($data, $get->row_array()['nisn']);
+				redirect(base_url().'user/data_user','refresh');
+
+			else:
+        		redirect(base_url().'not_found','refresh');
+			endif;
+	}
+
+
 }
 
 /* End of file User.php */

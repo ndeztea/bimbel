@@ -35,9 +35,4 @@ class Mpertanyaan extends CI_Model {
 		$this->db->delete('pelajaran_pertanyaan');
 	}
 
-
-
-	function get_detail_pertanyaan(){
-		
-	}
 }
