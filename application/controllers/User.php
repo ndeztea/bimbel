@@ -81,6 +81,46 @@ class User extends CI_Controller {
 	}
 
 
+	function edit_user(){
+		$users = $this->users->get_user_by_id($this->session->userdata('nisn'));
+		
+
+		if($users):
+
+			$this->form_validation->set_rules('nama', 'Nama Lengkap', 'required|xss_clean');
+			$this->form_validation->set_rules('jkel', 'Jenis Kelamin', 'required|xss_clean');
+			$this->form_validation->set_rules('pendidikan', 'Tingkatan Sekolah', 'required|xss_clean');
+			$this->form_validation->set_rules('kelas', 'Kelas', 'required|xss_clean');
+			$this->form_validation->set_rules('sekolah', 'Nama Sekolah', 'required|xss_clean');
+			$this->form_validation->set_rules('no_hp', 'Nomor HP', 'required|numeric|xss_clean');
+			$this->form_validation->set_rules('email', 'E-Mail', 'required|xss_clean|valid_email');
+			$this->form_validation->set_rules('no_rek', 'Nomor Rekening', 'xss_clean|numeric');
+
+			if ($this->form_validation->run() == FALSE) {
+				$data['users'] = $users->row_array();
+				$this->load->view('user/edit_user', $data);
+			} else {
+				$users = array('nama' 			=> $this->input->post('nama'),
+							   'gender' 		=> $this->input->post('jkel'),
+							   'tingkat_sekolah'=> $this->input->post('pendidikan'),
+							   'kelas' 			=> $this->input->post('kelas'),
+							   'nama_sekolah' 	=> $this->input->post('sekolah'),
+							   'hp' 			=> $this->input->post('no_hp'),
+							   'email' 			=> $this->input->post('email'),
+							   'rekening_bank' 	=> $this->input->post('no_rek'));
+
+				$this->users->update($users, $this->session->userdata('nisn'));
+				$this->session->set_flashdata('msg_success', 'Profil Berhasil Diubah');
+				$this->session->set_userdata($this->input->post('nama'));
+				redirect(base_url().'user/data_user','refresh');
+			}
+			
+		else:
+			redirect(base_url().'404_override','refresh');
+		endif;
+	}
+
+
 }
 
 /* End of file User.php */

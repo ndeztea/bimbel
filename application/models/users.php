@@ -37,7 +37,7 @@ class Users extends CI_Model {
 	//Delete one item
 	function delete_user($id)
 	{
-		$this->db->where('id',$id);
+		$this->db->where('nisn',$id);
 		$this->db->delete('users');
 	}
 

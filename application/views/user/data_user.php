@@ -55,7 +55,7 @@
                               <?php endif; ?>
                           </td>
                           <td>
-                            <button class="btn btn-success" onclick=location.href='<?= base_url() ?>/<?= $r->nisn ?>'><i class="fa fa-pencil"></i></button>
+                            <button class="btn btn-success" onclick=location.href='<?= base_url() ?>edit_user/<?= $r->nisn ?>'><i class="fa fa-pencil"></i></button>
                             <button class="btn btn-danger" onclick=location.href='<?= base_url() ?>delete_user/<?= $r->nisn ?>'><i class="fa fa-trash"></i></button>
 
 
