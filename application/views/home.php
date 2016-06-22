@@ -25,9 +25,10 @@
 	            				<span class="username">
 	            					<?= $r->nama_pelajaran ?>&middot;
 					         	 	<?= $r->wids_pertanyaan ?> Wids &middot;
-					         	 	<?= $r->tingkat ?>
+					         	 	<?= get_tingkat($r->tingkat) ?>
 	            				</span>
-	            				<a href=""><?= $r->pertanyaan ?></a>
+	            				<a href="<?= base_url() ?>detail_pertanyaan/<?= $r->id_pertanyaan ?>"><?= $r->pertanyaan ?></a>
+          						<button class="btn btn-success btn-xs pull-right" onclick=location.href="<?= base_url() ?>detail_pertanyaan/<?= $r->id_pertanyaan ?>"><i class="fa fa-share"></i> Jawab</button>
 	            			</div>
 					    </div>
 			        <?php endforeach; ?>
@@ -35,115 +36,14 @@
 	          </div>
 		</div>
 		<div class="col-md-4">
-			<div class="box box-widget widget-user">
-                <!-- Add the bg color to the header using any of the bg-* classes -->
-                <div class="widget-user-header bg-aqua-active">
-                  <h3 class="widget-user-username"><?= $this->session->userdata('nama'); ?></h3>
-                  <h5 class="widget-user-desc"><?= $wids ?></h5>
-                </div>
-                <div class="widget-user-image">
-                  <img class="img-circle" src="<?php
-                                      if($this->session->userdata('avatar') == NULL):
-                                        echo base_url()."assets/images/avatar/default.jpg";
-                                      else:
-                                        echo base_url()."assets/images/avatar/".$this->session->userdata('avatar');
-                                      endif;?>" 
-                   alt="User Avatar" style="width:90px; height:90px; ">
-                </div>
-                <div class="box-footer">
-                  <div class="row">
-                    <div class="col-sm-4 border-right">
-                      <div class="description-block">
-                        <h5 class="description-header">0</h5>
-                        <span class="description-text">PERTANYAAN</span>
-                      </div><!-- /.description-block -->
-                    </div><!-- /.col -->
-                    <div class="col-sm-4 border-right">
-                      <div class="description-block">
-                        <h5 class="description-header">0</h5>
-                        <span class="description-text">WIDS</span>
-                      </div><!-- /.description-block -->
-                    </div><!-- /.col -->
-                    <div class="col-sm-4">
-                      <div class="description-block">
-                        <h5 class="description-header">0</h5>
-                        <span class="description-text">JAWABAN</span>
-                      </div><!-- /.description-block -->
-                    </div><!-- /.col -->
-                  </div><!-- /.row -->
-                </div>
-              </div>
-			<div class="box box-primary">
-				<div class="box-header">
-					<h3 class="box-title">Ajukan Pertanyaan
-					</h3>
-				</div>
-				<div class="box-body text-center">
-					<!-- Button trigger modal -->
-					<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
-					  Klik disini !!
-					</button>
-
-					<!-- Modal -->
-				</div>
-			</div>
+			<?php $this->load->view('template/profil_widget');?>
+			<?php $this->load->view('template/ajukan_pertanyaan'); ?>
 		</div>
 	</div>
 </section>
 
 
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-					  <div class="modal-dialog" role="document">
-					    <div class="modal-content">
-					      <div class="modal-header">
-					        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-					        <h4 class="modal-title" id="myModalLabel">Pertanyaan</h4>
-					      </div>
-					      <div class="modal-body">
-					        <form method="post" action="<?= base_url() ?>add_pertanyaan">
-			                    <textarea id="editor1" name="pertanyaan" rows="10" cols="80" placeholder="Tulis pertanyaanmu disini">
-			                    </textarea><br>
-			                    <div class="col-md-3">
-			                    	<div class="form-group">
-			                    		<label>Tingkatan : </label>
-					                    <select name="tingkat" class="form-control">
-					                    	<option>SD</option>
-					                    	<option>SMP</option>
-					                    	<option>SMK</option>
-					                    </select>
-			                    	</div>
-			                    </div>
-			                    <div class="col-md-4">
-			                    	<div class="form-group">
-			                    		 <label>Mata Pelajaran : </label>
-						                 <select name="mata_pelajaran" class="form-control">
-						                    <?php foreach ($pelajaran as $r): ?>
-						                    	<option value="<?= $r->id ?>"><?= $r->pelajaran ?></option>
-						                    <?php	endforeach; ?>
-						                 </select>
-			                    	</div>
-			                    </div>
-			                    <div class="col-md-5">
-			                   		<div class="form-group">
-			                   			<label>Wids</label>
-					                    <select name="wids" class="form-control">
-					                    	<?php for ($i=10; $i <=99 ; $i++) : ?>
-					                    		<option value="<?= $i ?>"><?= $i ?></option>
-					                    	<?php endfor; ?> 
-					                    </select>
-					                    <small>(Anda memiliki <?= $this->session->userdata('wids')?> Wids)</small>
-			                   		</div>
-			                    </div>
-			                    <div class="clearfix"></div>
-					      </div>
-					      <div class="modal-footer">
-					        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-					        <button type="submit" class="btn btn-primary">Publish</button>
-					      </div>
-					      </form>
-					    </div>
-					  </div>
-					</div>
+
 
 <?php $this->load->view('template/footer-js'); ?>
 <!-- custom JS -->

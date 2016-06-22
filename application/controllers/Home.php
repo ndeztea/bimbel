@@ -15,16 +15,19 @@ class Home extends CI_Controller {
 		$this->load->model('Mpertanyaan');
 		$this->load->model('Mpelajaran');
 		$this->load->model('Mjawaban');
+		$this->load->helper('bimbel_helper');
 		$this->form_validation->set_error_delimiters('<div class="alert alert-danger">
   		<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>', '</div>');
 
 	}
 
 	function index()
-	{		
+	{
+		$wids = $this->users->get_user_by_id($this->session->userdata('nisn'))->row_array()['wids'];
+
 		$data['pertanyaan']   = $this->Mpertanyaan->get_pertanyaan();
 		$data['pelajaran'] 	  = $this->Mpelajaran->getdata()->result();
-		$data['wids'] 		  = $this->count_wids($this->session->userdata('nisn'));
+		$data['wids'] 		  = count_wids($wids);
 		$this->load->view('home', $data);
 	}
 
@@ -33,10 +36,9 @@ class Home extends CI_Controller {
 		$users = $this->users->get_user_by_id($this->session->userdata('nisn'));
 		if($users):
 			$data['users'] 				= $users->row_array();
-			$data['wids']   			= $this->count_wids($this->session->userdata('nisn'));
-	    	$data['jawaban']			= $this->Mjawaban->get_jawaban_by_nisn('nisn');
+			$data['wids']   			= count_wids($users->row_array()['wids']);
+	    	$data['jawaban']			= $this->Mjawaban->get_jawaban_by_nisn($this->session->userdata('nisn'));
 	    	$data['pertanyaan_saya']	= $this->Mpertanyaan->get_pertanyaan_by_nisn($this->session->userdata('nisn'), 4, 0);
-
 			$this->load->view('user/profil', $data);
 		else:
 			redirect(base_url().'404_override','refresh');
@@ -105,37 +107,6 @@ class Home extends CI_Controller {
             $this->session->set_userdata('avatar', $this->upload->data()['file_name']);
             redirect(base_url().'profil', 'refresh');
         endif;
-	}
-
-	function count_wids($id){
-		$users = $this->users->get_user_by_id($id)->row_array()['wids'];
-
-		if($users == 0 AND $users < 10){
-			$wids = "Pemula";
-		}
-		elseif($users >= 10 AND $users < 30){
-			$wids = "Ambis";
-		}
-		elseif ($users >= 30 AND $users < 50) {
-			$wids = "Prestisius";
-		}
-		elseif ($users >= 50 AND $users < 100) {
-			$wids = "Prestisius";
-		}
-		elseif ($users >= 100 AND $users < 200) {
-			$wids = "Ahli";
-		}
-		elseif ($users >= 200 AND $users < 500) {
-			$wids = "Sangat Ahli";
-		}
-		elseif ($users >= 500 AND $users < 1000) {
-			$wids = "Jenius";
-		}
-		elseif ($users >= 1000) {
-			$wids = "Super Jenius";
-		}
-
-		return $wids;
 	}
 
 	function cek_password(){

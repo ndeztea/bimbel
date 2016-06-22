@@ -58,7 +58,7 @@ class Pelajaran extends CI_Controller {
 				$this->form_validation->set_rules('icon', 'Icon', 'required|xss_clean');
 			
 				if($this->form_validation->run() == FALSE){
-					$data['data'] = $get->row_array();
+					$data['pertanyaan_saya'] = $get->row_array();
 					$this->load->view('pelajaran/edit_pelajaran', $data);
 				}
 				else{

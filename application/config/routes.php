@@ -81,9 +81,13 @@ $route['edit_user/(:any)'] = 'user/edit_user/$1';
 
 $route['add_pertanyaan'] = 'home/add_pertanyaan';
 $route['pertanyaan'] = 'home/data_pertanyaan';
+$route['my_question'] = 'pertanyaan/pertanyaan_saya';
 
 $route['data_pertanyaan'] = 'Pertanyaan/data_pertanyaan';
 $route['delete_pertanyaan/(:any)'] = 'Pertanyaan/delete_pertanyaan/$1';
 $route['detail_pertanyaan/(:any)'] = 'Pertanyaan/detail_pertanyaan/$1';
+$route['delete_pertanyaan_saya/(:any)'] = 'Pertanyaan/delete_pertanyaan_saya/$1';
+$route['edit_pertanyaan_saya/(:any)'] = 'Pertanyaan/edit_pertanyaan_saya/$1';
+
 
 

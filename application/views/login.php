@@ -173,9 +173,10 @@
                                             <label class="sr-only" for="form-pendidikan">Tingkatan Sekolah</label>
                                             <select name="pendidikan" class="form-control" id="pendidikan" onchange="changePendidikan(this)">
                                                 <option value="">-- Pilih Pendidikan--</option>
-                                                <option value="SD">SD / Sederajat</option>
-                                                <option value="SMP">SMP / Sederajat</option>
-                                                <option value="SMA">SMA / Sederajat</option>
+                                                <option value="SD">SD</option>
+                                                <option value="SMP">SMP</option>
+                                                <option value="SMA">SMA</option>
+                                                <option value="SMA">SMK</option>
                                             </select>
                                         </div>
                                     </div>
@@ -269,6 +270,7 @@
          pendidikan["SD"] = ["1", "2", "3", "4", "5", "6"]; 
          pendidikan["SMP"] = ["7", "8", "9"]; 
          pendidikan["SMA"] = ["10", "11", "12"]; 
+         pendidikan["SMK"] = ["10", "11", "12"]; 
          
          function changePendidikan(selectObj) { 
              var idx = selectObj.selectedIndex; 

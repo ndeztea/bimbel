@@ -1,1 +1,0 @@
-Mdetail_pertanyaan.php
