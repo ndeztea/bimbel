@@ -11,10 +11,11 @@
     <!-- Ionicons -->
     <link href="<?= base_url() ?>assets/ionicons-2.0.1/css/ionicons.min.css" rel="stylesheet" type="text/css" />
     <!-- Theme style -->
-    <link href="<?= base_url() ?>assets/AdminLTE-2.3.0/dist/css/AdminLTE.min.css" rel="stylesheet" type="text/css" />
+    <link href="<?= base_url() ?>assets/AdminLTE-2.3.0/dist/css/AdminLTE.css" rel="stylesheet" type="text/css" />
     <!-- AdminLTE Skins. Choose a skin from the css/skins
          folder instead of downloading all of them to reduce the load. -->
     <link href="<?= base_url() ?>assets/AdminLTE-2.3.0/dist/css/skins/_all-skins.min.css" rel="stylesheet" type="text/css" />
+    <link href="<?= base_url() ?>assets/select2-4.0.2/dist/css/select2.css" rel="stylesheet" type="text/css" />
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->

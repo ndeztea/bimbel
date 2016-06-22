@@ -5,6 +5,10 @@ class Mpertanyaan extends CI_Model {
 
 	private $pertanyaan = 'pelajaran_pertanyaan';
 
+	function getdata(){
+     return $this->db->get("pelajaran_pertanyaan");
+	}
+
 	function get_pertanyaan(){
 		$query = $this->db->query("SELECT penanya.nama AS nama_penanya,
 										  penanya.wids AS wids_penanya,
@@ -78,13 +82,17 @@ class Mpertanyaan extends CI_Model {
 		endif;
 	}
 
-	function add_pertanyaan($data){	
-        $this->db->insert('pelajaran_pertanyaan',$data);
+
+	function get_pertanyaan_id($query){
+		$this->db->select('id, pertanyaan');
+		$this->db->like('pertanyaan', $query);
+		$this->db->from('pelajaran_pertanyaan');
+
+		return $this->db->get();
 	}
 
-
-	function getdata(){
-     return $this->db->get("pelajaran_pertanyaan");
+	function add_pertanyaan($data){	
+        $this->db->insert('pelajaran_pertanyaan',$data);
 	}
 
 
@@ -100,4 +108,5 @@ class Mpertanyaan extends CI_Model {
 		$this->db->where('id',$id);
 		$this->db->update('pelajaran_pertanyaan', $data);
 	}
+
 }

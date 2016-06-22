@@ -42,17 +42,6 @@
 						                 </select>
 			                    	</div>
 			                    </div>
-			                    <div class="col-md-5">
-			                   		<div class="form-group">
-			                   			<label>Wids</label>
-					                    <select name="wids" class="form-control">
-					                    	<?php for ($i=10; $i <=99 ; $i++) : ?>
-					                    		<option value="<?= $i ?>"><?= $i ?></option>
-					                    	<?php endfor; ?> 
-					                    </select>
-					                    <small>(Anda memiliki <?= $this->session->userdata('wids')?> Wids)</small>
-			                   		</div>
-			                    </div>
 			                    <div class="clearfix"></div>
 					      </div>
 					      <div class="modal-footer">

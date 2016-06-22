@@ -187,4 +187,21 @@ class Pertanyaan extends CI_Controller {
         		redirect(base_url().'not_found','refresh');
 			endif;
 		}
+
+	function cari_pertanyaan(){
+		 $search = strip_tags(trim($this->input->get('q')));
+	     $query = $this->Mpertanyaan->get_pertanyaan_id($search);
+
+	      if($query->num_rows() > 0){
+	        foreach ($query->result() as $r) {
+	            $data[] = array('id' => $r->id,
+	                          	'text' =>strip_tags($r->pertanyaan));   
+	        }
+	      }
+	      else {
+	        $data[] = array('id' => '0',
+	                      	'text'=>'Pertanyaan Tidak Ditemukan');
+	      }
+	      echo json_encode($data);
+	}
 }

@@ -38,7 +38,9 @@
               </ul>
               <form class="navbar-form navbar-left" role="search">
                 <div class="form-group">
-                  <input type="text" class="form-control" id="navbar-search-input" placeholder="Cari pertanyaan disini">
+                  <select name="pegawai" id="navbar-search-input" class="form-control pencarian">
+                          
+                  </select>
                 </div>
               </form>
             </div><!-- /.navbar-collapse -->
