@@ -21,17 +21,34 @@
 
 		<!-- Custom Content Here -->
               <?php $a = $pertanyaan_saya ?>
-              <form method="post" action="<?= base_url() ?>edit_pertanyaan_saya">
-                 <textarea id="editor1" name="pertanyaan" rows="10" cols="80" placeholder="Tulis pertanyaanmu disini"><?= $a->pertanyaan ?>
+              <?= validation_errors() ?>
+              <form method="post" action="<?= base_url() ?>edit_pertanyaan_saya/<?= $this->uri->rsegment(3)?>">
+                 <textarea id="editor1" name="pertanyaan" rows="10" cols="80" placeholder="Tulis pertanyaanmu disini"><?= $a['pertanyaan'] ?>
                  </textarea><br>
                  <div class="col-md-3">
                     <div class="form-group">
                            <label>Tingkatan : </label>
                                  <select name="tingkat" class="form-control">
-                                  <option>SD</option>
-                                  <option>SMP</option>
-                                  <option>SMA</option>
-                                  <option>SMK</option>
+                                  <option  <?php if($a['tingkat']=="SD"):
+                                              echo "selected";
+                                              endif;?>>
+                                  SD
+                                  </option>
+                                  <option <?php if($a['tingkat']=="SMP"):
+                                              echo "selected";
+                                              endif; ?>>
+                                  SMP
+                                  </option>
+                                  <option <?php if($a['tingkat']=="SMA"):
+                                              echo "selected";
+                                              endif; ?>>
+                                  SMA
+                                  </option>
+                                  <option <?php if($a['tingkat']=="SMK"):
+                                              echo "selected"; 
+                                              endif;?>>
+                                  SMK
+                                  </option>
                                  </select>
                     </div>
                  </div>
@@ -39,10 +56,10 @@
                     <div class="form-group">
                             <label>Mata Pelajaran : </label>
                                      <select name="mata_pelajaran" class="form-control">
-                                        <?php foreach ($pelajaran as $r): ?>
+                                        <?php foreach ($pelajaran->result() as $r): ?>
                                          <option value="<?= $r->id ?>"
 
-                                         <?php ($a->id_pelajaran == $r->id):
+                                         <?php if($a['id_pelajaran'] == $r->id):
                                               echo "selected";
                                               endif;
                                         ?>
@@ -56,15 +73,37 @@
                                 <label>Wids</label>
                                <select name="wids" class="form-control">
                                 <?php for ($i=10; $i <=99 ; $i++) : ?>
-                                       <option value="<?= $i ?>"><?= $i ?></option>
+                                       <option value="<?= $i ?>" <?php if($a['wids_pertanyaan'] == $i): 
+                                         echo "selected";
+                                         endif;?>><?= $i ?>
+                                        
+                                       </option>
                                 <?php endfor; ?> 
                                </select>
                                <small>(Anda memiliki <?= $this->session->userdata('wids')?> Wids)</small>
                          </div>
                  </div>
+                 <input type="submit" class="btn btn-success" value="Edit Pertanyaan">
 	</div>
 </section>	
 <?php $this->load->view('template/footer-js'); ?>
 <!-- custom JS -->
+<script src="https://cdn.ckeditor.com/4.4.3/standard/ckeditor.js"></script>
+<script>
+      $(function () {
+        // Replace the <textarea id="editor1"> with a CKEditor
+        // instance, using default configuration.
+        CKEDITOR.replace('editor1');
 
+      });
+    </script>
+<script>
+      $(function () {
+        // Replace the <textarea id="editor1"> with a CKEditor
+        // instance, using default configuration.
+        CKEDITOR.replace('editor1');
+        //bootstrap WYSIHTML5 - text editor
+        $(".textarea").wysihtml5();
+      });
+    </script>
 <?php $this->load->view('template/foot'); ?>

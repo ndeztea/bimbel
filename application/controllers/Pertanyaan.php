@@ -8,6 +8,7 @@ class Pertanyaan extends CI_Controller {
 		parent::__construct();
 		$this->load->model('Mpertanyaan');
 		$this->load->model('Mjawaban');
+		$this->load->model('mpelajaran');
 		$this->load->helper('bimbel_helper');
 	}
 
@@ -62,24 +63,25 @@ class Pertanyaan extends CI_Controller {
 			if ($get):
 
 	    		$this->form_validation->set_rules('pertanyaan', "Pertanyaan", "required|xss_clean");
-				$this->form_validation->set_rules('tingkatan', "tingkatan", 'required|xss_clean');
+				$this->form_validation->set_rules('tingkat', "tingkat", 'required|xss_clean');
 				$this->form_validation->set_rules('mata_pelajaran', 'Mata Pelajaran', 'required|xss_clean');
 				$this->form_validation->set_rules('wids', 'Wids', 'required|xss_clean');
 
 			
 				if($this->form_validation->run() == FALSE){
-					$data['data'] = $get->row_array();
+					$data['pertanyaan_saya'] = $get->row_array();
+					$data['pelajaran'] = $this->mpelajaran->getdata();
 					$this->load->view('pertanyaan/edit_pertanyaan_saya', $data);
 				}
 				else{
 					$data = array('pertanyaan'		  => $this->input->post('pertanyaan'),
-						  		  'tingkatan'		  => $this->input->post('tingkatan'),
-						  		  'mata_pelajaran'    => $this->input->post('mata_pelajaran'),
+						  		  'tingkat'		  	  => $this->input->post('tingkat'),
+						  		  'id_pelajaran'    => $this->input->post('mata_pelajaran'),
 						  		  'wids'   			  => $this->input->post('wids')
 						  );
-					$this->Mpertanyaan->edit_pertanyaan_saya($data, $get->row_array()['id']);
+					$this->Mpertanyaan->edit_pertanyaan_saya($data, $get->row_array()['id_pertanyaan']);
 					$this->session->set_flashdata('msg_success', 'Data berhasil di update');
-					redirect(base_url().'pertanyaan','refresh');
+					redirect(base_url().'my_question','refresh');
 				}
 			else:
         		redirect(base_url().'not_found','refresh');

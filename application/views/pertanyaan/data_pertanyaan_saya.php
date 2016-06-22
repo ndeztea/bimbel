@@ -30,6 +30,7 @@
                                                  <tr>
                                                         <td>#</td>
                                                         <td>Pertanyaan</td>
+                                                        <td>Mata Pelajaran</td>
                                                         <td>Wids</td>
                                                         <td>Aksi</td>
                                                  </tr>
@@ -39,6 +40,7 @@
                                                         <tr>
                                                                <td><?= $no++ ?></td>
                                                                <td><?= $r->pertanyaan ?></td>
+                                                               <td><?= $r->nama_pelajaran ?></td>
                                                                <td><?= $r->wids_pertanyaan ?></td>
                                                                <td>
                                                                      <button class="btn btn-success" onclick=location.href='<?= base_url() ?>edit_pertanyaan_saya/<?= $r->id_pertanyaan ?>'><i class="fa fa-pencil"></i></button>
