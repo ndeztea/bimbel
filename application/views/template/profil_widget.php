@@ -5,12 +5,7 @@
 			<h5 class="widget-user-desc"><?= $wids ?></h5>
 		</div>
 		<div class="widget-user-image">
-			<img class="img-circle" src="<?php
-			if($this->session->userdata('avatar') == NULL):
-			echo base_url()."assets/images/avatar/default.jpg";
-			else:
-			echo base_url()."assets/images/avatar/".$this->session->userdata('avatar');
-			endif;?>"
+			<img class="img-circle" src="<?= base_url('assets/images/avatar/')."/".$this->session->userdata('avatar'); ?>"
 			alt="User Avatar" style="width:90px; height:90px; ">
 		</div>
 		<div class="box-footer">

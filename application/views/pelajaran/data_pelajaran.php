@@ -1,5 +1,7 @@
 <?php $this->load->view('template/top'); ?>
 <!-- Custom CSS -->
+<link rel="stylesheet" href="<?= base_url() ?>assets/AdminLTE-2.3.0/plugins/datatables/dataTables.bootstrap.css">
+
 <?php $this->load->view('template/header'); ?>
 <section class="content">
     <div class="row">
@@ -24,15 +26,18 @@
             <button class="btn btn-info btn-md pull-right" onclick=location.href="<?= base_url() ?>tambah_pelajaran"><i class="fa fa-plus-circle"></i> Tambah Data</button>
           </div><!-- /.box-header -->
           <div class="box-body">
-            <table class="table table-bordered">
-              <tbody><tr>
-                <th style="width: 10px">#</th>
-                <th>Mata Pelajaran</th>
-                <th>Deskripsi</th>
-                <th>Icon</th>
-                <th>Status</th>
-                <th>Aksi</th>
-              </tr>
+            <table class="table table-bordered table-striped" id="data_pelajaran">
+              <thead>
+                <tr>
+                  <th style="width: 10px">#</th>
+                  <th>Mata Pelajaran</th>
+                  <th>Deskripsi</th>
+                  <th>Icon</th>
+                  <th>Status</th>
+                  <th>Aksi</th>
+                </tr>
+              </thead>
+              <tbody>
               <?php
                   $no = 1;
                   foreach ($data_pelajaran as $r):
@@ -68,17 +73,9 @@
                 </td>
               </tr>
               <?php endforeach; ?>
-            </tbody></table>
+              </tbody>
+              </table>
             </div><!-- /.box-body -->
-            <div class="box-footer clearfix">
-              <ul class="pagination pagination-sm no-margin pull-right">
-                <li><a href="#">«</a></li>
-                <li><a href="#">1</a></li>
-                <li><a href="#">2</a></li>
-                <li><a href="#">3</a></li>
-                <li><a href="#">»</a></li>
-              </ul>
-            </div>
           </div>
         </div>
       </div>
@@ -87,4 +84,22 @@
 
 <?php $this->load->view('template/footer-js'); ?>
 <!-- custom JS -->
+<script src="<?= base_url() ?>assets/AdminLTE-2.3.0/plugins/datatables/jquery.dataTables.min.js"></script>
+<script src="<?= base_url() ?>assets/AdminLTE-2.3.0/plugins/datatables/dataTables.bootstrap.min.js"></script>
+<script>
+      $(function () {
+        $('#data_pelajaran').DataTable({
+          "paging": true,
+          "lengthChange": true,
+          "searching": true,
+          "ordering": true,
+          "info": true,
+          "autoWidth": true,
+          "aoColumnDefs": [
+                            { 'bSortable': false, 
+                              'aTargets': [ 0, 2, 3, 4, 5 ] },
+                              ]
+        });
+      });
+    </script>
 <?php $this->load->view('template/foot'); ?>

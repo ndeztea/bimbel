@@ -26,12 +26,7 @@
           <div class="box box-primary table-responsive">
             <div class="box-body box-profile">
               <div class="col-md-3">
-                <img id="imageProfile" class="profile-user-img img-responsive img-circle" alt="User profile picture" src="<?php
-                							             if($this->session->userdata('avatar') == NULL):
-                                              echo base_url()."assets/images/avatar/default.jpg";
-                                           else:
-                                              echo base_url()."assets/images/avatar/".$this->session->userdata('avatar');
-                                           endif;?>"
+                <img id="imageProfile" class="profile-user-img img-responsive img-circle" alt="User profile picture" src="<?= base_url('assets/images/avatar/')."/".$this->session->userdata('avatar'); ?>"
                 style="width: 150px; height: 150px; margin: 10px auto;">
                 <form method="post" action="<?= base_url() ?>avatar" enctype="multipart/form-data">
                   <div class="form-group">

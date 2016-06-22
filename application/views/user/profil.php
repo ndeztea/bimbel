@@ -24,12 +24,7 @@
         <div class="box box-primary table-responsive">
           <div class="box-body box-profile">
             <div class="col-md-3">
-              <img id="imageProfile" class="profile-user-img img-responsive img-circle" alt="User profile picture" src="<?php
-              if($this->session->userdata('avatar') == NULL):
-              echo base_url()."assets/images/avatar/default.jpg";
-              else:
-              echo base_url()."assets/images/avatar/".$this->session->userdata('avatar');
-              endif;?>"
+              <img id="imageProfile" class="profile-user-img img-responsive img-circle" alt="User profile picture" src="<?= base_url('assets/images/avatar')."/".$this->session->userdata('avatar'); ?>"
               style="width: 150px; height: 150px; margin: 10px auto;">
             </div>
             <div class="col-md-9">
@@ -99,13 +94,7 @@
             <?php foreach ($jawaban->result() as $r): ?>
             <div class="box-comment">
               <img class="img-circle img-sm" src="
-              <?php
-              if($r->avatar_penanya == NULL):
-              echo base_url()."assets/images/avatar/default.jpg";
-              else:
-              echo base_url()."assets/images/avatar/".$r->avatar_penanya;
-              endif;?>
-              " alt="user image">
+              <?= base_url('assets/images/avatar/')."/".$this->session->userdata('avatar'); ?>" alt="user image">
               <div class="comment-text">
                 <span class="username">
                   <?= $r->nama_pelajaran ?>&middot;

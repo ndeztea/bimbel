@@ -14,13 +14,7 @@
 	            	<?php foreach ($pertanyaan->result() as $r): ?>
 	            		<div class="box-comment"> 
 	            			<img class="img-circle img-sm" src="
-	            			<?php
-                                      if($r->avatar_penanya == NULL):
-                                        echo base_url()."assets/images/avatar/default.jpg";
-                                      else:
-                                        echo base_url()."assets/images/avatar/".$r->avatar_penanya;
-                                      endif;?>
-	            			" alt="user image">
+	            			<?= base_url('assets/images/avatar')."/".$r->avatar_penanya; ?>">
 	            			<div class="comment-text">
 	            				<span class="username">
 	            					<?= $r->nama_pelajaran ?>&middot;

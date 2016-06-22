@@ -140,27 +140,13 @@
                     <!-- Menu Toggle Button -->
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                       <!-- The user image in the navbar-->
-                      <img src="<?php
-                                      if($this->session->userdata('avatar') == NULL):
-                                        echo base_url()."assets/images/avatar/default.jpg";
-                                      else:
-                                        echo base_url()."assets/images/avatar/".$this->session->userdata('avatar');
-                                      endif;?>" 
+                      <img src="<?= base_url('assets/images/avatar/')."/".$this->session->userdata('avatar'); ?>" 
                       alt="User Image" class="user-image image-profile">
                       <span class="hidden-xs"><?= $this->session->userdata('nama'); ?></span>
                     </a>
                     <ul class="dropdown-menu">
                       <li class="user-header">
-                                    <img src="<?php
-                                if($this->session->userdata('avatar') == NULL){
-                                    echo base_url()."assets/images/avatar/default.jpg";
-                                }
-
-                                else {
-                                  echo base_url()."assets/images/avatar/".$this->session->userdata('avatar');
-                                }
-
-                         ?>" class="img-circle" alt="User Image" />
+                                    <img src="<?= base_url('assets/images/avatar/')."/".$this->session->userdata('avatar'); ?>" class="img-circle" alt="User Image" />
                         <p>
                           <?= $this->session->userdata('nama'); ?>
                           <small>Member since Nov. 2012</small>

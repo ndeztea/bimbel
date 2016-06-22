@@ -1,5 +1,7 @@
 <?php $this->load->view('template/top'); ?>
 <!-- Custom CSS -->
+<link rel="stylesheet" href="<?= base_url() ?>assets/AdminLTE-2.3.0/plugins/datatables/dataTables.bootstrap.css">
+
 <?php $this->load->view('template/header'); ?>
 <section class="content">
     <div class="row">
@@ -21,47 +23,36 @@
         <div class="box box-primary table-responsive">
           <div class="box-header with-border">
             <h3 class="box-title">Table Pertanyaan</h3>
-          </div><!-- /.box-header -->
-          <div class="box-body">
-            <table class="table table-bordered">
-              <tbody><tr>
-                <th style="width: 10px">#</th>
-                <th>Nama Penanya</th>
-                <th>Mata Pelajaran</th>
-                <th>Wids</th>
-                <th>Pertanyaan</th>
-                <th>Tingkat</th>
-                <th>Aksi</th>
-              </tr>
-              <?php
-                  $no = 1;
-                  foreach ($data_pertanyaan as $r):
-              ?>
-              <tr>
-                <td><?php echo $no++; ?></td>
-                <td><?php echo $r->nama_penanya ?></td>
-                <td><?php echo $r->nama_pelajaran ?></td>
-                <td><?php echo $r->wids_penanya ?></td>
-                <td><?php echo substr($r->pertanyaan, 0, 100)?></td>
-                <td><?php echo $r->tingkat ?></td>
-                <td>
-                    <button class="btn btn-danger" onclick=location.href='<?= base_url() ?>delete_pertanyaan/<?= $r->id_pertanyaan ?>'><i class="fa fa-trash"></i></button>
-                    <button class="btn btn-info" onclick=location.href='<?= base_url() ?>detail_pertanyaan/<?= $r->id_pertanyaan?>'><i class="fa fa-eye"></i></button>
-                </td>
-              </tr>
-              <?php endforeach; ?>
-            </tbody></table>
-            </div><!-- /.box-body -->
-            <div class="box-footer clearfix">
-              <ul class="pagination pagination-sm no-margin pull-right">
-                <li><a href="#">«</a></li>
-                <li><a href="#">1</a></li>
-                <li><a href="#">2</a></li>
-                <li><a href="#">3</a></li>
-                <li><a href="#">»</a></li>
-              </ul>
-            </div>
           </div>
+          <div class="box-body">
+            <table class="table table-bordered table-striped" id="data_pertanyaan">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Nama Penanya</th>
+                  <th>Mata Pelajaran</th>
+                  <th>Wids</th>
+                  <th>Pertanyaan</th>
+                  <th>Tingkat</th>
+                  <th>Aksi</th>
+                </tr>
+              </thead>
+              <tbody>
+                
+              </tbody>
+              <tfoot>
+                <tr>
+                  <th>#</th>
+                  <th>Nama Penanya</th>
+                  <th>Mata Pelajaran</th>
+                  <th>Wids</th>
+                  <th>Pertanyaan</th>
+                  <th>Tingkat</th>
+                  <th>Aksi</th>
+                </tr>
+              </tfoot>
+            </table>
+            </div>
         </div>
       </div>
 </section>    
@@ -69,4 +60,21 @@
 
 <?php $this->load->view('template/footer-js'); ?>
 <!-- custom JS -->
+<script src="<?= base_url() ?>assets/AdminLTE-2.3.0/plugins/datatables/jquery.dataTables.min.js"></script>
+
+<script src="<?= base_url() ?>assets/AdminLTE-2.3.0/plugins/datatables/dataTables.bootstrap.min.js"></script>
+
+<script type="text/javascript">
+    $('#data_pertanyaan').DataTable({
+        ordering:false,
+        processing: true,
+        serverSide: true,
+        searchable:true,
+        ajax: {
+          url: "<?php echo base_url('pertanyaan/pertanyaan_list') ?>",
+          type:'POST',
+        }
+    });
+</script>
+
 <?php $this->load->view('template/foot'); ?>

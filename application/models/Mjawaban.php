@@ -3,6 +3,58 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Mjawaban extends CI_Model {
 
+	function get_jawaban_pertanyaan($id_pertanyaan){
+		$this->db->select('	pelajaran_pertanyaan.id,
+							penjawab.id AS id_penjawab,
+							penjawab.nama AS nama_penjawab,
+							penjawab.wids AS wids_penjawab,
+							penjawab.nisn AS nisn_penjawab,
+							penjawab.avatar AS avatar_penjawab,
+							pelajaran_jawaban.id,
+							pelajaran_jawaban.id_pertanyaan,
+							pelajaran_jawaban.jawaban,
+							pelajaran_jawaban.jml_like,
+							pelajaran_jawaban.jml_dislike,
+							pelajaran_jawaban.tgl_update AS tanggal_jawab');
+
+		$this->db->from('pelajaran_pertanyaan');
+		$this->db->join('pelajaran_jawaban', 'pelajaran_jawaban.id_pertanyaan = pelajaran_pertanyaan.id');
+		$this->db->join('users penjawab', 'pelajaran_jawaban.id_user = penjawab.id');
+		$this->db->where('pelajaran_pertanyaan.id', $id_pertanyaan);
+
+		return $this->db->get();
+	}
+
+
+
+
+    function insert_jawaban($data) {
+        $this->db->insert('pelajaran_jawaban', $data);
+    }
+
+    function get_last_jawaban($id_pertanyaan) {
+       $this->db->select('	pelajaran_pertanyaan.id,
+							penjawab.id AS id_penjawab,
+							penjawab.nama AS nama_penjawab,
+							penjawab.wids AS wids_penjawab,
+							penjawab.nisn AS nisn_penjawab,
+							penjawab.avatar AS avatar_penjawab,
+							pelajaran_jawaban.id,
+							pelajaran_jawaban.id_pertanyaan,
+							pelajaran_jawaban.jawaban,
+							pelajaran_jawaban.jml_like,
+							pelajaran_jawaban.jml_dislike,
+							pelajaran_jawaban.tgl_update AS tanggal_jawab');
+
+		$this->db->join('pelajaran_jawaban', 'pelajaran_jawaban.id_pertanyaan = pelajaran_pertanyaan.id');
+		$this->db->join('users penjawab', 'pelajaran_jawaban.id_user = penjawab.id');
+		$this->db->where('pelajaran_pertanyaan.id', $id_pertanyaan);
+		$this->db->order_by('pelajaran_jawaban.tgl_update', 'desc');
+
+		return $this->db->get('pelajaran_pertanyaan', 1, 0);
+    }
+
+
 	function get_jawaban_by_nisn($nisn){
 		$query = $this->db->query("SELECT penanya.avatar AS avatar_penanya,
 									      pelajaran.pelajaran AS nama_pelajaran,
@@ -26,28 +78,30 @@ class Mjawaban extends CI_Model {
 		return $query;
 	}
 
-	function get_jawaban_pertanyaan($id_pertanyaan){
-		$this->db->select('	pelajaran_pertanyaan.id,
-							penjawab.id AS id_penjawab,
-							penjawab.nama AS nama_penjawab,
-							penjawab.wids AS wids_penjawab,
-							penjawab.nisn AS nisn_penjawab,
-							penjawab.avatar AS avatar_penjawab,
-							pelajaran_jawaban.id,
-							pelajaran_jawaban.id_pertanyaan,
-							pelajaran_jawaban.jawaban,
-							pelajaran_jawaban.jml_like,
-							pelajaran_jawaban.jml_dislike,
-							pelajaran_jawaban.tgl_update AS tanggal_jawab');
+	function get_jawaban_by_id($id){
+		$this->db->where('id', $id);
+		$query = $this->db->get('pelajaran_jawaban');
 
-		$this->db->from('pelajaran_pertanyaan');
-		$this->db->join('pelajaran_jawaban', 'pelajaran_jawaban.id_pertanyaan = pelajaran_pertanyaan.id');
-		$this->db->join('users penjawab', 'pelajaran_jawaban.id_user = penjawab.id');
-		$this->db->where('pelajaran_pertanyaan.id', $id_pertanyaan);
-
-		return $this->db->get();
+		if($query):
+			return $query;
+		else:
+			return false;
+		endif;
 	}
 
+	
+
+	function hapus_jawaban($id){
+		$this->db->where('id', $id);
+		$this->db->delete('pelajaran_jawaban');
+	}
+
+
+	
+
+
+    
+ 
 }
 
 /* End of file Mjawaban.php */

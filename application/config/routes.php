@@ -90,4 +90,6 @@ $route['delete_pertanyaan_saya/(:any)'] = 'Pertanyaan/delete_pertanyaan_saya/$1'
 $route['edit_pertanyaan_saya/(:any)'] = 'Pertanyaan/edit_pertanyaan_saya/$1';
 
 
+$route['delete_jawaban/(:any)'] = 'jawaban/delete_jawaban/$1';
+
 

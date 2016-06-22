@@ -3,6 +3,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Mpertanyaan extends CI_Model {
 
+	private $pertanyaan = 'pelajaran_pertanyaan';
 
 	function get_pertanyaan(){
 		$query = $this->db->query("SELECT penanya.nama AS nama_penanya,
@@ -18,7 +19,7 @@ class Mpertanyaan extends CI_Model {
 									JOIN  pelajaran ON pelajaran_pertanyaan.id_pelajaran = pelajaran.id");
 		return $query;
 	}
-
+ 
 	function get_pertanyaan_by_id($id){
 		$query = $this->db->query("SELECT penanya.nama AS nama_penanya,
 										  penanya.wids AS wids_penanya,
@@ -90,11 +91,13 @@ class Mpertanyaan extends CI_Model {
 	function delete_pertanyaan($id){
 		$this->db->where('id',$id);
 		$this->db->delete('pelajaran_pertanyaan');
+
+		$this->db->where('id_pertanyaan', $id);
+		$this->db->delete('pelajaran_jawaban', $id);
 	}
 
 	function edit_pertanyaan_saya($data, $id){
 		$this->db->where('id',$id);
 		$this->db->update('pelajaran_pertanyaan', $data);
 	}
-
 }

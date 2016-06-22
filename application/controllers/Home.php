@@ -99,8 +99,8 @@ class Home extends CI_Controller {
         else:
             $this->session->set_userdata('error', "");
             $this->session->set_flashdata('msg_success', 'Photo profil berhasil diubah');
-	            if(($this->session->userdata('avatar'))){
-	                unlink(FCPATH . "assets/images/avatar/".$this->session->userdata('avatar'));
+	            if(($this->session->userdata('avatar')) AND $this->session->userdata('avatar') != "default.jpg"){
+	                unlink(FCPATH."assets/images/avatar/".$this->session->userdata('avatar'));
 	            }
 	        $data = array('avatar' => $this->upload->data()['file_name']);
             $this->users->update($data, $this->session->userdata('nisn'));
