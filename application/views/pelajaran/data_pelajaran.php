@@ -59,8 +59,8 @@
                     <?php endif; ?>
                 </td>
                 <td>
-                    <button class="btn btn-success" onclick=location.href='<?= base_url() ?>edit_pelajaran/<?= $r->id ?>'><i class="fa fa-pencil"></i></button>
-                    <button class="btn btn-danger" onclick=location.href='<?= base_url() ?>delete_pelajaran/<?= $r->id ?>'><i class="fa fa-trash"></i></button>
+                    <button onclick=location.href="<?= base_url() ?>edit_pelajaran/<?= $r->id ?>" class="btn btn-success" ><i class="fa fa-pencil"></i></button>
+                    <button class="btn btn-danger" onclick=confirmDelete(<?= $r->id ?>)><i class="fa fa-trash"></i></button>
 
 
                      <?php if($r->is_active == '1'): ?>
@@ -101,5 +101,13 @@
                               ]
         });
       });
-    </script>
+</script>
+<script type="text/javascript">
+          function confirmDelete(id) {
+
+            if(confirm('Anda yakin untuk menghapus pelajaran ini ?')){
+                window.location.href="<?= base_url() ?>delete_pelajaran/"+id
+            }
+          }
+        </script>
 <?php $this->load->view('template/foot'); ?>

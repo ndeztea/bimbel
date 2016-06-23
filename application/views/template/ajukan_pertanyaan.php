@@ -18,7 +18,7 @@
 					        <h4 class="modal-title" id="myModalLabel">Pertanyaan</h4>
 					      </div>
 					      <div class="modal-body">
-					        <form method="post" action="<?= base_url() ?>add_pertanyaan">
+					        <form method="post" action="<?= base_url() ?>add_pertanyaan" enctype="multipart/form-data">
 			                    <textarea id="editor1" name="pertanyaan" rows="10" cols="80" placeholder="Tulis pertanyaanmu disini">
 			                    </textarea><br>
 			                    <div class="col-md-3">
@@ -40,6 +40,12 @@
 						                    	<option value="<?= $r->id ?>"><?= $r->pelajaran ?></option>
 						                    <?php	endforeach; ?>
 						                 </select>
+			                    	</div>
+			                    </div>
+			                    <div class="col-md-4">
+			                    	<div class="form-group">
+			                    		<label>Tambah Gambar</label>
+			                    		<input type="file" name="gambar" class="form-control">
 			                    	</div>
 			                    </div>
 			                    <div class="clearfix"></div>

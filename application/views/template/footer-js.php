@@ -31,13 +31,10 @@
                 delay: 250,
                 data: function (params) {
                   return {
-                    q: params.term // search term
+                    q: params.term
                   };
                 },
                 processResults: function (data) {
-                  // parse the results into the format expected by Select2.
-                  // since we are using custom formatting functions we do not need to
-                  // alter the remote JSON data
                   return {
                     results: data
                   };

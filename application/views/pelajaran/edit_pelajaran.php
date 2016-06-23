@@ -20,7 +20,7 @@
 		</div>
 
 		<!-- Custom Content Here -->
-              <?php $a = $data ?>
+              <?php $a = $pertanyaan_saya ?>
               <form method="post" action="<?= base_url() ?>edit_pelajaran/<?= $a['id'] ?>">
               <div class="box box-primary table-responsive">
                      <div class="box-header">

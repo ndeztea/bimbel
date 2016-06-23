@@ -105,7 +105,7 @@ class Pertanyaan extends CI_Controller {
 								$r['wids_pertanyaan'],
 								substr($r['pertanyaan'], 0, 100),
 								$r['tingkat'],
-								"<button class='btn btn-danger' onclick=location.href='".base_url()."delete_pertanyaan/".$r['id_pertanyaan']."'><i class='fa fa-trash'></i></button>".
+								"<button class='btn btn-danger' onclick=confirmDelete(".$r['id_pertanyaan'].")'><i class='fa fa-trash'></i></button>".
 								"  <button class='btn btn-info' onclick=location.href='".base_url()."detail_pertanyaan/".$r['id_pertanyaan']."'><i class='fa fa-eye'></i></button>"
 								);
 		$nomor_urut++;
@@ -141,6 +141,58 @@ class Pertanyaan extends CI_Controller {
 
     }
 
+    function add_pertanyaan(){
+		$this->form_validation->set_rules('pertanyaan', 'Pertanyaan', 'required|xss_clean');
+		$this->form_validation->set_rules('tingkat', 'Tingkat', 'required|xss_clean');
+		$this->form_validation->set_rules('mata_pelajaran', 'Mata Pelajaran', 'required|xss_clean');
+
+
+
+		if ($this->form_validation->run() == FALSE) {
+			$this->session->set_flashdata('msg_error', validation_errors());
+			$this->load->view('home');
+			
+		} else {
+
+			$config['upload_path'] = 'assets/images/question';
+			$config['allowed_types'] = 'gif|jpg|png';
+			$config['max_size']  = '1028';
+			$config['encrypt_name'] = true;
+			
+			$this->load->library('upload', $config);
+				
+			if($_FILES['gambar']['size'] == NULL):
+					$data = array('id_pelajaran' => $this->input->post('mata_pelajaran'),
+								  'tingkat'  	 => $this->input->post('tingkat'),
+								  'pertanyaan' 	 => $this->input->post('pertanyaan'),
+								  'id_user' 	 => $this->session->userdata('id'),
+								  'tgl_update'   => date("Y-m-d H:i:s"));
+					$this->Mpertanyaan->add_pertanyaan($data);
+					$this->session->set_flashdata('msg_success', 'Pertanyaan berhasil ditambahkan');
+					redirect(base_url().'home','refresh');
+			else:
+					if ( !$this->upload->do_upload('gambar')):
+						$error = array('error' => $this->upload->display_errors());
+						$this->session->set_flashdata('msg_error', $error['error']);
+						redirect(base_url().'home','refresh');
+					else:
+						$data = array('id_pelajaran' => $this->input->post('mata_pelajaran'),
+									  'tingkat'  	 => $this->input->post('tingkat'),
+									  'pertanyaan' 	 => $this->input->post('pertanyaan'),
+									  'id_user' 	 => $this->session->userdata('id'),
+									  'tgl_update'   => date("Y-m-d H:i:s"),
+									  'photo'		 =>	$this->upload->data()['file_name']					  
+									  );
+					$this->Mpertanyaan->add_pertanyaan($data);
+					$this->session->set_flashdata('msg_success', 'Pertanyaan berhasil ditambahkan');
+					redirect(base_url().'home','refresh');
+					endif;
+			endif;
+
+			
+		}
+	}
+
 
     function delete_pertanyaan_saya(){
 		$id = $this->uri->rsegment(3);
@@ -153,7 +205,7 @@ class Pertanyaan extends CI_Controller {
 		$id = $this->uri->rsegment(3);
         $this->Mpertanyaan->delete_pertanyaan($id);
 		$this->session->set_flashdata('msg_success', 'Data berhasil dihapus');
-        redirect(base_url().'data_pertanyaan','refresh');
+        redirect(base_url().'home','refresh');
     }
 
 

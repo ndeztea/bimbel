@@ -11,6 +11,7 @@ class Mjawaban extends CI_Model {
 							penjawab.nisn AS nisn_penjawab,
 							penjawab.avatar AS avatar_penjawab,
 							pelajaran_jawaban.id,
+							pelajaran_jawaban.photo as gambar_jawaban,
 							pelajaran_jawaban.id_pertanyaan,
 							pelajaran_jawaban.jawaban,
 							pelajaran_jawaban.jml_like,
@@ -97,7 +98,7 @@ class Mjawaban extends CI_Model {
 	}
 
 
-	function edit_jawaban(){
+	function edit_jawaban($data, $id){
 		$this->db->where('id', $id);
 		$this->db->update('pelajaran_jawaban', $data);
 	}

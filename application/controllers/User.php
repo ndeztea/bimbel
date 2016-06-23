@@ -65,11 +65,11 @@ class User extends CI_Controller {
 
 				if ($status == 0) {
 					$data = array('is_active' => 1);
-					$this->session->set_flashdata('msg_success', 'Pelajaran berhasil diaktifkan');
+					$this->session->set_flashdata('msg_success', 'User berhasil diaktifkan');
 				}
 				else{
 					$data = array('is_active' => 0);
-					$this->session->set_flashdata('msg_success', 'Pelajaran berhasil dinon-aktifkan');
+					$this->session->set_flashdata('msg_success', 'User berhasil dinon-aktifkan');
 				}
 
 				$this->users->update($data, $get->row_array()['nisn']);

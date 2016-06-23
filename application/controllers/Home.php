@@ -70,7 +70,7 @@ class Home extends CI_Controller {
 							   'gender' 		=> $this->input->post('jkel'),
 							   'tingkat_sekolah'=> $this->input->post('pendidikan'),
 							   'kelas' 			=> $this->input->post('kelas'),
-							   'nama_sekolah' 		=> $this->input->post('sekolah'),
+							   'nama_sekolah' 	=> $this->input->post('sekolah'),
 							   'hp' 			=> $this->input->post('no_hp'),
 							   'email' 			=> $this->input->post('email'),
 							   'rekening_bank' 	=> $this->input->post('no_rek'));
@@ -118,34 +118,6 @@ class Home extends CI_Controller {
 		else{
 			$this->form_validation->set_message('cek_password', 'Password yang anda masukkan salah, data gagal diubah');
 			return FALSE;
-		}
-	}
-
-
-
-	function add_pertanyaan(){
-		$this->form_validation->set_rules('pertanyaan', 'Pertanyaan', 'required|xss_clean');
-		$this->form_validation->set_rules('tingkat', 'Tingkat', 'required|xss_clean');
-		$this->form_validation->set_rules('mata_pelajaran', 'Mata Pelajaran', 'required|xss_clean');
-		$this->form_validation->set_rules('wids', 'Wids', 'required|xss_clean');
-
-
-
-		if ($this->form_validation->run() == FALSE) {
-			$this->session->set_flashdata('msg_error', validation_errors());
-			$this->load->view('home');
-			
-		} else {
-			$data = array('id_pelajaran' => $this->input->post('mata_pelajaran'),
-						  'tingkat'  	 => $this->input->post('tingkat'),
-						  'pertanyaan' 	 => $this->input->post('pertanyaan'),
-						  'wids'  		 => $this->input->post('wids'),	
-						  'id_user' 	 => $this->session->userdata('id'),
-						  'tgl_update'   => date("Y-m-d H:i:s")						  
-						  );
-			$this->Mpertanyaan->add_pertanyaan($data);
-			$this->session->set_flashdata('msg_success', 'Pertanyaan berhasil ditambahkan');
-			redirect(base_url().'home','refresh');
 		}
 	}
 }

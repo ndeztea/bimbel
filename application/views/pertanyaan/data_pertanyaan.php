@@ -76,5 +76,13 @@
         }
     });
 </script>
+<script type="text/javascript">
+  function confirmDelete(id) {
+
+    if(confirm('Anda yakin untuk menghapus pertanyaan ini ?')){
+        window.location.href="<?=base_url() ?>delete_pertanyaan/"+id
+    }
+  }
+</script>
 
 <?php $this->load->view('template/foot'); ?>

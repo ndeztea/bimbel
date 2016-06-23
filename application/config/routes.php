@@ -79,7 +79,7 @@ $route['set_active_user/(:any)'] = 'user/set_active/$1';
 $route['delete_user/(:any)'] = 'user/delete_user/$1';
 $route['edit_user/(:any)'] = 'user/edit_user/$1';
 
-$route['add_pertanyaan'] = 'home/add_pertanyaan';
+$route['add_pertanyaan'] = 'pertanyaan/add_pertanyaan';
 $route['pertanyaan'] = 'home/data_pertanyaan';
 $route['my_question'] = 'pertanyaan/pertanyaan_saya';
 
@@ -92,6 +92,8 @@ $route['edit_pertanyaan_saya/(:any)'] = 'Pertanyaan/edit_pertanyaan_saya/$1';
 
 $route['delete_jawaban/(:any)'] = 'jawaban/delete_jawaban/$1';
 $route['edit_jawaban/(:any)'] = 'jawaban/edit_jawaban/$1';
+$route['upload_gambar_jawaban/(:any)'] = 'jawaban/tambah_gambar_jawaban/$1';
+
 
 
 
