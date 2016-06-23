@@ -41,7 +41,8 @@
           <p><?= $pertanyaan['pertanyaan'] ?></p>
           <!-- <img class="img-responsive pad" src="../dist/img/photo2.png" alt="Photo"> -->
           <?php if($this->session->userdata('id') == $pertanyaan['id_penanya']): ?>
-                  <button class="btn btn-danger btn-xs pull-right" onclick=confirmDelete(<?= $pertanyaan['id_pertanyaan'] ?>)><i class="fa fa-times-o"></i> Hapus</button>
+                  <button class="btn btn-danger btn-xs pull-right" onclick=confirmDelete(<?= $pertanyaan['id_pertanyaan'] ?>)><i class="fa fa-trash"></i> Hapus</button>
+                  <button class="btn btn-success btn-xs pull-right" onclick="location.href='<?= base_url() ?>edit_pertanyaan_saya/<?= $pertanyaan['id_pertanyaan'] ?>'"><i class="fa fa-pencil"></i> Edit</button>
           <?php endif; ?>
         </div>
         <div class="box-footer box-comments">
@@ -110,6 +111,10 @@
         <?php endif; ?>
       </div>
   </div>
+  <div class="col-md-4">
+      <?php $this->load->view('template/profil_widget');?>
+      <?php $this->load->view('template/ajukan_pertanyaan'); ?>
+    </div>
 </section>	
 <?php $this->load->view('template/footer-js'); ?>
 <!-- custom JS -->

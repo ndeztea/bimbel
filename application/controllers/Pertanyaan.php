@@ -130,7 +130,9 @@ class Pertanyaan extends CI_Controller {
     	$pertanyaan = $this->Mpertanyaan->get_detail_pertanyaan($this->uri->rsegment(3));
 
 	    	if($pertanyaan):
+
 				$data['pertanyaan'] = $pertanyaan->row_array();
+				$data['wids'] 		  = count_wids($this->session->userdata('wids'));
 				$data['jawaban_pertanyaan'] = $this->Mjawaban->get_jawaban_pertanyaan($this->uri->rsegment(3));
 				$data['wids_penanya'] = count_wids($data['pertanyaan']['wids_penanya']);
 				$this->session->set_userdata('url_pertanyaan', base_url().'detail_pertanyaan/'.$this->uri->rsegment(3));
