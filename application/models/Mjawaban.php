@@ -97,7 +97,10 @@ class Mjawaban extends CI_Model {
 	}
 
 
-	
+	function edit_jawaban(){
+		$this->db->where('id', $id);
+		$this->db->update('pelajaran_jawaban', $data);
+	}
 
 
     

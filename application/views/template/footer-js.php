@@ -48,7 +48,9 @@
               id: '0', // the value of the option
               text: 'Cari Pertanyaan Disini'},
               minimumInputLength: 1,
-          });   
+          }).on('change', function(){
+          window.location="<?= base_url()?>detail_pertanyaan/"+this.value;
+        });;
     });
     </script>
     <!-- AdminLTE for demo purposes -->

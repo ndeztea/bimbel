@@ -36,6 +36,31 @@ class Jawaban extends CI_Controller {
         echo json_encode($content->row_array());
     }
 
+
+    function edit_jawaban(){
+
+			$get = $this->mjawaban->get_jawaban_by_id($this->uri->rsegment(3));
+
+			if ($get):
+
+	    		$this->form_validation->set_rules('jawaban', "Jawaban", "required|xss_clean");
+			
+				if($this->form_validation->run() == FALSE){
+					$data['jawaban'] = $get->row_array();
+					$this->load->view('jawaban/edit_jawaban', $data);
+				}
+				else{
+					$data = array('pelajaran' => $this->input->post('jawaban')
+						  );
+					$this->mjawaban->edit_jawaban($data, $get->row_array()['id']);
+					$this->session->set_flashdata('msg_success', 'Data berhasil di update');
+					redirect(base_url().'pertanyaan/detail_pertanyaan','refresh');
+				}
+			else:
+        		redirect(base_url().'not_found','refresh');
+			endif;
+		}
+
 }
 
 /* End of file Jawaban.php */
