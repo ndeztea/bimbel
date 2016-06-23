@@ -87,13 +87,19 @@ class User extends CI_Controller {
 
 		if($users):
 
+			if($this->input->post('email') != $users->row_array()['email']) {
+			   $is_unique =  '|is_unique[users.email]';
+			} else {
+			   $is_unique =  '';
+			}
+
 			$this->form_validation->set_rules('nama', 'Nama Lengkap', 'required|xss_clean');
 			$this->form_validation->set_rules('jkel', 'Jenis Kelamin', 'required|xss_clean');
 			$this->form_validation->set_rules('pendidikan', 'Tingkatan Sekolah', 'required|xss_clean');
 			$this->form_validation->set_rules('kelas', 'Kelas', 'required|xss_clean');
 			$this->form_validation->set_rules('sekolah', 'Nama Sekolah', 'required|xss_clean');
 			$this->form_validation->set_rules('no_hp', 'Nomor HP', 'required|numeric|xss_clean');
-			$this->form_validation->set_rules('email', 'E-Mail', 'required|xss_clean|valid_email');
+			$this->form_validation->set_rules('email', 'E-Mail', 'required|xss_clean|valid_email'.$is_unique);
 			$this->form_validation->set_rules('no_rek', 'Nomor Rekening', 'xss_clean|numeric');
 
 			if ($this->form_validation->run() == FALSE) {
