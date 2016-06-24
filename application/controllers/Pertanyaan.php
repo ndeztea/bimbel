@@ -10,6 +10,8 @@ class Pertanyaan extends CI_Controller {
 		$this->load->model('Mjawaban');
 		$this->load->model('mpelajaran');
 		$this->load->helper('bimbel_helper');
+		$this->load->model('users');
+		$this->load->model('Muser_wids');
 	}
 
 
@@ -162,35 +164,76 @@ class Pertanyaan extends CI_Controller {
 			$config['encrypt_name'] = true;
 			
 			$this->load->library('upload', $config);
-				
-			if($_FILES['gambar']['size'] == NULL):
+
+
+			$wids = $this->users->get_user_by_id($this->session->userdata('nisn'))->row_array();
+			$wids_total = $wids['wids'] - 2;
+
+			if($wids['wids'] > 2){
+				if($_FILES['gambar']['size'] == NULL):
 					$data = array('id_pelajaran' => $this->input->post('mata_pelajaran'),
 								  'tingkat'  	 => $this->input->post('tingkat'),
 								  'pertanyaan' 	 => $this->input->post('pertanyaan'),
 								  'id_user' 	 => $this->session->userdata('id'),
 								  'tgl_update'   => date("Y-m-d H:i:s"));
-					$this->Mpertanyaan->add_pertanyaan($data);
-					$this->session->set_flashdata('msg_success', 'Pertanyaan berhasil ditambahkan');
-					redirect(base_url().'home','refresh');
-			else:
-					if ( !$this->upload->do_upload('gambar')):
-						$error = array('error' => $this->upload->display_errors());
-						$this->session->set_flashdata('msg_error', $error['error']);
-						redirect(base_url().'home','refresh');
-					else:
-						$data = array('id_pelajaran' => $this->input->post('mata_pelajaran'),
-									  'tingkat'  	 => $this->input->post('tingkat'),
-									  'pertanyaan' 	 => $this->input->post('pertanyaan'),
-									  'id_user' 	 => $this->session->userdata('id'),
-									  'tgl_update'   => date("Y-m-d H:i:s"),
-									  'photo'		 =>	$this->upload->data()['file_name']					  
-									  );
-					$this->Mpertanyaan->add_pertanyaan($data);
-					$this->session->set_flashdata('msg_success', 'Pertanyaan berhasil ditambahkan');
-					redirect(base_url().'home','refresh');
-					endif;
-			endif;
 
+
+					$user = array('wids' => $wids_total);
+
+					$user_wids = array('id_user' => $wids['id'],
+									   'wids' => $wids_total,
+									   'tgl_update' => date("Y-m-d H:i:s"),
+									   'action' => 'kurang');
+
+
+					$this->Mpertanyaan->add_pertanyaan($data);
+					$this->users->update($user, $this->session->userdata('nisn'));
+					$this->Muser_wids->transaksi($user_wids);
+
+					$this->session->set_userdata('wids', $wids_total);
+
+					$this->session->set_flashdata('msg_success', 'Pertanyaan berhasil ditambahkan');
+					redirect(base_url().'home','refresh');
+
+
+				else:
+						if ( !$this->upload->do_upload('gambar')):
+							$error = array('error' => $this->upload->display_errors());
+							$this->session->set_flashdata('msg_error', $error['error']);
+							redirect(base_url().'home','refresh');
+						else:
+							$data = array('id_pelajaran' => $this->input->post('mata_pelajaran'),
+										  'tingkat'  	 => $this->input->post('tingkat'),
+										  'pertanyaan' 	 => $this->input->post('pertanyaan'),
+										  'id_user' 	 => $this->session->userdata('id'),
+										  'tgl_update'   => date("Y-m-d H:i:s"),
+										  'photo'		 =>	$this->upload->data()['file_name']);
+						$this->Mpertanyaan->add_pertanyaan($data);
+
+						$user = array('wids' => $wids_total);
+
+						$user_wids = array('id_user' => $wids['id'],
+										   'wids' => $wids_total,
+										   'tgl_update' => date("Y-m-d H:i:s"),
+										   'action' => 'kurang');
+
+
+						$this->Mpertanyaan->add_pertanyaan($data);
+						$this->users->update($user, $this->session->userdata('nisn'));
+						$this->Muser_wids->transaksi($user_wids);
+
+
+						$this->session->set_userdata('wids', $wids_total);
+						$this->session->set_flashdata('msg_success', 'Pertanyaan berhasil ditambahkan');
+						redirect(base_url().'home','refresh');
+						endif;
+				endif;
+			}
+			else {
+						$this->session->set_flashdata('msg_error', 'Maaf Wids kamu tidak cukup untuk melakukan pertanyaan');
+						redirect(base_url().'home','refresh');
+
+			}
 			
 		}
 	}
@@ -204,22 +247,32 @@ class Pertanyaan extends CI_Controller {
     }
 
     function delete_pertanyaan(){
-		$id = $this->uri->rsegment(3);
-        $this->Mpertanyaan->delete_pertanyaan($id);
-		$this->session->set_flashdata('msg_success', 'Data berhasil dihapus');
-        redirect(base_url().'home','refresh');
+		$get = $this->Mpertanyaan->get_pertanyaan_by_id($this->uri->rsegment(3));
+    	
+    	if($get):
+    		if($get->row_array()['gambar'] != NULL)
+    		{
+				unlink(FCPATH."assets/images/question/".$get->row_array()['gambar']);
+			}
+			$id = $this->uri->rsegment(3);
+	        $this->Mpertanyaan->delete_pertanyaan($id);
+			$this->session->set_flashdata('msg_success', 'Data berhasil dihapus');
+	        redirect(base_url().'home','refresh');
+	    else:
+	    	redirect(base_url().'not_found','refresh');
+	   	endif;
     }
 
 
     function edit_pertanyaan_saya(){	
 		$get = $this->Mpertanyaan->get_pertanyaan_by_id($this->uri->rsegment(3));
+		$this->session->set_userdata('url_edit_pertanyaan', base_url()."edit_pertanyaan_saya/".$this->uri->rsegment(3));
 
 			if ($get):
 
 	    		$this->form_validation->set_rules('pertanyaan', "Pertanyaan", "required|xss_clean");
 				$this->form_validation->set_rules('tingkat', "tingkat", 'required|xss_clean');
 				$this->form_validation->set_rules('mata_pelajaran', 'Mata Pelajaran', 'required|xss_clean');
-				$this->form_validation->set_rules('wids', 'Wids', 'required|xss_clean');
 
 			
 				if($this->form_validation->run() == FALSE){
@@ -228,15 +281,44 @@ class Pertanyaan extends CI_Controller {
 					$this->load->view('pertanyaan/edit_pertanyaan_saya', $data);
 				}
 				else{
-					$data = array('pertanyaan'		  => $this->input->post('pertanyaan'),
-						  		  'tingkat'		  	  => $this->input->post('tingkat'),
-						  		  'id_pelajaran'    => $this->input->post('mata_pelajaran'),
-						  		  'wids'   			  => $this->input->post('wids')
-						  );
-					$this->Mpertanyaan->edit_pertanyaan_saya($data, $get->row_array()['id_pertanyaan']);
-					$this->session->set_flashdata('msg_success', 'Data berhasil di update');
-					redirect(base_url().'my_question','refresh');
-				}
+					if($_FILES['gambar']['size'] != NULL):
+						$config['upload_path'] = 'assets/images/question';
+						$config['allowed_types'] = 'gif|jpg|png';
+						$config['max_size']  = '1024';
+						// $config['max_width']  = '1024';
+						// $config['max_height']  = '768';
+						
+						$this->load->library('upload', $config);
+						
+							if ( !$this->upload->do_upload('gambar')):
+								$error = array('error' => $this->upload->display_errors());
+								$this->session->set_flashdata('msg_error', $error['error']);
+								redirect($this->session->userdata('url_edit_pertanyaan'),'refresh');
+							else:
+								if($get->row_array()['gambar'] != NULL){
+									unlink(FCPATH."assets/images/question/".$get->row_array()['gambar']);
+								}
+								$data = array('pertanyaan'		  => $this->input->post('pertanyaan'),
+									  		  'tingkat'		  	  => $this->input->post('tingkat'),
+									  		  'id_pelajaran'      => $this->input->post('mata_pelajaran'),
+									  		  'photo'			  => $this->upload->data()['file_name'],
+								  );
+								$this->Mpertanyaan->edit_pertanyaan_saya($data, $get->row_array()['id_pertanyaan']);
+								$this->session->set_flashdata('msg_success', 'Data berhasil di update');
+								redirect($this->session->userdata('url_pertanyaan'),'refresh');
+							endif;
+					else:
+							$data = array('pertanyaan'		  => $this->input->post('pertanyaan'),
+									  		  'tingkat'		  	  => $this->input->post('tingkat'),
+									  		  'id_pelajaran'      => $this->input->post('mata_pelajaran')
+								  );
+								$this->Mpertanyaan->edit_pertanyaan_saya($data, $get->row_array()['id_pertanyaan']);
+								$this->session->set_flashdata('msg_success', 'Data berhasil di update');
+								redirect($this->session->userdata('url_pertanyaan'),'refresh');
+					endif;
+
+					}
+						
 			else:
         		redirect(base_url().'not_found','refresh');
 			endif;

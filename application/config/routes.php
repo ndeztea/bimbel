@@ -92,8 +92,8 @@ $route['edit_pertanyaan_saya/(:any)'] = 'Pertanyaan/edit_pertanyaan_saya/$1';
 
 $route['delete_jawaban/(:any)'] = 'jawaban/delete_jawaban/$1';
 $route['edit_jawaban/(:any)'] = 'jawaban/edit_jawaban/$1';
-$route['upload_gambar_jawaban/(:any)'] = 'jawaban/tambah_gambar_jawaban/$1';
+$route['upload_gambar_jawaban'] = 'jawaban/tambah_gambar_jawaban';
+// $route['upload_gambar_jawaban/(:any)'] = 'jawaban/tambah_gambar_jawaban/$1';
 
-
-
+$route['masteruser'] = 'master_user/login';
 

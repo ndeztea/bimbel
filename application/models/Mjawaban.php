@@ -33,6 +33,7 @@ class Mjawaban extends CI_Model {
         $this->db->insert('pelajaran_jawaban', $data);
     }
 
+
     function get_last_jawaban($id_pertanyaan) {
        $this->db->select('	pelajaran_pertanyaan.id,
 							penjawab.id AS id_penjawab,

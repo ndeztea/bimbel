@@ -10,6 +10,9 @@
     z-index: -1;
     }
 </style>
+
+<script src="<?= base_url() ?>assets/select2-4.0.2/vendor/jQuery-2.1.0.js"></script>
+
 <?php $this->load->view('template/header'); ?>
 <section class="content">
 	<div class="row">
@@ -17,7 +20,7 @@
 			<?php
               if($this->session->flashdata('msg_error') != NULL){
               echo '<div class="alert alert-danger" role="alert" style="padding: 6px 12px;height:34px;">';
-              echo "<i class='fa fa-info-circle'></i> <strong><span style='margin-left:10px;'>".$this->session->flashdata('msg_error')."</span></strong>";
+              echo "<i class='fa fa-info-circle'></i> <strong>".$this->session->flashdata('msg_error')."</strong>";
               echo '</div>';
               }?>
               <?php
@@ -39,7 +42,11 @@
         </div>
         <div class="box-body">
           <p><?= $pertanyaan['pertanyaan'] ?></p>
-          <!-- <img class="img-responsive pad" src="../dist/img/photo2.png" alt="Photo"> -->
+
+          <?php if($pertanyaan['gambar'] != NULL): ?>
+            <img class="img-responsive pad" src="<?= base_url() ?>assets/images/question/<?= $pertanyaan['gambar']?>" alt="Photo">
+          <?php endif; ?>
+
           <?php if($this->session->userdata('id') == $pertanyaan['id_penanya']): ?>
                   <button class="btn btn-danger btn-xs pull-right" onclick=confirmDelete(<?= $pertanyaan['id_pertanyaan'] ?>)><i class="fa fa-trash"></i> Hapus</button>
                   <button class="btn btn-success btn-xs pull-right" onclick="location.href='<?= base_url() ?>edit_pertanyaan_saya/<?= $pertanyaan['id_pertanyaan'] ?>'"><i class="fa fa-pencil"></i> Edit</button>
@@ -62,7 +69,7 @@
 
                   <div id="img-jawaban<?= $r->id ?>" class="col-md-6">
                     <?php if($r->gambar_jawaban != NULL): ?>
-                        <img src="<?= base_url() ?>/assets/images/question/<?= $r->gambar_jawaban ?>" alt="Photo" style="width:100% !important; height:auto !important"> 
+                        <img src="<?= base_url() ?>/assets/images/answer/<?= $r->gambar_jawaban ?>" alt="Photo" style="width:100% !important; height:auto !important"> 
                     <?php endif;?>
                   </div>
                   <div class="clearfix"></div>
@@ -82,9 +89,32 @@
                   <button type="button" class="btn btn-success btn-xs pull-right" onclick=ConfirmEdit(<?= $r->id ?>)><i class='fa fa-pencil'></i> Edit</button>
 
 
-                   <form method="post" action="" id="file_upload" enctype="multipart/form-data" onchange=ajaxFileUpload(<?= $r->id ?>)>
-                    <input type='file' name='gambar-jawaban' id='gambar-jawaban' class='fileInput'>
-                    <label for='gambar-jawaban' class='btn btn-primary btn-xs'><i class='fa fa-camera'></i> Tambah Gambar</label>
+                    <input type='file' name='gambar-jawaban<?= $r->id?>' id='gambar-jawaban<?= $r->id?>' class='fileInput'>
+                    <label for='gambar-jawaban<?= $r->id?>' class='btn btn-primary btn-xs'><i class='fa fa-camera'></i> Tambah Gambar</label>
+
+                    <script>
+                        $("#gambar-jawaban<?= $r->id?>").change(function(e){
+                              var file = this.files[0];
+                              var object = <?= $r->id?>;
+                              var form = new FormData();
+                                  form.append('id', object);
+                                  form.append('gambar-jawaban', file);
+                              $.ajax({
+                                  url : "<?= base_url() ?>upload_gambar_jawaban",
+                                  type: "POST",
+                                  cache: false,
+                                  contentType: false,
+                                  processData: false,
+                                  data : form,
+                                  success: function(response){
+                                      var r = $.parseJSON(response);
+                                      $("#img-jawaban<?= $r->id ?>").append("<img src='<?= base_url() ?>assets/images/answer/"+r.photo+"' alt='Photo' class'img-comment'> style='width:100% !important; height:auto !important'");
+                                  }
+                          });
+                      });    
+                  </script>
+
+
                   </form>
                 </div>
               </div>
@@ -147,24 +177,47 @@
                         data: post_data,
                         success: function(response) {
                             var json = $.parseJSON(response);
-                            $(".box-comments").append("<div class='box-comment'>"+
-                                                      "<img class='img-circle img-sm' src='<?= base_url()?>assets/images/avatar/"+json.avatar_penjawab+"' alt='images'>"+
-                                                      "<div class='comment-text'>"+
-                                                      "<span class='username'>"+json.nama_penjawab+
-                                                      "<small>"+"</small>"+
-                                                      "<span class='text-muted pull-right'>8:03 PM Today</span>"+
-                                                      "</span>"+
-                                                      json.jawaban+
-                                                      "<br />"+
-                                                      "<span class='pull-right text-muted'>"+json.jml_like+" likes - "+json.jml_dislike+" Dislkes </span>"+
-                                                      "<br >"+
-                                                      "<input type='file' name='gambar-jawaban' id='file' class='fileInput'>"+
-                                                      "<label for='file' class='btn btn-primary btn-xs'><i class='fa fa-camera'></i> Tambah Gambar</label>"+
-                                                      "<button class='btn btn-danger btn-xs pull-right' onclick=confirmHapus("+json.id+")><i class='fa fa-times-o'></i> Hapus</button>"+
-                                                      "<button class='btn btn-success btn-xs pull-right' onCLick='ConfirmEdit("+json.id+")'><i class='fa fa-pencil'></i> Edit</button>"+
-                                                      "</div>"+
-                                                      "</div>"
-                                                      )
+                            $(".box-comments").append(  "<div class='box-comment'>"+
+                            "<img class='img-circle img-sm' src='<?= base_url('assets/images/avatar/')?>/"+json.avatar_penjawab+"' alt='user image'>"+
+                          "<div class='comment-text'>"+
+                            "<span class='username'>"+
+                            json.nama_penjawab +" - <small>"+json.count_wids+"</small>"+
+                            "<span class='text-muted pull-right'>8:03 PM Today</span>"+
+                            "</span>"+
+                          json.jawaban+
+                          "<div id='img-jawaban"+json.id+"' class='col-md-6'>"+ 
+                            "</div>"+
+                            "<div class='clearfix'></div>"+
+                          "<span class='pull-right text-muted'>"+json.jml_like+" likes - "+ json.jml_dislike +" Dislikes</span>"+
+                            "<br />"+
+                          "<button class='btn btn-danger btn-xs pull-right' onclick=confirmHapus("+json.id+")><i class='fa fa-trash'></i> Hapus</button>"+
+                            "<button type='button' class='btn btn-success btn-xs pull-right' onclick=ConfirmEdit("+json.id+")><i class='fa fa-pencil'></i> Edit</button>"+
+                          "<input type='file' name='gambar-jawaban"+json.id+"' id='gambar-jawaban"+json.id+"' class='fileInput'>"+
+                            "<label for='gambar-jawaban"+json.id+"' class='btn btn-primary btn-xs'><i class='fa fa-camera'></i> Tambah Gambar</label>"+
+                          "<script>"+
+                            "$('#gambar-jawaban"+json.id+"').change(function(e){"+
+                            "var file = this.files[0];"+
+                            "var object = "+ json.id+";"+
+                            "var form = new FormData();"+
+                            "form.append('id', object);"+
+                            "form.append('gambar-jawaban', file);"+
+                            "$.ajax({"+
+                            "url : '<?= base_url() ?>upload_gambar_jawaban',"+
+                            "type: 'POST',"+
+                            "cache: false,"+
+                            "contentType: false,"+
+                            "processData: false,"+
+                            "data : form,"+
+                            "success: function(response){"+
+                            "var r = $.parseJSON(response);"+
+                            "$('#img-jawaban"+json.id+"').append('<img src=<?= base_url() ?>assets/images/answer/'+r.photo+' style=width:100%!important;height:auto!important; alt=Photo>');"+
+                            "}"+
+                            "});"+
+                            "});"+    
+                            "<"+ "/script>"+
+                            "</form>"+
+                            "</div>"+
+                            "</div>")
                         }
                     });
                       CKEDITOR.instances.comment.setData("");
@@ -206,42 +259,5 @@
           });
         </script>
         <script type="text/javascript" src="<?= base_url() ?>assets/js/ajaxFileUpload.js"></script>
-        <script type="text/javascript">
-          $('#gambar-jawaban').change(function(){
-            ajaxFileUpload(id);
-          })
-
-          function ajaxFileUpload(id){
-            $.ajaxFileUpload({
-              url: '<?= base_url() ?>upload_gambar_jawaban/'+id,
-              secureuri:false,
-              fileElementId:'gambar-jawaban',
-              dataType: 'json',
-              success: function(data,status){
-                  if(typeof(data.error) != 'undefined'){
-                      if(data.error){
-                          //print error
-                          alert(data.error);
-                      }else{
-                          //clear
-                          // $('#img img').attr('src',url+'cache/'+data.msg);
-                          alert("success");
-                      }
-                  }
-                  $('#gambar-jawaban').change(function(){
-                    ajaxFileUpload(id);
-                  });
-              },
-              error: function(data,status,e){
-                  //print error
-                  alert(e);
-                  $('#gambar-jawaban').change(function(){
-                    ajaxFileUpload(id);
-                  });
-              }
-            });
-            return false;
-          }
-        </script>
 
 <?php $this->load->view('template/foot'); ?>

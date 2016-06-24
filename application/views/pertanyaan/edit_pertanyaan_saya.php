@@ -22,7 +22,7 @@
 		<!-- Custom Content Here -->
               <?php $a = $pertanyaan_saya ?>
               <?= validation_errors() ?>
-              <form method="post" action="<?= base_url() ?>edit_pertanyaan_saya/<?= $this->uri->rsegment(3)?>">
+              <form method="post" action="<?= base_url() ?>edit_pertanyaan_saya/<?= $this->uri->rsegment(3)?>" enctype="multipart/form-data">
                  <textarea id="editor1" name="pertanyaan" rows="10" cols="80" placeholder="Tulis pertanyaanmu disini"><?= $a['pertanyaan'] ?>
                  </textarea><br>
                  <div class="col-md-3">
@@ -70,17 +70,8 @@
                  </div>
                  <div class="col-md-5">
                          <div class="form-group">
-                                <label>Wids</label>
-                               <select name="wids" class="form-control">
-                                <?php for ($i=10; $i <=99 ; $i++) : ?>
-                                       <option value="<?= $i ?>" <?php if($a['wids_pertanyaan'] == $i): 
-                                         echo "selected";
-                                         endif;?>><?= $i ?>
-                                        
-                                       </option>
-                                <?php endfor; ?> 
-                               </select>
-                               <small>(Anda memiliki <?= $this->session->userdata('wids')?> Wids)</small>
+                                <label>Gambar</label>
+                                <input type="file" name="gambar" class="form-control">
                          </div>
                  </div>
                  <input type="submit" class="btn btn-success" value="Edit Pertanyaan">

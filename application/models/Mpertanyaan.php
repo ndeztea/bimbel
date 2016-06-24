@@ -33,7 +33,8 @@ class Mpertanyaan extends CI_Model {
 									      pelajaran_pertanyaan.id AS id_pertanyaan,
 									      pelajaran_pertanyaan.pertanyaan AS pertanyaan,
 									      pelajaran_pertanyaan.tingkat,
-									      pelajaran_pertanyaan.wids as wids_pertanyaan
+									      pelajaran_pertanyaan.wids as wids_pertanyaan,
+									      pelajaran_pertanyaan.photo as gambar
 									FROM  users penanya
 									JOIN  pelajaran_pertanyaan ON penanya.id = pelajaran_pertanyaan.id_user
 									JOIN  pelajaran ON pelajaran_pertanyaan.id_pelajaran = pelajaran.id
@@ -68,7 +69,8 @@ class Mpertanyaan extends CI_Model {
 									      pelajaran_pertanyaan.id AS id_pertanyaan,
 									      pelajaran_pertanyaan.pertanyaan AS pertanyaan,
 									      pelajaran_pertanyaan.tingkat,
-									      pelajaran_pertanyaan.wids as wids_pertanyaan
+									      pelajaran_pertanyaan.wids as wids_pertanyaan,
+									      pelajaran_pertanyaan.photo as gambar
 									FROM  users penanya
 									JOIN  pelajaran_pertanyaan ON penanya.id = pelajaran_pertanyaan.id_user
 									JOIN  pelajaran ON pelajaran_pertanyaan.id_pelajaran = pelajaran.id
