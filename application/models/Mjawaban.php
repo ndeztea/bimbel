@@ -80,8 +80,8 @@ class Mjawaban extends CI_Model {
 									JOIN  pelajaran ON pelajaran_pertanyaan.id_pelajaran = pelajaran.id
 									JOIN  pelajaran_jawaban ON pelajaran_jawaban.id_pertanyaan = pelajaran_pertanyaan.id
 									JOIN  users penjawab ON pelajaran_jawaban.id_user = penjawab.id
-
-									WHERE penjawab.nisn = '$nisn'");
+									WHERE penjawab.nisn = '$nisn'
+									GROUP BY id_pertanyaan");
 
 
 		return $query;
