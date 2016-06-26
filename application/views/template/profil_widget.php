@@ -11,22 +11,28 @@
 		<div class="box-footer">
 			<div class="row">
 				<div class="col-sm-4 border-right">
-					<div class="description-block">
-						<h5 class="description-header">0</h5>
-						<span class="description-text">PERTANYAAN</span>
-					</div>
+					<a href="<?= base_url() ?>my_question">
+						<div class="description-block">
+							<h5 class="description-header"><?= $jumlah_pertanyaan ?></h5>
+							<span class="description-text">PERTANYAAN</span>
+						</div>
+					</a>
 				</div>
 				<div class="col-sm-4 border-right">
-					<div class="description-block">
-						<h5 class="description-header"><?= $this->session->userdata('wids'); ?></h5>
-						<span class="description-text">WIDS</span>
-					</div>
+					<a href="#">
+						<div class="description-block">
+							<h5 class="description-header"><?= $this->session->userdata('wids'); ?></h5>
+							<span class="description-text">WIDS</span>
+						</div>
+					</a>
 				</div>
 				<div class="col-sm-4">
-					<div class="description-block">
-						<h5 class="description-header">0</h5>
-						<span class="description-text">JAWABAN</span>
-					</div>
+					<a href="<?= base_url() ?>profil" >
+						<div class="description-block">
+							<h5 class="description-header"><?= $jumlah_jawaban ?></h5>
+							<span class="description-text">JAWABAN</span>
+						</div>
+					</a>
 				</div>
 			</div>
 		</div>

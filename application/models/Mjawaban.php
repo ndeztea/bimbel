@@ -27,6 +27,13 @@ class Mjawaban extends CI_Model {
 	}
 
 
+	function get_count_jawaban($id){
+		$this->db->select('COUNT(id) as jumlah');
+		$this->db->from('pelajaran_jawaban');
+		$this->db->where('id_user', $id);
+
+		return $this->db->get();
+	}
 
 
     function insert_jawaban($data) {

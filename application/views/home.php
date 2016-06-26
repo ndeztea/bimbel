@@ -38,7 +38,10 @@
 	            			</div>
 					    </div>
 			        <?php endforeach; ?>
-	            </div>	
+	            </div>
+	            <input type="hidden" name="offset" value="5" id="offset">
+	            <button class="btn btn-block btn-info" id="loadmore"> Load More...
+	            </button>
 	          </div>
 		</div>
 		<div class="col-md-4">
@@ -63,22 +66,22 @@
       });
     </script>
 <script type="text/javascript">
-$(document).on('click','.loadmore',function () {
+$(document).on('click','#loadmore',function () {
   $(this).text('Loading...');
-    var ele = $(this).parent('li');
+  		var offset = $("#offset").val();
         $.ajax({
-		      url: 'loadmore.php',
+		      url: "<?= base_url() ?>loadmore",
 		      type: 'POST',
-		      data: {
-		              page:$(this).data('page'),
-		            },
+		      data: {offset: offset},
 		      success: function(response){
-	          if(response){
-	             ele.hide();
-	                $(".news_list").append(response);
-	              }
-	            }
-   });
+		          if(response){
+		             $(".box-comments").append(response);
+		             $("#loadmore").text('Load More...');
+		             $("#offset").val(parseInt(offset)+5);
+		             console.log(offset);
+		          }
+	      	  }
+   		});
 });
 </script>
 <?php $this->load->view('template/foot'); ?>

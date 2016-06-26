@@ -179,7 +179,7 @@
                         data: post_data,
                         success: function(response) {
                             var json = $.parseJSON(response);
-                            $(".box-comments").append(  "<div class='box-comment'>"+
+                            $(".box-comments").append("<div class='box-comment'>"+
                             "<img class='img-circle img-sm' src='<?= base_url('assets/images/avatar/')?>/"+json.avatar_penjawab+"' alt='user image'>"+
                           "<div class='comment-text'>"+
                             "<span class='username'>"+

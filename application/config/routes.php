@@ -102,3 +102,5 @@ $route['masteruser'] = 'master_user/login';
 
 $route['data_wids/(:any)'] = 'Wids/data_wids/$1';
 
+$route['loadmore'] = "home/load_more";
+

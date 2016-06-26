@@ -9,7 +9,7 @@ class Mpertanyaan extends CI_Model {
      return $this->db->get("pelajaran_pertanyaan");
 	}
 
-	function get_pertanyaan(){
+	function get_pertanyaan($limit, $offset){
 		$this->db->select('penanya.nama AS nama_penanya,
 						   penanya.wids AS wids_penanya,
 						   penanya.avatar AS avatar_penanya,
@@ -18,11 +18,12 @@ class Mpertanyaan extends CI_Model {
 					       pelajaran_pertanyaan.pertanyaan AS pertanyaan,
 					       pelajaran_pertanyaan.tingkat,
 					       pelajaran_pertanyaan.wids as wids_pertanyaan');
-		$this->db->from('users penanya');
+
 		$this->db->join('pelajaran_pertanyaan', 'penanya.id = pelajaran_pertanyaan.id_user');
 		$this->db->join('pelajaran', 'pelajaran_pertanyaan.id_pelajaran = pelajaran.id');
 
-		return $this->db->get();
+		
+		return $this->db->get('users penanya', $limit, $offset);
 	}
  
 	function get_pertanyaan_by_id($id){
@@ -90,6 +91,15 @@ class Mpertanyaan extends CI_Model {
 		$this->db->select('id, pertanyaan');
 		$this->db->like('pertanyaan', $query);
 		$this->db->from('pelajaran_pertanyaan');
+
+		return $this->db->get();
+	}
+
+	
+	function get_count_pertanyaan($id){
+		$this->db->select('COUNT(id) as jumlah');
+		$this->db->from('pelajaran_pertanyaan');
+		$this->db->where('id_user', $id);
 
 		return $this->db->get();
 	}

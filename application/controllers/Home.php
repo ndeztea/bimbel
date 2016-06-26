@@ -25,9 +25,11 @@ class Home extends CI_Controller {
 	{
 		$wids = $this->users->get_user_by_id($this->session->userdata('nisn'))->row_array()['wids'];
 
-		$data['pertanyaan']   = $this->Mpertanyaan->get_pertanyaan();
-		$data['pelajaran'] 	  = $this->Mpelajaran->getdata()->result();
-		$data['wids'] 		  = count_wids($wids);
+		$data['pertanyaan']   		= $this->Mpertanyaan->get_pertanyaan(5, 0);
+		$data['pelajaran'] 	  		= $this->Mpelajaran->getdata()->result();
+		$data['jumlah_pertanyaan']	= $this->Mpertanyaan->get_count_pertanyaan($this->session->userdata('id'))->row_array()['jumlah'];
+		$data['jumlah_jawaban']	= $this->Mjawaban->get_count_jawaban($this->session->userdata('id'))->row_array()['jumlah'];
+		$data['wids'] 		 		= count_wids($wids);
 		$this->load->view('home', $data);
 	}
 
@@ -35,6 +37,9 @@ class Home extends CI_Controller {
 	function profil(){
 		$users = $this->users->get_user_by_id($this->session->userdata('nisn'));
 		if($users):
+
+
+
 			$data['users'] 				= $users->row_array();
 			$data['wids']   			= count_wids($users->row_array()['wids']);
 	    	$data['jawaban']			= $this->Mjawaban->get_jawaban_by_nisn($this->session->userdata('nisn'));
@@ -125,6 +130,25 @@ class Home extends CI_Controller {
 		else{
 			$this->form_validation->set_message('cek_password', 'Password yang anda masukkan salah, data gagal diubah');
 			return FALSE;
+		}
+	}
+
+	function load_more(){
+		$get = $this->Mpertanyaan->get_pertanyaan(5, $this->input->post('offset'));
+		foreach ($get->result() as $r) {
+			echo "<div class='box-comment'> 
+	            			<img class='img-circle img-sm' src='".
+	            			base_url('assets/images/avatar')."/".$r->avatar_penanya."'>
+	            			<div class='comment-text'>
+	            				<span class='username'>"
+	            					.$r->nama_pelajaran."&middot;"
+					         	 	.$r->wids_pertanyaan."Wids &middot;"
+					         	 	.get_tingkat($r->tingkat).
+	            				"</span>
+	            				<a href='".base_url()."detail_pertanyaan/".$r->id_pertanyaan."'>".$r->pertanyaan."</a>
+          						<button class='btn btn-success btn-xs pull-right' onclick=location.href='".base_url()."detail_pertanyaan/".$r->id_pertanyaan."'><i class='fa fa-share'></i> Jawab</button>
+	            			</div>
+					    </div>";
 		}
 	}
 }

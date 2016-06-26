@@ -138,7 +138,9 @@ class Pertanyaan extends CI_Controller {
     	$pertanyaan = $this->Mpertanyaan->get_detail_pertanyaan($this->uri->rsegment(3));
 
 	    	if($pertanyaan):
+				$data['jumlah_pertanyaan']	= $this->Mpertanyaan->get_count_pertanyaan($this->session->userdata('id'))->row_array()['jumlah'];
 
+				$data['jumlah_jawaban']	= $this->Mjawaban->get_count_jawaban($this->session->userdata('id'))->row_array()['jumlah'];
 				$data['pertanyaan'] = $pertanyaan->row_array();
 				$data['pelajaran'] 	  = $this->mpelajaran->getdata()->result();
 				$data['wids'] 		  = count_wids($this->session->userdata('wids'));
