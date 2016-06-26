@@ -84,6 +84,7 @@ class Auth extends CI_Controller {
 				$this->session->set_userdata('pendidikan', 	$data['tingkat_sekolah']);
 				$this->session->set_userdata('kelas',		$data['kelas']);
 				$this->session->set_userdata('wids', 		$data['wids']);
+				$this->session->set_userdata('level', 		$data['level']);
 
 				redirect(base_url().'home','refresh');
 

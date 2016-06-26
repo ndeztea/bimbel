@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost:3306
--- Generation Time: Jun 24, 2016 at 03:02 AM
+-- Generation Time: Jun 27, 2016 at 03:27 AM
 -- Server version: 5.5.42
 -- PHP Version: 5.6.10
 
@@ -31,6 +31,7 @@ CREATE TABLE `pelajaran` (
 --
 -- Dumping data for table `pelajaran`
 --
+
 -- --------------------------------------------------------
 
 --
@@ -88,6 +89,8 @@ CREATE TABLE `pelajaran_pertanyaan` (
 --
 -- Dumping data for table `pelajaran_pertanyaan`
 --
+
+
 -- --------------------------------------------------------
 
 --
@@ -109,7 +112,8 @@ CREATE TABLE `users` (
   `avatar` varchar(50) DEFAULT 'default.jpg',
   `wids` int(11) NOT NULL DEFAULT '0',
   `is_active` int(1) NOT NULL,
-  `activation_code` varchar(100) DEFAULT NULL
+  `activation_code` varchar(100) DEFAULT NULL,
+  `level` int(1) NOT NULL DEFAULT '2'
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
@@ -126,9 +130,13 @@ CREATE TABLE `users_wids` (
   `id_user` int(11) NOT NULL,
   `wids` int(11) NOT NULL,
   `tgl_update` datetime NOT NULL,
-  `action` int(11) NOT NULL
+  `action` enum('tambah','kurang','','') NOT NULL,
+  `keterangan` text NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `users_wids`
+--
 --
 -- Indexes for dumped tables
 --
@@ -182,12 +190,12 @@ ALTER TABLE `users_wids`
 -- AUTO_INCREMENT for table `pelajaran`
 --
 ALTER TABLE `pelajaran`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `pelajaran_jawaban`
 --
 ALTER TABLE `pelajaran_jawaban`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `pelajaran_jawaban_reponse`
 --
@@ -197,12 +205,12 @@ ALTER TABLE `pelajaran_jawaban_reponse`
 -- AUTO_INCREMENT for table `pelajaran_pertanyaan`
 --
 ALTER TABLE `pelajaran_pertanyaan`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `users_wids`
 --

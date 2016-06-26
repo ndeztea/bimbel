@@ -78,6 +78,8 @@ $route['users/(:any)'] = 'user/data_user/$1';
 $route['set_active_user/(:any)'] = 'user/set_active/$1';
 $route['delete_user/(:any)'] = 'user/delete_user/$1';
 $route['edit_user/(:any)'] = 'user/edit_user/$1';
+$route['avatar_update/(:any)'] = 'user/upload_avatar/$1';
+
 
 $route['add_pertanyaan'] = 'pertanyaan/add_pertanyaan';
 $route['pertanyaan'] = 'home/data_pertanyaan';
@@ -96,4 +98,7 @@ $route['upload_gambar_jawaban'] = 'jawaban/tambah_gambar_jawaban';
 // $route['upload_gambar_jawaban/(:any)'] = 'jawaban/tambah_gambar_jawaban/$1';
 
 $route['masteruser'] = 'master_user/login';
+
+
+$route['data_wids/(:any)'] = 'Wids/data_wids/$1';
 

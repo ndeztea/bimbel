@@ -5,7 +5,11 @@ class Jawaban extends CI_Controller {
 
 	function __construct()
 	{
+		
 		parent::__construct();
+		if($this->session->userdata('nisn') == NULL OR $this->session->userdata('nisn') == ""){
+			redirect(base_url(),'refresh');
+		}
 		$this->load->model('mjawaban');
 		$this->load->helper('bimbel_helper');
 	}

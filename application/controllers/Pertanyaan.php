@@ -6,6 +6,9 @@ class Pertanyaan extends CI_Controller {
 	function __construct()
 	{
 		parent::__construct();
+		if($this->session->userdata('nisn') == NULL OR $this->session->userdata('nisn') == ""){
+			redirect(base_url(),'refresh');
+		}
 		$this->load->model('Mpertanyaan');
 		$this->load->model('Mjawaban');
 		$this->load->model('mpelajaran');
@@ -16,6 +19,9 @@ class Pertanyaan extends CI_Controller {
 
 
 	function data_pertanyaan(){
+		if($this->session->userdata('nisn') == NULL OR $this->session->userdata('nisn') == "" OR $this->session->userdata('level') != "1"){
+			redirect(base_url(),'refresh');
+		}
 		$this->load->view('Pertanyaan/data_pertanyaan', NULL);
 	}
 
@@ -107,7 +113,7 @@ class Pertanyaan extends CI_Controller {
 								$r['wids_pertanyaan'],
 								substr($r['pertanyaan'], 0, 100),
 								$r['tingkat'],
-								"<button class='btn btn-danger' onclick=confirmDelete(".$r['id_pertanyaan'].")'><i class='fa fa-trash'></i></button>".
+								"<button class='btn btn-danger' onclick=confirmDelete(".$r['id_pertanyaan'].")><i class='fa fa-trash'></i></button>".
 								"  <button class='btn btn-info' onclick=location.href='".base_url()."detail_pertanyaan/".$r['id_pertanyaan']."'><i class='fa fa-eye'></i></button>"
 								);
 		$nomor_urut++;
@@ -134,6 +140,7 @@ class Pertanyaan extends CI_Controller {
 	    	if($pertanyaan):
 
 				$data['pertanyaan'] = $pertanyaan->row_array();
+				$data['pelajaran'] 	  = $this->mpelajaran->getdata()->result();
 				$data['wids'] 		  = count_wids($this->session->userdata('wids'));
 				$data['jawaban_pertanyaan'] = $this->Mjawaban->get_jawaban_pertanyaan($this->uri->rsegment(3));
 				$data['wids_penanya'] = count_wids($data['pertanyaan']['wids_penanya']);
@@ -183,7 +190,8 @@ class Pertanyaan extends CI_Controller {
 					$user_wids = array('id_user' => $wids['id'],
 									   'wids' => $wids_total,
 									   'tgl_update' => date("Y-m-d H:i:s"),
-									   'action' => 'kurang');
+									   'action' => 'kurang',
+									   'keterangan' => "Bertanya");
 
 
 					$this->Mpertanyaan->add_pertanyaan($data);

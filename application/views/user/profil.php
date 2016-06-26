@@ -101,7 +101,7 @@
                   <?= $r->wids ?> Wids &middot;
                   <?= get_tingkat($r->tingkat) ?>
                 </span>
-                <?= $r->pertanyaan ?>
+                <a href="<?= base_url() ?>detail_pertanyaan/<?= $r->id_pertanyaan ?>"><?= $r->pertanyaan ?></a>
               </div>
             </div>
             <?php endforeach; ?>

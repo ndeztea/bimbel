@@ -37,7 +37,7 @@
             <img class="img-circle" src="<?= base_url('assets/images/avatar/')."/".$pertanyaan['avatar_penanya'] ?>"
             alt="user image">
             <span class="username"><a href="#"><?= $pertanyaan['nama_penanya'] ?> - <small><?= $wids_penanya ?></small></a></span>
-            <span class="description"><?= get_tingkat($pertanyaan['tingkat']) ?> &middot; <?= $pertanyaan['nama_pelajaran'] ?> &middot; <?= $pertanyaan['wids_pertanyaan'] ?> Wids</span>
+            <span class="description"><?= get_tingkat($pertanyaan['tingkat']) ?> &middot; <?= $pertanyaan['nama_pelajaran'] ?></span>
           </div>
         </div>
         <div class="box-body">
@@ -47,7 +47,7 @@
             <img class="img-responsive pad" src="<?= base_url() ?>assets/images/question/<?= $pertanyaan['gambar']?>" alt="Photo">
           <?php endif; ?>
 
-          <?php if($this->session->userdata('id') == $pertanyaan['id_penanya']): ?>
+          <?php if($this->session->userdata('id') == $pertanyaan['id_penanya'] OR $this->session->userdata('level') == "1"): ?>
                   <button class="btn btn-danger btn-xs pull-right" onclick=confirmDelete(<?= $pertanyaan['id_pertanyaan'] ?>)><i class="fa fa-trash"></i> Hapus</button>
                   <button class="btn btn-success btn-xs pull-right" onclick="location.href='<?= base_url() ?>edit_pertanyaan_saya/<?= $pertanyaan['id_pertanyaan'] ?>'"><i class="fa fa-pencil"></i> Edit</button>
           <?php endif; ?>
@@ -86,8 +86,9 @@
 
 
                   <button class="btn btn-danger btn-xs pull-right" onclick=confirmHapus(<?= $r->id ?>)><i class="fa fa-trash"></i> Hapus</button>
-                  <button type="button" class="btn btn-success btn-xs pull-right" onclick=ConfirmEdit(<?= $r->id ?>)><i class='fa fa-pencil'></i> Edit</button>
-
+                  <?php if ($this->session->userdata('id') == $pertanyaan['id_penanya']): ?>
+                    <button type="button" class="btn btn-success btn-xs pull-right" onclick=ConfirmEdit(<?= $r->id ?>)><i class='fa fa-pencil'></i> Edit</button>
+                  <?php endif ?>
 
                     <input type='file' name='gambar-jawaban<?= $r->id?>' id='gambar-jawaban<?= $r->id?>' class='fileInput'>
                     <label for='gambar-jawaban<?= $r->id?>' class='btn btn-primary btn-xs'><i class='fa fa-camera'></i> Tambah Gambar</label>
@@ -108,7 +109,8 @@
                                   data : form,
                                   success: function(response){
                                       var r = $.parseJSON(response);
-                                      $("#img-jawaban<?= $r->id ?>").append("<img src='<?= base_url() ?>assets/images/answer/"+r.photo+"' alt='Photo' class'img-comment'> style='width:100% !important; height:auto !important'");
+                                      $("#img-jawaban<?= $r->id ?>").empty();
+                                      $("#img-jawaban<?= $r->id ?>").append("<img src='<?= base_url() ?>assets/images/answer/"+r.photo+"' alt='Photo' style='width:100% !important; height:auto !important'>");
                                   }
                           });
                       });    
@@ -210,6 +212,7 @@
                             "data : form,"+
                             "success: function(response){"+
                             "var r = $.parseJSON(response);"+
+                            "$('#img-jawaban"+json.id+"').empty();"+
                             "$('#img-jawaban"+json.id+"').append('<img src=<?= base_url() ?>assets/images/answer/'+r.photo+' style=width:100%!important;height:auto!important; alt=Photo>');"+
                             "}"+
                             "});"+

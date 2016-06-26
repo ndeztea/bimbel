@@ -64,6 +64,8 @@
                             <?php else: ?>
                               <button class="btn btn-success" onclick=location.href='<?= base_url() ?>set_active_user/<?= $r->nisn ?>'><i class="fa  fa-check"></i></button> 
                             <?php endif; ?>
+
+                            <button class="btn btn-primary" onclick=location.href="<?= base_url() ?>data_wids/<?= $r->nisn?>">Wids</button>
                           </td>
                         </tr>
                       <?php endforeach ?>

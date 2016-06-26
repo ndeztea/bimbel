@@ -6,6 +6,9 @@ class User extends CI_Controller {
 	function __construct()
 	{
 		parent::__construct();
+		if($this->session->userdata('nisn') == NULL OR $this->session->userdata('nisn') == "" AND $this->session->userdata('level') != "1"){
+			redirect(base_url(),'refresh');
+		}
 		$this->load->model('users');
 		
 	}
@@ -82,7 +85,7 @@ class User extends CI_Controller {
 
 
 	function edit_user(){
-		$users = $this->users->get_user_by_id($this->session->userdata('nisn'));
+		$users = $this->users->get_user_by_id($this->uri->rsegment(3));
 		
 
 		if($users):
@@ -124,6 +127,36 @@ class User extends CI_Controller {
 		else:
 			redirect(base_url().'404_override','refresh');
 		endif;
+	}
+
+	function upload_avatar(){
+		$this->session->set_userdata('url_users', base_url()."edit_user/".$this->uri->rsegment(3));
+		$users = $this->users->get_user_by_id($this->uri->rsegment(3))->row_array();
+
+		if($users):
+
+			$config['upload_path'] = 'assets/images/avatar';
+	        $config['allowed_types'] = 'jpg|png';
+	        $config['encrypt_name'] = TRUE;
+
+	        $this->load->library('upload', $config);
+
+	        if (!$this->upload->do_upload('avatar')):
+	            $this->session->set_flashdata('msg_error', $this->upload->display_errors());
+	            redirect(base_url().'profil', 'refresh');
+	        else:
+	            $this->session->set_userdata('error', "");
+	            $this->session->set_flashdata('msg_success', 'Photo profil berhasil diubah');
+		            if( $users['avatar'] != "default.jpg"){
+		                unlink(FCPATH."assets/images/avatar/".$users['avatar']);
+		            }
+		        $data = array('avatar' => $this->upload->data()['file_name']);
+	            $this->users->update($data, $users['nisn']);
+	            redirect($this->session->userdata('url_users'), 'refresh');
+	        endif;
+	  	else:
+	  		redirect(base_url()."not_found",'refresh');
+	  	endif;
 	}
 
 

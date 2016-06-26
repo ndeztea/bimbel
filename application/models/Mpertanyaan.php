@@ -10,18 +10,19 @@ class Mpertanyaan extends CI_Model {
 	}
 
 	function get_pertanyaan(){
-		$query = $this->db->query("SELECT penanya.nama AS nama_penanya,
-										  penanya.wids AS wids_penanya,
-										  penanya.avatar AS avatar_penanya,
-									      pelajaran.pelajaran AS nama_pelajaran,
-									      pelajaran_pertanyaan.id AS id_pertanyaan,
-									      pelajaran_pertanyaan.pertanyaan AS pertanyaan,
-									      pelajaran_pertanyaan.tingkat,
-									      pelajaran_pertanyaan.wids as wids_pertanyaan
-									FROM  users penanya
-									JOIN  pelajaran_pertanyaan ON penanya.id = pelajaran_pertanyaan.id_user
-									JOIN  pelajaran ON pelajaran_pertanyaan.id_pelajaran = pelajaran.id");
-		return $query;
+		$this->db->select('penanya.nama AS nama_penanya,
+						   penanya.wids AS wids_penanya,
+						   penanya.avatar AS avatar_penanya,
+					       pelajaran.pelajaran AS nama_pelajaran,
+					       pelajaran_pertanyaan.id AS id_pertanyaan,
+					       pelajaran_pertanyaan.pertanyaan AS pertanyaan,
+					       pelajaran_pertanyaan.tingkat,
+					       pelajaran_pertanyaan.wids as wids_pertanyaan');
+		$this->db->from('users penanya');
+		$this->db->join('pelajaran_pertanyaan', 'penanya.id = pelajaran_pertanyaan.id_user');
+		$this->db->join('pelajaran', 'pelajaran_pertanyaan.id_pelajaran = pelajaran.id');
+
+		return $this->db->get();
 	}
  
 	function get_pertanyaan_by_id($id){

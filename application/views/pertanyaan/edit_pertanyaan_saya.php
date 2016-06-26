@@ -70,7 +70,7 @@
                  </div>
                  <div class="col-md-5">
                          <div class="form-group">
-                                <label>Gambar</label>
+                                <label>Gambar (1 MB)</label>
                                 <input type="file" name="gambar" class="form-control">
                          </div>
                  </div>

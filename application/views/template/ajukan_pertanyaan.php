@@ -44,7 +44,7 @@
 			                    </div>
 			                    <div class="col-md-4">
 			                    	<div class="form-group">
-			                    		<label>Tambah Gambar</label>
+			                    		<label>Tambah Gambar (1 MB) :</label>
 			                    		<input type="file" name="gambar" class="form-control">
 			                    	</div>
 			                    </div>

@@ -80,7 +80,7 @@
   function confirmDelete(id) {
 
     if(confirm('Anda yakin untuk menghapus pertanyaan ini ?')){
-        window.location.href="<?=base_url() ?>delete_pertanyaan/"+id
+        window.location.href="<?= base_url() ?>delete_pertanyaan/"+id
     }
   }
 </script>

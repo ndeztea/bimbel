@@ -26,9 +26,9 @@
           <div class="box box-primary table-responsive">
             <div class="box-body box-profile">
               <div class="col-md-3">
-                <img id="imageProfile" class="profile-user-img img-responsive img-circle" alt="User profile picture" src="<?= base_url('assets/images/avatar/')."/".$this->session->userdata('avatar'); ?>"
+                <img id="imageProfile" class="profile-user-img img-responsive img-circle" alt="User profile picture" src="<?= base_url('assets/images/avatar/')."/".$users['avatar']; ?>"
                 style="width: 150px; height: 150px; margin: 10px auto;">
-                <form method="post" action="<?= base_url() ?>avatar" enctype="multipart/form-data">
+                <form method="post" action="<?= base_url() ?>avatar_update/<?= $users['nisn'] ?>" enctype="multipart/form-data">
                   <div class="form-group">
                     <label>Update foto profil</label>
                     <input id="imgProfile" type="file" name="avatar" class="form-control" accept="image/*">
