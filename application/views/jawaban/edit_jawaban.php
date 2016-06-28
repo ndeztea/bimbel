@@ -21,30 +21,37 @@
 
 		<!-- Custom Content Here -->
               <?php $a = $edit_jawaban ?>
-              <form method="post" action="<?= base_url() ?>edit_jawaban/<?= $this->uri->rsegment(3)?>">
-                     <div class="box-footer">
-                             <img class="img-circle img-sm" src="<?= base_url('assets/images/avatar/')."/".$this->session->userdata('avatar') ?>" alt="user image">
-                            <div class="img-push">
-                              <form action="" method="post" accept-charset="utf-8">
-                                <div class="input-group">
-                                  <div>
-                                   <textarea class="form_control" id="editor1" name="jawaban"><?= $a['jawaban'] ?></textarea>
-                                   </div>
-                                   <div>
-                                      <span class="input-group-btn">
-                                        <button class="btn btn-primary" type="submit" id="submit"><i class="fa fa-paper-plane"></i></button>
-                                      </span>
-                                    </div>
-                                </div><!-- /input-group -->   
-                              </form>
-                            </div>
-                     </div>
+              <div class="col-md-8">
+                <form method="post" action="<?= base_url() ?>edit_jawaban/<?= $this->uri->rsegment(3)?>">
+                  <div class="box box-bordered table-responsive">
+                    <div class="box-header">
+                      <h3 class="box-title">Edit Jawaban</h3>
+                    </div>
+                    <div class="box-body">
+                      <img class="img-circle img-sm" src="<?= base_url('assets/images/avatar/')."/".$this->session->userdata('avatar') ?>" alt="user image">
+                      <div class="img-push">
+                        <div class="input-group">
+                          <div>
+                            <textarea class="form_control" id="editor1" name="jawaban"><?= $a['jawaban'] ?></textarea>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="box-footer">
+                      <button class="btn btn-lg btn-primary pull-right" type="submit"><i class="fa fa-paper-plane"></i> Edit</button>
+                    </div>
+                  </div>
               </form>
+            </div>
+            <div class="col-md-4">
+              <?php $this->load->view('template/profil_widget'); ?>
+              <?php $this->load->view('template/ajukan_pertanyaan'); ?>
+            </div>
 	</div>
 </section>	
 <?php $this->load->view('template/footer-js'); ?>
 <!-- custom JS -->
-<script src="https://cdn.ckeditor.com/4.4.3/standard/ckeditor.js"></script>
+<script src="<?= base_url() ?>assets/ckeditor/ckeditor.js"></script>
 <script>
       $(function () {
         // Replace the <textarea id="editor1"> with a CKEditor

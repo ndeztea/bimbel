@@ -86,7 +86,7 @@
 
 
                   <button class="btn btn-danger btn-xs pull-right" onclick=confirmHapus(<?= $r->id ?>)><i class="fa fa-trash"></i> Hapus</button>
-                  <?php if ($this->session->userdata('id') == $pertanyaan['id_penanya']): ?>
+                  <?php if ($this->session->userdata('id') == $r->id_penjawab): ?>
                     <button type="button" class="btn btn-success btn-xs pull-right" onclick=ConfirmEdit(<?= $r->id ?>)><i class='fa fa-pencil'></i> Edit</button>
                   <?php endif ?>
 
@@ -252,7 +252,7 @@
             window.location.href="<?= base_url() ?>edit_jawaban/"+id;
           }
         </script>
-        <script src="https://cdn.ckeditor.com/4.4.3/standard/ckeditor.js"></script>
+        <script src="<?= base_url() ?>assets/ckeditor/ckeditor.js"></script>
         <script>
           $(function () {
             // Replace the <textarea id="editor1"> with a CKEditor

@@ -86,55 +86,12 @@
         </div>
 
 
-        <div class="box box-primary table-responsive">
-          <div class="box-header with-border">
-            <h2 class="box-title">Pertanyaan yang saya jawab</h2>
-          </div>
-          <div class="box-body box-comments">
-            <?php foreach ($jawaban->result() as $r): ?>
-            <div class="box-comment">
-              <img class="img-circle img-sm" src="
-              <?= base_url('assets/images/avatar/')."/".$this->session->userdata('avatar'); ?>" alt="user image">
-              <div class="comment-text">
-                <span class="username">
-                  <?= $r->nama_pelajaran ?>&middot;
-                  <?= $r->wids ?> Wids &middot;
-                  <?= get_tingkat($r->tingkat) ?>
-                </span>
-                <a href="<?= base_url() ?>detail_pertanyaan/<?= $r->id_pertanyaan ?>"><?= $r->pertanyaan ?></a>
-              </div>
-            </div>
-            <?php endforeach; ?>
-          </div>
-        </div>
+        
       </div>
 
       <div class="col-md-4">
-        <div class="box box-primary table-responsive">
-          <div class="box-header with-border">
-            <h3 class="box-title">List Pertanyaan Saya</h3>
-          </div>
-          <div class="box-body">
-            <table class="table table-bordered">
-              <tbody><tr>
-                <th style="width: 10px">#</th>
-                <th>Pertanyaan</th>
-              </tr>
-              <?php
-              $no =1;
-              foreach ($pertanyaan_saya->result() as $r) : ?>
-              <tr>
-                <td><?= $no ++ ?></td>
-                <td><?= $r->pertanyaan?></td>
-              </tr>
-              <?php endforeach ?>
-            </tbody></table>
-          </div>
-          <div class="box-footer clearfix">
-            <a href="<?= base_url() ?>my_question">Tampilkan Semua Pertanyaan</a>
-          </div>
-        </div>
-      </div>
+        <?php $this->load->view('template/profil_widget');?>
+        <?php $this->load->view('template/ajukan_pertanyaan'); ?>
     </div>
 </section>
 

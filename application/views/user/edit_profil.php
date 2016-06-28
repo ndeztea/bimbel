@@ -145,6 +145,10 @@
             </div>
           </div>
         </div>
+        <div class="col-md-4">
+          <?php $this->load->view('template/profil_widget'); ?>
+          <?php $this->load->view('template/ajukan_pertanyaan'); ?>
+        </div>
     </div>
 </section>
 

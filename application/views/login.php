@@ -172,11 +172,11 @@
                                         <div class="form-group">
                                             <label class="sr-only" for="form-pendidikan">Tingkatan Sekolah</label>
                                             <select name="pendidikan" class="form-control" id="pendidikan" onchange="changePendidikan(this)">
-                                                <option value="">-- Pilih Pendidikan--</option>
-                                                <option value="SD">SD</option>
-                                                <option value="SMP">SMP</option>
-                                                <option value="SMA">SMA</option>
-                                                <option value="SMA">SMK</option>
+                                                <option value="" <?= set_select('pendidikan', '', TRUE); ?>>-- Pilih Pendidikan--</option>
+                                                <option value="SD" <?= set_select('pendidikan', 'SD'); ?>>SD</option>
+                                                <option value="SMP" <?= set_select('pendidikan', 'SMP'); ?>>SMP</option>
+                                                <option value="SMA" <?= set_select('pendidikan', 'SMA'); ?>>SMA</option>
+                                                <option value="SMK" <?= set_select('pendidikan', 'SMK'); ?>>SMK</option>
                                             </select>
                                         </div>
                                     </div>
@@ -184,7 +184,7 @@
                                         <div class="form-group">
                                             <label class="sr-only" for="form-kelas">Kelas</label>
                                             <select name="kelas" class="form-control" id="kelas">
-                                                <option value="" <?= set_select('kelas', '', true) ?>>-- Pilih Kelas--</option>
+                                                <option value="">-- Pilih Kelas--</option>
                                             </select>
                                         </div>
                                     </div>
@@ -304,6 +304,78 @@
             </script>
 
             <script type="text/javascript">
+                $(document).ready(function(){
+                 var defaultData = $("#pendidikan").val();
+                 var kelas = document.getElementById("kelas");
+                 var pendidikan = document.getElementById("pendidikan");
+                 var optionDefault;
+
+                 while (kelas.options.length > 0) 
+                 { 
+                    kelas.remove(0); 
+                 } 
+
+                 if(defaultData == "SD"){
+                    for (var i=1; i <= 6; i++) {
+                        optionDefault = document.createElement("option");
+                        optionDefault.value = i;
+                        optionDefault.text = i;
+                        try{
+                            kelas.add(optionDefault);
+                        }
+                        catch (e){
+                            kelas.appendChild(optionDefault);
+                        }
+
+                    }
+                 }
+                 else if(defaultData == "SMP"){
+                    for (var i=7; i <= 9; i++) {
+                        optionDefault = document.createElement("option");
+                        optionDefault.value = i;
+                        optionDefault.text = i;
+                        try{
+                            kelas.add(optionDefault);
+                        }
+                        catch (e){
+                            kelas.appendChild(optionDefault);
+                        }
+
+                    }
+                 }
+                 else if(defaultData == "SMA"){
+                    for (var i=10; i <= 12; i++) {
+                        optionDefault = document.createElement("option");
+                        optionDefault.value = i;
+                        optionDefault.text = i;
+                        try{
+                            kelas.add(optionDefault);
+                        }
+                        catch (e){
+                            kelas.appendChild(optionDefault);
+                        }
+
+                    }
+                 }
+                 else{
+                    for (var i=10; i <= 12; i++) {
+                        optionDefault = document.createElement("option");
+                        optionDefault.value = i;
+                        optionDefault.text = i;
+                        try{
+                            kelas.add(optionDefault);
+                        }
+                        catch (e){
+                            kelas.appendChild(optionDefault);
+                        }
+
+                    }
+                 }
+
+                });
+            </script>
+
+            <script type="text/javascript">
                 (function($,W,D)
                     {
                         var JQUERY4U = {};
@@ -367,10 +439,9 @@
                                         },
                                         no_hp: {
                                             required:"Masukkan Nomor HP Anda",
-                                            number:"Nomor HP hanya boleh diisi dengan angka"},
+                                            number:"Nomor HP hanya boleh diisi dengan angka",
                                             minlength: "Nomor HP minimal 12 karakter diawali dengan 0"
-
-
+                                        },
                                         email: "Masukkan email yang valid",
                                     },
                                     submitHandler: function(form) {

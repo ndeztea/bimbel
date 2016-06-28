@@ -10,6 +10,9 @@ class Jawaban extends CI_Controller {
 		if($this->session->userdata('nisn') == NULL OR $this->session->userdata('nisn') == ""){
 			redirect(base_url(),'refresh');
 		}
+		$this->load->model('users');
+		$this->load->model('mpertanyaan');
+		$this->load->model('mpelajaran');
 		$this->load->model('mjawaban');
 		$this->load->helper('bimbel_helper');
 	}
@@ -101,6 +104,12 @@ class Jawaban extends CI_Controller {
 			$this->mjawaban->edit_jawaban($data, $this->input->post('id'));
 			echo json_encode($data);
 		}
+	}
+
+
+	function jawaban_saya(){
+	    	$data['jawaban'] = $this->mjawaban->get_jawaban_by_nisn($this->session->userdata('nisn'));
+	    	$this->load->view('jawaban/jawaban_saya', $data);
 	}
 }
 

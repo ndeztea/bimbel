@@ -30,7 +30,6 @@
 	            			<div class="comment-text">
 	            				<span class="username">
 	            					<?= $r->nama_pelajaran ?>&middot;
-					         	 	<?= $r->wids_pertanyaan ?> Wids &middot;
 					         	 	<?= get_tingkat($r->tingkat) ?>
 	            				</span>
 	            				<a href="<?= base_url() ?>detail_pertanyaan/<?= $r->id_pertanyaan ?>"><?= $r->pertanyaan ?></a>
@@ -56,7 +55,7 @@
 
 <?php $this->load->view('template/footer-js'); ?>
 <!-- custom JS -->
-<script src="https://cdn.ckeditor.com/4.4.3/standard/ckeditor.js"></script>
+<script src="<?= base_url() ?>assets/ckeditor/ckeditor.js"></script>
 <script>
       $(function () {
         // Replace the <textarea id="editor1"> with a CKEditor
@@ -78,7 +77,6 @@ $(document).on('click','#loadmore',function () {
 		             $(".box-comments").append(response);
 		             $("#loadmore").text('Load More...');
 		             $("#offset").val(parseInt(offset)+5);
-		             console.log(offset);
 		          }
 	      	  }
    		});

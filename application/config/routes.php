@@ -84,6 +84,7 @@ $route['avatar_update/(:any)'] = 'user/upload_avatar/$1';
 $route['add_pertanyaan'] = 'pertanyaan/add_pertanyaan';
 $route['pertanyaan'] = 'home/data_pertanyaan';
 $route['my_question'] = 'pertanyaan/pertanyaan_saya';
+$route['my_answer'] = 'jawaban/jawaban_saya';
 
 $route['data_pertanyaan'] = 'Pertanyaan/data_pertanyaan';
 $route['delete_pertanyaan/(:any)'] = 'Pertanyaan/delete_pertanyaan/$1';

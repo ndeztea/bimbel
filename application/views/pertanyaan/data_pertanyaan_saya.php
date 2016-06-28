@@ -19,40 +19,33 @@
               }?>
 		</div>
 
-              <div class="col-md-12">
-                     <div class="box box-primary table-responsive">
-                            <div class="box-header">
-                                   <h3 class="box-title">Data Pertanyaan Saya</h3>
-                            </div>
-                            <div class="box-body">
-                                   <table class="table table-bordered">
-                                          <thead>
-                                                 <tr>
-                                                        <td>#</td>
-                                                        <td>Pertanyaan</td>
-                                                        <td>Mata Pelajaran</td>
-                                                        <td>Wids</td>
-                                                        <td>Aksi</td>
-                                                 </tr>
-                                          </thead>
-                                          <tbody>
-                                                 <?php foreach ($pertanyaan->result() as $r): ?>
-                                                        <tr>
-                                                               <td><?= $no++ ?></td>
-                                                               <td><?= $r->pertanyaan ?></td>
-                                                               <td><?= $r->nama_pelajaran ?></td>
-                                                               <td><?= $r->wids_pertanyaan ?></td>
-                                                               <td>
-                                                                     <button class="btn btn-success" onclick=location.href='<?= base_url() ?>edit_pertanyaan_saya/<?= $r->id_pertanyaan ?>'><i class="fa fa-pencil"></i></button>
-                                                                      <button class="btn btn-danger" onclick=location.href='<?= base_url() ?>delete_pertanyaan_saya/<?= $r->id_pertanyaan ?>'><i class="fa fa-trash"></i></button> 
-                                                               </td>
-                                                        </tr> 
-                                                 <?php endforeach ?>
-                                          </tbody>
-                                   </table>
-                            </div>
-                     </div>
-              </div>
+		<div class="col-md-8">
+			<div class="box box-primary table-responsive">
+		      <div class="box-header with-border">
+		        <h2 class="box-title">Pertanyaan Saya</h2>
+		      </div>
+		      <div class="box-body box-comments">
+		        <?php foreach ($pertanyaan->result() as $r): ?>
+		        <div class="box-comment">
+		          <img class="img-circle img-sm" src="
+		          <?= base_url('assets/images/avatar/')."/".$r->avatar_penanya; ?>" alt="user image">
+		          <div class="comment-text">
+		            <span class="username">
+		              <?= $r->nama_pelajaran ?>&middot;
+		              <?= get_tingkat($r->tingkat) ?>
+		            </span>
+		            <a href="<?= base_url() ?>detail_pertanyaan/<?= $r->id_pertanyaan ?>"><?= $r->pertanyaan ?></a>
+		          </div>
+		        </div>
+		        <?php endforeach; ?>
+		      </div>
+		    </div>
+		</div>
+		<div class="col-md-4">
+			<?php $this->load->view('template/profil_widget'); ?>
+			<?php $this->load->view('template/ajukan_pertanyaan'); ?>
+		</div>
+
 	</div>
 </section>	
 <?php $this->load->view('template/footer-js'); ?>

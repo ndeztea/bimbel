@@ -9,12 +9,12 @@ class Pelajaran extends CI_Controller {
 		if($this->session->userdata('nisn') == NULL OR $this->session->userdata('nisn') == "" OR $this->session->userdata('level') != "1"){
 			redirect(base_url(),'refresh');
 		}
-		$this->load->model('Mpelajaran');
+		$this->load->model('mpelajaran');
 	}
 
 
 	function data_pelajaran(){
-		$data['data_pelajaran'] = $this->Mpelajaran->getdata()->result();
+		$data['data_pelajaran'] = $this->mpelajaran->getdata()->result();
 		$this->load->view('pelajaran/data_pelajaran', $data);
 	}
 
@@ -33,7 +33,7 @@ class Pelajaran extends CI_Controller {
 						  'deskripsi' => $this->input->post('deskripsi'),
 						  'params'    => $this->input->post('icon')
 						  );
-			$this->Mpelajaran->add_pelajaran($data);
+			$this->mpelajaran->add_pelajaran($data);
 			$this->session->set_flashdata('msg_success', 'Data berhasil ditambahkan');
 			redirect(base_url().'pelajaran','refresh');
 		}
@@ -43,7 +43,7 @@ class Pelajaran extends CI_Controller {
 
 	function delete_pelajaran(){
 		$id = $this->uri->rsegment(3);
-        $this->Mpelajaran->delete_pelajaran($id);
+        $this->mpelajaran->delete_pelajaran($id);
 		$this->session->set_flashdata('msg_success', 'Data berhasil dihapus');
         redirect(base_url().'pelajaran','refresh');
     }
@@ -52,7 +52,7 @@ class Pelajaran extends CI_Controller {
 
     function edit_pelajaran(){
 
-			$get = $this->Mpelajaran->get_by_id($this->uri->rsegment(3));
+			$get = $this->mpelajaran->get_by_id($this->uri->rsegment(3));
 
 			if ($get):
 
@@ -69,7 +69,7 @@ class Pelajaran extends CI_Controller {
 						  'deskripsi' => $this->input->post('deskripsi'),
 						  'params'    => $this->input->post('icon')
 						  );
-					$this->Mpelajaran->edit_pelajaran($data, $get->row_array()['id']);
+					$this->mpelajaran->edit_pelajaran($data, $get->row_array()['id']);
 					$this->session->set_flashdata('msg_success', 'Data berhasil di update');
 					redirect(base_url().'pelajaran','refresh');
 				}
@@ -80,7 +80,7 @@ class Pelajaran extends CI_Controller {
 
 
 	function set_active(){
-			$get = $this->Mpelajaran->get_by_id($this->uri->rsegment(3));
+			$get = $this->mpelajaran->get_by_id($this->uri->rsegment(3));
 
 			if ($get):
 				$status = $get->row_array()['is_active'];
@@ -94,7 +94,7 @@ class Pelajaran extends CI_Controller {
 					$this->session->set_flashdata('msg_success', 'Pelajaran berhasil dinon-aktifkan');
 				}
 
-				$this->Mpelajaran->edit_pelajaran($data, $get->row_array()['id']);
+				$this->mpelajaran->edit_pelajaran($data, $get->row_array()['id']);
 				redirect(base_url().'pelajaran','refresh');
 
 			else:

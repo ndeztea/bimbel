@@ -1,3 +1,12 @@
+	<?php
+		$wids_total = $this->users->get_user_by_id($this->session->userdata('nisn'))->row_array()['wids'];
+
+		$jumlah_pertanyaan	= $this->mpertanyaan->get_count_pertanyaan($this->session->userdata('id'))->row_array()['jumlah'];
+
+		$jumlah_jawaban	= $this->mjawaban->get_count_jawaban($this->session->userdata('id'))->row_array()['jumlah'];
+
+		$wids 		 		= count_wids($wids_total);
+	?>
 
 	<div class="box box-widget widget-user">
 		<div class="widget-user-header bg-aqua-active">
@@ -27,7 +36,7 @@
 					</a>
 				</div>
 				<div class="col-sm-4">
-					<a href="<?= base_url() ?>profil" >
+					<a href="<?= base_url() ?>my_answer" >
 						<div class="description-block">
 							<h5 class="description-header"><?= $jumlah_jawaban ?></h5>
 							<span class="description-text">JAWABAN</span>

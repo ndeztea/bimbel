@@ -1,3 +1,6 @@
+<?php 
+	$pelajaran 	  		= $this->mpelajaran->getdata()->result();
+?>
 <div class="box box-primary">
 				<div class="box-header">
 					<h3 class="box-title">Ajukan Pertanyaan

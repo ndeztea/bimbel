@@ -12,9 +12,9 @@ class Home extends CI_Controller {
 		}
 
 		$this->load->model('users');
-		$this->load->model('Mpertanyaan');
-		$this->load->model('Mpelajaran');
-		$this->load->model('Mjawaban');
+		$this->load->model('mpertanyaan');
+		$this->load->model('mpelajaran');
+		$this->load->model('mjawaban');
 		$this->load->helper('bimbel_helper');
 		$this->form_validation->set_error_delimiters('<div class="alert alert-danger">
   		<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>', '</div>');
@@ -23,13 +23,7 @@ class Home extends CI_Controller {
 
 	function index()
 	{
-		$wids = $this->users->get_user_by_id($this->session->userdata('nisn'))->row_array()['wids'];
-
-		$data['pertanyaan']   		= $this->Mpertanyaan->get_pertanyaan(5, 0);
-		$data['pelajaran'] 	  		= $this->Mpelajaran->getdata()->result();
-		$data['jumlah_pertanyaan']	= $this->Mpertanyaan->get_count_pertanyaan($this->session->userdata('id'))->row_array()['jumlah'];
-		$data['jumlah_jawaban']	= $this->Mjawaban->get_count_jawaban($this->session->userdata('id'))->row_array()['jumlah'];
-		$data['wids'] 		 		= count_wids($wids);
+		$data['pertanyaan']   		= $this->mpertanyaan->get_pertanyaan(5, 0);
 		$this->load->view('home', $data);
 	}
 
@@ -38,12 +32,9 @@ class Home extends CI_Controller {
 		$users = $this->users->get_user_by_id($this->session->userdata('nisn'));
 		if($users):
 
-
-
 			$data['users'] 				= $users->row_array();
 			$data['wids']   			= count_wids($users->row_array()['wids']);
-	    	$data['jawaban']			= $this->Mjawaban->get_jawaban_by_nisn($this->session->userdata('nisn'));
-	    	$data['pertanyaan_saya']	= $this->Mpertanyaan->get_pertanyaan_by_nisn($this->session->userdata('nisn'), 4, 0);
+	    	$data['pertanyaan_saya']	= $this->mpertanyaan->get_pertanyaan_by_nisn($this->session->userdata('nisn'), 4, 0);
 			$this->load->view('user/profil', $data);
 		else:
 			redirect(base_url().'404_override','refresh');
@@ -134,9 +125,8 @@ class Home extends CI_Controller {
 	}
 
 	function load_more(){
-		$get = $this->Mpertanyaan->get_pertanyaan(5, $this->input->post('offset'));
-
-		if($get->num_rows > 1):
+		$get = $this->mpertanyaan->get_pertanyaan(5, $this->input->post('offset'));
+		if($get->num_rows() > 1):
 			foreach ($get->result() as $r) {
 				echo "<div class='box-comment'> 
 		            			<img class='img-circle img-sm' src='".

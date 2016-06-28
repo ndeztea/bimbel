@@ -8,12 +8,12 @@ class Wids extends CI_Controller {
 	{
 		
 		parent::__construct();
-		$this->load->model('Mwids');
+		$this->load->model('mwids');
 	}
 
 
 	function data_wids()	{
-		$data['wids'] = $this->Mwids->get_wids($this->uri->rsegment(3));
+		$data['wids'] = $this->mwids->get_wids($this->uri->rsegment(3));
 		$this->load->view('wids/data_wids', $data);	
 	}
 
