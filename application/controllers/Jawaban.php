@@ -14,6 +14,7 @@ class Jawaban extends CI_Controller {
 		$this->load->model('mpertanyaan');
 		$this->load->model('mpelajaran');
 		$this->load->model('mjawaban');
+		$this->load->model('mwids');
 		$this->load->helper('bimbel_helper');
 	}
 
@@ -129,6 +130,42 @@ class Jawaban extends CI_Controller {
         		redirect(base_url().'not_found','refresh');
 			endif;
 		}
+
+
+	function betul(){
+		$this->form_validation->set_rules('wids', 'Wids', 'numeric|xss_clean|required');
+
+		if ($this->form_validation->run() == FALSE):
+			$this->session->set_flashdata('msg_error', validation_error());
+			redirect($this->session->userdata('url_pertanyaan'),'refresh');
+		else:
+			$user_wids = $this->users->get_user_by_id($this->input->post('id'));
+			if($user_wids):
+				$wids = $user_wids->row_array()['wids'] + $this->input->post('wids');
+
+				$data = array("wids" => $wids,
+							  "id_user" =>$user_wids->row_array()['id'],
+							  "action" => "tambah",
+							  "keterangan" => "Menjawab Pertanyaan");
+
+				$user = array("id" => $user_wids->row_array()['id'],
+							  "wids" => $wids);
+
+				$jawaban = array("is_correct" => "1");
+
+				$this->mjawaban->edit_jawaban($jawaban, $this->uri->rsegment(3));
+				$this->users->update($user, $this->input->post('id'));
+				$this->mwids->add_wids($data, $user);
+
+
+				
+				$this->session->set_flashdata('msg_success', 'Wids berhasil ditambahkan');
+				redirect($this->session->userdata('url_pertanyaan'),'refresh');
+			else:
+				redirect(base_url().'not_found','refresh');
+			endif;
+		endif;
+	}
 
 	function jawaban_saya(){
 	    	$data['jawaban'] = $this->mjawaban->get_jawaban_by_nisn($this->session->userdata('nisn'));

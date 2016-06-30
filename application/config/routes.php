@@ -97,6 +97,7 @@ $route['delete_jawaban/(:any)'] = 'jawaban/delete_jawaban/$1';
 $route['edit_jawaban/(:any)'] = 'jawaban/edit_jawaban/$1';
 $route['upload_gambar_jawaban'] = 'jawaban/tambah_gambar_jawaban';
 $route['jawab/(:any)'] = 'jawaban/insert_jawaban/$1';
+$route['betul/(:any)'] = 'jawaban/betul/$1';
 // $route['upload_gambar_jawaban/(:any)'] = 'jawaban/tambah_gambar_jawaban/$1';
 
 $route['masteruser'] = 'master_user/login';

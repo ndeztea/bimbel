@@ -42,7 +42,6 @@
         </div>
         <div class="box-body">
           <p><?= $pertanyaan['pertanyaan'] ?></p>
-
           <?php if($pertanyaan['gambar'] != NULL): ?>
             <img class="img-responsive pad" src="<?= base_url() ?>assets/images/question/<?= $pertanyaan['gambar']?>" alt="Photo">
           <?php endif; ?>
@@ -50,13 +49,22 @@
           <?php if($this->session->userdata('id') == $pertanyaan['id_penanya'] OR $this->session->userdata('level') == "1"): ?>
                   <button class="btn btn-danger btn-xs pull-right" onclick=confirmDelete(<?= $pertanyaan['id_pertanyaan'] ?>)><i class="fa fa-trash"></i> Hapus</button>
                   <button class="btn btn-success btn-xs pull-right" onclick="location.href='<?= base_url() ?>edit_pertanyaan_saya/<?= $pertanyaan['id_pertanyaan'] ?>'"><i class="fa fa-pencil"></i> Edit</button>
+
+                  <script type="text/javascript">
+                      function confirmDelete(id) {
+
+                        if(confirm('Anda yakin untuk menghapus pertanyaan ini ?')){
+                            window.location.href="<?=base_url() ?>delete_pertanyaan/"+id
+                        }
+                      }
+
+                  </script>
           <?php endif; ?>
         </div>
         <div class="box-footer box-comments">
-            <?php foreach ($jawaban_pertanyaan->result() as $r): ?>
-              <div class="box-comment">
+            <?php foreach($jawaban_pertanyaan_correct->result() as $r): ?>
+              <div class="box-comment" style="background-color:#c8fbd5">
                 <img class="img-circle img-sm" src="<?= base_url('assets/images/avatar/')."/".$r->avatar_penjawab?>" alt="user image">
-
 
                 <div class="comment-text">
                   <span class="username">
@@ -83,12 +91,104 @@
 
                   <span class="pull-right text-muted"><?= $r->jml_like ?> likes - <?= $r->jml_dislike ?> Dislikes</span>
                   <br />
-
-
-                  <button class="btn btn-danger btn-xs pull-right" onclick=confirmHapus(<?= $r->id ?>)><i class="fa fa-trash"></i> Hapus</button>
-                  <?php if ($this->session->userdata('id') == $r->id_penjawab): ?>
+                  
+                  <?php if ($this->session->userdata('id') == $r->id_penjawab OR $this->session->userdata('level') == "1"): ?>
+                    <button class="btn btn-danger btn-xs pull-right" onclick=confirmHapus(<?= $r->id ?>)><i class="fa fa-trash"></i> Hapus</button>
                     <button type="button" class="btn btn-success btn-xs pull-right" onclick=ConfirmEdit(<?= $r->id ?>)><i class='fa fa-pencil'></i> Edit</button>
+
+                    <script type="text/javascript">
+                      function confirmHapus(id)
+                        {
+                             if(confirm('Anda yakin untuk menghapus jawaban ?'))
+                             {
+                                window.location.href='<?= base_url() ?>delete_jawaban/'+id;
+                             }
+                        }
+
+                      function ConfirmEdit(id){
+                        window.location.href="<?= base_url() ?>edit_jawaban/"+id;
+                      }
+                    </script>
                   <?php endif ?>
+                </div>
+            </div>
+            <?php endforeach?>
+            <?php foreach ($jawaban_pertanyaan->result() as $r): ?>
+              <div class="box-comment">
+                <img class="img-circle img-sm" src="<?= base_url('assets/images/avatar/')."/".$r->avatar_penjawab?>" alt="user image">
+
+                <div class="comment-text">
+                  <span class="username">
+                    <?= $r->nama_penjawab ?> - <small><?= count_wids($r->wids_penjawab) ?></small>
+                    <span class="text-muted pull-right">8:03 PM Today</span>
+                  </span>
+
+
+                  <?= $r->jawaban ?>
+
+                  <div id="img-jawaban<?= $r->id ?>" class="col-md-6">
+                    <?php if($r->gambar_jawaban != NULL): ?>
+                        <img src="<?= base_url() ?>/assets/images/answer/<?= $r->gambar_jawaban ?>" alt="Photo" style="width:100% !important; height:auto !important"> 
+                    <?php endif;?>
+                  </div>
+                  <div class="clearfix"></div>
+
+
+                  <?php if($r->nama_penjawab != $this->session->userdata('nama')): ?>
+                      <button class="btn btn-default btn-xs"><i class="fa fa-thumbs-o-up"></i> Like</button>
+                      <button class="btn btn-default btn-xs"><i class="fa fa-thumbs-o-down"></i> Dislike</button>
+                  <?php endif; ?>
+
+
+                  <span class="pull-right text-muted"><?= $r->jml_like ?> likes - <?= $r->jml_dislike ?> Dislikes</span>
+                  <br />
+                  
+                  <?php if ($this->session->userdata('id') == $r->id_penjawab OR $this->session->userdata('level') == "1"): ?>
+                    <button class="btn btn-danger btn-xs pull-right" onclick=confirmHapus(<?= $r->id ?>)><i class="fa fa-trash"></i> Hapus</button>
+                    <button type="button" class="btn btn-success btn-xs pull-right" onclick=ConfirmEdit(<?= $r->id ?>)><i class='fa fa-pencil'></i> Edit</button>
+
+                    <script type="text/javascript">
+                      function confirmHapus(id)
+                        {
+                             if(confirm('Anda yakin untuk menghapus jawaban ?'))
+                             {
+                                window.location.href='<?= base_url() ?>delete_jawaban/'+id;
+                             }
+                        }
+
+                      function ConfirmEdit(id){
+                        window.location.href="<?= base_url() ?>edit_jawaban/"+id;
+                      }
+                    </script>
+                  <?php endif ?>
+                  <?php if($this->session->userdata('level') == "1" AND $r->is_correct == "0"): ?>
+                    <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+                    <i class='fa fa-check-circle'></i> Betul</button>
+
+                  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                      <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                        <form method="POST" action="<?= base_url() ?>betul/<?= $r->id ?>">
+                          <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="myModalLabel">Beri Wids</h4>
+                          </div>
+                          <div class="modal-body">
+                            <input type="hidden" name="id" value="<?= $r->nisn_penjawab ?>">
+                            <div class="form-group">
+                              <label>Tambah wids hadiah :</label>
+                              <input type="text" name="wids" class="form-control">
+                            </div>
+                          </div>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Tutup</button>
+                            <button type="submit" class="btn btn-primary">Simpan</button>
+                          </div>
+                        </form>
+                        </div>
+                      </div>
+                    </div>
+                  <?php endif; ?>
                 </div>
               </div>
             <?php endforeach; ?>
@@ -130,26 +230,7 @@
 });
 </script>
         <script type="text/javascript">
-             function confirmHapus(id)
-                {
-                     if(confirm('Anda yakin untuk menghapus jawaban ?'))
-                     {
-                        window.location.href='<?= base_url() ?>delete_jawaban/'+id;
-                     }
-                }
-        </script>
-        <script type="text/javascript">
-          function confirmDelete(id) {
-
-            if(confirm('Anda yakin untuk menghapus pertanyaan ini ?')){
-                window.location.href="<?=base_url() ?>delete_pertanyaan/"+id
-            }
-          }
-        </script>
-        <script>
-          function ConfirmEdit(id){
-            window.location.href="<?= base_url() ?>edit_jawaban/"+id;
-          }
+         
         </script>
         <script src="<?= base_url() ?>assets/ckeditor/ckeditor.js"></script>
         <script>

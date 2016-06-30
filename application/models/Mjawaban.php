@@ -14,6 +14,7 @@ class Mjawaban extends CI_Model {
 							pelajaran_jawaban.photo as gambar_jawaban,
 							pelajaran_jawaban.id_pertanyaan,
 							pelajaran_jawaban.jawaban,
+							pelajaran_jawaban.is_correct,
 							pelajaran_jawaban.jml_like,
 							pelajaran_jawaban.jml_dislike,
 							pelajaran_jawaban.tgl_update AS tanggal_jawab');
@@ -22,10 +23,36 @@ class Mjawaban extends CI_Model {
 		$this->db->join('pelajaran_jawaban', 'pelajaran_jawaban.id_pertanyaan = pelajaran_pertanyaan.id');
 		$this->db->join('users penjawab', 'pelajaran_jawaban.id_user = penjawab.id');
 		$this->db->where('pelajaran_pertanyaan.id', $id_pertanyaan);
+		$this->db->where('is_correct', "0");
 
 		return $this->db->get();
 	}
 
+
+	function get_correct_answer($id_pertanyaan){
+		$this->db->select('	pelajaran_pertanyaan.id,
+							penjawab.id AS id_penjawab,
+							penjawab.nama AS nama_penjawab,
+							penjawab.wids AS wids_penjawab,
+							penjawab.nisn AS nisn_penjawab,
+							penjawab.avatar AS avatar_penjawab,
+							pelajaran_jawaban.id,
+							pelajaran_jawaban.photo as gambar_jawaban,
+							pelajaran_jawaban.id_pertanyaan,
+							pelajaran_jawaban.jawaban,
+							pelajaran_jawaban.is_correct,
+							pelajaran_jawaban.jml_like,
+							pelajaran_jawaban.jml_dislike,
+							pelajaran_jawaban.tgl_update AS tanggal_jawab');
+
+		$this->db->from('pelajaran_pertanyaan');
+		$this->db->join('pelajaran_jawaban', 'pelajaran_jawaban.id_pertanyaan = pelajaran_pertanyaan.id');
+		$this->db->join('users penjawab', 'pelajaran_jawaban.id_user = penjawab.id');
+		$this->db->where('pelajaran_pertanyaan.id', $id_pertanyaan);
+		$this->db->where('is_correct', "1");
+
+		return $this->db->get();
+	}
 
 	function get_count_jawaban($id){
 		$this->db->select('COUNT(id) as jumlah');
