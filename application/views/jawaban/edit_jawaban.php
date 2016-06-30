@@ -3,9 +3,9 @@
 
 <?php $this->load->view('template/header'); ?>
 <section class="content">
-	<div class="row">
-		<div class="col-xs-12">
-			<?php
+  <div class="row">
+    <div class="col-xs-12">
+      <?php
               if($this->session->flashdata('msg_error') != NULL){
               echo '<div class="alert alert-danger" role="alert" style="padding: 6px 12px;height:34px;">';
               echo "<i class='fa fa-info-circle'></i> <strong><span style='margin-left:10px;'>".$this->session->flashdata('msg_error')."</span></strong>";
@@ -17,12 +17,12 @@
               echo "<i class='fa fa-info-circle'></i> <strong><span style='margin-left:10px;'>".$this->session->flashdata('msg_success')."</span></strong>";
               echo '</div>';
               }?>
-		</div>
+    </div>
 
-		<!-- Custom Content Here -->
+    <!-- Custom Content Here -->
               <?php $a = $edit_jawaban ?>
               <div class="col-md-8">
-                <form method="post" action="<?= base_url() ?>edit_jawaban/<?= $this->uri->rsegment(3)?>">
+                <form method="post" action="<?= base_url() ?>edit_jawaban/<?= $this->uri->rsegment(3)?>" enctype="multipart/form-data">
                   <div class="box box-bordered table-responsive">
                     <div class="box-header">
                       <h3 class="box-title">Edit Jawaban</h3>
@@ -30,10 +30,10 @@
                     <div class="box-body">
                       <img class="img-circle img-sm" src="<?= base_url('assets/images/avatar/')."/".$this->session->userdata('avatar') ?>" alt="user image">
                       <div class="img-push">
-                        <div class="input-group">
-                          <div>
-                            <textarea class="form_control" id="editor1" name="jawaban"><?= $a['jawaban'] ?></textarea>
-                          </div>
+                        <textarea class="form_control" id="editor2" name="jawaban"> <?= $a['jawaban'] ?></textarea>
+                        <div class="form-group">
+                          <label for="gambar">Ubah Gambar</label>
+                          <input type="file" name="gambar">
                         </div>
                       </div>
                     </div>
@@ -47,8 +47,8 @@
               <?php $this->load->view('template/profil_widget'); ?>
               <?php $this->load->view('template/ajukan_pertanyaan'); ?>
             </div>
-	</div>
-</section>	
+  </div>
+</section>  
 <?php $this->load->view('template/footer-js'); ?>
 <!-- custom JS -->
 <script src="<?= base_url() ?>assets/ckeditor/ckeditor.js"></script>
@@ -57,6 +57,7 @@
         // Replace the <textarea id="editor1"> with a CKEditor
         // instance, using default configuration.
         CKEDITOR.replace('editor1');
+        CKEDITOR.replace('editor2');
 
       });
     </script>

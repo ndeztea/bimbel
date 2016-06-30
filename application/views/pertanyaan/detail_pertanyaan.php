@@ -89,35 +89,6 @@
                   <?php if ($this->session->userdata('id') == $r->id_penjawab): ?>
                     <button type="button" class="btn btn-success btn-xs pull-right" onclick=ConfirmEdit(<?= $r->id ?>)><i class='fa fa-pencil'></i> Edit</button>
                   <?php endif ?>
-
-                    <input type='file' name='gambar-jawaban<?= $r->id?>' id='gambar-jawaban<?= $r->id?>' class='fileInput'>
-                    <label for='gambar-jawaban<?= $r->id?>' class='btn btn-primary btn-xs'><i class='fa fa-camera'></i> Tambah Gambar</label>
-
-                    <script>
-                        $("#gambar-jawaban<?= $r->id?>").change(function(e){
-                              var file = this.files[0];
-                              var object = <?= $r->id?>;
-                              var form = new FormData();
-                                  form.append('id', object);
-                                  form.append('gambar-jawaban', file);
-                              $.ajax({
-                                  url : "<?= base_url() ?>upload_gambar_jawaban",
-                                  type: "POST",
-                                  cache: false,
-                                  contentType: false,
-                                  processData: false,
-                                  data : form,
-                                  success: function(response){
-                                      var r = $.parseJSON(response);
-                                      $("#img-jawaban<?= $r->id ?>").empty();
-                                      $("#img-jawaban<?= $r->id ?>").append("<img src='<?= base_url() ?>assets/images/answer/"+r.photo+"' alt='Photo' style='width:100% !important; height:auto !important'>");
-                                  }
-                          });
-                      });    
-                  </script>
-
-
-                  </form>
                 </div>
               </div>
             <?php endforeach; ?>
@@ -127,18 +98,16 @@
         <?php if($this->session->userdata('id') != $pertanyaan['id_penanya']): ?>
           <div class="box-footer">
                <img class="img-circle img-sm" src="<?= base_url('assets/images/avatar/')."/".$this->session->userdata('avatar') ?>" alt="user image">
-              <div class="img-push">
-                <form action="" method="post" accept-charset="utf-8">
-                  <div class="input-group">
-                    <div>
-                     <textarea class="form_control" placeholder="Leave a comment" id="comment" name="jawaban"></textarea>
-                     </div>
-                     <div>
-                          <button class="btn btn-primary pull-right" type="button" id="submit"><i class="fa fa-paper-plane"></i> Jawab !</button>
-                      </div>
-                  </div><!-- /input-group -->   
-                </form>
-              </div>
+                <div class="img-push">
+                  <form action="<?= base_url() ?>jawab/<?= $this->uri->rsegment(3) ?>" method="post"  enctype="multipart/form-data">
+                  <textarea class="form_control" placeholder="Leave a comment" id="comment" name="jawaban"></textarea>
+                  <div class="form-group">
+                    <label for="gambar_jawaban">Tambah Gambar</label>
+                    <input type="file" name="gambar_jawaban">
+                  </div>
+                    <button class="btn btn-primary pull-right" type="submit" id="submit"><i class="fa fa-paper-plane"></i> Jawab !</button>
+                  </form>
+                </div>
           </div>
         <?php endif; ?>
       </div>
@@ -160,77 +129,7 @@
   });
 });
 </script>
-<script type="text/javascript">
-            $(function() {
- 
-                $('#submit').click(function() {
-           
-                  
-                    //get input data as a array
-                    var post_data = {
-                        'jawaban': CKEDITOR.instances.comment.getData(),
-                        'id_pertanyaan' : <?= $this->uri->rsegment(3) ?>,
-                        '<?php echo $this->security->get_csrf_token_name(); ?>': '<?php echo $this->security->get_csrf_hash(); ?>'
-                    };
- 
-                    $.ajax({
-                        type: "POST",
-                        url: "<?= base_url(); ?>jawaban/insert_jawaban",
-                        data: post_data,
-                        success: function(response) {
-                            var json = $.parseJSON(response);
-                            $(".box-comments").append("<div class='box-comment'>"+
-                            "<img class='img-circle img-sm' src='<?= base_url('assets/images/avatar/')?>/"+json.avatar_penjawab+"' alt='user image'>"+
-                          "<div class='comment-text'>"+
-                            "<span class='username'>"+
-                            json.nama_penjawab +" - <small>"+json.count_wids+"</small>"+
-                            "<span class='text-muted pull-right'>8:03 PM Today</span>"+
-                            "</span>"+
-                          json.jawaban+
-                          "<div id='img-jawaban"+json.id+"' class='col-md-6'>"+ 
-                            "</div>"+
-                            "<div class='clearfix'></div>"+
-                          "<span class='pull-right text-muted'>"+json.jml_like+" likes - "+ json.jml_dislike +" Dislikes</span>"+
-                            "<br />"+
-                          "<button class='btn btn-danger btn-xs pull-right' onclick=confirmHapus("+json.id+")><i class='fa fa-trash'></i> Hapus</button>"+
-                            "<button type='button' class='btn btn-success btn-xs pull-right' onclick=ConfirmEdit("+json.id+")><i class='fa fa-pencil'></i> Edit</button>"+
-                          "<input type='file' name='gambar-jawaban"+json.id+"' id='gambar-jawaban"+json.id+"' class='fileInput'>"+
-                            "<label for='gambar-jawaban"+json.id+"' class='btn btn-primary btn-xs'><i class='fa fa-camera'></i> Tambah Gambar</label>"+
-                          "<script>"+
-                            "$('#gambar-jawaban"+json.id+"').change(function(e){"+
-                            "var file = this.files[0];"+
-                            "var object = "+ json.id+";"+
-                            "var form = new FormData();"+
-                            "form.append('id', object);"+
-                            "form.append('gambar-jawaban', file);"+
-                            "$.ajax({"+
-                            "url : '<?= base_url() ?>upload_gambar_jawaban',"+
-                            "type: 'POST',"+
-                            "cache: false,"+
-                            "contentType: false,"+
-                            "processData: false,"+
-                            "data : form,"+
-                            "success: function(response){"+
-                            "var r = $.parseJSON(response);"+
-                            "$('#img-jawaban"+json.id+"').empty();"+
-                            "$('#img-jawaban"+json.id+"').append('<img src=<?= base_url() ?>assets/images/answer/'+r.photo+' style=width:100%!important;height:auto!important; alt=Photo>');"+
-                            "}"+
-                            "});"+
-                            "});"+    
-                            "<"+ "/script>"+
-                            "</form>"+
-                            "</div>"+
-                            "</div>")
-                        }
-                    });
-                      CKEDITOR.instances.comment.setData("");
-                    
-                });
- 
-            });
-        </script>
-
-          <script type="text/javascript">
+        <script type="text/javascript">
              function confirmHapus(id)
                 {
                      if(confirm('Anda yakin untuk menghapus jawaban ?'))

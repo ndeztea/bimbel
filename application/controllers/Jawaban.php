@@ -36,20 +36,50 @@ class Jawaban extends CI_Controller {
 
 
 	function insert_jawaban() {
-		
- 
-       	$jawaban = array('jawaban' => $this->input->post('jawaban'),
-       					 'id_pertanyaan' => $this->input->post('id_pertanyaan'),
-       					 'id_user' => $this->session->userdata('id'),
-       					  );
- 	
-        $this->mjawaban->insert_jawaban($jawaban);
 
-        $content = $this->mjawaban->get_last_jawaban($jawaban['id_pertanyaan']);
-        $result_content = $content->row_array();
-        $count_wids_array  = array('count_wids' => count_wids($result_content['wids_penjawab']));
+		$pertanyaan = $this->mpertanyaan->get_pertanyaan_by_id($this->uri->rsegment(3));
+			if($pertanyaan):
+				$this->form_validation->set_rules('jawaban', 'Jawaban', 'required|xss_clean');
+				if ($this->form_validation->run() == FALSE) {
+					$this->session->set_flashdata('msg_error', validation_error());
+					redirect($this->session->userdata('url_pertanyaan'),'refresh');
+				} else {
+					if($_FILES['gambar_jawaban']['size'] != NULL):
+						$config['upload_path'] = 'assets/images/answer';
+						$config['allowed_types'] = 'gif|jpg|png';
+						$config['max_size']  = '1024';
+						$config['encrypt_name'] = true;
 
-        echo json_encode(array_merge($result_content, $count_wids_array));
+
+						$this->load->library('upload', $config);
+						
+						if ( ! $this->upload->do_upload('gambar_jawaban')){
+							$error = array('error' => $this->upload->display_errors());
+							$this->session->set_flashdata('msg_error', $error['error']);
+							redirect($this->session->userdata('url_pertanyaan'),'refresh');
+						}
+						else{
+							$jawaban = array('jawaban' => $this->input->post('jawaban'),
+											 'id_pertanyaan' => $this->uri->rsegment(3),
+											 'id_user' => $this->session->userdata('id'),
+											 'photo' => $this->upload->data()['file_name']);	
+			    			$this->mjawaban->insert_jawaban($jawaban);
+			    			$this->session->set_flashdata('msg_succes', 'Jawaban berhasil ditambahkan');
+			    			redirect($this->session->userdata('url_pertanyaan'),'refresh');
+						}
+					else:
+						$jawaban = array('jawaban' => $this->input->post('jawaban'),
+										 'id_pertanyaan' => $this->uri->rsegment(3),
+										 'id_user' => $this->session->userdata('id'));	
+			    			$this->mjawaban->insert_jawaban($jawaban);
+			    			$this->session->set_flashdata('msg_succes', 'Jawaban berhasil ditambahkan');
+			    			redirect($this->session->userdata('url_pertanyaan'),'refresh');
+					endif;
+
+				}
+			else:
+				redirect(base_url().'not_found','refresh');
+			endif;
     }
 
 
@@ -57,55 +87,48 @@ class Jawaban extends CI_Controller {
     	$get = $this->mjawaban->get_jawaban_by_id($this->uri->rsegment(3));
 
 			if ($get):
-
 	    		$this->form_validation->set_rules('jawaban', "Jawaban", "required|xss_clean");
-			
 				if($this->form_validation->run() == FALSE){
 					$data['edit_jawaban'] = $get->row_array();
 					$this->load->view('jawaban/edit_jawaban', $data);
 				}
 				else{
-					$data = array('jawaban' => $this->input->post('jawaban')
-						  );
-					$this->mjawaban->edit_jawaban($data, $get->row_array()['id']);
-					$this->session->set_flashdata('msg_success', 'Data berhasil di update');
-					redirect($this->session->userdata('url_pertanyaan'),'refresh');
+					if($_FILES['gambar']['size'] == NULL):
+						$data = array('jawaban' => $this->input->post('jawaban')
+							  );
+						$this->mjawaban->edit_jawaban($data, $get->row_array()['id']);
+						$this->session->set_flashdata('msg_success', 'Data berhasil di update');
+						redirect($this->session->userdata('url_pertanyaan'),'refresh');
+					else:
+						$config['upload_path'] = 'assets/images/answer';
+						$config['allowed_types'] = 'gif|jpg|png';
+						$config['max_size']  = '1024';
+						$config['encrypt_name'] = true;
+						
+						$this->load->library('upload', $config);
+						
+						if ( !$this->upload->do_upload('gambar')){
+							$error = array('error' => $this->upload->display_errors());
+							$this->session->set_flashdata('msg_error', $error);
+							redirect(base_url().'edit_jawaban/'.$this->uri->rsegment(3),'refresh');
+						}
+						else{
+							if($get->row_array()['photo'] != NULL){
+								unlink(FCPATH.'assets/images/answer/'.$get->row_array()['photo']);
+							}
+							$data = array('jawaban' => $this->input->post('jawaban'),
+										  'photo' =>$this->upload->data()['file_name']
+							  );
+							$this->mjawaban->edit_jawaban($data, $get->row_array()['id']);
+							$this->session->set_flashdata('msg_success', 'Data berhasil di update');
+							redirect($this->session->userdata('url_pertanyaan'),'refresh');
+							}
+					endif;
 				}
 			else:
         		redirect(base_url().'not_found','refresh');
 			endif;
 		}
-
-	function tambah_gambar_jawaban(){
-		$jawaban = $this->mjawaban->get_jawaban_by_id($this->input->post('id'));
-
-		if($jawaban):
-			if($jawaban->row_array()['photo'] != NULL)
-    		{
-				unlink(FCPATH."assets/images/answer/".$jawaban->row_array()['photo']);
-			}
-		endif;
-
-
-		$config['upload_path'] = 'assets/images/answer';
-		$config['allowed_types'] = 'gif|jpg|png';
-		$config['max_size']  = '1024';
-		$config['encrypt_name'] = true;
-		
-		$this->load->library('upload', $config);
-		
-		if ( !$this->upload->do_upload('gambar-jawaban')){
-			$error = array('error' => $this->upload->display_errors());
-			echo json_encode(array('html' => $error['error']));
-		}
-		else{
-			$data = array('photo' => $this->upload->data()['file_name']);
-
-			$this->mjawaban->edit_jawaban($data, $this->input->post('id'));
-			echo json_encode($data);
-		}
-	}
-
 
 	function jawaban_saya(){
 	    	$data['jawaban'] = $this->mjawaban->get_jawaban_by_nisn($this->session->userdata('nisn'));
