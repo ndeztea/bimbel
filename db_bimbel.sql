@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost:3306
--- Generation Time: Jun 27, 2016 at 03:27 AM
+-- Generation Time: Jun 30, 2016 at 04:36 PM
 -- Server version: 5.5.42
 -- PHP Version: 5.6.10
 
@@ -32,6 +32,20 @@ CREATE TABLE `pelajaran` (
 -- Dumping data for table `pelajaran`
 --
 
+INSERT INTO `pelajaran` (`id`, `pelajaran`, `deskripsi`, `params`, `is_active`) VALUES
+(1, 'Matematika', 'Menghitung jari', 'fa-book', 1),
+(2, 'B. Indonesia', 'calistung', 'fa-android', 1),
+(17, 'Sejarah', 'IPS Sejarah', 'fa-bank', 1),
+(18, 'Biologi', 'IPA Biologi', 'fa-ge', 1),
+(19, 'Informatika', 'TI Informatika', 'fa-desktop', 1),
+(20, 'Teknik Mesin', 'Teknik Mesin', 'fa-gears', 1),
+(21, 'PKn', 'Pendidikan Kewarganegaraan', 'fa-check-circle', 1),
+(22, 'Geografi', 'Geografi', 'fa-globe', 1),
+(23, 'Penjaskes', 'Pendidikan Jasmani', 'fa-male', 1),
+(24, 'Seni', 'Seni', 'fa-lightbulb-o', 1),
+(25, 'Sosiologi', 'Sosiologi', 'fa-map-marker', 1),
+(26, 'Wirausaha', 'Kewirausahaan', 'fa-briefcase', 1);
+
 -- --------------------------------------------------------
 
 --
@@ -50,10 +64,6 @@ CREATE TABLE `pelajaran_jawaban` (
   `is_correct` enum('0','1') NOT NULL DEFAULT '0',
   `photo` text
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `pelajaran_jawaban`
---
 
 -- --------------------------------------------------------
 
@@ -86,11 +96,6 @@ CREATE TABLE `pelajaran_pertanyaan` (
   `photo` text
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `pelajaran_pertanyaan`
---
-
-
 -- --------------------------------------------------------
 
 --
@@ -116,9 +121,6 @@ CREATE TABLE `users` (
   `level` int(1) NOT NULL DEFAULT '2'
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `users`
---
 -- --------------------------------------------------------
 
 --
@@ -129,15 +131,12 @@ CREATE TABLE `users_wids` (
   `id` int(11) NOT NULL,
   `id_user` int(11) NOT NULL,
   `wids` int(11) NOT NULL,
-  `tgl_update` datetime NOT NULL,
+  `tgl_update` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `action` enum('tambah','kurang','','') NOT NULL,
   `keterangan` text NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `users_wids`
---
---
+
 -- Indexes for dumped tables
 --
 
@@ -190,12 +189,12 @@ ALTER TABLE `users_wids`
 -- AUTO_INCREMENT for table `pelajaran`
 --
 ALTER TABLE `pelajaran`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 --
 -- AUTO_INCREMENT for table `pelajaran_jawaban`
 --
 ALTER TABLE `pelajaran_jawaban`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=81;
 --
 -- AUTO_INCREMENT for table `pelajaran_jawaban_reponse`
 --
@@ -205,14 +204,14 @@ ALTER TABLE `pelajaran_jawaban_reponse`
 -- AUTO_INCREMENT for table `pelajaran_pertanyaan`
 --
 ALTER TABLE `pelajaran_pertanyaan`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 --
 -- AUTO_INCREMENT for table `users_wids`
 --
 ALTER TABLE `users_wids`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
