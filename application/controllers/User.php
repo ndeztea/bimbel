@@ -147,7 +147,7 @@ class User extends CI_Controller {
 	        else:
 	            $this->session->set_userdata('error', "");
 	            $this->session->set_flashdata('msg_success', 'Photo profil berhasil diubah');
-		            if( $users['avatar'] != "default.jpg"){
+		            if($this->session->userdata('avatar') AND $this->session->userdata('avatar') != "default-male.png" AND $this->session->userdata('avatar') != "default-female.png"){
 		                unlink(FCPATH."assets/images/avatar/".$users['avatar']);
 		            }
 		        $data = array('avatar' => $this->upload->data()['file_name']);

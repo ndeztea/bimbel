@@ -102,6 +102,9 @@ $route['masteruser'] = 'master_user/login';
 
 
 $route['data_wids/(:any)'] = 'Wids/data_wids/$1';
+$route['wids_action/(:any)'] = 'wids/wids_action/$1';
+
+
 
 $route['loadmore'] = "home/load_more";
 $route['loadmore_mapel'] = "pertanyaan/load_more";

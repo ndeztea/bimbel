@@ -41,6 +41,16 @@ class Auth extends CI_Controller {
 		if ($this->form_validation->run() == FALSE):
  			$this->load->view('login');
 		else:
+
+			if($this->input->post('jkel') == 'l'){
+				$photo = 'default-male.png';
+			}
+			else if($this->input->post('jkel') == 'p'){
+				$photo = 'default-female.png';
+			}
+
+
+
 			$users = array('nisn' 			=> $this->input->post('NISN'),
 						   'nama' 			=> $this->input->post('nama_lengkap'),
 						   'gender' 		=> $this->input->post('jkel'),
@@ -51,6 +61,7 @@ class Auth extends CI_Controller {
 						   'email' 			=> $this->input->post('email'),
 						   'rekening_bank' 	=> $this->input->post('no_rek'),
 						   'wids' 			=> '2',
+						   'avatar'			=> $photo,
 						   'is_active' 		=> '1');
 
 

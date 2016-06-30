@@ -38,7 +38,7 @@
                        foreach ($wids->result() as $r): ?>
                         <tr>
                           <td><?= $no++ ?></td>
-                          <td><?= $r->id_user ?></td>
+                          <td><?= $r->nama ?></td>
                           <td><?= $r->wids ?></td>
                           <td><?= $r->tgl_update ?></td>
                           <td><?= $r->action ?></td>
@@ -56,34 +56,34 @@
 <!-- Modal -->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document">
+    <form method="POST" action="<?= base_url() ?>wids_action/<?= $this->uri->rsegment(3) ?>">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <h4 class="modal-title" id="myModalLabel">Manage Wids</h4>
       </div>
       <div class="modal-body">
-        <form>
-                     <div class="form-group">
-                             <label>Wids : </label>
-                             <input type="text" name="wids" class="form-control">
-                     </div>
-                     <div class="form-group">
-                            <label>Aksi : </label>
-                            <select class="form-control">
-                                   <option>Tambah</option>
-                                   <option>Kurang</option>
-                            </select>
-                     </div>
-                     <div class="form-group">
-                            <label>Keterangan :</label>
-                            <input type="text" name="" class="form-control">
-                     </div>
-        </form>
+             <div class="form-group">
+                     <label>Wids : </label>
+                     <input type="text" name="wids" class="form-control">
+             </div>
+             <div class="form-group">
+                    <label>Aksi : </label>
+                    <select class="form-control" name="aksi">
+                           <option value="tambah">Tambah</option>
+                           <option value="kurang">Kurang</option>
+                    </select>
+             </div>
+             <div class="form-group">
+                    <label>Keterangan :</label>
+                    <input type="text" name="keterangan" class="form-control">
+             </div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+        <button type="submit" class="btn btn-primary">Save changes</button>
       </div>
+     </form>
     </div>
   </div>
 </div>

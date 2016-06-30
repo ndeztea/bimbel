@@ -14,8 +14,9 @@
             </div>
             <div class="collapse navbar-collapse pull-left" id="navbar-collapse">
               <ul class="nav navbar-nav">
-            <?php if ($this->session->userdata('level') == "1"): ?>
                 <li><a href="<?= base_url()?>">Home</a></li>
+              
+            <?php if ($this->session->userdata('level') == "1"): ?>
                 <li class="dropdown">
                   <a href="#" class="dropdown-toggle" data-toggle="dropdown">Data Master <span class="caret"></span></a>
                   <ul class="dropdown-menu" role="menu">
