@@ -19,6 +19,15 @@ class Mpelajaran extends CI_Model {
 	function getdata(){
      return $this->db->get("pelajaran");
 	}
+
+	function get_first_12(){
+     	return $this->db->get("pelajaran", 11, 0);
+	}
+
+	function get_more(){
+		$limit = $this->getdata()->num_rows();
+     	return $this->db->get("pelajaran", $limit, 11);
+	}
 	
 
 	function add_pelajaran($data){	

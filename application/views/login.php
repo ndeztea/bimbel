@@ -358,16 +358,9 @@
                     }
                  }
                  else{
-                    for (var i=10; i <= 12; i++) {
                         optionDefault = document.createElement("option");
-                        optionDefault.value = i;
-                        optionDefault.text = i;
-                        try{
-                            kelas.add(optionDefault);
-                        }
-                        catch (e){
-                            kelas.appendChild(optionDefault);
-                        }
+                        optionDefault.value = "";
+                        optionDefault.text = "-- Pilih Kelas--";
 
                     }
                  }

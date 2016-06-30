@@ -21,6 +21,7 @@ class Mpertanyaan extends CI_Model {
 
 		$this->db->join('pelajaran_pertanyaan', 'penanya.id = pelajaran_pertanyaan.id_user');
 		$this->db->join('pelajaran', 'pelajaran_pertanyaan.id_pelajaran = pelajaran.id');
+		$this->db->order_by('pelajaran_pertanyaan.tgl_update', 'desc');
 
 		
 		return $this->db->get('users penanya', $limit, $offset);
@@ -42,6 +43,25 @@ class Mpertanyaan extends CI_Model {
 									JOIN  pelajaran ON pelajaran_pertanyaan.id_pelajaran = pelajaran.id
 									WHERE pelajaran_pertanyaan.id = $id");
 		return $query;
+	}
+
+	function get_pertanyaan_by_mapel($mapel ,$limit, $offset){
+		$this->db->select('penanya.nama AS nama_penanya,
+						   penanya.wids AS wids_penanya,
+						   penanya.avatar AS avatar_penanya,
+					       pelajaran.pelajaran AS nama_pelajaran,
+					       pelajaran_pertanyaan.id AS id_pertanyaan,
+					       pelajaran_pertanyaan.pertanyaan AS pertanyaan,
+					       pelajaran_pertanyaan.tingkat,
+					       pelajaran_pertanyaan.wids as wids_pertanyaan');
+
+		$this->db->join('pelajaran_pertanyaan', 'penanya.id = pelajaran_pertanyaan.id_user');
+		$this->db->join('pelajaran', 'pelajaran_pertanyaan.id_pelajaran = pelajaran.id');
+		$this->db->where('pelajaran_pertanyaan.id_pelajaran', $mapel);
+		$this->db->order_by('pelajaran_pertanyaan.tgl_update', 'desc');
+
+		
+		return $this->db->get('users penanya', $limit, $offset);
 	}
 
 	function get_pertanyaan_by_nisn($nisn, $limit, $offset){

@@ -23,7 +23,9 @@ class Home extends CI_Controller {
 
 	function index()
 	{
-		$data['pertanyaan']   		= $this->mpertanyaan->get_pertanyaan(5, 0);
+		$data['pelajaran']		= $this->mpelajaran->get_first_12();
+		$data['pelajaran_more']	= $this->mpelajaran->get_more();
+		$data['pertanyaan']   	= $this->mpertanyaan->get_pertanyaan(5, 0);
 		$this->load->view('home', $data);
 	}
 
@@ -126,7 +128,7 @@ class Home extends CI_Controller {
 
 	function load_more(){
 		$get = $this->mpertanyaan->get_pertanyaan(5, $this->input->post('offset'));
-		if($get->num_rows() > 1):
+		if($get->num_rows() >= 1):
 			foreach ($get->result() as $r) {
 				echo "<div class='box-comment'> 
 		            			<img class='img-circle img-sm' src='".
@@ -134,7 +136,6 @@ class Home extends CI_Controller {
 		            			<div class='comment-text'>
 		            				<span class='username'>"
 		            					.$r->nama_pelajaran."&middot;"
-						         	 	.$r->wids_pertanyaan."Wids &middot;"
 						         	 	.get_tingkat($r->tingkat).
 		            				"</span>
 		            				<a href='".base_url()."detail_pertanyaan/".$r->id_pertanyaan."'>".$r->pertanyaan."</a>

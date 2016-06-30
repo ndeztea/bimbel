@@ -46,8 +46,8 @@
                 <td><?php echo $no++; ?></td>
                 <td><?php echo $r->pelajaran ?></td>
                 <td><?php echo $r->deskripsi ?></td>
-                <td><?php echo $r->params ?></td>
-                <td>
+                <td  class="text-center"><i class="fa <?php echo $r->params ?>"></i></td>
+                <td class="text-center">
                     <?php if($r->is_active == '1'): ?>
                       <span class="label label-success">
                         Aktif

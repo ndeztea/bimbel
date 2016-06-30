@@ -91,7 +91,7 @@ $route['delete_pertanyaan/(:any)'] = 'Pertanyaan/delete_pertanyaan/$1';
 $route['detail_pertanyaan/(:any)'] = 'Pertanyaan/detail_pertanyaan/$1';
 $route['delete_pertanyaan_saya/(:any)'] = 'Pertanyaan/delete_pertanyaan_saya/$1';
 $route['edit_pertanyaan_saya/(:any)'] = 'Pertanyaan/edit_pertanyaan_saya/$1';
-
+$route['mapel/(:any)'] = 'pertanyaan/pertanyaan_by_mapel/$1';
 
 $route['delete_jawaban/(:any)'] = 'jawaban/delete_jawaban/$1';
 $route['edit_jawaban/(:any)'] = 'jawaban/edit_jawaban/$1';
@@ -104,4 +104,5 @@ $route['masteruser'] = 'master_user/login';
 $route['data_wids/(:any)'] = 'Wids/data_wids/$1';
 
 $route['loadmore'] = "home/load_more";
+$route['loadmore_mapel'] = "pertanyaan/load_more";
 

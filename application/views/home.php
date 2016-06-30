@@ -1,6 +1,18 @@
 <?php $this->load->view('template/top'); ?>
 <!-- Custom CSS -->
-
+<style type="text/css">
+	.mata-pelajaran{
+		width: 100% !important;
+		height: auto !important;
+		padding: 10px;
+		font-size: 30px;
+		background-color: #DDD;
+		border-radius: 50%;
+		-webkit-border-radius:50%;
+		-moz-border-radius:50%; 
+		margin: 20px 0;
+	}
+</style>
 <?php $this->load->view('template/header'); ?>
 <section class="content">
 	<div class="row">
@@ -16,6 +28,55 @@
               echo "<i class='fa fa-info-circle'></i> <strong><span style='margin-left:10px;'>".$this->session->flashdata('msg_success')."</span></strong>";
               echo '</div>';
               }?>
+        <div class="col-md-12">
+			<div class="box text-center">
+				<div class="box-body">
+					<a href="<?= base_url() ?>home">
+						<div class="col-md-1">
+							<div class="mata-pelajaran">
+								<i class="fa fa-list"></i>
+							</div>
+							<br />
+							Semua
+						</div>
+					</a>
+					<?php foreach ($pelajaran->result() as $r): ?>
+						<?php if ($r->is_active == "1"): ?>
+							<a href="<?= base_url() ?>mapel/<?= $r->id ?>">
+								<div class="col-md-1">
+									<div class="mata-pelajaran">
+										<i class="fa <?= $r->params ?>"></i>
+									</div>
+									<br />
+									<?= $r->pelajaran?>
+								</div>
+							</a>
+						<?php endif ?>
+					<?php endforeach ?>
+				</div>
+				<div class="collapse" id="collapseExample">
+					<?php foreach ($pelajaran_more->result() as $r): ?>
+							<a href="<?= base_url() ?>mapel/<?= $r->id ?>">
+								<div class="col-md-1">
+										<div class="mata-pelajaran">
+											<i class="fa <?= $r->params ?>"></i>
+										</div>
+										<br />
+										<?= $r->pelajaran?>
+								</div>
+							</a>
+					<?php endforeach ?>
+				</div>
+				<div class="clearfix"></div>
+				<div class="box-footer">
+					<button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+					Tampilkan Semua
+					</button>
+				</div>
+			</div>
+        </div>
+        <div class="clearfix"></div>
+        <br />
 		<div class="col-md-8">
 			<!-- List Pertanyaan -->
 			<div class="box box-primary table-responsive">

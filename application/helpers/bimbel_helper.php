@@ -3,7 +3,7 @@
 
 function count_wids($wids){
 
-		if($wids == 0 AND $wids < 10){
+		if($wids < 10){
 			$result = "Pemula";
 		}
 		elseif($wids >= 10 AND $wids < 30){
