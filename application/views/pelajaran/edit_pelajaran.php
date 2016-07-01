@@ -1,6 +1,6 @@
 <?php $this->load->view('template/top'); ?>
 <!-- Custom CSS -->
-<link rel="stylesheet" type="text/css" href="<?= base_url() ?>assets/fontawesome-iconpicker-1.0.0/dist/css/fontawesome-iconpicker.min.css">
+<link rel="stylesheet" type="text/css" href="<?php echo base_url() ?>assets/fontawesome-iconpicker-1.0.0/dist/css/fontawesome-iconpicker.min.css">
 
 <?php $this->load->view('template/header'); ?>
 <section class="content">
@@ -22,7 +22,7 @@
 
 		<!-- Custom Content Here -->
               <?php $a = $pertanyaan_saya ?>
-              <form method="post" action="<?= base_url() ?>edit_pelajaran/<?= $a['id'] ?>">
+              <form method="post" action="<?php echo base_url() ?>edit_pelajaran/<?php echo $a['id'] ?>">
               <div class="box box-primary">
                      <div class="box-header">
                             <h3 class="box-title">Tambah Data</h3>
@@ -30,15 +30,15 @@
                      <div class="box-body">
                             <div class="form-group">
                                    <label>Nama Mata Pelajaran :</label>
-                                   <input type="text" name="mata_pelajaran" class="form-control" value="<?= $a['pelajaran'] ?>">
+                                   <input type="text" name="mata_pelajaran" class="form-control" value="<?php echo $a['pelajaran'] ?>">
                             </div>
                             <div class="form-group">
                                    <label>Deskripsi :</label>
-                                   <textarea class="form-control" name="deskripsi"><?= $a['deskripsi'] ?></textarea>
+                                   <textarea class="form-control" name="deskripsi"><?php echo $a['deskripsi'] ?></textarea>
                             </div>
                             <div class="form-group">
                                    <label>Icon :</label>
-                                   <input type="text" name="icon" class="form-control" value="<?= $a['params'] ?>" id="icon">
+                                   <input type="text" name="icon" class="form-control" value="<?php echo $a['params'] ?>" id="icon">
                             </div>
                      </div>
                      <div class="box-footer">
@@ -50,7 +50,7 @@
 </section>	
 <?php $this->load->view('template/footer-js'); ?>
 <!-- custom JS -->
-<script type="text/javascript" src="<?= base_url() ?>assets/fontawesome-iconpicker-1.0.0/dist/js/fontawesome-iconpicker.min.js"></script>
+<script type="text/javascript" src="<?php echo base_url() ?>assets/fontawesome-iconpicker-1.0.0/dist/js/fontawesome-iconpicker.min.js"></script>
 <script type="text/javascript">
        $("#icon").iconpicker();
 </script>

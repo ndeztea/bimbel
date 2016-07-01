@@ -21,7 +21,7 @@
 					        <h4 class="modal-title" id="myModalLabel">Pertanyaan</h4>
 					      </div>
 					      <div class="modal-body">
-					        <form method="post" action="<?= base_url() ?>add_pertanyaan" enctype="multipart/form-data">
+					        <form method="post" action="<?php echo base_url() ?>add_pertanyaan" enctype="multipart/form-data">
 			                    <textarea id="editor1" name="pertanyaan" rows="10" cols="80" placeholder="Tulis pertanyaanmu disini">
 			                    </textarea><br>
 			                    <div class="col-md-3">
@@ -40,7 +40,7 @@
 			                    		 <label>Mata Pelajaran : </label>
 						                 <select name="mata_pelajaran" class="form-control">
 						                    <?php foreach ($pelajaran as $r): ?>
-						                    	<option value="<?= $r->id ?>"><?= $r->pelajaran ?></option>
+						                    	<option value="<?php echo $r->id ?>"><?php echo $r->pelajaran ?></option>
 						                    <?php	endforeach; ?>
 						                 </select>
 			                    	</div>

@@ -1,6 +1,6 @@
 <?php $this->load->view('template/top'); ?>
 <!-- Custom CSS -->
-<link rel="stylesheet" href="<?= base_url() ?>assets/AdminLTE-2.3.0/plugins/datatables/dataTables.bootstrap.css">
+<link rel="stylesheet" href="<?php echo base_url() ?>assets/AdminLTE-2.3.0/plugins/datatables/dataTables.bootstrap.css">
 
 <?php $this->load->view('template/header'); ?>
 <section class="content">
@@ -23,7 +23,7 @@
         <div class="box box-primary table-responsive">
           <div class="box-header with-border">
             <h3 class="box-title">Table Pelajaran</h3>
-            <button class="btn btn-info btn-md pull-right" onclick=location.href="<?= base_url() ?>tambah_pelajaran"><i class="fa fa-plus-circle"></i> Tambah Data</button>
+            <button class="btn btn-info btn-md pull-right" onclick=location.href="<?php echo base_url() ?>tambah_pelajaran"><i class="fa fa-plus-circle"></i> Tambah Data</button>
           </div><!-- /.box-header -->
           <div class="box-body">
             <table class="table table-bordered table-striped" id="data_pelajaran">
@@ -58,9 +58,22 @@
                       </span>
                     <?php endif; ?>
                 </td>
+<<<<<<< Updated upstream
                 <td  class="text-center">
                     <button onclick="location.href='<?= base_url() ?>edit_pelajaran/<?= $r->id ?>'" class="btn btn-success" ><i class="fa fa-pencil"></i></button>
                     <button class="btn btn-danger" onclick="confirmDelete('<?= $r->id ?>')"><i class="fa fa-trash"></i></button>
+=======
+                <td>
+                    <button onclick=location.href="<?php echo base_url() ?>edit_pelajaran/<?php echo $r->id ?>" class="btn btn-success" ><i class="fa fa-pencil"></i></button>
+                    <button class="btn btn-danger" onclick=confirmDelete(<?php echo $r->id ?>)><i class="fa fa-trash"></i></button>
+
+
+                     <?php if($r->is_active == '1'): ?>
+                    <button class="btn btn-danger" onclick=location.href='<?php echo base_url() ?>set_active_pelajaran/<?php echo $r->id ?>'><i class="fa fa-times"></i></button>
+                    <?php else: ?>
+                    <button class="btn btn-success" onclick=location.href='<?php echo base_url() ?>set_active_pelajaran/<?php echo $r->id ?>'><i class="fa  fa-check"></i></button> 
+                    <?php endif; ?>
+>>>>>>> Stashed changes
 
 
                    
@@ -78,8 +91,8 @@
 
 <?php $this->load->view('template/footer-js'); ?>
 <!-- custom JS -->
-<script src="<?= base_url() ?>assets/AdminLTE-2.3.0/plugins/datatables/jquery.dataTables.min.js"></script>
-<script src="<?= base_url() ?>assets/AdminLTE-2.3.0/plugins/datatables/dataTables.bootstrap.min.js"></script>
+<script src="<?php echo base_url() ?>assets/AdminLTE-2.3.0/plugins/datatables/jquery.dataTables.min.js"></script>
+<script src="<?php echo base_url() ?>assets/AdminLTE-2.3.0/plugins/datatables/dataTables.bootstrap.min.js"></script>
 <script>
       $(function () {
         $('#data_pelajaran').DataTable({
@@ -100,7 +113,7 @@
           function confirmDelete(id) {
 
             if(confirm('Anda yakin untuk menghapus pelajaran ini ?')){
-                window.location.href="<?= base_url() ?>delete_pelajaran/"+id
+                window.location.href="<?php echo base_url() ?>delete_pelajaran/"+id
             }
           }
         </script>

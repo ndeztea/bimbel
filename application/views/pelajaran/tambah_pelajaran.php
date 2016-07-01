@@ -1,6 +1,6 @@
 <?php $this->load->view('template/top'); ?>
 <!-- Custom CSS -->
-<link rel="stylesheet" type="text/css" href="<?= base_url() ?>assets/fontawesome-iconpicker-1.0.0/dist/css/fontawesome-iconpicker.min.css">
+<link rel="stylesheet" type="text/css" href="<?php echo base_url() ?>assets/fontawesome-iconpicker-1.0.0/dist/css/fontawesome-iconpicker.min.css">
 <?php $this->load->view('template/header'); ?>
 <section class="content">
 	<div class="row">
@@ -20,7 +20,7 @@
 		</div>
 
 		<!-- Custom Content Here -->
-              <form method="post" action="<?= base_url() ?>tambah_pelajaran">
+              <form method="post" action="<?php echo base_url() ?>tambah_pelajaran">
               <div class="box box-primary">
                      <div class="box-header">
                             <h3 class="box-title">Tambah Data</h3>
@@ -48,7 +48,7 @@
 </section>	
 <?php $this->load->view('template/footer-js'); ?>
 <!-- custom JS -->
-<script type="text/javascript" src="<?= base_url() ?>assets/fontawesome-iconpicker-1.0.0/dist/js/fontawesome-iconpicker.min.js"></script>
+<script type="text/javascript" src="<?php echo base_url() ?>assets/fontawesome-iconpicker-1.0.0/dist/js/fontawesome-iconpicker.min.js"></script>
 <script type="text/javascript">
        $("#icon").iconpicker();
 </script>

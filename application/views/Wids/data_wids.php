@@ -37,12 +37,12 @@
                       <?php $no =1;
                        foreach ($wids->result() as $r): ?>
                         <tr>
-                          <td><?= $no++ ?></td>
-                          <td><?= $r->nama ?></td>
-                          <td><?= $r->wids ?></td>
-                          <td><?= $r->tgl_update ?></td>
-                          <td><?= $r->action ?></td>
-                          <td><?= $r->keterangan?></td>
+                          <td><?php echo $no++ ?></td>
+                          <td><?php echo $r->nama ?></td>
+                          <td><?php echo $r->wids ?></td>
+                          <td><?php echo $r->tgl_update ?></td>
+                          <td><?php echo $r->action ?></td>
+                          <td><?php echo $r->keterangan?></td>
                         </tr>
                       <?php endforeach ?>
                   </tbody>
@@ -56,7 +56,7 @@
 <!-- Modal -->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document">
-    <form method="POST" action="<?= base_url() ?>wids_action/<?= $this->uri->rsegment(3) ?>">
+    <form method="POST" action="<?php echo base_url() ?>wids_action/<?php echo $this->uri->rsegment(3) ?>">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>

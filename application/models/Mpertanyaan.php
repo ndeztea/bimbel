@@ -99,11 +99,12 @@ class Mpertanyaan extends CI_Model {
 									WHERE pelajaran_pertanyaan.id = $id");
 
 
-		if($query->num_rows() == 1):
+		if($query->num_rows() == 1){
 			return $query;
-		else:
+		}
+		else{
 			return False;
-		endif;
+		}
 	}
 
 

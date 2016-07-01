@@ -22,13 +22,13 @@
 		<!-- Custom Content Here -->
               <?php $a = $edit_jawaban ?>
               <div class="col-md-8">
-                <form method="post" action="<?= base_url() ?>jawab/<?= $this->uri->rsegment(3)?>" enctype="multipart/form-data">
+                <form method="post" action="<?php echo base_url() ?>jawab/<?php echo $this->uri->rsegment(3)?>" enctype="multipart/form-data">
                   <div class="box box-bordered table-responsive">
                     <div class="box-header">
                       <h3 class="box-title">Edit Jawaban</h3>
                     </div>
                     <div class="box-body">
-                      <img class="img-circle img-sm" src="<?= base_url('assets/images/avatar/')."/".$this->session->userdata('avatar') ?>" alt="user image">
+                      <img class="img-circle img-sm" src="<?php echo base_url('assets/images/avatar/')."/".$this->session->userdata('avatar') ?>" alt="user image">
                       <div class="img-push">
                         <div class="input-group">
                           <div>
@@ -54,7 +54,7 @@
 </section>	
 <?php $this->load->view('template/footer-js'); ?>
 <!-- custom JS -->
-<script src="<?= base_url() ?>assets/ckeditor/ckeditor.js"></script>
+<script src="<?php echo base_url() ?>assets/ckeditor/ckeditor.js"></script>
 <script>
       $(function () {
         // Replace the <textarea id="editor1"> with a CKEditor

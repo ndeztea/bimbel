@@ -24,10 +24,11 @@ class Wids extends CI_Controller {
 		$this->form_validation->set_rules('aksi', 'Wids', 'required|xss_clean');
 		$this->form_validation->set_rules('keterangan', 'Keterangan', 'required|xss_clean');
 
-		if ($this->form_validation->run() == FALSE):
+		if ($this->form_validation->run() == FALSE){
 			$this->session->set_flashdata('msg_error', validation_errors());
 			redirect(base_url().'data_wids/'.$this->uri->rsegment(3),'refresh');
-		else:
+		}
+		else{
 			$user = $this->users->get_user_by_id($this->uri->rsegment(3))->row_array();
 			if($user){
 				if($this->input->post('aksi') == "tambah"){
@@ -53,7 +54,7 @@ class Wids extends CI_Controller {
 				redirect(base_url().'users','refresh');
 			}
 				
-		endif;
+		}
 	}
 
 }

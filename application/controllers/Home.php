@@ -32,15 +32,15 @@ class Home extends CI_Controller {
 
 	function profil(){
 		$users = $this->users->get_user_by_id($this->session->userdata('nisn'));
-		if($users):
-
+		if($users){
 			$data['users'] 				= $users->row_array();
 			$data['wids']   			= count_wids($users->row_array()['wids']);
 	    	$data['pertanyaan_saya']	= $this->mpertanyaan->get_pertanyaan_by_nisn($this->session->userdata('nisn'), 4, 0);
 			$this->load->view('user/profil', $data);
-		else:
+		}
+		else{
 			redirect(base_url().'404_override','refresh');
-		endif; 
+		}
 
 	}
 
@@ -48,7 +48,7 @@ class Home extends CI_Controller {
 		$users = $this->users->get_user_by_id($this->session->userdata('nisn'));
 		
 
-		if($users):
+		if($users){
 
 			if($this->input->post('email') != $users->row_array()['email']) {
 			   $is_unique =  '|is_unique[users.email]';
@@ -92,23 +92,25 @@ class Home extends CI_Controller {
 				$this->session->set_flashdata('msg_success', 'Profil Berhasil Diubah');
 				redirect(base_url().'profil','refresh');
 			}
-			
-		else:
+		}
+		else{
 			redirect(base_url().'404_override','refresh');
-		endif; 
+		}
 	}
 
 	function upload_avatar(){
 		$config['upload_path'] = 'assets/images/avatar';
-        $config['allowed_types'] = 'jpg|png';
+        $config['allowed_types'] = 'jpg|png|jpeg|JPEG|JPG|PNG';
+        $config['max_size'] = '5000';
         $config['encrypt_name'] = TRUE;
 
         $this->load->library('upload', $config);
 
-        if (!$this->upload->do_upload('avatar')):
+        if (!$this->upload->do_upload('avatar')){
             $this->session->set_flashdata('msg_error', $this->upload->display_errors());
             redirect(base_url().'profil', 'refresh');
-        else:
+        }
+        else{
             $this->session->set_userdata('error', "");
             $this->session->set_flashdata('msg_success', 'Photo profil berhasil diubah');
 	            if($this->session->userdata('avatar') AND $this->session->userdata('avatar') != "default-male.png" AND $this->session->userdata('avatar') != "default-female.png"){
@@ -118,7 +120,7 @@ class Home extends CI_Controller {
             $this->users->update($data, $this->session->userdata('nisn'));
             $this->session->set_userdata('avatar', $this->upload->data()['file_name']);
             redirect(base_url().'profil', 'refresh');
-        endif;
+        }
 	}
 
 	function cek_password(){
@@ -135,7 +137,7 @@ class Home extends CI_Controller {
 
 	function load_more(){
 		$get = $this->mpertanyaan->get_pertanyaan(5, $this->input->post('offset'));
-		if($get->num_rows() >= 1):
+		if($get->num_rows() >= 1){
 			foreach ($get->result() as $r) {
 				echo "<div class='box-comment'> 
 		            			<img class='img-circle img-sm' src='".
@@ -150,9 +152,10 @@ class Home extends CI_Controller {
 		            			</div>
 						    </div>";
 			}
-		else:
+		}
+		else{
 			echo "Tidak ada data lagi";
-		endif;
+		}
 	}
 }
 

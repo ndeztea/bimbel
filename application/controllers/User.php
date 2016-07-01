@@ -63,7 +63,7 @@ class User extends CI_Controller {
     function set_active(){
 			$get = $this->users->get_user_by_id($this->uri->rsegment(3));
 
-			if ($get):
+			if ($get){
 				$status = $get->row_array()['is_active'];
 
 				if ($status == 0) {
@@ -78,9 +78,10 @@ class User extends CI_Controller {
 				$this->users->update($data, $get->row_array()['nisn']);
 				redirect(base_url().'user/data_user','refresh');
 
-			else:
+			}
+			else{
         		redirect(base_url().'not_found','refresh');
-			endif;
+			}
 	}
 
 
@@ -88,7 +89,7 @@ class User extends CI_Controller {
 		$users = $this->users->get_user_by_id($this->uri->rsegment(3));
 		
 
-		if($users):
+		if($users){
 
 			if($this->input->post('email') != $users->row_array()['email']) {
 			   $is_unique =  '|is_unique[users.email]';
@@ -132,27 +133,29 @@ class User extends CI_Controller {
 				redirect(base_url().'user/data_user','refresh');
 			}
 			
-		else:
+		}
+		else{
 			redirect(base_url().'404_override','refresh');
-		endif;
+		}
 	}
 
 	function upload_avatar(){
 		$this->session->set_userdata('url_users', base_url()."edit_user/".$this->uri->rsegment(3));
 		$users = $this->users->get_user_by_id($this->uri->rsegment(3))->row_array();
 
-		if($users):
+		if($users){
 
 			$config['upload_path'] = 'assets/images/avatar';
-	        $config['allowed_types'] = 'jpg|png';
+	        $config['allowed_types'] = 'jpg|png|jpeg|JPEG|JPG|PNG';
 	        $config['encrypt_name'] = TRUE;
 
 	        $this->load->library('upload', $config);
 
-	        if (!$this->upload->do_upload('avatar')):
+	        if (!$this->upload->do_upload('avatar')){
 	            $this->session->set_flashdata('msg_error', $this->upload->display_errors());
 	            redirect(base_url().'profil', 'refresh');
-	        else:
+	        }
+	        else{
 	            $this->session->set_userdata('error', "");
 	            $this->session->set_flashdata('msg_success', 'Photo profil berhasil diubah');
 		            if($this->session->userdata('avatar') AND $this->session->userdata('avatar') != "default-male.png" AND $this->session->userdata('avatar') != "default-female.png"){
@@ -161,10 +164,11 @@ class User extends CI_Controller {
 		        $data = array('avatar' => $this->upload->data()['file_name']);
 	            $this->users->update($data, $users['nisn']);
 	            redirect($this->session->userdata('url_users'), 'refresh');
-	        endif;
-	  	else:
+	        }
+	  	}
+	  	else{
 	  		redirect(base_url()."not_found",'refresh');
-	  	endif;
+	  	}
 	}
 
 

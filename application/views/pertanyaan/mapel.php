@@ -93,14 +93,14 @@
 							<?php foreach ($pertanyaan->result() as $r): ?>
 							<div class="box-comment">
 								<img class="img-circle img-sm" src="
-								<?= base_url('assets/images/avatar')."/".$r->avatar_penanya; ?>">
+								<?php echo base_url('assets/images/avatar')."/".$r->avatar_penanya; ?>">
 								<div class="comment-text">
 									<span class="username">
-										<?= $r->nama_pelajaran ?>&middot;
-										<?= get_tingkat($r->tingkat) ?>
+										<?php echo $r->nama_pelajaran ?>&middot;
+										<?php echo get_tingkat($r->tingkat) ?>
 									</span>
-									<a href="<?= base_url() ?>detail_pertanyaan/<?= $r->id_pertanyaan ?>"><?= $r->pertanyaan ?></a>
-									<button class="btn btn-success btn-xs pull-right" onclick=location.href="<?= base_url() ?>detail_pertanyaan/<?= $r->id_pertanyaan ?>"><i class="fa fa-share"></i> Jawab</button>
+									<a href="<?php echo base_url() ?>detail_pertanyaan/<?php echo $r->id_pertanyaan ?>"><?php echo $r->pertanyaan ?></a>
+									<button class="btn btn-success btn-xs pull-right" onclick=location.href="<?php echo base_url() ?>detail_pertanyaan/<?php echo $r->id_pertanyaan ?>"><i class="fa fa-share"></i> Jawab</button>
 								</div>
 							</div>
 							<?php endforeach; ?>
@@ -124,7 +124,7 @@
 
 <?php $this->load->view('template/footer-js'); ?>
 <!-- custom JS -->
-<script src="<?= base_url() ?>assets/ckeditor/ckeditor.js"></script>
+<script src="<?php echo base_url() ?>assets/ckeditor/ckeditor.js"></script>
 <script>
       $(function () {
         // Replace the <textarea id="editor1"> with a CKEditor
@@ -137,17 +137,22 @@
 $(document).on('click','#loadmore',function () {
   $(this).text('Loading...');
   		var offset = $("#offset").val();
-  		var id = "<?= $this->uri->rsegment(3) ?>"
+  		var id = "<?php echo $this->uri->rsegment(3) ?>"
         $.ajax({
-		      url: "<?= base_url() ?>loadmore_mapel",
+		      url: "<?php echo base_url() ?>loadmore_mapel",
 		      type: 'POST',
 		      data: {offset: offset,
 		      		 id : id},
 		      success: function(response){
 		          if(response){
-		             $(".box-comments").append(response);
-		             $("#loadmore").text('Load More...');
-		             $("#offset").val(parseInt(offset)+5);
+		          	if(response == "Tidak ada data lagi"){
+			            $("#loadmore").text('Tidak ada data lagi');
+		          	}
+		          	else{
+		          		 $(".box-comments").append(response);
+			             $("#loadmore").text('Load More...');
+			             $("#offset").val(parseInt(offset)+5);
+		          	}
 		          }
 	      	  }
    		});

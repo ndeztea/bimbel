@@ -17,11 +17,12 @@ class Login extends CI_Model {
 
 		$return = $this->db->get();
 
-		if($return->num_rows() > 0 AND $return->num_rows() == 1):
+		if($return->num_rows() > 0 AND $return->num_rows() == 1){
 			return $return;
-		else:
+		}
+		else{
 			return FALSE;
-		endif;
+		}
 	}	
 
 
@@ -31,11 +32,12 @@ class Login extends CI_Model {
 		$this->db->where('nisn', $nisn);
 		$return = $this->db->get();
 
-		if($return->num_rows() > 0 AND $return->num_rows() == 1):
+		if($return->num_rows() > 0 AND $return->num_rows() == 1){
 			return $return;
-		else:
+		}
+		else{
 			return FALSE;
-		endif;
+		}
 	}
 }
 

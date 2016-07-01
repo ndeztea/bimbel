@@ -22,9 +22,9 @@
 		<!-- Custom Content Here -->
     <?php $a = $pertanyaan_saya ?>
     <div class="col-md-8">
-      <?= validation_errors() ?>
-      <form method="post" action="<?= base_url() ?>edit_pertanyaan_saya/<?= $this->uri->rsegment(3)?>" enctype="multipart/form-data">
-        <textarea id="editor1" name="pertanyaan" rows="10" cols="80" placeholder="Tulis pertanyaanmu disini"><?= $a['pertanyaan'] ?>
+      <?php echo validation_errors() ?>
+      <form method="post" action="<?php echo base_url() ?>edit_pertanyaan_saya/<?php echo $this->uri->rsegment(3)?>" enctype="multipart/form-data">
+        <textarea id="editor1" name="pertanyaan" rows="10" cols="80" placeholder="Tulis pertanyaanmu disini"><?php echo $a['pertanyaan'] ?>
         </textarea><br>
         <div class="col-md-3">
           <div class="form-group">
@@ -58,12 +58,12 @@
             <label>Mata Pelajaran : </label>
             <select name="mata_pelajaran" class="form-control">
               <?php foreach ($pelajaran->result() as $r): ?>
-              <option value="<?= $r->id ?>"
+              <option value="<?php echo $r->id ?>"
                 <?php if($a['id_pelajaran'] == $r->id):
                 echo "selected";
                 endif;
                 ?>
-              ><?= $r->pelajaran ?></option>
+              ><?php echo $r->pelajaran ?></option>
               <?php   endforeach; ?>
             </select>
           </div>
@@ -84,7 +84,7 @@
     </section>
 <?php $this->load->view('template/footer-js'); ?>
 <!-- custom JS -->
-<script src="<?= base_url() ?>assets/ckeditor/ckeditor.js"></script>
+<script src="<?php echo base_url() ?>assets/ckeditor/ckeditor.js"></script>
 <script>
       $(function () {
         // Replace the <textarea id="editor1"> with a CKEditor

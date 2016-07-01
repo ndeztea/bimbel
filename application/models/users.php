@@ -13,11 +13,12 @@ class Users extends CI_Model {
 		$this->db->where('nisn', $id);
 		$return = $this->db->get('users');
 
-		if($return->num_rows() > 0 and $return->num_rows() == 1):
+		if($return->num_rows() > 0 and $return->num_rows() == 1){
 			return $return;
-		else:
+		}
+		else{
 			return FALSE;
-		endif;
+		}
 
 	}
 

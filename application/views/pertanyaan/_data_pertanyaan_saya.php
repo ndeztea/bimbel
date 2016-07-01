@@ -38,13 +38,13 @@
                                           <tbody>
                                                  <?php foreach ($pertanyaan->result() as $r): ?>
                                                         <tr>
-                                                               <td><?= $no++ ?></td>
-                                                               <td><?= $r->pertanyaan ?></td>
-                                                               <td><?= $r->nama_pelajaran ?></td>
-                                                               <td><?= $r->wids_pertanyaan ?></td>
+                                                               <td><?php echo $no++ ?></td>
+                                                               <td><?php echo $r->pertanyaan ?></td>
+                                                               <td><?php echo $r->nama_pelajaran ?></td>
+                                                               <td><?php echo $r->wids_pertanyaan ?></td>
                                                                <td>
-                                                                     <button class="btn btn-success" onclick=location.href='<?= base_url() ?>edit_pertanyaan_saya/<?= $r->id_pertanyaan ?>'><i class="fa fa-pencil"></i></button>
-                                                                      <button class="btn btn-danger" onclick=location.href='<?= base_url() ?>delete_pertanyaan_saya/<?= $r->id_pertanyaan ?>'><i class="fa fa-trash"></i></button> 
+                                                                     <button class="btn btn-success" onclick=location.href='<?php echo base_url() ?>edit_pertanyaan_saya/<?php echo $r->id_pertanyaan ?>'><i class="fa fa-pencil"></i></button>
+                                                                      <button class="btn btn-danger" onclick=location.href='<?php echo base_url() ?>delete_pertanyaan_saya/<?php echo $r->id_pertanyaan ?>'><i class="fa fa-trash"></i></button> 
                                                                </td>
                                                         </tr> 
                                                  <?php endforeach ?>

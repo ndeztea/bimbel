@@ -31,7 +31,7 @@
         <div class="col-md-12">
 			<div class="box text-center">
 				<div class="box-body">
-					<a href="<?= base_url() ?>home">
+					<a href="<?php echo base_url() ?>home">
 						<div class="col-md-1">
 							<div class="mata-pelajaran">
 								<i class="fa fa-list"></i>
@@ -42,13 +42,13 @@
 					</a>
 					<?php foreach ($pelajaran->result() as $r): ?>
 						<?php if ($r->is_active == "1"): ?>
-							<a href="<?= base_url() ?>mapel/<?= $r->id ?>">
+							<a href="<?php echo base_url() ?>mapel/<?php echo $r->id ?>">
 								<div class="col-md-1">
 									<div class="mata-pelajaran">
-										<i class="fa <?= $r->params ?>"></i>
+										<i class="fa <?php echo $r->params ?>"></i>
 									</div>
 									<br />
-									<?= $r->pelajaran?>
+									<?php echo $r->pelajaran?>
 								</div>
 							</a>
 						<?php endif ?>
@@ -56,13 +56,13 @@
 				</div>
 				<div class="collapse" id="collapseExample">
 					<?php foreach ($pelajaran_more->result() as $r): ?>
-							<a href="<?= base_url() ?>mapel/<?= $r->id ?>">
+							<a href="<?php echo base_url() ?>mapel/<?php echo $r->id ?>">
 								<div class="col-md-1">
 										<div class="mata-pelajaran">
-											<i class="fa <?= $r->params ?>"></i>
+											<i class="fa <?php echo $r->params ?>"></i>
 										</div>
 										<br />
-										<?= $r->pelajaran?>
+										<?php echo $r->pelajaran?>
 								</div>
 							</a>
 					<?php endforeach ?>
@@ -87,14 +87,14 @@
 	            	<?php foreach ($pertanyaan->result() as $r): ?>
 	            		<div class="box-comment"> 
 	            			<img class="img-circle img-sm" src="
-	            			<?= base_url('assets/images/avatar')."/".$r->avatar_penanya; ?>">
+	            			<?php echo base_url('assets/images/avatar')."/".$r->avatar_penanya; ?>">
 	            			<div class="comment-text">
 	            				<span class="username">
-	            					<?= $r->nama_pelajaran ?>&middot;
-					         	 	<?= get_tingkat($r->tingkat) ?>
+	            					<?php echo $r->nama_pelajaran ?>&middot;
+					         	 	<?php echo get_tingkat($r->tingkat) ?>
 	            				</span>
-	            				<a href="<?= base_url() ?>detail_pertanyaan/<?= $r->id_pertanyaan ?>"><?= $r->pertanyaan ?></a>
-          						<button class="btn btn-success btn-xs pull-right" onclick=location.href="<?= base_url() ?>detail_pertanyaan/<?= $r->id_pertanyaan ?>"><i class="fa fa-share"></i> Jawab</button>
+	            				<a href="<?php echo base_url() ?>detail_pertanyaan/<?php echo $r->id_pertanyaan ?>"><?php echo $r->pertanyaan ?></a>
+          						<button class="btn btn-success btn-xs pull-right" onclick=location.href="<?php echo base_url() ?>detail_pertanyaan/<?php echo $r->id_pertanyaan ?>"><i class="fa fa-share"></i> Jawab</button>
 	            			</div>
 					    </div>
 			        <?php endforeach; ?>
@@ -116,7 +116,7 @@
 
 <?php $this->load->view('template/footer-js'); ?>
 <!-- custom JS -->
-<script src="<?= base_url() ?>assets/ckeditor/ckeditor.js"></script>
+<script src="<?php echo base_url() ?>assets/ckeditor/ckeditor.js"></script>
 <script>
       $(function () {
         // Replace the <textarea id="editor1"> with a CKEditor
@@ -130,14 +130,19 @@ $(document).on('click','#loadmore',function () {
   $(this).text('Loading...');
   		var offset = $("#offset").val();
         $.ajax({
-		      url: "<?= base_url() ?>loadmore",
+		      url: "<?php echo base_url() ?>loadmore",
 		      type: 'POST',
 		      data: {offset: offset},
 		      success: function(response){
 		          if(response){
-		             $(".box-comments").append(response);
-		             $("#loadmore").text('Load More...');
-		             $("#offset").val(parseInt(offset)+5);
+		          	if(response == "Tidak ada data lagi"){
+			            $("#loadmore").text('Tidak ada data lagi');
+		          	}
+		          	else{
+		          		 $(".box-comments").append(response);
+			             $("#loadmore").text('Load More...');
+			             $("#offset").val(parseInt(offset)+5);
+		          	}
 		          }
 	      	  }
    		});

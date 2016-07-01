@@ -106,18 +106,18 @@ class Pertanyaan extends CI_Controller {
 
 		$nomor_urut=$start+1;
 
-		foreach ($query->result_array() as $r):
-		$output['data'][]=array($nomor_urut,
-								$r['nama_penanya'],
-								$r['nama_pelajaran'],
-								$r['wids_pertanyaan'],
-								substr($r['pertanyaan'], 0, 100),
-								$r['tingkat'],
-								"<button class='btn btn-danger' onclick=confirmDelete(".$r['id_pertanyaan'].")><i class='fa fa-trash'></i></button>".
-								"  <button class='btn btn-info' onclick=location.href='".base_url()."detail_pertanyaan/".$r['id_pertanyaan']."'><i class='fa fa-eye'></i></button>"
-								);
-		$nomor_urut++;
-		endforeach;
+		foreach ($query->result_array() as $r){
+			$output['data'][]=array($nomor_urut,
+									$r['nama_penanya'],
+									$r['nama_pelajaran'],
+									$r['wids_pertanyaan'],
+									substr($r['pertanyaan'], 0, 100),
+									$r['tingkat'],
+									"<button class='btn btn-danger' onclick=confirmDelete(".$r['id_pertanyaan'].")><i class='fa fa-trash'></i></button>".
+									"  <button class='btn btn-info' onclick=location.href='".base_url()."detail_pertanyaan/".$r['id_pertanyaan']."'><i class='fa fa-eye'></i></button>"
+									);
+			$nomor_urut++;
+		}
 
 		echo json_encode($output);
 
@@ -137,20 +137,20 @@ class Pertanyaan extends CI_Controller {
     function detail_pertanyaan(){
     	$pertanyaan = $this->mpertanyaan->get_detail_pertanyaan($this->uri->rsegment(3));
 
-	    	if($pertanyaan):
+	    	if($pertanyaan){
 				$data['jumlah_pertanyaan']	= $this->mpertanyaan->get_count_pertanyaan($this->session->userdata('id'))->row_array()['jumlah'];
 				$data['jumlah_jawaban']	= $this->mjawaban->get_count_jawaban($this->session->userdata('id'))->row_array()['jumlah'];
 				$data['pertanyaan'] = $pertanyaan->row_array();
 				$data['pelajaran'] 	  = $this->mpelajaran->getdata()->result();
 				$data['wids'] 		  = count_wids($this->session->userdata('wids'));
 				$data['jawaban_pertanyaan'] = $this->mjawaban->get_jawaban_pertanyaan($this->uri->rsegment(3));
+				$data['jawaban_pertanyaan_correct'] = $this->mjawaban->get_correct_answer($this->uri->rsegment(3));
 				$data['wids_penanya'] = count_wids($data['pertanyaan']['wids_penanya']);
 				$this->session->set_userdata('url_pertanyaan', base_url().'detail_pertanyaan/'.$this->uri->rsegment(3));
 				$this->load->view('Pertanyaan/detail_pertanyaan', $data);
-			else:
+			}else{
 				$this->load->view('404');
-			endif;
-
+			}
     }
 
 
@@ -179,7 +179,7 @@ class Pertanyaan extends CI_Controller {
 		} else {
 
 			$config['upload_path'] = 'assets/images/question';
-			$config['allowed_types'] = 'gif|jpg|png';
+			$config['allowed_types'] = 'jpg|png|jpeg|JPEG|JPG|PNG';
 			$config['max_size']  = '1028';
 			$config['encrypt_name'] = true;
 			
@@ -190,7 +190,7 @@ class Pertanyaan extends CI_Controller {
 			$wids_total = $wids['wids'] - 2;
 
 			if($wids['wids'] >= 2){
-				if($_FILES['gambar']['size'] == NULL):
+				if($_FILES['gambar']['size'] == NULL){
 					$data = array('id_pelajaran' => $this->input->post('mata_pelajaran'),
 								  'tingkat'  	 => $this->input->post('tingkat'),
 								  'pertanyaan' 	 => $this->input->post('pertanyaan'),
@@ -216,39 +216,40 @@ class Pertanyaan extends CI_Controller {
 					$this->session->set_flashdata('msg_success', 'Pertanyaan berhasil ditambahkan');
 					redirect(base_url().'home','refresh');
 
-
-				else:
-						if ( !$this->upload->do_upload('gambar')):
+				}
+				else{
+						if ( !$this->upload->do_upload('gambar')){
 							$error = array('error' => $this->upload->display_errors());
 							$this->session->set_flashdata('msg_error', $error['error']);
 							redirect(base_url().'home','refresh');
-						else:
+						}
+						else{
 							$data = array('id_pelajaran' => $this->input->post('mata_pelajaran'),
 										  'tingkat'  	 => $this->input->post('tingkat'),
 										  'pertanyaan' 	 => $this->input->post('pertanyaan'),
 										  'id_user' 	 => $this->session->userdata('id'),
 										  'tgl_update'   => date("Y-m-d H:i:s"),
 										  'photo'		 =>	$this->upload->data()['file_name']);
-						$this->mpertanyaan->add_pertanyaan($data);
+							$this->mpertanyaan->add_pertanyaan($data);
 
-						$user = array('wids' => $wids_total);
+							$user = array('wids' => $wids_total);
 
-						$user_wids = array('id_user' => $wids['id'],
-										   'wids' => $wids_total,
-										   'tgl_update' => date("Y-m-d H:i:s"),
-										   'action' => 'kurang');
-
-
-						$this->mpertanyaan->add_pertanyaan($data);
-						$this->users->update($user, $this->session->userdata('nisn'));
-						$this->muser_wids->transaksi($user_wids);
+							$user_wids = array('id_user' => $wids['id'],
+											   'wids' => $wids_total,
+											   'tgl_update' => date("Y-m-d H:i:s"),
+											   'action' => 'kurang');
 
 
-						$this->session->set_userdata('wids', $wids_total);
-						$this->session->set_flashdata('msg_success', 'Pertanyaan berhasil ditambahkan');
-						redirect(base_url().'home','refresh');
-						endif;
-				endif;
+							$this->mpertanyaan->add_pertanyaan($data);
+							$this->users->update($user, $this->session->userdata('nisn'));
+							$this->muser_wids->transaksi($user_wids);
+
+
+							$this->session->set_userdata('wids', $wids_total);
+							$this->session->set_flashdata('msg_success', 'Pertanyaan berhasil ditambahkan');
+							redirect(base_url().'home','refresh');
+						}
+				}
 			}
 			else {
 						$this->session->set_flashdata('msg_error', 'Maaf Wids kamu tidak cukup untuk melakukan pertanyaan, minimal harus nya 2 wids.');
@@ -270,7 +271,7 @@ class Pertanyaan extends CI_Controller {
     function delete_pertanyaan(){
 		$get = $this->mpertanyaan->get_pertanyaan_by_id($this->uri->rsegment(3));
     	
-    	if($get):
+    	if($get){
     		if($get->row_array()['gambar'] != NULL)
     		{
 				unlink(FCPATH."assets/images/question/".$get->row_array()['gambar']);
@@ -278,10 +279,10 @@ class Pertanyaan extends CI_Controller {
 			$id = $this->uri->rsegment(3);
 	        $this->mpertanyaan->delete_pertanyaan($id);
 			$this->session->set_flashdata('msg_success', 'Data berhasil dihapus');
-	        redirect(base_url().'home','refresh');
-	    else:
+	        redirect($this->session->userdata('url_delete'),'refresh');
+	    }else{
 	    	redirect(base_url().'not_found','refresh');
-	   	endif;
+	    }
     }
 
 
@@ -289,7 +290,7 @@ class Pertanyaan extends CI_Controller {
 		$get = $this->mpertanyaan->get_pertanyaan_by_id($this->uri->rsegment(3));
 		$this->session->set_userdata('url_edit_pertanyaan', base_url()."edit_pertanyaan_saya/".$this->uri->rsegment(3));
 
-			if ($get):
+			if ($get){
 
 	    		$this->form_validation->set_rules('pertanyaan', "Pertanyaan", "required|xss_clean");
 				$this->form_validation->set_rules('tingkat', "tingkat", 'required|xss_clean');
@@ -302,20 +303,21 @@ class Pertanyaan extends CI_Controller {
 					$this->load->view('pertanyaan/edit_pertanyaan_saya', $data);
 				}
 				else{
-					if($_FILES['gambar']['size'] != NULL):
+					if($_FILES['gambar']['size'] != NULL){
 						$config['upload_path'] = 'assets/images/question';
-						$config['allowed_types'] = 'gif|jpg|png';
-						$config['max_size']  = '1024';
+						$config['allowed_types'] = 'jpg|png|jpeg|JPEG|JPG|PNG';
+						$config['max_size']  = '5000';
 						// $config['max_width']  = '1024';
 						// $config['max_height']  = '768';
 						
 						$this->load->library('upload', $config);
 						
-							if ( !$this->upload->do_upload('gambar')):
+							if ( !$this->upload->do_upload('gambar')){
 								$error = array('error' => $this->upload->display_errors());
 								$this->session->set_flashdata('msg_error', $error['error']);
 								redirect($this->session->userdata('url_edit_pertanyaan'),'refresh');
-							else:
+							}
+							else{
 								if($get->row_array()['gambar'] != NULL){
 									unlink(FCPATH."assets/images/question/".$get->row_array()['gambar']);
 								}
@@ -327,22 +329,23 @@ class Pertanyaan extends CI_Controller {
 								$this->mpertanyaan->edit_pertanyaan_saya($data, $get->row_array()['id_pertanyaan']);
 								$this->session->set_flashdata('msg_success', 'Data berhasil di update');
 								redirect($this->session->userdata('url_pertanyaan'),'refresh');
-							endif;
-					else:
-							$data = array('pertanyaan'		  => $this->input->post('pertanyaan'),
-									  		  'tingkat'		  	  => $this->input->post('tingkat'),
-									  		  'id_pelajaran'      => $this->input->post('mata_pelajaran')
-								  );
-								$this->mpertanyaan->edit_pertanyaan_saya($data, $get->row_array()['id_pertanyaan']);
-								$this->session->set_flashdata('msg_success', 'Data berhasil di update');
-								redirect($this->session->userdata('url_pertanyaan'),'refresh');
-					endif;
-
+							}
 					}
+					else{
+							$data = array('pertanyaan'		  => $this->input->post('pertanyaan'),
+									  	  'tingkat'		  	  => $this->input->post('tingkat'),
+									  	  'id_pelajaran'      => $this->input->post('mata_pelajaran'));
+							$this->mpertanyaan->edit_pertanyaan_saya($data, $get->row_array()['id_pertanyaan']);
+							$this->session->set_flashdata('msg_success', 'Data berhasil di update');
+							redirect($this->session->userdata('url_pertanyaan'),'refresh');
+					}
+
+				}
 						
-			else:
+			}
+			else{
         		redirect(base_url().'not_found','refresh');
-			endif;
+			}
 		}
 
 	function cari_pertanyaan(){
@@ -364,7 +367,7 @@ class Pertanyaan extends CI_Controller {
 
 	function load_more(){
 		$get = $this->mpertanyaan->get_pertanyaan_by_mapel($this->input->post('id'), 5, $this->input->post('offset'));
-		if($get->num_rows() >= 1):
+		if($get->num_rows() >= 1){
 			foreach ($get->result() as $r) {
 				echo "<div class='box-comment'> 
 		            			<img class='img-circle img-sm' src='".
@@ -379,8 +382,9 @@ class Pertanyaan extends CI_Controller {
 		            			</div>
 						    </div>";
 			}
-		else:
+		}
+		else{
 			echo "Tidak ada data lagi";
-		endif;
+		}
 	}
 }

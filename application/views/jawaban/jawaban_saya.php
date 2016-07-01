@@ -29,13 +29,13 @@
         <?php foreach ($jawaban->result() as $r): ?>
         <div class="box-comment">
           <img class="img-circle img-sm" src="
-          <?= base_url('assets/images/avatar/')."/".$r->avatar_penanya; ?>" alt="user image">
+          <?php echo base_url('assets/images/avatar/')."/".$r->avatar_penanya; ?>" alt="user image">
           <div class="comment-text">
             <span class="username">
-              <?= $r->nama_pelajaran ?>&middot;
-              <?= get_tingkat($r->tingkat) ?>
+              <?php echo $r->nama_pelajaran ?>&middot;
+              <?php echo get_tingkat($r->tingkat) ?>
             </span>
-            <a href="<?= base_url() ?>detail_pertanyaan/<?= $r->id_pertanyaan ?>"><?= $r->pertanyaan ?></a>
+            <a href="<?php echo base_url() ?>detail_pertanyaan/<?php echo $r->id_pertanyaan ?>"><?php echo $r->pertanyaan ?></a>
           </div>
         </div>
         <?php endforeach; ?>

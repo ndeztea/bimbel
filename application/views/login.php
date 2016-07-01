@@ -6,14 +6,14 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title><?= TITLE ?></title>
+        <title><?php echo TITLE ?></title>
 
         <!-- CSS -->
         <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:400,100,300,500">
-        <link rel="stylesheet" href="<?= base_url() ?>assets/login/form-1/assets/bootstrap/css/bootstrap.min.css">
-        <link rel="stylesheet" href="<?= base_url() ?>assets/login/form-1/assets/font-awesome/css/font-awesome.min.css">
-		<link rel="stylesheet" href="<?= base_url() ?>assets/login/form-1/assets/css/form-elements.css">
-        <link rel="stylesheet" href="<?= base_url() ?>assets/login/form-1/assets/css/style.css">
+        <link rel="stylesheet" href="<?php echo base_url() ?>assets/login/form-1/assets/bootstrap/css/bootstrap.min.css">
+        <link rel="stylesheet" href="<?php echo base_url() ?>assets/login/form-1/assets/font-awesome/css/font-awesome.min.css">
+		<link rel="stylesheet" href="<?php echo base_url() ?>assets/login/form-1/assets/css/form-elements.css">
+        <link rel="stylesheet" href="<?php echo base_url() ?>assets/login/form-1/assets/css/style.css">
 
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -64,7 +64,7 @@
 						</li>
 					</ul>
 				</div> -->
-                <form method="post" action="<?= base_url() ?>login" class="navbar-form navbar-right" role="search">
+                <form method="post" action="<?php echo base_url() ?>login" class="navbar-form navbar-right" role="search">
                     <div class="form-group">
                         <input type="text" class="form-control" name="username" placeholder="NISN / Email">
                     </div>
@@ -101,18 +101,18 @@
                                     <?php if($this->session->flashdata('msg') != NULL): ?>
                                         <div class="alert alert-info">
                                         <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                                        <?= $this->session->flashdata('msg'); ?>
+                                        <?php echo $this->session->flashdata('msg'); ?>
                                         </div>
                                     <?php endif; ?>
 
                                     <?php if($this->session->flashdata('msg_error') != NULL): ?>
                                         <div class="alert alert-danger">
                                         <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                                        <?= $this->session->flashdata('msg_error'); ?>
+                                        <?php echo $this->session->flashdata('msg_error'); ?>
                                         </div>
                                     <?php endif; ?>
                         			<h3>Daftar Sekarang</h3>
-                                    <?= validation_errors() ?>
+                                    <?php echo validation_errors() ?>
                             		<!-- <p>Fill in the form below to get instant access:</p> -->
                         		</div>
                         		<!-- <div class="form-top-right">
@@ -120,11 +120,11 @@
                         		</div> -->
                             </div>
                             <div class="form-bottom">
-			                    <form role="form" action="<?= base_url() ?>register" method="post" class="registration-form">
+			                    <form role="form" action="<?php echo base_url() ?>register" method="post" class="registration-form">
                                     <div class="col-md-12">
     			                    	<div class="form-group">
     			                    		<label class="sr-only" for="form-first-name">Nama Lengkap</label>
-    			                        	<input type="text" name="nama_lengkap" placeholder="Nama Lengkap" class="form-control" value="<?= set_value('nama_lengkap') ?>">
+    			                        	<input type="text" name="nama_lengkap" placeholder="Nama Lengkap" class="form-control" value="<?php echo set_value('nama_lengkap') ?>">
     			                        </div>
                                     </div>
                                     <div class="clearfix"></div>
@@ -134,13 +134,13 @@
     			                        	<div class="form-inline">
                                                 <div class="radio">
                                                     <label>
-                                                    <input type="radio" name="jkel" value="l" <?= set_radio('jkel', 'l', TRUE); ?>>
+                                                    <input type="radio" name="jkel" value="l" <?php echo set_radio('jkel', 'l', TRUE); ?>>
                                                     Laki - laki
                                                     </label>
                                                 </div>
                                                 <div class="radio">
                                                     <label>
-                                                    <input type="radio" name="jkel" value="p" <?= set_radio('jkel', 'p') ?> >
+                                                    <input type="radio" name="jkel" value="p" <?php echo set_radio('jkel', 'p') ?> >
                                                     Perempuan
                                                     </label>
                                                 </div>
@@ -151,7 +151,7 @@
                                     <div class="col-md-12">
     			                        <div class="form-group">
     			                        	<label class="sr-only" for="form-nisn">NISN</label>
-    			                        	<input type="text" name="NISN" placeholder="NISN" class="form-control" value="<?= set_value('NISN') ?>">
+    			                        	<input type="text" name="NISN" placeholder="NISN" class="form-control" value="<?php echo set_value('NISN') ?>">
     			                        </div>
                                     </div>
                                     <div class="clearfix"></div>
@@ -172,11 +172,11 @@
                                         <div class="form-group">
                                             <label class="sr-only" for="form-pendidikan">Tingkatan Sekolah</label>
                                             <select name="pendidikan" class="form-control" id="pendidikan" onchange="changePendidikan(this)">
-                                                <option value="" <?= set_select('pendidikan', '', TRUE); ?>>-- Pilih Pendidikan--</option>
-                                                <option value="SD" <?= set_select('pendidikan', 'SD'); ?>>SD</option>
-                                                <option value="SMP" <?= set_select('pendidikan', 'SMP'); ?>>SMP</option>
-                                                <option value="SMA" <?= set_select('pendidikan', 'SMA'); ?>>SMA</option>
-                                                <option value="SMK" <?= set_select('pendidikan', 'SMK'); ?>>SMK</option>
+                                                <option value="" <?php echo set_select('pendidikan', '', TRUE); ?>>-- Pilih Pendidikan--</option>
+                                                <option value="SD" <?php echo set_select('pendidikan', 'SD'); ?>>SD</option>
+                                                <option value="SMP" <?php echo set_select('pendidikan', 'SMP'); ?>>SMP</option>
+                                                <option value="SMA" <?php echo set_select('pendidikan', 'SMA'); ?>>SMA</option>
+                                                <option value="SMK" <?php echo set_select('pendidikan', 'SMK'); ?>>SMK</option>
                                             </select>
                                         </div>
                                     </div>
@@ -192,20 +192,20 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label class="sr-only" for="form-no-hp">No HP</label>
-                                            <input type="text" name="no_hp" class="form-control" placeholder="Nomor HP" value="<?= set_value('no_hp') ?>">
+                                            <input type="text" name="no_hp" class="form-control" placeholder="Nomor HP" value="<?php echo set_value('no_hp') ?>">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label class="sr-only" for="form-email">Email</label>
-                                            <input type="text" name="email" class="form-control" placeholder="E-Mail" value="<?= set_value('email') ?>">
+                                            <input type="text" name="email" class="form-control" placeholder="E-Mail" value="<?php echo set_value('email') ?>">
                                         </div>
                                     </div>
                                     <div class="clearfix"></div>
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label class="sr-only" for="form-rekening">No Rekening</label>
-                                            <input type="text" name="no_rek" class="form-control" placeholder="Nomor Rekening" value="<?= set_value('no_rek') ?>">
+                                            <input type="text" name="no_rek" class="form-control" placeholder="Nomor Rekening" value="<?php echo set_value('no_rek') ?>">
                                         </div>
                                     </div>
                                     <div class="clearfix"></div>
@@ -224,12 +224,12 @@
 
 
         <!-- Javascript -->
-        <script src="<?= base_url() ?>assets/login/form-1/assets/js/jquery-1.11.1.min.js"></script>
-        <script src="<?= base_url() ?>assets/login/form-1/assets/bootstrap/js/bootstrap.min.js"></script>
-        <script src="<?= base_url() ?>assets/login/form-1/assets/js/jquery.backstretch.min.js"></script>
-        <script src="<?= base_url() ?>assets/login/form-1/assets/js/retina-1.1.0.min.js"></script>
-        <script src="<?= base_url() ?>assets/jquery-validation/dist/jquery.validate.min.js"></script>
-        <!-- <script src="<?= base_url() ?>/assets/login/form-1/assets/js/scripts.js"></script> -->
+        <script src="<?php echo base_url() ?>assets/login/form-1/assets/js/jquery-1.11.1.min.js"></script>
+        <script src="<?php echo base_url() ?>assets/login/form-1/assets/bootstrap/js/bootstrap.min.js"></script>
+        <script src="<?php echo base_url() ?>assets/login/form-1/assets/js/jquery.backstretch.min.js"></script>
+        <script src="<?php echo base_url() ?>assets/login/form-1/assets/js/retina-1.1.0.min.js"></script>
+        <script src="<?php echo base_url() ?>assets/jquery-validation/dist/jquery.validate.min.js"></script>
+        <!-- <script src="<?php echo base_url() ?>/assets/login/form-1/assets/js/scripts.js"></script> -->
         <script>
 
             jQuery(document).ready(function() {
@@ -237,7 +237,7 @@
                 /*
                     Fullscreen background
                 */
-                $.backstretch("<?= base_url()?>assets/login/form-1/assets/img/backgrounds/1.jpg");
+                $.backstretch("<?php echo base_url()?>assets/login/form-1/assets/img/backgrounds/1.jpg");
                 
                 /*
                     Form validation
@@ -357,13 +357,26 @@
 
                     }
                  }
+                 else if(defaultData == "SMK"){
+                    for (var i=10; i <= 12; i++) {
+                        optionDefault = document.createElement("option");
+                        optionDefault.value = i;
+                        optionDefault.text = i;
+                        try{
+                            kelas.add(optionDefault);
+                        }
+                        catch (e){
+                            kelas.appendChild(optionDefault);
+                        }
+
+                    }
+                 }
                  else{
                         optionDefault = document.createElement("option");
                         optionDefault.value = "";
                         optionDefault.text = "-- Pilih Kelas--";
 
                     }
-                 }
 
                 });
             </script>

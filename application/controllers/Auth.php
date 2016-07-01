@@ -18,11 +18,12 @@ class Auth extends CI_Controller {
 	function index()
 	{
 
-		if($this->session->userdata('nisn')!= NULL OR $this->session->userdata('nisn') != ""):
+		if($this->session->userdata('nisn')!= NULL OR $this->session->userdata('nisn') != ""){
 			redirect(base_url().'home','refresh');
-		else:
+		}
+		else{
 			$this->load->view('login');
-		endif;
+		}
 	}
 
 	function daftar(){
@@ -38,9 +39,10 @@ class Auth extends CI_Controller {
 		$this->form_validation->set_rules('no_rek', 'Nomor Rekening', 'xss_clean|numeric');
 
 
-		if ($this->form_validation->run() == FALSE):
+		if ($this->form_validation->run() == FALSE){
  			$this->load->view('login');
-		else:
+		}
+		else{
 
 			if($this->input->post('jkel') == 'l'){
 				$photo = 'default-male.png';
@@ -68,7 +70,7 @@ class Auth extends CI_Controller {
 			$this->users->add($users);
 			$this->session->set_flashdata('msg', 'Kamu berhasil mendaftar, Silakan login untuk mengakses menu selanjutnya ');
 			redirect(base_url(),'refresh');
-		endif;
+		}
 	}
 
 
@@ -81,20 +83,18 @@ class Auth extends CI_Controller {
  			$this->load->view('login');
 		} 
 		else {
-
 			$login = $this->login->login();
 
-			if($login):
+			if($login){
 				$data = $login->row_array();
-
 				update_session($data);
 				redirect(base_url().'home','refresh');
-
-			else:
+			}
+			else{
 				$this->session->set_flashdata('msg_error', 'Maaf NISN atau Password yang kamu masukan salah, silakan cek kembali');
 				redirect(base_url(),'refresh');
 
-			endif;
+			}
 		}
 		
 	}
@@ -105,12 +105,13 @@ class Auth extends CI_Controller {
 
 		$cek_nisn = $this->login->cek_nisn($nisn);
 
-		if($cek_nisn):
+		if($cek_nisn){
 			$this->form_validation->set_message('cek_nisn', 'NISN yang kamu masukkan sudah terdaftar, silakan cek kembali NISN kamu.');
 			return FALSE;
-		else:
+		}
+		else{
 			return TRUE;
-		endif;
+		}
 
 	}
 

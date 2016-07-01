@@ -54,7 +54,7 @@ class Pelajaran extends CI_Controller {
 
 			$get = $this->mpelajaran->get_by_id($this->uri->rsegment(3));
 
-			if ($get):
+			if ($get){
 
 	    		$this->form_validation->set_rules('mata_pelajaran', "Nama Mata Pelajaran", "required|xss_clean");
 				$this->form_validation->set_rules('deskripsi', "Deskripsi", 'required|xss_clean');
@@ -73,16 +73,17 @@ class Pelajaran extends CI_Controller {
 					$this->session->set_flashdata('msg_success', 'Data berhasil di update');
 					redirect(base_url().'pelajaran','refresh');
 				}
-			else:
+			}
+			else{
         		redirect(base_url().'not_found','refresh');
-			endif;
+			}
 		}
 
 	
 	function set_active(){
 			$get = $this->mpelajaran->get_by_id($this->uri->rsegment(3));
 
-			if ($get):
+			if ($get){
 				$status = $get->row_array()['is_active'];
 
 				if ($status == 0) {
@@ -97,9 +98,9 @@ class Pelajaran extends CI_Controller {
 				$this->mpelajaran->edit_pelajaran($data, $get->row_array()['id']);
 				redirect(base_url().'pelajaran','refresh');
 
-			else:
+			}else{
         		redirect(base_url().'not_found','refresh');
-			endif;
+			}
 	}
 
 

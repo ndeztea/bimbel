@@ -24,18 +24,18 @@
         <div class="box box-primary table-responsive">
           <div class="box-body box-profile">
             <div class="col-md-3">
-              <img id="imageProfile" class="profile-user-img img-responsive img-circle" alt="User profile picture" src="<?= base_url('assets/images/avatar')."/".$this->session->userdata('avatar'); ?>"
+              <img id="imageProfile" class="profile-user-img img-responsive img-circle" alt="User profile picture" src="<?php echo base_url('assets/images/avatar')."/".$this->session->userdata('avatar'); ?>"
               style="width: 150px; height: 150px; margin: 10px auto;">
             </div>
             <div class="col-md-9">
-              <h3><?= $this->session->userdata('nama'); ?> (<?= $this->session->userdata('wids'); ?> Wids)</h3>
-              <h5 style="color:#777"><?= $wids ?></h5>
+              <h3><?php echo $this->session->userdata('nama'); ?> (<?php echo $this->session->userdata('wids'); ?> Wids)</h3>
+              <h5 style="color:#777"><?php echo $wids ?></h5>
               <hr />
               <table class="table">
                 <tr>
                   <td style="border-top: 0px solid #f4f4f4;">NISN</td>
                   <td style="border-top: 0px solid #f4f4f4;">:</td>
-                  <td style="border-top: 0px solid #f4f4f4;"><?= $users['nisn'] ?></td>
+                  <td style="border-top: 0px solid #f4f4f4;"><?php echo $users['nisn'] ?></td>
                 </tr>
                 <tr>
                   <td style="border-top: 0px solid #f4f4f4;">Jenis Kelamin</td>
@@ -56,23 +56,23 @@
                   <td style="border-top: 0px solid #f4f4f4;">Tingkat Pendidikan </td>
                   <td style="border-top: 0px solid #f4f4f4;">:</td>
                   <td style="border-top: 0px solid #f4f4f4;">
-                    Kelas <?= $users['kelas'] ?> <?= get_tingkat($users['tingkat_sekolah']) ?>
+                    Kelas <?php echo $users['kelas'] ?> <?php echo get_tingkat($users['tingkat_sekolah']) ?>
                   </td>
                 </tr>
                 <tr>
                   <td style="border-top: 0px solid #f4f4f4;">Sekolah </td>
                   <td style="border-top: 0px solid #f4f4f4;">:</td>
-                  <td style="border-top: 0px solid #f4f4f4;"><?= $users['nama_sekolah'] ?></td>
+                  <td style="border-top: 0px solid #f4f4f4;"><?php echo $users['nama_sekolah'] ?></td>
                 </tr>
                 <tr>
                   <td style="border-top: 0px solid #f4f4f4;">HP</td>
                   <td style="border-top: 0px solid #f4f4f4;">:</td>
-                  <td style="border-top: 0px solid #f4f4f4;"><?= $users['hp'] ?></td>
+                  <td style="border-top: 0px solid #f4f4f4;"><?php echo $users['hp'] ?></td>
                 </tr>
                 <tr>
                   <td style="border-top: 0px solid #f4f4f4;">Email</td>
                   <td style="border-top: 0px solid #f4f4f4;">:</td>
-                  <td style="border-top: 0px solid #f4f4f4;"><?= $users['email'] ?></td>
+                  <td style="border-top: 0px solid #f4f4f4;"><?php echo $users['email'] ?></td>
                 </tr>
               </table>
             </div>
@@ -80,7 +80,7 @@
           <div class="clearfix"></div>
           <div class="box-footer">
             <?php if($users['nisn'] == $this->session->userdata('nisn')): ?>
-            <button class="btn btn-md btn-info pull-right" onClick=location.href="<?= base_url()?>update_profil/">Edit Profil</button>
+            <button class="btn btn-md btn-info pull-right" onClick=location.href="<?php echo base_url()?>update_profil/">Edit Profil</button>
             <?php endif; ?>
           </div>
         </div>

@@ -118,11 +118,12 @@ class Mjawaban extends CI_Model {
 		$this->db->where('id', $id);
 		$query = $this->db->get('pelajaran_jawaban');
 
-		if($query):
+		if($query){
 			return $query;
-		else:
+		}
+		else{
 			return false;
-		endif;
+		}
 	}
 
 	

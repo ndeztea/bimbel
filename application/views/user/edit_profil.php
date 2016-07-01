@@ -19,16 +19,16 @@
               echo '</div>';
               }?>
 
-              <?= validation_errors() ?>
+              <?php echo validation_errors() ?>
     </div>
 
 		<div class="col-md-8">
           <div class="box box-primary table-responsive">
             <div class="box-body box-profile">
               <div class="col-md-3">
-                <img id="imageProfile" class="profile-user-img img-responsive img-circle" alt="User profile picture" src="<?= base_url('assets/images/avatar/')."/".$this->session->userdata('avatar'); ?>"
+                <img id="imageProfile" class="profile-user-img img-responsive img-circle" alt="User profile picture" src="<?php echo thumb_avatar($this->session->userdata('avatar'),$this->session->userdata('gender'))?>"
                 style="width: 150px; height: 150px; margin: 10px auto;">
-                <form method="post" action="<?= base_url() ?>avatar" enctype="multipart/form-data">
+                <form method="post" action="<?php echo base_url() ?>avatar" enctype="multipart/form-data">
                   <div class="form-group">
                     <label>Update foto profil</label>
                     <input id="imgProfile" type="file" name="avatar" class="form-control" accept="image/*">
@@ -38,33 +38,33 @@
                 </form>
               </div>
               <div class="col-md-9">
-                <form method="post" action="<?= base_url() ?>update_profil">
+                <form method="post" action="<?php echo base_url() ?>update_profil">
                   <table class="table">
                     <tr>
                       <td style="border-top: 0px solid #f4f4f4;">Nama Lengkap</td>
                       <td style="border-top: 0px solid #f4f4f4;">:</td>
                       <td style="border-top: 0px solid #f4f4f4;">
-                        <input type="text" name="nama" value="<?= $users['nama'] ?>" class="form-control">
+                        <input type="text" name="nama" value="<?php echo $users['nama'] ?>" class="form-control">
                       </td>
                     </tr>
                     <tr>
                       <td style="border-top: 0px solid #f4f4f4;">NISN</td>
                       <td style="border-top: 0px solid #f4f4f4;">:</td>
                       <td style="border-top: 0px solid #f4f4f4;">
-                        <input type="text" value="<?= $users['nisn'] ?>" class="form-control" disabled>
+                        <input type="text" value="<?php echo $users['nisn'] ?>" class="form-control" disabled>
                       </td>
                     </tr>
                     <tr>
                       <td style="border-top: 0px solid #f4f4f4;">Jenis Kelamin</td>
                       <td style="border-top: 0px solid #f4f4f4;">:</td>
                       <td style="border-top: 0px solid #f4f4f4;"> 
-                        <input type="radio" name="jkel" value="l" <?= set_radio('jkel', 'l', TRUE); ?>
+                        <input type="radio" name="jkel" value="l" <?php echo set_radio('jkel', 'l', TRUE); ?>
                         <?php if($users['gender'] == 'l'):
                                 echo "selected";
                               endif;
                         ?>>
                         Laki - laki
-                        <input type="radio" name="jkel" value="p" <?= set_radio('jkel', 'p') ?> 
+                        <input type="radio" name="jkel" value="p" <?php echo set_radio('jkel', 'p') ?> 
                         <?php if($users['gender'] == 'p'):
                               echo "selected";
                               endif;
@@ -82,17 +82,21 @@
                             <?php if($users['tingkat_sekolah'] == 'SD'):
                               echo "selected";
                               endif;
-                            ?>>SD / Sederajat</option>
+                            ?>>SD/option>
                             <option value="SMP" 
                             <?php if($users['tingkat_sekolah'] == 'SMP'):
                               echo "selected";
                               endif;
-                            ?>>SMP / Sederajat</option>
+                            ?>>SMP</option>
                             <option value="SMA" 
                             <?php if($users['tingkat_sekolah'] == 'SMA'):
                               echo "selected";
                               endif;
-                            ?>>SMA / Sederajat</option>
+                            ?>>SMA</option>
+                            <?php if($users['tingkat_sekolah'] == 'SMK'):
+                              echo "selected";
+                              endif;
+                            ?>>SMK</option>
                           </select>
                     </tr>
                    
@@ -101,34 +105,34 @@
                       <td style="border-top: 0px solid #f4f4f4;">:</td>
                       <td style="border-top: 0px solid #f4f4f4;">
                            <select name="kelas" class="form-control" id="kelas">
-                              <option value="<?= $users['kelas'] ?>" <?= set_select('kelas', '', true) ?>><?= $users['kelas'] ?></option>
+                              <option value="<?php echo $users['kelas'] ?>" <?php echo set_select('kelas', '', true) ?>><?php echo $users['kelas'] ?></option>
                            </select>
                     <tr>
                       <td style="border-top: 0px solid #f4f4f4;">Sekolah 
                       <td style="border-top: 0px solid #f4f4f4;">:</td>
                       <td style="border-top: 0px solid #f4f4f4;">
-                        <input type="text" name="sekolah" value="<?= $users['nama_sekolah'] ?>" class="form-control">
+                        <input type="text" name="sekolah" value="<?php echo $users['nama_sekolah'] ?>" class="form-control">
                       </td>
                     </tr>
                     <tr>
                       <td style="border-top: 0px solid #f4f4f4;">HP</td>
                       <td style="border-top: 0px solid #f4f4f4;">:</td>
                       <td style="border-top: 0px solid #f4f4f4;">
-                        <input type="number" name="no_hp" value="<?= $users['hp'] ?>" class="form-control">
+                        <input type="number" name="no_hp" value="<?php echo $users['hp'] ?>" class="form-control">
                       </td>
                     </tr>
                     <tr>
                       <td style="border-top: 0px solid #f4f4f4;">Email</td>
                       <td style="border-top: 0px solid #f4f4f4;">:</td>
                       <td style="border-top: 0px solid #f4f4f4;">
-                        <input type="email" name="email" value="<?= $users['email'] ?>" class="form-control">
+                        <input type="email" name="email" value="<?php echo $users['email'] ?>" class="form-control">
                       </td>
                     </tr>
                     <tr>
                       <td style="border-top: 0px solid #f4f4f4;">No Rekening</td>
                       <td style="border-top: 0px solid #f4f4f4;">:</td>
                       <td style="border-top: 0px solid #f4f4f4;">
-                        <input type="number" name="no_rek" value="<?= $users['rekening_bank'] ?>" class="form-control">
+                        <input type="number" name="no_rek" value="<?php echo $users['rekening_bank'] ?>" class="form-control">
                       </td>
                     </tr>
                      <tr>
@@ -210,4 +214,83 @@
              } 
             //]]>
             </script>
+            
+            <script type="text/javascript">
+                $(document).ready(function(){
+                 var defaultData = $("#pendidikan").val();
+                 var kelas = document.getElementById("kelas");
+                 var pendidikan = document.getElementById("pendidikan");
+                 var optionDefault;
+
+                 while (kelas.options.length > 0) 
+                 { 
+                    kelas.remove(0); 
+                 } 
+
+                 if(defaultData == "SD"){
+                    for (var i=1; i <= 6; i++) {
+                        optionDefault = document.createElement("option");
+                        optionDefault.value = i;
+                        optionDefault.text = i;
+                        try{
+                            kelas.add(optionDefault);
+                        }
+                        catch (e){
+                            kelas.appendChild(optionDefault);
+                        }
+
+                    }
+                 }
+                 else if(defaultData == "SMP"){
+                    for (var i=7; i <= 9; i++) {
+                        optionDefault = document.createElement("option");
+                        optionDefault.value = i;
+                        optionDefault.text = i;
+                        try{
+                            kelas.add(optionDefault);
+                        }
+                        catch (e){
+                            kelas.appendChild(optionDefault);
+                        }
+
+                    }
+                 }
+                 else if(defaultData == "SMA"){
+                    for (var i=10; i <= 12; i++) {
+                        optionDefault = document.createElement("option");
+                        optionDefault.value = i;
+                        optionDefault.text = i;
+                        try{
+                            kelas.add(optionDefault);
+                        }
+                        catch (e){
+                            kelas.appendChild(optionDefault);
+                        }
+
+                    }
+                 }
+                 else if(defaultData == "SMK"){
+                    for (var i=10; i <= 12; i++) {
+                        optionDefault = document.createElement("option");
+                        optionDefault.value = i;
+                        optionDefault.text = i;
+                        try{
+                            kelas.add(optionDefault);
+                        }
+                        catch (e){
+                            kelas.appendChild(optionDefault);
+                        }
+
+                    }
+                 }
+                 else{
+                        optionDefault = document.createElement("option");
+                        optionDefault.value = "";
+                        optionDefault.text = "-- Pilih Kelas--";
+
+                    }
+
+                });
+            </script>
+
 <?php $this->load->view('template/foot'); ?>

@@ -11,7 +11,7 @@
     }
 </style>
 
-<script src="<?= base_url() ?>assets/select2-4.0.2/vendor/jQuery-2.1.0.js"></script>
+<script src="<?php echo base_url() ?>assets/select2-4.0.2/vendor/jQuery-2.1.0.js"></script>
 
 <?php $this->load->view('template/header'); ?>
 <section class="content">
@@ -34,27 +34,28 @@
       <div class="box box-widget">
         <div class="box-header with-border">
           <div class="user-block">
-            <img class="img-circle" src="<?= base_url('assets/images/avatar/')."/".$pertanyaan['avatar_penanya'] ?>"
+            <img class="img-circle" src="<?php echo base_url('assets/images/avatar/')."/".$pertanyaan['avatar_penanya'] ?>"
             alt="user image">
-            <span class="username"><a href="#"><?= $pertanyaan['nama_penanya'] ?> - <small><?= $wids_penanya ?></small></a></span>
-            <span class="description"><?= get_tingkat($pertanyaan['tingkat']) ?> &middot; <?= $pertanyaan['nama_pelajaran'] ?></span>
+            <span class="username"><a href="#"><?php echo $pertanyaan['nama_penanya'] ?> - <small><?php echo $wids_penanya ?></small></a></span>
+            <span class="description"><?php echo get_tingkat($pertanyaan['tingkat']) ?> &middot; <?php echo $pertanyaan['nama_pelajaran'] ?></span>
           </div>
         </div>
         <div class="box-body">
-          <p><?= $pertanyaan['pertanyaan'] ?></p>
+          <p><?php echo $pertanyaan['pertanyaan'] ?></p>
           <?php if($pertanyaan['gambar'] != NULL): ?>
-            <img class="img-responsive pad" src="<?= base_url() ?>assets/images/question/<?= $pertanyaan['gambar']?>" alt="Photo">
+            <img class="img-responsive pad" src="<?php echo base_url() ?>assets/images/question/<?php echo $pertanyaan['gambar']?>" alt="Photo">
           <?php endif; ?>
 
           <?php if($this->session->userdata('id') == $pertanyaan['id_penanya'] OR $this->session->userdata('level') == "1"): ?>
-                  <button class="btn btn-danger btn-xs pull-right" onclick=confirmDelete(<?= $pertanyaan['id_pertanyaan'] ?>)><i class="fa fa-trash"></i> Hapus</button>
-                  <button class="btn btn-success btn-xs pull-right" onclick="location.href='<?= base_url() ?>edit_pertanyaan_saya/<?= $pertanyaan['id_pertanyaan'] ?>'"><i class="fa fa-pencil"></i> Edit</button>
+                  <button class="btn btn-danger btn-xs pull-right" onclick=confirmDelete(<?php echo $pertanyaan['id_pertanyaan'] ?>)><i class="fa fa-trash"></i> Hapus</button>
+                  <button class="btn btn-success btn-xs pull-right" onclick="location.href='<?php echo base_url() ?>edit_pertanyaan_saya/<?php echo $pertanyaan['id_pertanyaan'] ?>'"><i class="fa fa-pencil"></i> Edit</button>
 
                   <script type="text/javascript">
                       function confirmDelete(id) {
 
                         if(confirm('Anda yakin untuk menghapus pertanyaan ini ?')){
-                            window.location.href="<?=base_url() ?>delete_pertanyaan/"+id
+                            <?php $this->session->set_userdata('url_delete', base_url().'home'); ?>
+                            window.location.href="<?php echo base_url() ?>delete_pertanyaan/"+id
                         }
                       }
 
@@ -64,49 +65,41 @@
         <div class="box-footer box-comments">
             <?php foreach($jawaban_pertanyaan_correct->result() as $r): ?>
               <div class="box-comment" style="background-color:#c8fbd5">
-                <img class="img-circle img-sm" src="<?= base_url('assets/images/avatar/')."/".$r->avatar_penjawab?>" alt="user image">
+                <img class="img-circle img-sm" src="<?php echo base_url('assets/images/avatar/')."/".$r->avatar_penjawab?>" alt="user image">
 
                 <div class="comment-text">
                   <span class="username">
-                    <?= $r->nama_penjawab ?> - <small><?= count_wids($r->wids_penjawab) ?></small>
+                    <?php echo $r->nama_penjawab ?> - <small><?php echo count_wids($r->wids_penjawab) ?></small>
                     <span class="text-muted pull-right">8:03 PM Today</span>
                   </span>
 
 
-                  <?= $r->jawaban ?>
+                  <?php echo $r->jawaban ?>
 
-                  <div id="img-jawaban<?= $r->id ?>" class="col-md-6">
+                  <div id="img-jawaban<?php echo $r->id ?>" class="col-md-6">
                     <?php if($r->gambar_jawaban != NULL): ?>
-                        <img src="<?= base_url() ?>/assets/images/answer/<?= $r->gambar_jawaban ?>" alt="Photo" style="width:100% !important; height:auto !important"> 
+                        <img src="<?php echo base_url() ?>/assets/images/answer/<?php echo $r->gambar_jawaban ?>" alt="Photo" style="width:100% !important; height:auto !important"> 
                     <?php endif;?>
                   </div>
                   <div class="clearfix"></div>
-
-
-                  <?php if($r->nama_penjawab != $this->session->userdata('nama')): ?>
-                      <button class="btn btn-default btn-xs"><i class="fa fa-thumbs-o-up"></i> Like</button>
-                      <button class="btn btn-default btn-xs"><i class="fa fa-thumbs-o-down"></i> Dislike</button>
-                  <?php endif; ?>
-
-
-                  <span class="pull-right text-muted"><?= $r->jml_like ?> likes - <?= $r->jml_dislike ?> Dislikes</span>
+                  <span class="pull-right text-muted"><?php echo $r->jml_like ?> likes - <?php echo $r->jml_dislike ?> Dislikes</span>
                   <br />
                   
                   <?php if ($this->session->userdata('id') == $r->id_penjawab OR $this->session->userdata('level') == "1"): ?>
-                    <button class="btn btn-danger btn-xs pull-right" onclick=confirmHapus(<?= $r->id ?>)><i class="fa fa-trash"></i> Hapus</button>
-                    <button type="button" class="btn btn-success btn-xs pull-right" onclick=ConfirmEdit(<?= $r->id ?>)><i class='fa fa-pencil'></i> Edit</button>
+                    <button class="btn btn-danger btn-xs pull-right" onclick=confirmHapus(<?php echo $r->id ?>)><i class="fa fa-trash"></i> Hapus</button>
+                    <button type="button" class="btn btn-success btn-xs pull-right" onclick=ConfirmEdit(<?php echo $r->id ?>)><i class='fa fa-pencil'></i> Edit</button>
 
                     <script type="text/javascript">
                       function confirmHapus(id)
                         {
                              if(confirm('Anda yakin untuk menghapus jawaban ?'))
                              {
-                                window.location.href='<?= base_url() ?>delete_jawaban/'+id;
+                                window.location.href='<?php echo base_url() ?>delete_jawaban/'+id;
                              }
                         }
 
                       function ConfirmEdit(id){
-                        window.location.href="<?= base_url() ?>edit_jawaban/"+id;
+                        window.location.href="<?php echo base_url() ?>edit_jawaban/"+id;
                       }
                     </script>
                   <?php endif ?>
@@ -115,20 +108,20 @@
             <?php endforeach?>
             <?php foreach ($jawaban_pertanyaan->result() as $r): ?>
               <div class="box-comment">
-                <img class="img-circle img-sm" src="<?= base_url('assets/images/avatar/')."/".$r->avatar_penjawab?>" alt="user image">
+                <img class="img-circle img-sm" src="<?php echo base_url('assets/images/avatar/')."/".$r->avatar_penjawab?>" alt="user image">
 
                 <div class="comment-text">
                   <span class="username">
-                    <?= $r->nama_penjawab ?> - <small><?= count_wids($r->wids_penjawab) ?></small>
+                    <?php echo $r->nama_penjawab ?> - <small><?php echo count_wids($r->wids_penjawab) ?></small>
                     <span class="text-muted pull-right">8:03 PM Today</span>
                   </span>
 
 
-                  <?= $r->jawaban ?>
+                  <?php echo $r->jawaban ?>
 
-                  <div id="img-jawaban<?= $r->id ?>" class="col-md-6">
+                  <div id="img-jawaban<?php echo $r->id ?>" class="col-md-6">
                     <?php if($r->gambar_jawaban != NULL): ?>
-                        <img src="<?= base_url() ?>/assets/images/answer/<?= $r->gambar_jawaban ?>" alt="Photo" style="width:100% !important; height:auto !important"> 
+                        <img src="<?php echo base_url() ?>/assets/images/answer/<?php echo $r->gambar_jawaban ?>" alt="Photo" style="width:100% !important; height:auto !important"> 
                     <?php endif;?>
                   </div>
                   <div class="clearfix"></div>
@@ -140,24 +133,24 @@
                   <?php endif; ?>
 
 
-                  <span class="pull-right text-muted"><?= $r->jml_like ?> likes - <?= $r->jml_dislike ?> Dislikes</span>
+                  <span class="pull-right text-muted"><?php echo $r->jml_like ?> likes - <?php echo $r->jml_dislike ?> Dislikes</span>
                   <br />
                   
                   <?php if ($this->session->userdata('id') == $r->id_penjawab OR $this->session->userdata('level') == "1"): ?>
-                    <button class="btn btn-danger btn-xs pull-right" onclick=confirmHapus(<?= $r->id ?>)><i class="fa fa-trash"></i> Hapus</button>
-                    <button type="button" class="btn btn-success btn-xs pull-right" onclick=ConfirmEdit(<?= $r->id ?>)><i class='fa fa-pencil'></i> Edit</button>
+                    <button class="btn btn-danger btn-xs pull-right" onclick=confirmHapus(<?php echo $r->id ?>)><i class="fa fa-trash"></i> Hapus</button>
+                    <button type="button" class="btn btn-success btn-xs pull-right" onclick=ConfirmEdit(<?php echo $r->id ?>)><i class='fa fa-pencil'></i> Edit</button>
 
                     <script type="text/javascript">
                       function confirmHapus(id)
                         {
                              if(confirm('Anda yakin untuk menghapus jawaban ?'))
                              {
-                                window.location.href='<?= base_url() ?>delete_jawaban/'+id;
+                                window.location.href='<?php echo base_url() ?>delete_jawaban/'+id;
                              }
                         }
 
                       function ConfirmEdit(id){
-                        window.location.href="<?= base_url() ?>edit_jawaban/"+id;
+                        window.location.href="<?php echo base_url() ?>edit_jawaban/"+id;
                       }
                     </script>
                   <?php endif ?>
@@ -168,13 +161,13 @@
                   <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                       <div class="modal-dialog" role="document">
                         <div class="modal-content">
-                        <form method="POST" action="<?= base_url() ?>betul/<?= $r->id ?>">
+                        <form method="POST" action="<?php echo base_url() ?>betul/<?php echo $r->id ?>">
                           <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                             <h4 class="modal-title" id="myModalLabel">Beri Wids</h4>
                           </div>
                           <div class="modal-body">
-                            <input type="hidden" name="id" value="<?= $r->nisn_penjawab ?>">
+                            <input type="hidden" name="id" value="<?php echo $r->nisn_penjawab ?>">
                             <div class="form-group">
                               <label>Tambah wids hadiah :</label>
                               <input type="text" name="wids" class="form-control">
@@ -197,9 +190,9 @@
 
         <?php if($this->session->userdata('id') != $pertanyaan['id_penanya']): ?>
           <div class="box-footer">
-               <img class="img-circle img-sm" src="<?= base_url('assets/images/avatar/')."/".$this->session->userdata('avatar') ?>" alt="user image">
+               <img class="img-circle img-sm" src="<?php echo base_url('assets/images/avatar/')."/".$this->session->userdata('avatar') ?>" alt="user image">
                 <div class="img-push">
-                  <form action="<?= base_url() ?>jawab/<?= $this->uri->rsegment(3) ?>" method="post"  enctype="multipart/form-data">
+                  <form action="<?php echo base_url() ?>jawab/<?php echo $this->uri->rsegment(3) ?>" method="post"  enctype="multipart/form-data">
                   <textarea class="form_control" placeholder="Leave a comment" id="comment" name="jawaban"></textarea>
                   <div class="form-group">
                     <label for="gambar_jawaban">Tambah Gambar</label>
@@ -219,20 +212,17 @@
 </section>	
 <?php $this->load->view('template/footer-js'); ?>
 <!-- custom JS -->
-<script type="text/javascript">
-  $(document).ready(function() {
-  $(window).keydown(function(event){
-    if(event.keyCode == 13) {
-      event.preventDefault();
-      return false;
-    }
-  });
-});
-</script>
         <script type="text/javascript">
-         
+          $(document).ready(function() {
+          $(window).keydown(function(event){
+            if(event.keyCode == 13) {
+              event.preventDefault();
+              return false;
+            }
+          });
+        });
         </script>
-        <script src="<?= base_url() ?>assets/ckeditor/ckeditor.js"></script>
+        <script src="<?php echo base_url() ?>assets/ckeditor/ckeditor.js"></script>
         <script>
           $(function () {
             // Replace the <textarea id="editor1"> with a CKEditor
@@ -242,6 +232,6 @@
 
           });
         </script>
-        <script type="text/javascript" src="<?= base_url() ?>assets/js/ajaxFileUpload.js"></script>
+        <script type="text/javascript" src="<?php echo base_url() ?>assets/js/ajaxFileUpload.js"></script>
 
 <?php $this->load->view('template/foot'); ?>

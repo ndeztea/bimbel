@@ -1,6 +1,6 @@
 <?php $this->load->view('template/top'); ?>
 <!-- Custom CSS -->
-<link rel="stylesheet" href="<?= base_url() ?>assets/AdminLTE-2.3.0/plugins/datatables/dataTables.bootstrap.css">
+<link rel="stylesheet" href="<?php echo base_url() ?>assets/AdminLTE-2.3.0/plugins/datatables/dataTables.bootstrap.css">
 
 <?php $this->load->view('template/header'); ?>
 <section class="content">
@@ -60,9 +60,9 @@
 
 <?php $this->load->view('template/footer-js'); ?>
 <!-- custom JS -->
-<script src="<?= base_url() ?>assets/AdminLTE-2.3.0/plugins/datatables/jquery.dataTables.min.js"></script>
+<script src="<?php echo base_url() ?>assets/AdminLTE-2.3.0/plugins/datatables/jquery.dataTables.min.js"></script>
 
-<script src="<?= base_url() ?>assets/AdminLTE-2.3.0/plugins/datatables/dataTables.bootstrap.min.js"></script>
+<script src="<?php echo base_url() ?>assets/AdminLTE-2.3.0/plugins/datatables/dataTables.bootstrap.min.js"></script>
 
 <script type="text/javascript">
     $('#data_pertanyaan').DataTable({
@@ -80,7 +80,8 @@
   function confirmDelete(id) {
 
     if(confirm('Anda yakin untuk menghapus pertanyaan ini ?')){
-        window.location.href="<?= base_url() ?>delete_pertanyaan/"+id
+        <?php $this->session->set_userdata('url_delete', current_url()); ?>
+        window.location.href="<?php echo base_url() ?>delete_pertanyaan/"+id
     }
   }
 </script>
