@@ -57,3 +57,14 @@ function get_tingkat($id){
 
 	return $sekolah;
 }
+
+function thumb_avatar($file,$gender){
+	$file_avatar = 'assets/images/avatar/'.$file;
+
+	if(is_file($file_avatar)){
+		return base_url($file_avatar);
+	}else{
+		$file_gender = $gender=='l'?'default-female.png':'default-male.png';
+		return base_url('assets/images/avatar/'.$file_gender);
+	}
+}

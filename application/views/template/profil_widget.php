@@ -12,7 +12,7 @@
 			<h5 class="widget-user-desc"><?= $wids ?></h5>
 		</div>
 		<div class="widget-user-image">
-			<img class="img-circle" src="<?= base_url('assets/images/avatar/')."/".$this->session->userdata('avatar'); ?>"
+			<img class="img-circle" src="<?php echo thumb_avatar($this->session->userdata('avatar'),$this->session->userdata('gender'))?>"
 			alt="User Avatar" style="width:90px; height:90px; ">
 		</div>
 		<div class="box-footer">

@@ -92,6 +92,7 @@ class Auth extends CI_Controller {
 				$this->session->set_userdata('nisn', 		$data['nisn']);
 				$this->session->set_userdata('nama', 		$data['nama']);
 				$this->session->set_userdata('avatar', 		$data['avatar']);
+				$this->session->set_userdata('gender', 		$data['gender']);
 				$this->session->set_userdata('pendidikan', 	$data['tingkat_sekolah']);
 				$this->session->set_userdata('kelas',		$data['kelas']);
 				$this->session->set_userdata('wids', 		$data['wids']);
