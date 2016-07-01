@@ -32,6 +32,7 @@
                     <th>Nama</th>
                     <th>Kelas</th>
                     <th>Sekolah</th>
+                    <th>Wids</th>
                     <th>Status</th>
                     <th>Aksi</th>
                   </thead>
@@ -41,8 +42,9 @@
                           <td><?= $no++ ?></td>
                           <td><?= $r->nisn ?></td>
                           <td><?= $r->nama ?></td>
-                          <td><?= $r->kelas ?></td>
+                          <td class="text-center"><?= $r->kelas ?></td>
                           <td><?= $r->nama_sekolah ?></td>
+                          <td class="text-center"><?= $r->wids ?></td>
                           <td  class="text-center">
                               <?php if($r->is_active == '1'): ?>
                               <span class="label label-success">
