@@ -186,7 +186,7 @@ class Pertanyaan extends CI_Controller {
 			$wids = $this->users->get_user_by_id($this->session->userdata('nisn'))->row_array();
 			$wids_total = $wids['wids'] - 2;
 
-			if($wids['wids'] > 2){
+			if($wids['wids'] >= 2){
 				if($_FILES['gambar']['size'] == NULL):
 					$data = array('id_pelajaran' => $this->input->post('mata_pelajaran'),
 								  'tingkat'  	 => $this->input->post('tingkat'),
