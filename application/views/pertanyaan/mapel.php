@@ -28,15 +28,66 @@
               echo "<i class='fa fa-info-circle'></i> <strong><span style='margin-left:10px;'>".$this->session->flashdata('msg_success')."</span></strong>";
               echo '</div>';
               }?>
-		<div class="col-md-8">
-			<!-- List Pertanyaan -->
-				<?php if ($pertanyaan->num_rows() < 1): ?>
-	            	<h1>Belum ada pertanyaan untuk mata pelajaran ini</h1>
-	            <?php else: ?>
-					<div class="box box-primary table-responsive">
-						<div class="box-header with-border">
-							<h2 class="box-title">Pertanyaan</h2>
+          <div class="col-md-12">
+			<div class="box text-center">
+				<div class="box-body">
+					<a href="<?= base_url() ?>home">
+						<div class="col-md-1">
+							<div class="mata-pelajaran">
+								<i class="fa fa-list"></i>
+							</div>
+							<br />
+							Semua
 						</div>
+					</a>
+					<?php foreach ($pelajaran->result() as $r): ?>
+						<?php if ($r->is_active == "1"): ?>
+							<a href="<?= base_url() ?>mapel/<?= $r->id ?>">
+								<div class="col-md-1">
+									<div class="mata-pelajaran">
+										<i class="fa <?= $r->params ?>"></i>
+									</div>
+									<br />
+									<?= $r->pelajaran?>
+								</div>
+							</a>
+						<?php endif ?>
+					<?php endforeach ?>
+				</div>
+				<div class="collapse" id="collapseExample">
+					<?php foreach ($pelajaran_more->result() as $r): ?>
+							<a href="<?= base_url() ?>mapel/<?= $r->id ?>">
+								<div class="col-md-1">
+										<div class="mata-pelajaran">
+											<i class="fa <?= $r->params ?>"></i>
+										</div>
+										<br />
+										<?= $r->pelajaran?>
+								</div>
+							</a>
+					<?php endforeach ?>
+				</div>
+				<div class="clearfix"></div>
+				<div class="box-footer">
+					<button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+					Tampilkan Semua
+					</button>
+				</div>
+			</div>
+        </div>
+        <div class="clearfix"></div>
+        <br />
+		<div class="col-md-8">
+
+			<!-- List Pertanyaan -->
+			<div class="box box-primary table-responsive">
+				<div class="box-header with-border">
+					<h2 class="box-title">Pertanyaan - <?php echo $pelajaran_detail['pelajaran']?></h2>
+				</div>
+				<?php if ($pertanyaan->num_rows() < 1): ?>
+	            	<p class="alert alert-danger" >Belum ada pertanyaan untuk mata pelajaran ini</p>
+	            <?php else: ?>
+					
 						
 						<div class="box-body box-comments">
 							<?php foreach ($pertanyaan->result() as $r): ?>
@@ -57,8 +108,9 @@
 						<input type="hidden" name="offset" value="5" id="offset">
 						<button class="btn btn-block btn-info" id="loadmore"> Load More...
 						</button>
-					</div>
+					
 	            <?php endif ?>
+	        </div>
 		</div>
 		<div class="col-md-4">
 			<?php $this->load->view('template/profil_widget');?>

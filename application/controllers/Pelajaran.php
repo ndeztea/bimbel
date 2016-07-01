@@ -78,7 +78,7 @@ class Pelajaran extends CI_Controller {
 			endif;
 		}
 
-
+	
 	function set_active(){
 			$get = $this->mpelajaran->get_by_id($this->uri->rsegment(3));
 

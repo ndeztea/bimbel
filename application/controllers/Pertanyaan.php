@@ -155,7 +155,10 @@ class Pertanyaan extends CI_Controller {
 
 
     function pertanyaan_by_mapel(){
-    	$data['pertanyaan']   	= $this->mpertanyaan->get_pertanyaan_by_mapel($this->uri->rsegment(3) ,5, 0);
+    	$data['pelajaran']		= $this->mpelajaran->get_first_12();
+		$data['pelajaran_more']	= $this->mpelajaran->get_more();
+		$data['pelajaran_detail'] = $this->mpelajaran->get_by_id($this->uri->rsegment(3))->row_array();
+		$data['pertanyaan']   	= $this->mpertanyaan->get_pertanyaan_by_mapel($this->uri->rsegment(3) ,5, 0);
 		$this->load->view('pertanyaan/mapel', $data);
     }
 

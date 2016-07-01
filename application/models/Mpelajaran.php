@@ -6,7 +6,6 @@ class Mpelajaran extends CI_Model {
 	function get_by_id($id){
 			$this->db->where('id', $id);
 			$return = $this->db->get('pelajaran');
-
 			if($return->num_rows() > 0){
 				return $return;
 			}
