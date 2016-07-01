@@ -248,7 +248,7 @@ class Pertanyaan extends CI_Controller {
 				endif;
 			}
 			else {
-						$this->session->set_flashdata('msg_error', 'Maaf Wids kamu tidak cukup untuk melakukan pertanyaan');
+						$this->session->set_flashdata('msg_error', 'Maaf Wids kamu tidak cukup untuk melakukan pertanyaan, minimal harus nya 2 wids.');
 						redirect(base_url().'home','refresh');
 
 			}
