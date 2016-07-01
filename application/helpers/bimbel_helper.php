@@ -64,7 +64,14 @@ function thumb_avatar($file,$gender){
 	if(is_file($file_avatar)){
 		return base_url($file_avatar);
 	}else{
-		$file_gender = $gender=='l'?'default-female.png':'default-male.png';
+		$file_gender = $gender=='l'?'default-male.png':'default-female.png';
 		return base_url('assets/images/avatar/'.$file_gender);
+	}
+}
+
+function update_session($data_session){
+	$CI = & get_instance(); 
+	foreach ($data_session as $key => $value) {
+		$CI->session->set_userdata($key, $value);
 	}
 }

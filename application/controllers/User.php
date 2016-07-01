@@ -118,9 +118,17 @@ class User extends CI_Controller {
 							   'email' 			=> $this->input->post('email'),
 							   'rekening_bank' 	=> $this->input->post('no_rek'));
 
+				// update session
+				$data_session['nama'] =  $this->input->post('nama');
+				$data_session['gender'] =  $this->input->post('jkel');
+				$data_session['pendidikan'] =  $this->input->post('pendidikan');
+				$data_session['kelas'] =  $this->input->post('kelas');
+				$data_session['nama'] =  $this->input->post('nama');
+				
+				update_session($data_session);
+				
 				$this->users->update($users, $this->session->userdata('nisn'));
 				$this->session->set_flashdata('msg_success', 'Profil Berhasil Diubah');
-				$this->session->set_userdata($this->input->post('nama'));
 				redirect(base_url().'user/data_user','refresh');
 			}
 			
