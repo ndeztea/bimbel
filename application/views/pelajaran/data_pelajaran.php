@@ -50,26 +50,20 @@
                 <td class="text-center">
                     <?php if($r->is_active == '1'): ?>
                       <span class="label label-success">
-                        Aktif
+                        <a href="javascript:;" style="color:#FFF" onclick="location.href='<?= base_url() ?>set_active_pelajaran/<?= $r->id ?>'">Aktif</a>
                       </span>
                     <?php else: ?>
-                      <span class="label label-danger">
-                        Tidak Aktif
+                      <span class="label label-danger" >
+                        <a href="javascript:;"  style="color:#FFF"  onclick="location.href='<?= base_url() ?>set_active_pelajaran/<?= $r->id ?>'">Tidak Aktif</a>
                       </span>
                     <?php endif; ?>
                 </td>
-                <td>
-                    <button onclick=location.href="<?= base_url() ?>edit_pelajaran/<?= $r->id ?>" class="btn btn-success" ><i class="fa fa-pencil"></i></button>
-                    <button class="btn btn-danger" onclick=confirmDelete(<?= $r->id ?>)><i class="fa fa-trash"></i></button>
+                <td  class="text-center">
+                    <button onclick="location.href='<?= base_url() ?>edit_pelajaran/<?= $r->id ?>'" class="btn btn-success" ><i class="fa fa-pencil"></i></button>
+                    <button class="btn btn-danger" onclick="confirmDelete('<?= $r->id ?>')"><i class="fa fa-trash"></i></button>
 
 
-                     <?php if($r->is_active == '1'): ?>
-                    <button class="btn btn-danger" onclick=location.href='<?= base_url() ?>set_active_pelajaran/<?= $r->id ?>'><i class="fa fa-times"></i></button>
-                    <?php else: ?>
-                    <button class="btn btn-success" onclick=location.href='<?= base_url() ?>set_active_pelajaran/<?= $r->id ?>'><i class="fa  fa-check"></i></button> 
-                    <?php endif; ?>
-
-
+                   
                 </td>
               </tr>
               <?php endforeach; ?>

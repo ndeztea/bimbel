@@ -43,29 +43,22 @@
                           <td><?= $r->nama ?></td>
                           <td><?= $r->kelas ?></td>
                           <td><?= $r->nama_sekolah ?></td>
-                          <td>
+                          <td  class="text-center">
                               <?php if($r->is_active == '1'): ?>
                               <span class="label label-success">
-                                Aktif
+                                 <a href="javascript:;"  onclick="location.href='<?= base_url() ?>set_active_user/<?= $r->nisn ?>'" style="color:#FFF">Aktif</a>
                               </span>
                               <?php else: ?>
                               <span class="label label-danger">
-                              Tidak Aktif
+                              <a href="javascript:;"  onclick="location.href='<?= base_url() ?>set_active_user/<?= $r->nisn ?>'" style="color:#FFF">Tidak Aktif</a>
                               </span>
                               <?php endif; ?>
                           </td>
-                          <td>
-                            <button class="btn btn-success" onclick=location.href='<?= base_url() ?>edit_user/<?= $r->nisn ?>'><i class="fa fa-pencil"></i></button>
-                            <button class="btn btn-danger" onclick=location.href='<?= base_url() ?>delete_user/<?= $r->nisn ?>'><i class="fa fa-trash"></i></button>
+                          <td  class="text-center">
+                            <button class="btn btn-success" onclick="location.href='<?= base_url() ?>edit_user/<?= $r->nisn ?>'"><i class="fa fa-pencil"></i></button>
+                            <button class="btn btn-danger" onclick="location.href='<?= base_url() ?>delete_user/<?= $r->nisn ?>'"><i class="fa fa-trash"></i></button>
 
-
-                            <?php if($r->is_active == '1'): ?>
-                              <button class="btn btn-danger" onclick=location.href='<?= base_url() ?>set_active_user/<?= $r->nisn ?>'><i class="fa fa-times"></i></button>
-                            <?php else: ?>
-                              <button class="btn btn-success" onclick=location.href='<?= base_url() ?>set_active_user/<?= $r->nisn ?>'><i class="fa  fa-check"></i></button> 
-                            <?php endif; ?>
-
-                            <button class="btn btn-primary" onclick=location.href="<?= base_url() ?>data_wids/<?= $r->nisn?>">Wids</button>
+                             <button class="btn btn-primary" onclick="location.href='<?= base_url() ?>data_wids/<?= $r->nisn?>'">Wids</button>
                           </td>
                         </tr>
                       <?php endforeach ?>
