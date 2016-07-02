@@ -58,23 +58,9 @@
                       </span>
                     <?php endif; ?>
                 </td>
-<<<<<<< Updated upstream
                 <td  class="text-center">
                     <button onclick="location.href='<?= base_url() ?>edit_pelajaran/<?= $r->id ?>'" class="btn btn-success" ><i class="fa fa-pencil"></i></button>
                     <button class="btn btn-danger" onclick="confirmDelete('<?= $r->id ?>')"><i class="fa fa-trash"></i></button>
-=======
-                <td>
-                    <button onclick=location.href="<?php echo base_url() ?>edit_pelajaran/<?php echo $r->id ?>" class="btn btn-success" ><i class="fa fa-pencil"></i></button>
-                    <button class="btn btn-danger" onclick=confirmDelete(<?php echo $r->id ?>)><i class="fa fa-trash"></i></button>
-
-
-                     <?php if($r->is_active == '1'): ?>
-                    <button class="btn btn-danger" onclick=location.href='<?php echo base_url() ?>set_active_pelajaran/<?php echo $r->id ?>'><i class="fa fa-times"></i></button>
-                    <?php else: ?>
-                    <button class="btn btn-success" onclick=location.href='<?php echo base_url() ?>set_active_pelajaran/<?php echo $r->id ?>'><i class="fa  fa-check"></i></button> 
-                    <?php endif; ?>
->>>>>>> Stashed changes
-
 
                    
                 </td>

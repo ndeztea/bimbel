@@ -7,7 +7,7 @@ class Auth extends CI_Controller {
 	{
 		parent::__construct();
 		// load Model
-		$this->load->model('users');
+		$this->load->model('Users');
 		$this->load->model('login');
 
 		//set error delimiter untuk form validation
