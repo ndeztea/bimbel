@@ -215,3 +215,34 @@ ALTER TABLE `users`
 --
 ALTER TABLE `users_wids`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+
+
+-- dari dimas
+CREATE TABLE `vouchers_wids` (
+  `id` int(11) NOT NULL,
+  `kode_voucher` varchar(255) DEFAULT NULL,
+  `wids` int(11) DEFAULT NULL,
+  `telah_ditukar` int(11) DEFAULT NULL,
+  `tgl_update` datetime DEFAULT NULL,
+  `keterangan` text
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='1';
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `vouchers_wids`
+--
+ALTER TABLE `vouchers_wids`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `vouchers_wids`
+--
+ALTER TABLE `vouchers_wids`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
