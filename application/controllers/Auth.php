@@ -67,7 +67,7 @@ class Auth extends CI_Controller {
 						   'is_active' 		=> '1');
 
 
-			$this->users->add($users);
+			$this->Users->add($users);
 			$this->session->set_flashdata('msg', 'Kamu berhasil mendaftar, Silakan login untuk mengakses menu selanjutnya ');
 			redirect(base_url(),'refresh');
 		}
