@@ -9,7 +9,7 @@ class User extends CI_Controller {
 		if($this->session->userdata('nisn') == NULL OR $this->session->userdata('nisn') == "" AND $this->session->userdata('level') != "1"){
 			redirect(base_url(),'refresh');
 		}
-		$this->load->model('users');
+		$this->load->model('Users');
 		
 	}
 
@@ -18,7 +18,7 @@ class User extends CI_Controller {
 		$this->load->library('pagination');
 		
 		$config['base_url'] = base_url().'users';
-		$config['total_rows'] = $this->users->count_user()->row_array()['id'];
+		$config['total_rows'] = $this->Users->count_user()->row_array()['id'];
 
 		$config['per_page'] = 10;
 		$config['uri_segment'] = 2;
@@ -45,7 +45,7 @@ class User extends CI_Controller {
 
 
 		$data['pagination'] = $this->pagination->create_links();
-		$data['users'] = $this->users->get_all_users($config['per_page'], $page);
+		$data['users'] = $this->Users->get_all_users($config['per_page'], $page);
 		$data['no'] = 1;
 
 		$this->load->view('user/data_user', $data);
@@ -53,7 +53,7 @@ class User extends CI_Controller {
 
 	function delete_user(){
 		$id = $this->uri->rsegment(3);
-        $this->users->delete_user($id);
+        $this->Users->delete_user($id);
 		$this->session->set_flashdata('msg_success', 'Data berhasil dihapus');
         redirect(base_url().'user/data_user','refresh');
     }
@@ -61,7 +61,7 @@ class User extends CI_Controller {
 
 
     function set_active(){
-			$get = $this->users->get_user_by_id($this->uri->rsegment(3));
+			$get = $this->Users->get_user_by_id($this->uri->rsegment(3));
 
 			if ($get){
 				$status = $get->row_array()['is_active'];
@@ -75,7 +75,7 @@ class User extends CI_Controller {
 					$this->session->set_flashdata('msg_success', 'User berhasil dinon-aktifkan');
 				}
 
-				$this->users->update($data, $get->row_array()['nisn']);
+				$this->Users->update($data, $get->row_array()['nisn']);
 				redirect(base_url().'user/data_user','refresh');
 
 			}
@@ -86,7 +86,7 @@ class User extends CI_Controller {
 
 
 	function edit_user(){
-		$users = $this->users->get_user_by_id($this->uri->rsegment(3));
+		$users = $this->Users->get_user_by_id($this->uri->rsegment(3));
 		
 
 		if($users){
@@ -128,7 +128,7 @@ class User extends CI_Controller {
 				
 				update_session($data_session);
 				
-				$this->users->update($users, $this->session->userdata('nisn'));
+				$this->Users->update($users, $this->session->userdata('nisn'));
 				$this->session->set_flashdata('msg_success', 'Profil Berhasil Diubah');
 				redirect(base_url().'user/data_user','refresh');
 			}
@@ -141,7 +141,7 @@ class User extends CI_Controller {
 
 	function upload_avatar(){
 		$this->session->set_userdata('url_users', base_url()."edit_user/".$this->uri->rsegment(3));
-		$users = $this->users->get_user_by_id($this->uri->rsegment(3))->row_array();
+		$users = $this->Users->get_user_by_id($this->uri->rsegment(3))->row_array();
 
 		if($users){
 
@@ -162,7 +162,7 @@ class User extends CI_Controller {
 		                unlink(FCPATH."assets/images/avatar/".$users['avatar']);
 		            }
 		        $data = array('avatar' => $this->upload->data()['file_name']);
-	            $this->users->update($data, $users['nisn']);
+	            $this->Users->update($data, $users['nisn']);
 	            redirect($this->session->userdata('url_users'), 'refresh');
 	        }
 	  	}

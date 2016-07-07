@@ -11,10 +11,10 @@ class Home extends CI_Controller {
 			redirect(base_url(),'refresh');
 		}
 
-		$this->load->model('users');
-		$this->load->model('mpertanyaan');
-		$this->load->model('mpelajaran');
-		$this->load->model('mjawaban');
+		$this->load->model('Users');
+		$this->load->model('Mpertanyaan');
+		$this->load->model('Mpelajaran');
+		$this->load->model('Mjawaban');
 		$this->load->helper('bimbel_helper');
 		$this->form_validation->set_error_delimiters('<div class="alert alert-danger">
   		<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>', '</div>');
@@ -23,19 +23,19 @@ class Home extends CI_Controller {
 
 	function index()
 	{
-		$data['pelajaran']		= $this->mpelajaran->get_first_12();
-		$data['pelajaran_more']	= $this->mpelajaran->get_more();
-		$data['pertanyaan']   	= $this->mpertanyaan->get_pertanyaan(5, 0);
+		$data['pelajaran']		= $this->Mpelajaran->get_first_12();
+		$data['pelajaran_more']	= $this->Mpelajaran->get_more();
+		$data['pertanyaan']   	= $this->Mpertanyaan->get_pertanyaan(5, 0);
 		$this->load->view('home', $data);
 	}
 
 
 	function profil(){
-		$users = $this->users->get_user_by_id($this->session->userdata('nisn'));
+		$users = $this->Users->get_user_by_id($this->session->userdata('nisn'));
 		if($users){
 			$data['users'] 				= $users->row_array();
 			$data['wids']   			= count_wids($users->row_array()['wids']);
-	    	$data['pertanyaan_saya']	= $this->mpertanyaan->get_pertanyaan_by_nisn($this->session->userdata('nisn'), 4, 0);
+	    	$data['pertanyaan_saya']	= $this->Mpertanyaan->get_pertanyaan_by_nisn($this->session->userdata('nisn'), 4, 0);
 			$this->load->view('user/profil', $data);
 		}
 		else{
@@ -45,7 +45,7 @@ class Home extends CI_Controller {
 	}
 
 	function update_profil(){
-		$users = $this->users->get_user_by_id($this->session->userdata('nisn'));
+		$users = $this->Users->get_user_by_id($this->session->userdata('nisn'));
 		
 
 		if($users){
@@ -88,7 +88,7 @@ class Home extends CI_Controller {
 				$data_session['nama'] =  $this->input->post('nama');
 				update_session($data_session);
 
-				$this->users->update($users, $this->session->userdata('nisn'));
+				$this->Users->update($users, $this->session->userdata('nisn'));
 				$this->session->set_flashdata('msg_success', 'Profil Berhasil Diubah');
 				redirect(base_url().'profil','refresh');
 			}
@@ -117,14 +117,14 @@ class Home extends CI_Controller {
 	                unlink(FCPATH."assets/images/avatar/".$this->session->userdata('avatar'));
 	            }
 	        $data = array('avatar' => $this->upload->data()['file_name']);
-            $this->users->update($data, $this->session->userdata('nisn'));
+            $this->Users->update($data, $this->session->userdata('nisn'));
             $this->session->set_userdata('avatar', $this->upload->data()['file_name']);
             redirect(base_url().'profil', 'refresh');
         }
 	}
 
 	function cek_password(){
-		$password = $this->users->cek_password($this->session->userdata('nisn'), sha1(md5(strrev($this->input->post('password')))));
+		$password = $this->Users->cek_password($this->session->userdata('nisn'), sha1(md5(strrev($this->input->post('password')))));
 
 		if($password){
 			return TRUE;
@@ -136,7 +136,7 @@ class Home extends CI_Controller {
 	}
 
 	function load_more(){
-		$get = $this->mpertanyaan->get_pertanyaan(5, $this->input->post('offset'));
+		$get = $this->Mpertanyaan->get_pertanyaan(5, $this->input->post('offset'));
 		if($get->num_rows() >= 1){
 			foreach ($get->result() as $r) {
 				echo "<div class='box-comment'> 

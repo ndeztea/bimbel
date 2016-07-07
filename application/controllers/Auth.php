@@ -8,7 +8,7 @@ class Auth extends CI_Controller {
 		parent::__construct();
 		// load Model
 		$this->load->model('Users');
-		$this->load->model('login');
+		$this->load->model('Login');
 
 		//set error delimiter untuk form validation
 		$this->form_validation->set_error_delimiters('<div class="alert alert-danger">
@@ -83,7 +83,7 @@ class Auth extends CI_Controller {
  			$this->load->view('login');
 		} 
 		else {
-			$login = $this->login->login();
+			$login = $this->Login->login();
 
 			if($login){
 				$data = $login->row_array();
@@ -103,7 +103,7 @@ class Auth extends CI_Controller {
 	function cek_nisn(){
 		$nisn = $this->input->post('NISN');
 
-		$cek_nisn = $this->login->cek_nisn($nisn);
+		$cek_nisn = $this->Login->cek_nisn($nisn);
 
 		if($cek_nisn){
 			$this->form_validation->set_message('cek_nisn', 'NISN yang kamu masukkan sudah terdaftar, silakan cek kembali NISN kamu.');

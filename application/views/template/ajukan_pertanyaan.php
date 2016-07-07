@@ -1,5 +1,5 @@
 <?php 
-	$pelajaran 	  		= $this->mpelajaran->getdata()->result();
+	$pelajaran 	  		= $this->Mpelajaran->getdata()->result();
 ?>
 <div class="box box-primary">
 				<div class="box-header">

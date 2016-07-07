@@ -10,24 +10,24 @@ class Jawaban extends CI_Controller {
 		if($this->session->userdata('nisn') == NULL OR $this->session->userdata('nisn') == ""){
 			redirect(base_url(),'refresh');
 		}
-		$this->load->model('users');
-		$this->load->model('mpertanyaan');
-		$this->load->model('mpelajaran');
-		$this->load->model('mjawaban');
-		$this->load->model('mwids');
+		$this->load->model('Users');
+		$this->load->model('Mpertanyaan');
+		$this->load->model('Mpelajaran');
+		$this->load->model('Mjawaban');
+		$this->load->model('Mwids');
 		$this->load->helper('bimbel_helper');
 	}
 
 
 	function delete_jawaban(){
-		$jawaban = $this->mjawaban->get_jawaban_by_id($this->uri->rsegment(3));
+		$jawaban = $this->Mjawaban->get_jawaban_by_id($this->uri->rsegment(3));
 
 		if($jawaban){
 			if($jawaban->row_array()['photo'] != NULL)
     		{
 				unlink(FCPATH."assets/images/answer/".$jawaban->row_array()['photo']);
 			}
-			$this->mjawaban->hapus_jawaban($this->uri->rsegment(3));
+			$this->Mjawaban->hapus_jawaban($this->uri->rsegment(3));
 			$this->session->set_flashdata('msg_success', 'Data berhasil dihapus');
 			redirect($this->session->userdata('url_pertanyaan'),'refresh');
 		}
@@ -39,7 +39,7 @@ class Jawaban extends CI_Controller {
 
 	function insert_jawaban() {
 
-		$pertanyaan = $this->mpertanyaan->get_pertanyaan_by_id($this->uri->rsegment(3));
+		$pertanyaan = $this->Mpertanyaan->get_pertanyaan_by_id($this->uri->rsegment(3));
 			if($pertanyaan){
 				$this->form_validation->set_rules('jawaban', 'Jawaban', 'required|xss_clean');
 				if ($this->form_validation->run() == FALSE) {
@@ -65,7 +65,7 @@ class Jawaban extends CI_Controller {
 											 'id_pertanyaan' => $this->uri->rsegment(3),
 											 'id_user' => $this->session->userdata('id'),
 											 'photo' => $this->upload->data()['file_name']);	
-			    			$this->mjawaban->insert_jawaban($jawaban);
+			    			$this->Mjawaban->insert_jawaban($jawaban);
 			    			$this->session->set_flashdata('msg_succes', 'Jawaban berhasil ditambahkan');
 			    			redirect($this->session->userdata('url_pertanyaan'),'refresh');
 						}
@@ -73,7 +73,7 @@ class Jawaban extends CI_Controller {
 						$jawaban = array('jawaban' => $this->input->post('jawaban'),
 										 'id_pertanyaan' => $this->uri->rsegment(3),
 										 'id_user' => $this->session->userdata('id'));	
-			    			$this->mjawaban->insert_jawaban($jawaban);
+			    			$this->Mjawaban->insert_jawaban($jawaban);
 			    			$this->session->set_flashdata('msg_succes', 'Jawaban berhasil ditambahkan');
 			    			redirect($this->session->userdata('url_pertanyaan'),'refresh');
 					}
@@ -86,7 +86,7 @@ class Jawaban extends CI_Controller {
 
 
     function edit_jawaban(){
-    	$get = $this->mjawaban->get_jawaban_by_id($this->uri->rsegment(3));
+    	$get = $this->Mjawaban->get_jawaban_by_id($this->uri->rsegment(3));
 
 			if ($get){
 	    		$this->form_validation->set_rules('jawaban', "Jawaban", "required|xss_clean");
@@ -98,7 +98,7 @@ class Jawaban extends CI_Controller {
 					if($_FILES['gambar']['size'] == NULL){
 						$data = array('jawaban' => $this->input->post('jawaban')
 							  );
-						$this->mjawaban->edit_jawaban($data, $get->row_array()['id']);
+						$this->Mjawaban->edit_jawaban($data, $get->row_array()['id']);
 						$this->session->set_flashdata('msg_success', 'Data berhasil di update');
 						redirect($this->session->userdata('url_pertanyaan'),'refresh');
 					}else{
@@ -121,7 +121,7 @@ class Jawaban extends CI_Controller {
 							$data = array('jawaban' => $this->input->post('jawaban'),
 										  'photo' =>$this->upload->data()['file_name']
 							  );
-							$this->mjawaban->edit_jawaban($data, $get->row_array()['id']);
+							$this->Mjawaban->edit_jawaban($data, $get->row_array()['id']);
 							$this->session->set_flashdata('msg_success', 'Data berhasil di update');
 							redirect($this->session->userdata('url_pertanyaan'),'refresh');
 							}
@@ -138,11 +138,11 @@ class Jawaban extends CI_Controller {
 		$this->form_validation->set_rules('wids', 'Wids', 'numeric|xss_clean|required');
 
 		if ($this->form_validation->run() == FALSE){
-			$this->session->set_flashdata('msg_error', validation_error());
+			$this->session->set_flashdata('msg_error', validation_errors());
 			redirect($this->session->userdata('url_pertanyaan'),'refresh');
 		}
 		else{
-			$user_wids = $this->users->get_user_by_id($this->input->post('id'));
+			$user_wids = $this->Users->get_user_by_id($this->input->post('id'));
 			if($user_wids){
 				$wids = $user_wids->row_array()['wids'] + $this->input->post('wids');
 
@@ -156,9 +156,9 @@ class Jawaban extends CI_Controller {
 
 				$jawaban = array("is_correct" => "1");
 
-				$this->mjawaban->edit_jawaban($jawaban, $this->uri->rsegment(3));
-				$this->users->update($user, $this->input->post('id'));
-				$this->mwids->add_wids($data, $user);
+				$this->Mjawaban->edit_jawaban($jawaban, $this->uri->rsegment(3));
+				$this->Users->update($user, $this->input->post('id'));
+				$this->Mwids->add_wids($data, $user);
 
 
 				
@@ -172,7 +172,7 @@ class Jawaban extends CI_Controller {
 	}
 
 	function jawaban_saya(){
-	    	$data['jawaban'] = $this->mjawaban->get_jawaban_by_nisn($this->session->userdata('nisn'));
+	    	$data['jawaban'] = $this->Mjawaban->get_jawaban_by_nisn($this->session->userdata('nisn'));
 	    	$this->load->view('jawaban/jawaban_saya', $data);
 	}
 }

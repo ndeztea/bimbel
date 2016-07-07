@@ -15,6 +15,7 @@ class Mjawaban extends CI_Model {
 							pelajaran_jawaban.id_pertanyaan,
 							pelajaran_jawaban.jawaban,
 							pelajaran_jawaban.is_correct,
+							pelajaran_jawaban.tgl_update,
 							pelajaran_jawaban.jml_like,
 							pelajaran_jawaban.jml_dislike,
 							pelajaran_jawaban.tgl_update AS tanggal_jawab');
@@ -38,6 +39,7 @@ class Mjawaban extends CI_Model {
 							penjawab.avatar AS avatar_penjawab,
 							pelajaran_jawaban.id,
 							pelajaran_jawaban.photo as gambar_jawaban,
+							pelajaran_jawaban.tgl_update,
 							pelajaran_jawaban.id_pertanyaan,
 							pelajaran_jawaban.jawaban,
 							pelajaran_jawaban.is_correct,

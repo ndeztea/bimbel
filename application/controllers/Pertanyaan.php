@@ -9,12 +9,12 @@ class Pertanyaan extends CI_Controller {
 		if($this->session->userdata('nisn') == NULL OR $this->session->userdata('nisn') == ""){
 			redirect(base_url(),'refresh');
 		}
-		$this->load->model('mpertanyaan');
-		$this->load->model('mjawaban');
-		$this->load->model('mpelajaran');
+		$this->load->model('Mpertanyaan');
+		$this->load->model('Mjawaban');
+		$this->load->model('Mpelajaran');
 		$this->load->helper('bimbel_helper');
-		$this->load->model('users');
-		$this->load->model('muser_wids');
+		$this->load->model('Users');
+		$this->load->model('Muser_wids');
 	}
 
 
@@ -125,7 +125,7 @@ class Pertanyaan extends CI_Controller {
 	}
 
 	function pertanyaan_saya(){
-		$data['pertanyaan'] = $this->mpertanyaan->get_pertanyaan_by_nisn($this->session->userdata('nisn'), 10, 0);
+		$data['pertanyaan'] = $this->Mpertanyaan->get_pertanyaan_by_nisn($this->session->userdata('nisn'), 10, 0);
 		$data['no'] = 1;
 		$this->load->view('pertanyaan/data_pertanyaan_saya', $data);
 	}
@@ -135,16 +135,16 @@ class Pertanyaan extends CI_Controller {
 	
 
     function detail_pertanyaan(){
-    	$pertanyaan = $this->mpertanyaan->get_detail_pertanyaan($this->uri->rsegment(3));
+    	$pertanyaan = $this->Mpertanyaan->get_detail_pertanyaan($this->uri->rsegment(3));
 
 	    	if($pertanyaan){
-				$data['jumlah_pertanyaan']	= $this->mpertanyaan->get_count_pertanyaan($this->session->userdata('id'))->row_array()['jumlah'];
-				$data['jumlah_jawaban']	= $this->mjawaban->get_count_jawaban($this->session->userdata('id'))->row_array()['jumlah'];
+				$data['jumlah_pertanyaan']	= $this->Mpertanyaan->get_count_pertanyaan($this->session->userdata('id'))->row_array()['jumlah'];
+				$data['jumlah_jawaban']	= $this->Mjawaban->get_count_jawaban($this->session->userdata('id'))->row_array()['jumlah'];
 				$data['pertanyaan'] = $pertanyaan->row_array();
-				$data['pelajaran'] 	  = $this->mpelajaran->getdata()->result();
+				$data['pelajaran'] 	  = $this->Mpelajaran->getdata()->result();
 				$data['wids'] 		  = count_wids($this->session->userdata('wids'));
-				$data['jawaban_pertanyaan'] = $this->mjawaban->get_jawaban_pertanyaan($this->uri->rsegment(3));
-				$data['jawaban_pertanyaan_correct'] = $this->mjawaban->get_correct_answer($this->uri->rsegment(3));
+				$data['jawaban_pertanyaan'] = $this->Mjawaban->get_jawaban_pertanyaan($this->uri->rsegment(3));
+				$data['jawaban_pertanyaan_correct'] = $this->Mjawaban->get_correct_answer($this->uri->rsegment(3));
 				$data['wids_penanya'] = count_wids($data['pertanyaan']['wids_penanya']);
 				$this->session->set_userdata('url_pertanyaan', base_url().'detail_pertanyaan/'.$this->uri->rsegment(3));
 				$this->load->view('Pertanyaan/detail_pertanyaan', $data);
@@ -155,10 +155,10 @@ class Pertanyaan extends CI_Controller {
 
 
     function pertanyaan_by_mapel(){
-    	$data['pelajaran']		= $this->mpelajaran->get_first_12();
-		$data['pelajaran_more']	= $this->mpelajaran->get_more();
-		$data['pelajaran_detail'] = $this->mpelajaran->get_by_id($this->uri->rsegment(3))->row_array();
-		$data['pertanyaan']   	= $this->mpertanyaan->get_pertanyaan_by_mapel($this->uri->rsegment(3) ,5, 0);
+    	$data['pelajaran']		= $this->Mpelajaran->get_first_12();
+		$data['pelajaran_more']	= $this->Mpelajaran->get_more();
+		$data['pelajaran_detail'] = $this->Mpelajaran->get_by_id($this->uri->rsegment(3))->row_array();
+		$data['pertanyaan']   	= $this->Mpertanyaan->get_pertanyaan_by_mapel($this->uri->rsegment(3) ,5, 0);
 		$this->load->view('pertanyaan/mapel', $data);
     }
 
@@ -186,7 +186,7 @@ class Pertanyaan extends CI_Controller {
 			$this->load->library('upload', $config);
 
 
-			$wids = $this->users->get_user_by_id($this->session->userdata('nisn'))->row_array();
+			$wids = $this->Users->get_user_by_id($this->session->userdata('nisn'))->row_array();
 			$wids_total = $wids['wids'] - 2;
 
 			if($wids['wids'] >= 2){
@@ -207,9 +207,9 @@ class Pertanyaan extends CI_Controller {
 									   'keterangan' => "Bertanya");
 
 
-					$this->mpertanyaan->add_pertanyaan($data);
-					$this->users->update($user, $this->session->userdata('nisn'));
-					$this->muser_wids->transaksi($user_wids);
+					$this->Mpertanyaan->add_pertanyaan($data);
+					$this->Users->update($user, $this->session->userdata('nisn'));
+					$this->Muser_wids->transaksi($user_wids);
 
 					$this->session->set_userdata('wids', $wids_total);
 
@@ -230,7 +230,7 @@ class Pertanyaan extends CI_Controller {
 										  'id_user' 	 => $this->session->userdata('id'),
 										  'tgl_update'   => date("Y-m-d H:i:s"),
 										  'photo'		 =>	$this->upload->data()['file_name']);
-							$this->mpertanyaan->add_pertanyaan($data);
+							$this->Mpertanyaan->add_pertanyaan($data);
 
 							$user = array('wids' => $wids_total);
 
@@ -240,9 +240,9 @@ class Pertanyaan extends CI_Controller {
 											   'action' => 'kurang');
 
 
-							$this->mpertanyaan->add_pertanyaan($data);
-							$this->users->update($user, $this->session->userdata('nisn'));
-							$this->muser_wids->transaksi($user_wids);
+							$this->Mpertanyaan->add_pertanyaan($data);
+							$this->Users->update($user, $this->session->userdata('nisn'));
+							$this->Muser_wids->transaksi($user_wids);
 
 
 							$this->session->set_userdata('wids', $wids_total);
@@ -263,13 +263,13 @@ class Pertanyaan extends CI_Controller {
 
     function delete_pertanyaan_saya(){
 		$id = $this->uri->rsegment(3);
-        $this->mpertanyaan->delete_pertanyaan($id);
+        $this->Mpertanyaan->delete_pertanyaan($id);
 		$this->session->set_flashdata('msg_success', 'Data berhasil dihapus');
         redirect(base_url().'my_question','refresh');
     }
 
     function delete_pertanyaan(){
-		$get = $this->mpertanyaan->get_pertanyaan_by_id($this->uri->rsegment(3));
+		$get = $this->Mpertanyaan->get_pertanyaan_by_id($this->uri->rsegment(3));
     	
     	if($get){
     		if($get->row_array()['gambar'] != NULL)
@@ -277,7 +277,7 @@ class Pertanyaan extends CI_Controller {
 				unlink(FCPATH."assets/images/question/".$get->row_array()['gambar']);
 			}
 			$id = $this->uri->rsegment(3);
-	        $this->mpertanyaan->delete_pertanyaan($id);
+	        $this->Mpertanyaan->delete_pertanyaan($id);
 			$this->session->set_flashdata('msg_success', 'Data berhasil dihapus');
 	        redirect($this->session->userdata('url_delete'),'refresh');
 	    }else{
@@ -287,7 +287,7 @@ class Pertanyaan extends CI_Controller {
 
 
     function edit_pertanyaan_saya(){	
-		$get = $this->mpertanyaan->get_pertanyaan_by_id($this->uri->rsegment(3));
+		$get = $this->Mpertanyaan->get_pertanyaan_by_id($this->uri->rsegment(3));
 		$this->session->set_userdata('url_edit_pertanyaan', base_url()."edit_pertanyaan_saya/".$this->uri->rsegment(3));
 
 			if ($get){
@@ -299,7 +299,7 @@ class Pertanyaan extends CI_Controller {
 			
 				if($this->form_validation->run() == FALSE){
 					$data['pertanyaan_saya'] = $get->row_array();
-					$data['pelajaran'] = $this->mpelajaran->getdata();
+					$data['pelajaran'] = $this->Mpelajaran->getdata();
 					$this->load->view('pertanyaan/edit_pertanyaan_saya', $data);
 				}
 				else{
@@ -326,7 +326,7 @@ class Pertanyaan extends CI_Controller {
 									  		  'id_pelajaran'      => $this->input->post('mata_pelajaran'),
 									  		  'photo'			  => $this->upload->data()['file_name'],
 								  );
-								$this->mpertanyaan->edit_pertanyaan_saya($data, $get->row_array()['id_pertanyaan']);
+								$this->Mpertanyaan->edit_pertanyaan_saya($data, $get->row_array()['id_pertanyaan']);
 								$this->session->set_flashdata('msg_success', 'Data berhasil di update');
 								redirect($this->session->userdata('url_pertanyaan'),'refresh');
 							}
@@ -335,7 +335,7 @@ class Pertanyaan extends CI_Controller {
 							$data = array('pertanyaan'		  => $this->input->post('pertanyaan'),
 									  	  'tingkat'		  	  => $this->input->post('tingkat'),
 									  	  'id_pelajaran'      => $this->input->post('mata_pelajaran'));
-							$this->mpertanyaan->edit_pertanyaan_saya($data, $get->row_array()['id_pertanyaan']);
+							$this->Mpertanyaan->edit_pertanyaan_saya($data, $get->row_array()['id_pertanyaan']);
 							$this->session->set_flashdata('msg_success', 'Data berhasil di update');
 							redirect($this->session->userdata('url_pertanyaan'),'refresh');
 					}
@@ -350,7 +350,7 @@ class Pertanyaan extends CI_Controller {
 
 	function cari_pertanyaan(){
 		 $search = strip_tags(trim($this->input->get('q')));
-	     $query = $this->mpertanyaan->get_pertanyaan_id($search);
+	     $query = $this->Mpertanyaan->get_pertanyaan_id($search);
 
 	      if($query->num_rows() > 0){
 	        foreach ($query->result() as $r) {
@@ -366,7 +366,7 @@ class Pertanyaan extends CI_Controller {
 	}
 
 	function load_more(){
-		$get = $this->mpertanyaan->get_pertanyaan_by_mapel($this->input->post('id'), 5, $this->input->post('offset'));
+		$get = $this->Mpertanyaan->get_pertanyaan_by_mapel($this->input->post('id'), 5, $this->input->post('offset'));
 		if($get->num_rows() >= 1){
 			foreach ($get->result() as $r) {
 				echo "<div class='box-comment'> 

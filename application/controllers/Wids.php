@@ -8,13 +8,13 @@ class Wids extends CI_Controller {
 	{
 		
 		parent::__construct();
-		$this->load->model('mwids');
-		$this->load->model('users');
+		$this->load->model('Mwids');
+		$this->load->model('Users');
 	}
 
 
 	function data_wids()	{
-		$data['wids'] = $this->mwids->get_wids($this->uri->rsegment(3));
+		$data['wids'] = $this->Mwids->get_wids($this->uri->rsegment(3));
 		$this->load->view('wids/data_wids', $data);	
 	}
 
@@ -29,7 +29,7 @@ class Wids extends CI_Controller {
 			redirect(base_url().'data_wids/'.$this->uri->rsegment(3),'refresh');
 		}
 		else{
-			$user = $this->users->get_user_by_id($this->uri->rsegment(3))->row_array();
+			$user = $this->Users->get_user_by_id($this->uri->rsegment(3))->row_array();
 			if($user){
 				if($this->input->post('aksi') == "tambah"){
 					$wids = $user['wids'] + $this->input->post('wids');
@@ -46,7 +46,7 @@ class Wids extends CI_Controller {
 							  'action'  => $this->input->post('aksi'),
 							  'keterangan' => $this->input->post('keterangan'));
 
-				$this->mwids->add_wids($data, $users);
+				$this->Mwids->add_wids($data, $users);
 				$this->session->set_flashdata('msg_success', 'Wids berhasil di'.$this->input->post('aksi'));
 				redirect(base_url().'data_wids/'.$this->uri->rsegment(3) , 'refresh');
 			}
