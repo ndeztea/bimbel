@@ -8,6 +8,9 @@ class Wids extends CI_Controller {
 	{
 		
 		parent::__construct();
+		if($this->session->userdata('nisn') == NULL OR $this->session->userdata('nisn') == "" AND $this->session->userdata('level') != "1"){
+			redirect(base_url(),'refresh');
+		}
 		$this->load->model('Mwids');
 		$this->load->model('Mpertanyaan');
 		$this->load->model('Mjawaban');
