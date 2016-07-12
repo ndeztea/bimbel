@@ -68,6 +68,9 @@
                   </tbody>
                 </table>
               </div>
+              <div class="box-footer"> 
+                <button class="btn btn-success pull-right" onclick=self.history.back()>Kembali</button>
+              </div>
             </div>
           </div>
 	</div>

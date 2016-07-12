@@ -152,7 +152,7 @@ class Jawaban extends CI_Controller {
 							  "keterangan" => "Menjawab Pertanyaan");
 
 				$user = array("id" => $user_wids->row_array()['id'],
-							  "wids" => $wids);
+							  "wids" => $this->input->post('wids'));
 
 				$jawaban = array("is_correct" => "1");
 

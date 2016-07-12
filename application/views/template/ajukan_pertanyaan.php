@@ -54,8 +54,8 @@
 			                    <div class="clearfix"></div>
 					      </div>
 					      <div class="modal-footer">
-					        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-					        <button type="submit" class="btn btn-primary">Publish</button>
+					        <button type="button" class="btn btn-success" data-dismiss="modal">Tutup</button>
+					        <button type="submit" class="btn btn-primary">Bagikan</button>
 					      </div>
 					      </form>
 					    </div>

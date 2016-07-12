@@ -42,7 +42,7 @@ class Wids extends CI_Controller {
 							  'id'   => $user['id']);
 
 				$data = array('id_user' => $user['id'],
-							  'wids'	=> $wids,
+							  'wids'	=> $this->input->post('wids'),
 							  'action'  => $this->input->post('aksi'),
 							  'keterangan' => $this->input->post('keterangan'));
 
@@ -57,6 +57,45 @@ class Wids extends CI_Controller {
 		}
 	}
 
+
+	function voucher_wids(){
+		$data['no'] = 1;
+		$data['wids'] = $this->Mwids->get_voucher_wids();
+		$this->load->view('wids/data_voucher', $data);
+	}
+
+	function add_voucher(){
+		$this->form_validation->set_rules('kode_voucher', 'Kode Voucher', 'required|xss_clean');
+		$this->form_validation->set_rules('wids', 'Wids', 'required|numeric|xss_clean');
+		$this->form_validation->set_rules('keterangan', 'Keterangan', 'required|xss_clean');
+
+
+		if ($this->form_validation->run() == FALSE) {
+				$this->session->set_flashdata('msg_error', validation_errors());
+				redirect(base_url().'voucher','refresh');
+		} else {
+				$voucher_wids = array('kode_voucher' 	=> $this->input->post('kode_voucher'),
+									  'wids' 			=> $this->input->post('wids'),
+									  'telah_ditukar' 	=> '0',
+									  'tgl_update' 		=> date('Y-m-d H:i:s'),
+									  'keterangan'		=> $this->input->post('keterangan'));
+
+				$this->Mwids->add_voucher_wids($voucher_wids);
+				$this->session->set_flashdata('msg_success', 'Vocuher berhasil ditambahkan');
+				redirect(base_url().'voucher','refresh');
+		}
+	}
+
+	function randomString() {
+		$length = 10;
+	    $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+	    $charactersLength = strlen($characters);
+	    $randomString = '';
+	    for ($i = 0; $i < $length; $i++) {
+	        $randomString .= $characters[rand(0, $charactersLength - 1)];
+	    }
+	    echo $randomString;
+	}
 }
 
 /* End of file Wids.php */

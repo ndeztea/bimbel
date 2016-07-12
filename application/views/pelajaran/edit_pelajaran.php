@@ -43,6 +43,7 @@
                      </div>
                      <div class="box-footer">
                             <button  type="submit" class="btn btn-primary">Edit Data</button>
+                            <button class="btn btn-success" onclick=self.history.back()>Kembali</button>
                      </div>
               </div>
               </form>

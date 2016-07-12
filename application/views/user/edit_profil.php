@@ -146,6 +146,8 @@
             </div>
             <div class="box-footer">
               <button class="btn btn-info pull-right" type="submit">Ubah Data</button>
+              <button class="btn btn-primary pull-right" onclick=self.history.back()><i class="fa fa-arrow-left"></i> Kembali</button>
+
             </div>
           </div>
         </div>

@@ -106,6 +106,8 @@ $route['masteruser'] = 'master_user/login';
 $route['data_wids/(:any)'] = 'Wids/data_wids/$1';
 $route['wids_action/(:any)'] = 'wids/wids_action/$1';
 
+$route['voucher'] = "wids/voucher_wids";
+$route['add_voucher'] = "wids/add_voucher";
 
 
 $route['loadmore'] = "home/load_more";

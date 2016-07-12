@@ -13,6 +13,10 @@ class Mwids extends CI_Model {
 			return $this->db->get();
 	}
 
+	function get_voucher_wids(){
+		return $this->db->get('vouchers_wids');
+	}
+
 
 	function get_jawaban_by_id($id){
 		$this->db->where('id', $id);
@@ -30,6 +34,10 @@ class Mwids extends CI_Model {
 		$this->db->where('id', $user['id']);
 		$this->db->update('users', $user);
 		$this->db->insert('users_wids', $data);
+	}
+
+	function add_voucher_wids($data){
+		$this->db->insert('vouchers_wids', $data);
 	}
 }
 

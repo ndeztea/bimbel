@@ -23,6 +23,7 @@
                     <li><a href="<?php echo base_url() ?>pelajaran">Data Pelajaran</a></li>
                     <li><a href="<?php echo base_url() ?>data_pertanyaan">Data Pertanyaan</a></li>
                     <li><a href="<?php echo base_url()?>users">Data User</a></li>
+                    <li><a href="<?php echo base_url()?>voucher">Data Voucher Wids</a></li>
                   </ul>
                 </li>
                 

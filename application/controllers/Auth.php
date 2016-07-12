@@ -62,7 +62,7 @@ class Auth extends CI_Controller {
 						   'hp' 			=> $this->input->post('no_hp'),
 						   'email' 			=> $this->input->post('email'),
 						   'rekening_bank' 	=> $this->input->post('no_rek'),
-						   'wids' 			=> '2',
+						   'wids' 			=> '10',
 						   'avatar'			=> $photo,
 						   'is_active' 		=> '1');
 

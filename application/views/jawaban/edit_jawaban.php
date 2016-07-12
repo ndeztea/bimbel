@@ -39,6 +39,8 @@
                     </div>
                     <div class="box-footer">
                       <button class="btn btn-lg btn-primary pull-right" type="submit"><i class="fa fa-paper-plane"></i> Edit</button>
+                      <button class="btn btn-lg btn-primary pull-right" onclick=self.history.back()><i class="fa fa-arrow-left"></i> Kembali</button>
+
                     </div>
                   </div>
               </form>

@@ -40,7 +40,8 @@
                             </div>
                      </div>
                      <div class="box-footer">
-                            <button class="btn btn-primary">Tambah Data</button>
+                            <button class="btn btn-primary" type="submit">Tambah Data</button>
+                            <button class="btn btn-success" onclick=self.history.back()>Kembali</button>
                      </div>
               </div>
               </form>

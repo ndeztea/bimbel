@@ -83,6 +83,9 @@
                         <img src="<?php echo base_url() ?>/assets/images/answer/<?php echo $r->gambar_jawaban ?>" alt="Photo" style="width:100% !important; height:auto !important"> 
                     <?php endif;?>
                   </div>
+                  <br />
+                  <br />
+                  <br />
                   <div class="clearfix"></div>
                   <!-- <span class="pull-right text-muted"><?php echo $r->jml_like ?> likes - <?php echo $r->jml_dislike ?> Dislikes</span>
                   <br /> -->
@@ -128,13 +131,15 @@
                     <?php endif;?>
                   </div>
                   <div class="clearfix"></div>
+                  <br />
+                  <br />
+                  <br />
 
-
-                  <?php if($r->nama_penjawab != $this->session->userdata('nama')): ?>
+                <!--   <?php if($r->nama_penjawab != $this->session->userdata('nama')): ?>
                       <button class="btn btn-default btn-xs"><i class="fa fa-thumbs-o-up"></i> Like</button>
                       <button class="btn btn-default btn-xs"><i class="fa fa-thumbs-o-down"></i> Dislike</button>
                   <?php endif; ?>
-
+ -->
 
                   <!-- <span class="pull-right text-muted"><?php echo $r->jml_like ?> likes - <?php echo $r->jml_dislike ?> Dislikes</span>
                   <br /> -->
