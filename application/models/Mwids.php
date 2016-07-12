@@ -39,6 +39,24 @@ class Mwids extends CI_Model {
 	function add_voucher_wids($data){
 		$this->db->insert('vouchers_wids', $data);
 	}
+
+	function cek_kode_voucher($id){
+		$this->db->where('kode_voucher', $id);
+		$this->db->where('telah_ditukar', 0);
+		$return = $this->db->get('vouchers_wids');
+
+		if($return->num_rows() > 0){
+			return $return;
+		}
+		else{
+			return false;
+		}
+	}
+
+	function update_voucher_wids($id, $data){
+		$this->db->where('id', $id);
+		$this->db->update('vouchers_wids', $data);
+	}
 }
 
 /* End of file Mwids.php */

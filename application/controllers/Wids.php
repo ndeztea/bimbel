@@ -9,6 +9,10 @@ class Wids extends CI_Controller {
 		
 		parent::__construct();
 		$this->load->model('Mwids');
+		$this->load->model('Mpertanyaan');
+		$this->load->model('Mjawaban');
+		$this->load->model('Mpelajaran');
+		$this->load->model('Muser_wids');
 		$this->load->model('Users');
 	}
 
@@ -95,6 +99,58 @@ class Wids extends CI_Controller {
 	        $randomString .= $characters[rand(0, $charactersLength - 1)];
 	    }
 	    echo $randomString;
+	}
+
+
+	function beli_voucher(){
+		$this->load->view('wids/beli_voucher');
+	}
+
+	function beli_wids(){
+		$this->form_validation->set_rules('kode_voucher', 'Kode Voucher', 'required|xss_clean|callback_cek_kode_voucher');
+
+		if ($this->form_validation->run() == FALSE) {
+			$this->session->set_flashdata('msg_error', validation_errors());
+			redirect(base_url().'buy_voucher','refresh');
+		} else {
+			$this->session->set_flashdata('msg_success', 'Wids berhasil ditambahkan');
+			redirect(base_url().'buy_voucher','refresh');
+		}
+	}
+
+	function cek_kode_voucher(){
+		$voucher = $this->Mwids->cek_kode_voucher($this->input->post('kode_voucher'));
+		$users = $this->Users->get_user_by_id($this->session->userdata('nisn'));
+
+		if($voucher){
+			$wids = $users->row_array()['wids'] + $voucher->row_array()['wids'];
+
+
+			$user = array('wids' => $wids);
+
+			$users_wids = array('id_user' 	 => $this->session->userdata('id'),
+								'wids' 	  	 => $voucher->row_array()['wids'],
+								'action'  	 => 'tambah',
+								'keterangan' => 'Pembelian Voucher');
+
+			$voucher_wids = array('telah_ditukar' => 1,
+								  'tgl_update'	  => date('Y-m-d H:i:s'));
+
+
+			$this->Users->update($user, $this->session->userdata('nisn'));
+
+			$this->Muser_wids->transaksi($users_wids);
+
+			$this->Mwids->update_voucher_wids($voucher->row_array()['id'], $voucher_wids);
+
+			$this->session->set_userdata('wids', $this->Users->get_user_by_id($this->session->userdata('nisn'))->row_array()['wids']);
+
+			return True;
+		}
+		else {
+			$this->form_validation->set_message('cek_kode_voucher', 'Kode voucher tidak terdaftar');
+			return FALSE;
+		}
 	}
 }
 

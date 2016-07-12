@@ -30,7 +30,7 @@
                 <li class="dropdown">
                   <a href="#" class="dropdown-toggle" data-toggle="dropdown">Wids <span class="caret"></span></a>
                   <ul class="dropdown-menu" role="menu">
-                    <li><a href="#">Pembelian Wids</a></li>
+                    <li><a href="<?php echo base_url() ?>buy_voucher">Pembelian Wids</a></li>
                     <li><a href="#">Penjualan Wids</a></li>
                     <li><a href="#">Reseller Wids</a></li>
                   </ul>

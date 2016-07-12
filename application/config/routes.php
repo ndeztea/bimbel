@@ -108,6 +108,8 @@ $route['wids_action/(:any)'] = 'wids/wids_action/$1';
 
 $route['voucher'] = "wids/voucher_wids";
 $route['add_voucher'] = "wids/add_voucher";
+$route['buy_voucher'] = "wids/beli_voucher";
+$route['buy']	= 'wids/beli_wids';
 
 
 $route['loadmore'] = "home/load_more";
