@@ -26,7 +26,7 @@
                     <li><a href="<?php echo base_url()?>voucher">Data Voucher Wids</a></li>
                   </ul>
                 </li>
-                
+            <?php endif ?> 
                 <li class="dropdown">
                   <a href="#" class="dropdown-toggle" data-toggle="dropdown">Wids <span class="caret"></span></a>
                   <ul class="dropdown-menu" role="menu">
@@ -35,7 +35,7 @@
                     <li><a href="#">Reseller Wids</a></li>
                   </ul>
                 </li>
-            <?php endif ?>
+            
             <!-- Collect the nav links, forms, and other content for toggling -->
             
                 <li><a href="<?php echo base_url()?>">Panduan Member</a></li>
