@@ -22,7 +22,7 @@ class Pertanyaan extends CI_Controller {
 		if($this->session->userdata('nisn') == NULL OR $this->session->userdata('nisn') == "" OR $this->session->userdata('level') != "1"){
 			redirect(base_url(),'refresh');
 		}
-		$this->load->view('Pertanyaan/data_pertanyaan', NULL);
+		$this->load->view('pertanyaan/data_pertanyaan', NULL);
 	}
 
 	function pertanyaan_list() {
@@ -147,7 +147,7 @@ class Pertanyaan extends CI_Controller {
 				$data['jawaban_pertanyaan_correct'] = $this->Mjawaban->get_correct_answer($this->uri->rsegment(3));
 				$data['wids_penanya'] = count_wids($data['pertanyaan']['wids_penanya']);
 				$this->session->set_userdata('url_pertanyaan', base_url().'detail_pertanyaan/'.$this->uri->rsegment(3));
-				$this->load->view('Pertanyaan/detail_pertanyaan', $data);
+				$this->load->view('pertanyaan/detail_pertanyaan', $data);
 			}else{
 				$this->load->view('404');
 			}
