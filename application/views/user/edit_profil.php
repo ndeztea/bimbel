@@ -82,7 +82,7 @@
                             <?php if($users['tingkat_sekolah'] == 'SD'):
                               echo "selected";
                               endif;
-                            ?>>SD/option>
+                            ?>>SD</option>
                             <option value="SMP" 
                             <?php if($users['tingkat_sekolah'] == 'SMP'):
                               echo "selected";
@@ -93,7 +93,7 @@
                               echo "selected";
                               endif;
                             ?>>SMA</option>
-                            <?php if($users['tingkat_sekolah'] == 'SMK'):
+                            <option <?php if($users['tingkat_sekolah'] == 'SMK'):
                               echo "selected";
                               endif;
                             ?>>SMK</option>

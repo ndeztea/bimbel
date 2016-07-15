@@ -7,10 +7,10 @@ function count_wids($wids){
 			$result = "Pemula";
 		}
 		elseif($wids >= 10 AND $wids < 30){
-			$result = "Ambis";
+			$result = "Pertama";
 		}
 		elseif ($wids >= 30 AND $wids < 50) {
-			$result = "Prestisius";
+			$result = "Ambis";
 		}
 		elseif ($wids >= 50 AND $wids < 100) {
 			$result = "Prestisius";
@@ -74,4 +74,5 @@ function update_session($data_session){
 	foreach ($data_session as $key => $value) {
 		$CI->session->set_userdata($key, $value);
 	}
+
 }

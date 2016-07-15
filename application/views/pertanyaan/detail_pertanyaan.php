@@ -34,7 +34,7 @@
       <div class="box box-widget">
         <div class="box-header with-border">
           <div class="user-block">
-            <img class="img-circle" src="<?php echo base_url('assets/images/avatar/')."/".$pertanyaan['avatar_penanya'] ?>"
+            <img class="img-circle" src="<?php echo thumb_avatar($pertanyaan['avatar_penanya'],$this->session->userdata('gender'))?>"
             alt="user image">
             <span class="username"><a href="#"><?php echo $pertanyaan['nama_penanya'] ?> - <small><?php echo $wids_penanya ?></small></a></span>
             <span class="description"><?php echo get_tingkat($pertanyaan['tingkat']) ?> &middot; <?php echo $pertanyaan['nama_pelajaran'] ?></span>
@@ -65,7 +65,7 @@
         <div class="box-footer box-comments">
             <?php foreach($jawaban_pertanyaan_correct->result() as $r): ?>
               <div class="box-comment" style="background-color:#c8fbd5">
-                <img class="img-circle img-sm" src="<?php echo base_url('assets/images/avatar/')."/".$r->avatar_penjawab?>" alt="user image">
+                <img class="img-circle img-sm" src="<?php echo thumb_avatar($r->avatar_penjawab,$this->session->userdata('gender'))?>" alt="user image">
 
                 <div class="comment-text">
                   <span class="username">
@@ -113,7 +113,7 @@
             <?php endforeach?>
             <?php foreach ($jawaban_pertanyaan->result() as $r): ?>
               <div class="box-comment">
-                <img class="img-circle img-sm" src="<?php echo base_url('assets/images/avatar/')."/".$r->avatar_penjawab?>" alt="user image">
+                <img class="img-circle img-sm" src="<?php echo thumb_avatar($r->avatar_penjawab,$this->session->userdata('gender'))?>" alt="user image">
 
                 <div class="comment-text">
                   <span class="username">
@@ -198,7 +198,7 @@
 
         <?php if($this->session->userdata('id') != $pertanyaan['id_penanya']): ?>
           <div class="box-footer">
-               <img class="img-circle img-sm" src="<?php echo base_url('assets/images/avatar/')."/".$this->session->userdata('avatar') ?>" alt="user image">
+               <img class="img-circle img-sm" src="<?php echo thumb_avatar($this->session->userdata('avatar'),$this->session->userdata('gender'))?>" alt="user image">
                 <div class="img-push">
                   <form action="<?php echo base_url() ?>jawab/<?php echo $this->uri->rsegment(3) ?>" method="post"  enctype="multipart/form-data">
                   <textarea class="form_control" placeholder="Leave a comment" id="comment" name="jawaban"></textarea>

@@ -145,16 +145,18 @@ class Jawaban extends CI_Controller {
 		}
 		else{
 			$user_wids = $this->Users->get_user_by_id($this->input->post('id'));
-			if($user_wids){
-				$wids = $user_wids->row_array()['wids'] + $this->input->post('wids');
 
-				$data = array("wids" => $wids,
+			if($user_wids){
+
+				$wids = (int) $user_wids->row_array()['wids'] + (int) $this->input->post('wids');
+
+				$data = array("wids" => $this->input->post('wids'),
 							  "id_user" =>$user_wids->row_array()['id'],
 							  "action" => "tambah",
 							  "keterangan" => "Menjawab Pertanyaan");
 
 				$user = array("id" => $user_wids->row_array()['id'],
-							  "wids" => $this->input->post('wids'));
+							  "wids" => $wids);
 
 				$jawaban = array("is_correct" => "1");
 

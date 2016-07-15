@@ -28,7 +28,7 @@
 				<div class="col-sm-4 border-right">
 					<a href="#">
 						<div class="description-block">
-							<h5 class="description-header"><?php echo $this->session->userdata('wids'); ?></h5>
+							<h5 class="description-header"><?php echo $wids_total; ?></h5>
 							<span class="description-text">WIDS</span>
 						</div>
 					</a>
