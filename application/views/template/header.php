@@ -66,15 +66,9 @@
                                     <img src="<?php echo thumb_avatar($this->session->userdata('avatar'),$this->session->userdata('gender'))?>" class="img-circle" alt="User Image" />
                         <p>
                           <?php echo $this->session->userdata('nama'); ?>
-                          <small>Member since Nov. 2012</small>
                         </p>
                       </li>
-                      <!-- Menu Body -->
-                      <li class="user-body">
-                        <div class="col-xs-12 text-center">
-                          <a href="#"><?php echo $this->session->userdata('wids'); ?> Wids</a>
-                        </div>
-                      </li>
+                      
                       <!-- Menu Footer-->
                       <li class="user-footer">
                         <div class="pull-left">

@@ -28,7 +28,7 @@
                       <h3 class="box-title">Edit Jawaban</h3>
                     </div>
                     <div class="box-body">
-                      <img class="img-circle img-sm" src="<?php echo base_url('assets/images/avatar/')."/".$this->session->userdata('avatar') ?>" alt="user image">
+                      <img class="img-circle img-sm" src="<?php echo thumb_avatar($this->session->userdata('avatar'),$this->session->userdata('gender'))?>" alt="user image">
                       <div class="img-push">
                         <textarea class="form_control" id="editor2" name="jawaban"> <?php echo $a['jawaban'] ?></textarea>
                         <div class="form-group">
