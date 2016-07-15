@@ -87,7 +87,7 @@
 	            	<?php foreach ($pertanyaan->result() as $r): ?>
 	            		<div class="box-comment"> 
 	            			<img class="img-circle img-sm" src="
-	            			<?php echo thumb_avatar($tr->('avatar_penanya'),$this->session->userdata('gender'))?>
+	            			<?php echo thumb_avatar($r->avatar_penanya, $this->session->userdata('gender'))?>">
 	            			<div class="comment-text">
 	            				<span class="username">
 	            					<?php echo $r->nama_pelajaran ?>&middot;
