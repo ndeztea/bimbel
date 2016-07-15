@@ -64,6 +64,7 @@ class Jawaban extends CI_Controller {
 							$jawaban = array('jawaban' => $this->input->post('jawaban'),
 											 'id_pertanyaan' => $this->uri->rsegment(3),
 											 'id_user' => $this->session->userdata('id'),
+											 'tgl_update'	=> date('Y-m-d H:i:s'),
 											 'photo' => $this->upload->data()['file_name']);	
 			    			$this->Mjawaban->insert_jawaban($jawaban);
 			    			$this->session->set_flashdata('msg_succes', 'Jawaban berhasil ditambahkan');
@@ -72,6 +73,7 @@ class Jawaban extends CI_Controller {
 					}else{
 						$jawaban = array('jawaban' => $this->input->post('jawaban'),
 										 'id_pertanyaan' => $this->uri->rsegment(3),
+										 'tgl_update'	=>  date('Y-m-d H:i:s'),
 										 'id_user' => $this->session->userdata('id'));	
 			    			$this->Mjawaban->insert_jawaban($jawaban);
 			    			$this->session->set_flashdata('msg_succes', 'Jawaban berhasil ditambahkan');

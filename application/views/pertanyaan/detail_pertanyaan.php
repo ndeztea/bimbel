@@ -71,8 +71,8 @@
                   <span class="username">
                     <?php echo $r->nama_penjawab ?> - <small><?php echo count_wids($r->wids_penjawab) ?></small>
                     <span class="text-muted pull-right"><?php 
-                                                            $tgl_jawab = new DateTime($r->tgl_update); 
-                                                            echo $tgl_jawab->format('d M Y H:i:s'); ?></span>
+                                                            //$tgl_jawab = new DateTime($r->tgl_update); 
+                                                            echo date('Y-m-d H:i',strtotime($r->tgl_update)); ?></span>
                   </span>
 
 
@@ -118,8 +118,8 @@
                 <div class="comment-text">
                   <span class="username">
                     <?php echo $r->nama_penjawab ?> - <small><?php echo count_wids($r->wids_penjawab) ?></small>
-                    <span class="text-muted pull-right"><?php $tgl_jawab = new DateTime($r->tgl_update); 
-                                                              echo $tgl_jawab->format('d M Y H:i:s'); ?></span>
+                    <span class="text-muted pull-right"><?php //$tgl_jawab = new DateTime($r->tgl_update); 
+                                                              echo date('Y-m-d H:i',strtotime($r->tgl_update)); ?></span>
                   </span>
 
 
