@@ -47,10 +47,11 @@ class Wids extends CI_Controller {
 
 				$users= array('wids' => $wids,
 							  'id'   => $user['id']);
-
+				
 				$data = array('id_user' => $user['id'],
 							  'wids'	=> $this->input->post('wids'),
 							  'action'  => $this->input->post('aksi'),
+							  'tgl_update'  => date('Y-m-d H:i:s'),
 							  'keterangan' => $this->input->post('keterangan'));
 
 				$this->Mwids->add_wids($data, $users);

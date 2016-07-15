@@ -24,7 +24,7 @@
         <div class="box box-primary table-responsive">
           <div class="box-body box-profile">
             <div class="col-md-3">
-              <img id="imageProfile" class="profile-user-img img-responsive img-circle" alt="User profile picture" src="<?php echo base_url('assets/images/avatar')."/".$this->session->userdata('avatar'); ?>"
+              <img id="imageProfile" class="profile-user-img img-responsive img-circle" alt="User profile picture" src="<?php echo thumb_avatar($this->session->userdata('avatar'),$this->session->userdata('gender'))?>"
               style="width: 150px; height: 150px; margin: 10px auto;">
             </div>
             <div class="col-md-9">
