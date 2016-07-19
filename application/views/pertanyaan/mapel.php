@@ -54,7 +54,7 @@
 						<?php endif ?>
 					<?php endforeach ?>
 				</div>
-				<div class="collapse" id="collapseExample">
+				<div class="collapse"  id="collapseExample">
 					<?php foreach ($pelajaran_more->result() as $r): ?>
 							<a href="<?= base_url() ?>mapel/<?= $r->id ?>">
 								<div class="col-md-1">
@@ -113,8 +113,8 @@
 	        </div>
 		</div>
 		<div class="col-md-4">
-			<?php $this->load->view('template/profil_widget');?>
 			<?php $this->load->view('template/ajukan_pertanyaan'); ?>
+              <?php $this->load->view('template/profil_widget'); ?>
 		</div>
 	</div>
 </section>

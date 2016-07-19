@@ -1,0 +1,47 @@
+.mata-pelajaran{
+	margin:0px !important;
+}
+
+.mata-pelajaran-text{
+	white-space: nowrap;
+	  overflow: hidden;
+	  text-overflow: ellipsis;
+	  max-width: 103px;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__rendered{
+	line-height: 20px;
+}
+
+@media (max-width: 500px) {
+
+	.list-mata-pelajaran a {
+	    width: 33.333%;
+	    float: left;
+	    margin-bottom: 15px;
+	}
+	.mata-pelajaran{
+		margin:0px !important;
+	}
+	.list-mata-pelajaran br{
+		display: block;
+   		margin: 10px 0;
+	}
+}
+
+@media (min-width: 501px) and (max-width: 980px) {
+
+	.list-mata-pelajaran a {
+	    width: 20%;
+	    float: left;
+	    margin-bottom: 15px;
+	}
+
+	.mata-pelajaran{
+		margin:0px !important;
+	}
+	.list-mata-pelajaran br{
+		display: block;
+   		margin: 10px 0;
+	}
+}

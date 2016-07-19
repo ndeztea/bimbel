@@ -17,6 +17,8 @@
     <link href="<?php echo base_url() ?>assets/AdminLTE-2.3.0/dist/css/skins/_all-skins.min.css" rel="stylesheet" type="text/css" />
     <link href="<?php echo base_url() ?>assets/select2-4.0.2/dist/css/select2.css" rel="stylesheet" type="text/css" />
 
+    <link href="<?php echo base_url() ?>assets/css/responsive.css" rel="stylesheet" type="text/css" />
+
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>

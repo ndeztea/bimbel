@@ -47,8 +47,8 @@
               </form>
             </div>
             <div class="col-md-4">
-              <?php $this->load->view('template/profil_widget'); ?>
               <?php $this->load->view('template/ajukan_pertanyaan'); ?>
+              <?php $this->load->view('template/profil_widget'); ?>
             </div>
 	</div>
 </section>	

@@ -213,8 +213,8 @@
       </div>
   </div>
   <div class="col-md-4">
-      <?php $this->load->view('template/profil_widget');?>
       <?php $this->load->view('template/ajukan_pertanyaan'); ?>
+              <?php $this->load->view('template/profil_widget'); ?>
     </div>
 </section>	
 <?php $this->load->view('template/footer-js'); ?>

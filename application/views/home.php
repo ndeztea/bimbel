@@ -30,14 +30,13 @@
               }?>
         <div class="col-md-12">
 			<div class="box text-center">
-				<div class="box-body">
+				<div class="box-body  list-mata-pelajaran">
 					<a href="<?php echo base_url() ?>home">
 						<div class="col-md-1">
 							<div class="mata-pelajaran">
 								<i class="fa fa-list"></i>
 							</div>
-							<br />
-							Semua
+							<span class="mata-pelajaran-text">Semua</span>a
 						</div>
 					</a>
 					<?php foreach ($pelajaran->result() as $r): ?>
@@ -47,22 +46,20 @@
 									<div class="mata-pelajaran">
 										<i class="fa <?php echo $r->params ?>"></i>
 									</div>
-									<br />
-									<?php echo $r->pelajaran?>
+									<span class="mata-pelajaran-text"><?php echo $r->pelajaran?></span>
 								</div>
 							</a>
 						<?php endif ?>
 					<?php endforeach ?>
 				</div>
-				<div class="collapse" id="collapseExample">
+				<div class="collapse list-mata-pelajaran" id="collapseExample">
 					<?php foreach ($pelajaran_more->result() as $r): ?>
 							<a href="<?php echo base_url() ?>mapel/<?php echo $r->id ?>">
 								<div class="col-md-1">
 										<div class="mata-pelajaran">
 											<i class="fa <?php echo $r->params ?>"></i>
 										</div>
-										<br />
-										<?php echo $r->pelajaran?>
+										<span class="mata-pelajaran-text"><?php echo $r->pelajaran?></span>
 								</div>
 							</a>
 					<?php endforeach ?>
@@ -105,8 +102,8 @@
 	          </div>
 		</div>
 		<div class="col-md-4">
-			<?php $this->load->view('template/profil_widget');?>
 			<?php $this->load->view('template/ajukan_pertanyaan'); ?>
+			<?php $this->load->view('template/profil_widget');?>
 		</div>
 	</div>
 </section>
