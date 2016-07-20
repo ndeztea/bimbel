@@ -20,6 +20,16 @@
     <!-- AdminLTE App -->
     <script src="<?php echo base_url() ?>assets/AdminLTE-2.3.0/dist/js/app.min.js" type="text/javascript"></script>
     <script src="<?php echo base_url() ?>assets/select2-4.0.2/dist/js/select2.js"></script>
+<script src="<?php echo base_url() ?>assets/ckeditor/ckeditor.js"></script>
+    
+    <script type="text/javascript">
+      $(function () {
+        // Replace the <textarea id="editor1"> with a CKEditor
+        // instance, using default configuration.
+        CKEDITOR.replace('editor-pertanyaan');
+
+      });
+    </script>
     <script type="text/javascript">
     $(document).ready(function() { 
         $(".pencarian").select2({

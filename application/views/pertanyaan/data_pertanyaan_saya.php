@@ -28,7 +28,7 @@
 		        <?php foreach ($pertanyaan->result() as $r): ?>
 		        <div class="box-comment">
 		          <img class="img-circle img-sm" src="
-		          <?php echo base_url('assets/images/avatar/')."/".$r->avatar_penanya; ?>" alt="user image">
+		         <?php echo thumb_avatar($this->session->userdata('avatar'),$this->session->userdata('gender'))?>" alt="user image">
 		          <div class="comment-text">
 		            <span class="username">
 		              <?php echo $r->nama_pelajaran ?>&middot;

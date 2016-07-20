@@ -22,7 +22,7 @@
 					      </div>
 					      <div class="modal-body">
 					        <form method="post" action="<?php echo base_url() ?>add_pertanyaan" enctype="multipart/form-data">
-			                    <textarea id="editor1" name="pertanyaan" rows="10" cols="80" placeholder="Tulis pertanyaanmu disini">
+			                    <textarea id="editor-pertanyaan" name="pertanyaan" rows="10" cols="80" placeholder="Tulis pertanyaanmu disini">
 			                    </textarea><br>
 			                    <div class="col-md-3">
 			                    	<div class="form-group">
