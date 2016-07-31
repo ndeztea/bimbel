@@ -1,4 +1,5 @@
 <?php $this->load->view('template/top'); ?>
+
 <!-- Custom CSS -->
 <style type="text/css">
 	.mata-pelajaran{

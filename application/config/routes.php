@@ -60,6 +60,7 @@ $route['sign_out'] = 'Auth/logout';
 
 
 $route['profil'] = 'home/profil';
+$route['update_password'] = 'home/update_password';
 $route['avatar'] = 'home/upload_avatar';
 $route['update_profil'] = 'home/update_profil';
 
@@ -104,14 +105,17 @@ $route['masteruser'] = 'master_user/login';
 
 
 $route['data_wids/(:any)'] = 'Wids/data_wids/$1';
-$route['wids_action/(:any)'] = 'wids/wids_action/$1';
+$route['wids_action/(:any)'] = 'Wids/wids_action/$1';
 
 $route['voucher'] = "wids/voucher_wids";
-$route['add_voucher'] = "wids/add_voucher";
-$route['buy_voucher'] = "wids/beli_voucher";
-$route['buy']	= 'wids/beli_wids';
+$route['add_voucher'] = "Wids/add_voucher";
+$route['buy_voucher'] = "Wids/beli_voucher";
+$route['buy']	= 'Wids/beli_wids';
 
 
-$route['loadmore'] = "home/load_more";
-$route['loadmore_mapel'] = "pertanyaan/load_more";
+$route['loadmore'] = "Home/load_more";
+$route['loadmore_mapel'] = "Pertanyaan/load_more";
+
+
+$route['guide'] = "Home/panduan";
 

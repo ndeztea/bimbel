@@ -81,6 +81,7 @@
           <div class="box-footer">
             <?php if($users['nisn'] == $this->session->userdata('nisn')): ?>
             <button class="btn btn-md btn-info pull-right" onClick=location.href="<?php echo base_url()?>update_profil/">Edit Profil</button>
+            <button class="btn btn-md btn-success pull-right" onClick=location.href="<?php echo base_url()?>update_password/">Edit Password</button>
             <?php endif; ?>
             <button class="btn btn-primary pull-right" onclick=self.history.back()><i class="fa fa-arrow-left"></i> Kembali</button>
             

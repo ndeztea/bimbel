@@ -6,13 +6,13 @@ function count_wids($wids){
 		if($wids < 10){
 			$result = "Pemula";
 		}
-		elseif($wids >= 10 AND $wids < 30){
+		elseif($wids >= 20 AND $wids < 40){
 			$result = "Pertama";
 		}
-		elseif ($wids >= 30 AND $wids < 50) {
+		elseif ($wids >= 40 AND $wids < 60) {
 			$result = "Ambis";
 		}
-		elseif ($wids >= 50 AND $wids < 100) {
+		elseif ($wids >= 60 AND $wids < 100) {
 			$result = "Prestisius";
 		}
 		elseif ($wids >= 100 AND $wids < 200) {

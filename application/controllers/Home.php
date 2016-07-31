@@ -44,9 +44,24 @@ class Home extends CI_Controller {
 
 	}
 
+	function update_password(){
+		$this->form_validation->set_rules('password', 'Password Lama', 'required|xss_clean|callback_cek_password');
+		$this->form_validation->set_rules('new_password', 'Password Baru', 'required|xss_clean');
+		$this->form_validation->set_rules('confirm_password', 'Konfirmasi Password Baru', 'required|xss_clean|matches[new_password]');
+
+
+		if ($this->form_validation->run() == FALSE) {
+			$this->load->view('user/update_password');
+		} else {
+			$data = array('password' => sha1(md5(strrev($this->input->post('confirm_password')))));
+			$this->Users->update($data, $this->session->userdata('nisn'));
+			$this->session->set_flashdata('msg_success', 'Password Berhasil Diubah');
+			redirect(base_url().'profil','refresh');
+		}
+	}
+
 	function update_profil(){
 		$users = $this->Users->get_user_by_id($this->session->userdata('nisn'));
-		
 
 		if($users){
 
@@ -133,6 +148,11 @@ class Home extends CI_Controller {
 			$this->form_validation->set_message('cek_password', 'Password yang anda masukkan salah, data gagal diubah');
 			return FALSE;
 		}
+	}
+
+
+	function panduan(){
+		$this->load->view('panduan_member');
 	}
 
 	function load_more(){
