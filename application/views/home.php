@@ -30,7 +30,7 @@
               echo '</div>';
               }?>
         <div class="col-md-12">
-			<div class="box text-center">
+			<!--div class="box text-center">
 				<div class="box-body  list-mata-pelajaran">
 					<a href="<?php echo base_url() ?>home">
 						<div class="col-md-1">
@@ -71,7 +71,7 @@
 					Tampilkan Semua
 					</button>
 				</div>
-			</div>
+			</div-->
         </div>
         <div class="clearfix"></div>
         <br />
