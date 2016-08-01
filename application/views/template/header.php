@@ -26,19 +26,7 @@
                     <?php endforeach ?>
                   </ul>
                 </li>
-            <?php if ($this->session->userdata('level') == "1"): ?>
-                <li class="dropdown">
-                  <a href="#" class="dropdown-toggle" data-toggle="dropdown">Data Master <span class="caret"></span></a>
-                  <ul class="dropdown-menu" role="menu">
-                    <li><a href="<?php echo base_url() ?>pelajaran">Data Pelajaran</a></li>
-                    <li><a href="<?php echo base_url() ?>data_pertanyaan">Data Pertanyaan</a></li>
-                    <li><a href="<?php echo base_url()?>users">Data User</a></li>
-                    <li><a href="<?php echo base_url()?>voucher">Data Voucher Wids</a></li>
-                  </ul>
-                </li>
-            <?php endif ?> 
-
-                
+           
 
 
                 <li class="dropdown">
@@ -53,6 +41,19 @@
             <!-- Collect the nav links, forms, and other content for toggling -->
             
                 <li><a href="<?php echo base_url()?>guide">Panduan Member</a></li>
+                 <?php if ($this->session->userdata('level') == "1"): ?>
+                  <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Data Master <span class="caret"></span></a>
+                    <ul class="dropdown-menu" role="menu">
+                      <li><a href="<?php echo base_url() ?>pelajaran">Data Pelajaran</a></li>
+                      <li><a href="<?php echo base_url() ?>data_pertanyaan">Data Pertanyaan</a></li>
+                      <li><a href="<?php echo base_url()?>users">Data User</a></li>
+                      <li><a href="<?php echo base_url()?>voucher">Data Voucher Wids</a></li>
+                    </ul>
+                  </li>
+              <?php endif ?> 
+
+                
 
                 <li class="dropdown user user-menu">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
