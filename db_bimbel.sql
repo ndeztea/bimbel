@@ -246,3 +246,36 @@ ALTER TABLE `vouchers_wids`
 --
 ALTER TABLE `vouchers_wids`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+
+  -- phpMyAdmin SQL Dump
+-- version 4.4.10
+-- http://www.phpmyadmin.net
+--
+-- Host: localhost:3306
+-- Generation Time: Aug 01, 2016 at 11:46 AM
+-- Server version: 5.5.42
+-- PHP Version: 5.6.10
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET time_zone = "+00:00";
+
+--
+-- Database: `db_bimbel`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `reseller`
+--
+
+CREATE TABLE `reseller` (
+  `id` int(11) NOT NULL,
+  `nama` varchar(100) DEFAULT NULL,
+  `alamat` text,
+  `no_hp` varchar(50) DEFAULT NULL,
+  `id_user` int(11) DEFAULT NULL,
+  `is_approved` int(1) NOT NULL DEFAULT '0' COMMENT 'update ini jika telah di approve',
+  `tgl_update` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
