@@ -1,4 +1,5 @@
 <?php 
+
   $pelajaran        = $this->Mpelajaran->getdata()->result();
 ?>
 </head>

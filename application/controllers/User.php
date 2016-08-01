@@ -9,6 +9,7 @@ class User extends CI_Controller {
 		if($this->session->userdata('nisn') == NULL OR $this->session->userdata('nisn') == "" AND $this->session->userdata('level') != "1"){
 			redirect(base_url(),'refresh');
 		}
+		  $this->load->model('Mpelajaran');
 		$this->load->model('Users');
 		
 	}
