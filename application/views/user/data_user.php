@@ -57,10 +57,10 @@
                               <?php endif; ?>
                           </td>
                           <td  class="text-center">
-                            <button class="btn btn-success" onclick="location.href='<?= base_url() ?>edit_user/<?= $r->nisn ?>'"><i class="fa fa-pencil"></i></button>
-                            <button class="btn btn-danger" onclick="location.href='<?= base_url() ?>delete_user/<?= $r->nisn ?>'"><i class="fa fa-trash"></i></button>
+                            <button class="btn btn-success" onclick="location.href='<?php echo base_url() ?>edit_user/<?= $r->nisn ?>'"><i class="fa fa-pencil"></i></button>
+                            <button class="btn btn-danger" onclick='confirmDelete(<?php echo $r->nisn ?>)'"><i class="fa fa-trash"></i></button>
 
-                             <button class="btn btn-primary" onclick="location.href='<?= base_url() ?>data_wids/<?= $r->nisn?>'">Wids</button>
+                             <button class="btn btn-primary" onclick="location.href='<?php echo base_url() ?>data_wids/<?= $r->nisn?>'">Wids</button>
                          
                           </td>
                         </tr>
@@ -77,5 +77,15 @@
 </section>	
 <?php $this->load->view('template/footer-js'); ?>
 <!-- custom JS -->
+
+<script type="text/javascript">
+  function confirmDelete(id) {
+
+    if(confirm('Anda yakin untuk menghapus user ini ?')){
+        <?php $this->session->set_userdata('url_delete', current_url()); ?>
+        window.location.href="<?php echo base_url() ?>delete_user/"+id
+    }
+  }
+</script>
 
 <?php $this->load->view('template/foot'); ?>

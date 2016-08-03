@@ -119,3 +119,7 @@ $route['loadmore_mapel'] = "Pertanyaan/load_more";
 
 $route['guide'] = "Home/panduan";
 
+
+$route['data_reseller'] = "Reseller/all_reseller";
+$route['add_reseller'] = "Reseller/add_reseller";
+

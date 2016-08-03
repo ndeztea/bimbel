@@ -35,7 +35,7 @@
                   <ul class="dropdown-menu" role="menu">
                     <li><a href="<?php echo base_url() ?>buy_voucher">Pembelian Wids</a></li>
                     <li><a href="#">Penjualan Wids</a></li>
-                    <li><a href="#">Reseller Wids</a></li>
+                    <li><a href="add_reseller">Reseller Wids</a></li>
                   </ul>
                 </li>
               
@@ -50,6 +50,7 @@
                       <li><a href="<?php echo base_url() ?>data_pertanyaan">Data Pertanyaan</a></li>
                       <li><a href="<?php echo base_url()?>users">Data User</a></li>
                       <li><a href="<?php echo base_url()?>voucher">Data Voucher Wids</a></li>
+                      <li><a href="<?php echo base_url()?>data_reseller">Data Reseller</a></li>
                     </ul>
                   </li>
               <?php endif ?> 
@@ -72,7 +73,7 @@
               </ul>
               <form class="navbar-form navbar-left" role="search">
                 <div class="form-group">
-                  <select name="pegawai" id="navbar-search-input" class="form-control pencarian">
+                  <select name="pertanyaan" id="navbar-search-input" class="form-control pencarian">
                           
                   </select>
                 </div>
