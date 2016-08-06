@@ -155,6 +155,10 @@ class Home extends CI_Controller {
 		$this->load->view('panduan_member');
 	}
 
+	function tentang(){
+		$this->load->view('tentang_bimbel');
+	}
+
 	function load_more(){
 		$get = $this->Mpertanyaan->get_pertanyaan(5, $this->input->post('offset'));
 		if($get->num_rows() >= 1){

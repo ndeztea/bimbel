@@ -1,6 +1,9 @@
 <?php $this->load->view('template/top'); ?>
 <!-- Custom CSS -->
 
+<link rel="stylesheet" href="<?php echo base_url() ?>assets/AdminLTE-2.3.0/plugins/datatables/dataTables.bootstrap.css">
+
+
 <?php $this->load->view('template/header'); ?>
 <section class="content">
 	<div class="row">
@@ -43,8 +46,20 @@
                                                                <td><?php echo $r->nama; ?></td>
                                                                <td><?php echo $r->alamat; ?></td>
                                                                <td><?php echo $r->no_hp; ?></td>
-                                                               <td></td>
-                                                               <td></td>
+                                                               <td class="text-center"><?php if($r->is_approved == '1'): ?>
+                                                                    <span class="label label-success">
+                                                                      <a href="javascript:;" style="color:#FFF" onclick="location.href='<?= base_url() ?>set_active_pelajaran/<?= $r->id ?>'">Aktif</a>
+                                                                    </span>
+                                                                  <?php else: ?>
+                                                                    <span class="label label-danger" >
+                                                                      <a href="javascript:;"  style="color:#FFF"  onclick="location.href='<?= base_url() ?>set_active_pelajaran/<?= $r->id ?>'">Tidak Aktif</a>
+                                                                    </span>
+                                                                  <?php endif; ?>
+                                                                </td>
+                                                               <td class="text-center">
+                                                                 <button onclick="location.href='<?= base_url() ?>edit_pelajaran/<?= $r->id ?>'" class="btn btn-success" ><i class="fa fa-pencil"></i></button>
+                                                                 <button class="btn btn-danger" onclick="confirmDelete('<?= $r->id ?>')"><i class="fa fa-trash"></i></button>
+                                                               </td>
                                                         </tr>
                                                  <?php endforeach; ?>
                                           </tbody>

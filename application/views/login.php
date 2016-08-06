@@ -72,6 +72,8 @@
                         <input type="password" class="form-control" name="password" placeholder="Password">
                     </div>
                     <button type="submit" class="btn btn-default">Masuk !</button>
+                    <button type="button" class="btn btn-danger" onclick=location.href='<?php echo base_url() ?>forgot_password'>Lupa Password !!</button>
+
                 </form>
 			</div>
 		</nav>
@@ -210,7 +212,7 @@
                                     </div>
                                     <div class="clearfix"></div>
                                     <div class="col-md-12">
-			                             <button type="submit" class="btn">Daftar !!</button>
+                                         <button type="submit" class="btn">Daftar !!</button>
                                     </div>
                                     <div class="clearfix"></div>
 			                    </form>

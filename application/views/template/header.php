@@ -42,6 +42,7 @@
             <!-- Collect the nav links, forms, and other content for toggling -->
             
                 <li><a href="<?php echo base_url()?>guide">Panduan Member</a></li>
+                <li><a href="<?php echo base_url()?>about">Tentang Bimbel</a></li>
                  <?php if ($this->session->userdata('level') == "1"): ?>
                   <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Data Master <span class="caret"></span></a>
@@ -66,6 +67,7 @@
                       <li><a href="<?php echo base_url()?>profil">Profile</a></li>
                       <li><a href="<?php echo base_url() ?>update_profil">Edit Profile</a></li>
                       <li><a href="<?php echo base_url() ?>update_password">Ubah Password</a></li>
+                      <li><a href="<?php echo base_url() ?>sign_out">Log Out</a></li>
                     </ul>
                 </li>
 
@@ -78,16 +80,13 @@
                   </select>
                 </div>
               </form>
-            </div><!-- /.navbar-collapse -->
-            <!-- Navbar Right Menu -->
-              <div class="navbar-custom-menu">
+            </div>
+              <!-- <div class="navbar-custom-menu">
                 <ul class="nav navbar-nav">
-                  <!-- Messages: style can be found in dropdown.less-->
-                  <!-- User Account Menu -->
                   <li><a href="<?php echo base_url() ?>sign_out">Log Out</a></li>
                 </ul>
-              </div><!-- /.navbar-custom-menu -->
-          </div><!-- /.container-fluid -->
+              </div> -->
+          </div>
         </nav>
       </header>
      <!-- Full Width Column -->

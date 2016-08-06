@@ -57,6 +57,8 @@ $route['translate_uri_dashes'] = FALSE;
 $route['register'] = 'Auth/daftar';
 $route['login'] = 'Auth/authentication';
 $route['sign_out'] = 'Auth/logout';
+$route['forgot_password'] = "Auth/forgot_password";
+$route['reset_password/(:any)'] = "Auth/reset_password/$1";
 
 
 $route['profil'] = 'home/profil';
@@ -118,6 +120,7 @@ $route['loadmore_mapel'] = "Pertanyaan/load_more";
 
 
 $route['guide'] = "Home/panduan";
+$route['about'] = "Home/tentang";
 
 
 $route['data_reseller'] = "Reseller/all_reseller";

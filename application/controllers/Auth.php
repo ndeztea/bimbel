@@ -13,6 +13,7 @@ class Auth extends CI_Controller {
 		//set error delimiter untuk form validation
 		$this->form_validation->set_error_delimiters('<div class="alert alert-danger">
   		<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>', '</div>');
+  		$this->load->library('encrypt');
 	}
 
 	function index()
@@ -127,6 +128,87 @@ class Auth extends CI_Controller {
 				   	  'wids');
 	    $this->session->unset_userdata($data);
 	    redirect(base_url());
+	}
+
+	function forgot_password(){
+
+		$this->form_validation->set_rules('email', 'Email', 'required|xss_clean|callback_cek_email');
+
+		if ($this->form_validation->run() == FALSE) {
+			$this->load->view('forgot_password');
+		} else {
+					$email = $this->input->post('email');
+					$get_data = $this->login->cek_email($email);
+
+					if($get_data){
+						$nisn 			= $get_data->row_array()['nisn'];
+						$encrypted_nisn = $this->encrypt->encode($nisn);
+
+
+						$encrypted_nisn = str_replace(array('+', '/', '='), array('-', '_', '~'), $encrypted_nisn);
+
+						$data['nama'] = $get_data->row_array()['nama'];
+						$data['username'] = $username;
+
+						$data['link'] = base_url()."reset_password/".$encrypted_username;
+						$data['email'] = $this->input->post('email');
+
+						$message = $this->load->view('email_view',$data,TRUE);
+
+
+						$this->load->library('email');
+						$config['mailtype'] = "html";
+
+						$this->email->initialize($config);
+						$this->email->from('recovery@indocoop.co.id', 'BMBimbel Account Recovery');
+						$this->email->to($email);
+						$this->email->cc('');
+						$this->email->bcc('');
+			
+						$this->email->subject('BMBimbel Account Recovery');
+						$this->email->message($message);
+
+
+
+						$this->email->send();
+
+				        $this->load->view('confirm_forgot_password_view',$data);
+
+
+					}
+					else{
+						$this->session->set_flashdata('msg', 'Maaf email yang anda input tidak terdaftar di sistem kami');
+						redirect(base_url().'recovery','refresh');
+					}
+		}
+
+	}
+
+	function reset_password(){
+		$this->form_validation->set_rules('password', 'Password', 'required|xss_clean');
+		$this->form_validation->set_rules('conf_password', 'Konfirmasi Password', 'required|xss_clean|matches[password]');
+
+		if ($this->form_validation->run() == FALSE) {
+			$this->load->view('reset_password');
+		} else {
+			echo "success";
+		}
+	}
+
+
+	function cek_email(){
+		$email = $this->input->post('email');
+		$get_email = $this->login->cek_email($email);
+
+		if($get_email){
+			return TRUE;
+		}
+		else{
+			return FALSE;
+			$this->form_validation->set_message('cek_email', 'Maaf email yang anda input tidaj terdaftar di sistem kami');
+		}
+
+
 	}
 }
 

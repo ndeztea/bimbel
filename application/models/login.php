@@ -39,6 +39,20 @@ class Login extends CI_Model {
 			return FALSE;
 		}
 	}
+
+	function cek_email($email){
+		$this->db->select('email, nisn, nama');
+		$this->db->from('users');
+		$this->db->where('email', $email);
+		$return = $this->db->get();
+
+		if($return->num_rows() > 0){
+			return $return;
+		}
+		else {
+			return false;
+		}
+	}
 }
 
 /* End of file login.php */
