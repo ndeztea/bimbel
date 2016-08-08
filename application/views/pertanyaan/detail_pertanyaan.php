@@ -39,6 +39,9 @@
             <span class="username"><a href="#"><?php echo $pertanyaan['nama_penanya'] ?> - <small><?php echo $wids_penanya ?></small></a></span>
             <span class="description"><?php echo get_tingkat($pertanyaan['tingkat']) ?> &middot; <?php echo $pertanyaan['nama_pelajaran'] ?></span>
           </div>
+          <div class="box-tools">
+                <?php   echo date('d M Y - H:i',strtotime($pertanyaan['tgl_update'])); ?>
+          </div>
         </div>
         <div class="box-body">
           <p><?php echo $pertanyaan['pertanyaan'] ?></p>
@@ -72,7 +75,7 @@
                     <?php echo $r->nama_penjawab ?> - <small><?php echo count_wids($r->wids_penjawab) ?></small>
                     <span class="text-muted pull-right"><?php 
                                                             //$tgl_jawab = new DateTime($r->tgl_update); 
-                                                            echo date('Y-m-d H:i',strtotime($r->tgl_update)); ?></span>
+                                                            echo date('d M Y - H:i',strtotime($r->tgl_update)); ?></span>
                   </span>
 
 
