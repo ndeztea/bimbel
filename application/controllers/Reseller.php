@@ -32,11 +32,12 @@ class Reseller extends CI_Controller {
 		} else {
 				$data = array('nama' => $this->input->post('nama'),
 							  'alamat' => $this->input->post('alamat'),
-							  'no_hp' => $this->input->post('no_hp'));
+							  'no_hp' => $this->input->post('no_hp'),
+							  'id_user' => $this->session->userdata('id_user'));
 
 				$this->Mreseller->add($data);
 				$this->session->set_flashdata('msg_success', 'Data berhasil ditambah');
-				redirect(base_url().'#','refresh');
+				redirect(base_url().'data_reseller','refresh');
 		}
 	}
 
