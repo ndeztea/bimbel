@@ -31,11 +31,11 @@
 
 
                 <li class="dropdown">
-                  <a href="#" class="dropdown-toggle" data-toggle="dropdown">Beli Wids <span class="caret"></span></a>
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown">Wids <span class="caret"></span></a>
                   <ul class="dropdown-menu" role="menu">
                     <li><a href="<?php echo base_url() ?>buy_voucher">Pembelian Wids</a></li>
                     <li><a href="#">Penjualan Wids</a></li>
-                    <li><a href="add_reseller">Reseller Wids</a></li>
+                    <li><a href="add_reseller">Daftar Reseller</a></li>
                   </ul>
                 </li>
               

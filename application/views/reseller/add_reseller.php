@@ -24,7 +24,9 @@
                             <form method="post" action="<?php echo base_url()?>add_reseller">
                             <div class="box-header">
                                    <h3 class="box-title">Reseller</h3>
+                                   <p>Untuk menjadi reseller mohon isi data di bawah ini</p>
                             </div>
+
                             <div class="box-body">
                                    <div class="form-group">
                                           <label>Nama</label>
