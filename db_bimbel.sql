@@ -296,3 +296,77 @@ ALTER TABLE `users_wids`
 --
 ALTER TABLE `vouchers_wids`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+
+
+-- ***************************
+-- ***************************
+-- ***************************
+--   DIMAS 8 aug 2016 ---
+-- ***************************
+-- ***************************
+ALTER TABLE `vouchers_wids` ADD `id_user` INT NOT NULL AFTER `keterangan`;
+
+DROP TABLE IF EXISTS `reseller`;
+CREATE TABLE `reseller` (
+  `id` int(11) NOT NULL,
+  `nama` varchar(100) DEFAULT NULL,
+  `alamat` text,
+  `no_hp` varchar(50) DEFAULT NULL,
+  `id_user` int(11) DEFAULT NULL,
+  `is_approved` int(1) NOT NULL DEFAULT '0' COMMENT 'update ini jika telah di approve',
+  `tgl_update` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `reseller`
+--
+ALTER TABLE `reseller`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `reseller`
+--
+ALTER TABLE `reseller`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+
+CREATE TABLE `notifikasi` (
+  `id` int(11) NOT NULL,
+  `id_user_actor` int(11) NOT NULL,
+  `id_user_target` int(11) NOT NULL,
+  `type` varchar(100) NOT NULL COMMENT '"jawab","betul","wids"',
+  `konten` text NOT NULL,
+  `tgl_update` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP,
+  `is_emailed` int(11) NOT NULL DEFAULT '0',
+  `is_viewed` int(11) NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `notifikasi`
+--
+ALTER TABLE `notifikasi`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `notifikasi`
+--
+ALTER TABLE `notifikasi`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
