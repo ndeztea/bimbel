@@ -46,7 +46,7 @@
                             </div>
                             <div class="top-big-link">
                                 <img style="width: 50px; height: 50px; display: none; margin: 20px auto;" id="loading" src="<?= base_url() ?>assets/loading.gif" class="img-responsive">
-                                <form method="post" action="<?php echo base_url() ?>reset_password/<?php echo $this->uri->rsegment(3)" id="form-forgot">
+                                <form method="post" action="<?php echo base_url() ?>reset_password/<?php echo $this->uri->rsegment(3) ?>" id="form-forgot">
                                 <div class="form-group">
                                     <label>Password Baru </label>
                                     <input type="password" name="password" class="form-control">

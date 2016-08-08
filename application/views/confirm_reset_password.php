@@ -43,7 +43,7 @@
                             <h1><strong>Lupa Password ?</strong></h1>
                             <div class="description">
                               <p>
-                              Kami telah mengirim email ke <?php echo $email ?> silakan cek email anda untuk me-<i>reset</i> password anda. Jika email tidak muncul di Kotak Masuk anda, silakan cek spam.
+                                Password anda berhasil di-<i>reset</i>, silakan <a href="<?php echo base_url() ?>">Login</a> dengan password baru anda untuk masuk ke laman BMBimbel.
                               </p>
                             </div>
                         </div>

@@ -41,6 +41,7 @@
                     <div class="row">
                         <div class="col-sm-5 text">
                             <h1><strong>Lupa Password ?</strong></h1>
+                            <?php echo validation_errors() ?>
                             <div class="description">
                             	<p>
 	                            	Silakan masukkan email yang anda daftarkan.
@@ -48,7 +49,8 @@
                             </div>
                             <div class="top-big-link">
                                 <img style="width: 50px; height: 50px; display: none; margin: 20px auto;" id="loading" src="<?= base_url() ?>assets/loading.gif" class="img-responsive">
-                                <form method="post" action="<?php echo base_url() ?>forgot_password" id="form-forgot">
+
+                                <form method="post" action="<?php echo base_url() ?>forgot_password" id="form_forgot">
                                 <div class="form-group">
                                 <input type="email" name="email" class="form-control">
                                 <button class="btn btn-link-2" type="submit" href="#">Submit</a>

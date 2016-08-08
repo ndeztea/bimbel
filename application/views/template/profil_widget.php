@@ -8,8 +8,8 @@
 
 	<div class="box box-widget widget-user">
 		<div class="widget-user-header bg-aqua-active">
-			<h3 class="widget-user-username"><?php echo $this->session->userdata('nama'); ?></h3>
-			<h5 class="widget-user-desc"><?php echo $wids ?></h5>
+			<h3 class="widget-user-username"><?php echo $this->session->userdata('nama'); ?> <small style="color:#DDD"><?php echo level($this->session->userdata('level')); ?></small></h3>
+			<h5 class="widget-user-desc"><?php echo $wids ?> </h5>
 		</div>
 		<div class="widget-user-image">
 			<img class="img-circle" src="<?php echo thumb_avatar($this->session->userdata('avatar'),$this->session->userdata('gender'))?>"

@@ -74,5 +74,23 @@ function update_session($data_session){
 	foreach ($data_session as $key => $value) {
 		$CI->session->set_userdata($key, $value);
 	}
+}
 
+function level($level){
+	switch ($level) {
+		case 1:
+			$nama_level = "SuperAdmin";
+			break;
+		case 2:
+			$nama_level = "Administrator";
+			break;
+		case 3:
+			$nama_level = "Reseller";
+			break;
+		default:
+			$nama_level = "";
+			break;
+
+	}
+	return $nama_level;
 }

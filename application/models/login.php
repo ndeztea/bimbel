@@ -53,6 +53,13 @@ class Login extends CI_Model {
 			return false;
 		}
 	}
+
+	function reset_password($nisn, $password){
+		$new_password = array('password' => sha1(md5(strrev($password))));
+
+		$this->db->where('nisn', $nisn);
+		$this->db->update('users', $new_password);
+	}
 }
 
 /* End of file login.php */

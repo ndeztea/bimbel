@@ -9,7 +9,7 @@ class Auth extends CI_Controller {
 		// load Model
 		$this->load->model('Users');
 		$this->load->model('Login');
-
+		$this->load->library('encrypt');
 		//set error delimiter untuk form validation
 		$this->form_validation->set_error_delimiters('<div class="alert alert-danger">
   		<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>', '</div>');
@@ -65,7 +65,8 @@ class Auth extends CI_Controller {
 						   'rekening_bank' 	=> $this->input->post('no_rek'),
 						   'wids' 			=> '10',
 						   'avatar'			=> $photo,
-						   'is_active' 		=> '1');
+						   'is_active' 		=> '1',
+						   'level'			=> '4');
 
 
 			$this->Users->add($users);
@@ -138,7 +139,7 @@ class Auth extends CI_Controller {
 			$this->load->view('forgot_password');
 		} else {
 					$email = $this->input->post('email');
-					$get_data = $this->login->cek_email($email);
+					$get_data = $this->Login->cek_email($email);
 
 					if($get_data){
 						$nisn 			= $get_data->row_array()['nisn'];
@@ -148,9 +149,9 @@ class Auth extends CI_Controller {
 						$encrypted_nisn = str_replace(array('+', '/', '='), array('-', '_', '~'), $encrypted_nisn);
 
 						$data['nama'] = $get_data->row_array()['nama'];
-						$data['username'] = $username;
+						$data['username'] = $nisn;
 
-						$data['link'] = base_url()."reset_password/".$encrypted_username;
+						$data['link'] = base_url()."reset_password/".$encrypted_nisn;
 						$data['email'] = $this->input->post('email');
 
 						$message = $this->load->view('email_view',$data,TRUE);
@@ -160,7 +161,12 @@ class Auth extends CI_Controller {
 						$config['mailtype'] = "html";
 
 						$this->email->initialize($config);
-						$this->email->from('recovery@indocoop.co.id', 'BMBimbel Account Recovery');
+
+						//masukkan email pengirim disini 
+						$this->email->from('', 'BMBimbel Account Recovery');
+
+
+
 						$this->email->to($email);
 						$this->email->cc('');
 						$this->email->bcc('');
@@ -172,13 +178,13 @@ class Auth extends CI_Controller {
 
 						$this->email->send();
 
-				        $this->load->view('confirm_forgot_password_view',$data);
+				        $this->load->view('confirm_forgot_password',$data);
 
 
 					}
 					else{
 						$this->session->set_flashdata('msg', 'Maaf email yang anda input tidak terdaftar di sistem kami');
-						redirect(base_url().'recovery','refresh');
+						redirect(base_url().'forgot_password','refresh');
 					}
 		}
 
@@ -191,21 +197,35 @@ class Auth extends CI_Controller {
 		if ($this->form_validation->run() == FALSE) {
 			$this->load->view('reset_password');
 		} else {
-			echo "success";
+			$decrypted_nisn = str_replace(array('-', '_', '~'), array('+', '/', '='), $this->uri->rsegment(3));
+			$nisn = $this->encrypt->decode($decrypted_nisn);
+
+			$cek_nisn = $this->Login->cek_nisn($nisn);
+
+			if($cek_nisn){
+
+					$this->Login->reset_password($nisn, $this->input->post('password'));
+					$this->load->view('confirm_reset_password');
+			}
+			else {
+				   redirect(base_url(),'refresh');
+			}
+
 		}
 	}
 
 
 	function cek_email(){
 		$email = $this->input->post('email');
-		$get_email = $this->login->cek_email($email);
+		$get_email = $this->Login->cek_email($email);
 
 		if($get_email){
 			return TRUE;
 		}
 		else{
+			$this->form_validation->set_message('cek_email', 'Maaf email yang anda input tidak terdaftar di sistem kami');
+
 			return FALSE;
-			$this->form_validation->set_message('cek_email', 'Maaf email yang anda input tidaj terdaftar di sistem kami');
 		}
 
 
