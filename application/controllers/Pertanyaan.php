@@ -190,22 +190,49 @@ class Pertanyaan extends CI_Controller {
 			$wids_total = $wids['wids'] - 2;
 
 			if($wids['wids'] >= 2){
+
 				if($_FILES['gambar']['size'] == NULL){
-					$data = array('id_pelajaran' => $this->input->post('mata_pelajaran'),
-								  'tingkat'  	 => $this->input->post('tingkat'),
-								  'pertanyaan' 	 => $this->input->post('pertanyaan'),
-								  'id_user' 	 => $this->session->userdata('id'),
-								  'tgl_update'   => date("Y-m-d H:i:s"));
+							$data = array('id_pelajaran' => $this->input->post('mata_pelajaran'),
+										  'tingkat'  	 => $this->input->post('tingkat'),
+										  'pertanyaan' 	 => $this->input->post('pertanyaan'),
+										  'id_user' 	 => $this->session->userdata('id'),
+										  'tgl_update'   => date("Y-m-d H:i:s"));
 
 
-					$user = array('wids' => $wids_total);
+							$user = array('wids' => $wids_total);
 
-					$user_wids = array('id_user' => $wids['id'],
-									   'wids' => $wids_total,
-									   'tgl_update' => date("Y-m-d H:i:s"),
-									   'action' => 'kurang',
-									   'keterangan' => "Bertanya");
+							$user_wids = array('id_user' => $wids['id'],
+											   'wids' => $wids_total,
+											   'tgl_update' => date("Y-m-d H:i:s"),
+											   'action' => 'kurang',
+											   'keterangan' => "Bertanya");
 
+
+				}
+				else{
+						if ( !$this->upload->do_upload('gambar')){
+							$error = array('error' => $this->upload->display_errors());
+							$this->session->set_flashdata('msg_error', $error['error']);
+							redirect(base_url().'home','refresh');
+						}
+						else{
+								$data = array('id_pelajaran' => $this->input->post('mata_pelajaran'),
+											  'tingkat'  	 => $this->input->post('tingkat'),
+											  'pertanyaan' 	 => $this->input->post('pertanyaan'),
+											  'id_user' 	 => $this->session->userdata('id'),
+											  'tgl_update'   => date("Y-m-d H:i:s"),
+											  'photo'		 =>	$this->upload->data()['file_name']);
+
+								$user = array('wids' => $wids_total);
+
+								$user_wids = array('id_user' => $wids['id'],
+												   'wids' => $wids_total,
+												   'tgl_update' => date("Y-m-d H:i:s"),
+												   'action' => 'kurang');
+
+						}
+				}
+				
 
 					$this->Mpertanyaan->add_pertanyaan($data);
 					$this->Users->update($user, $this->session->userdata('nisn'));
@@ -216,40 +243,6 @@ class Pertanyaan extends CI_Controller {
 					$this->session->set_flashdata('msg_success', 'Pertanyaan berhasil ditambahkan');
 					redirect(base_url().'home','refresh');
 
-				}
-				else{
-						if ( !$this->upload->do_upload('gambar')){
-							$error = array('error' => $this->upload->display_errors());
-							$this->session->set_flashdata('msg_error', $error['error']);
-							redirect(base_url().'home','refresh');
-						}
-						else{
-							$data = array('id_pelajaran' => $this->input->post('mata_pelajaran'),
-										  'tingkat'  	 => $this->input->post('tingkat'),
-										  'pertanyaan' 	 => $this->input->post('pertanyaan'),
-										  'id_user' 	 => $this->session->userdata('id'),
-										  'tgl_update'   => date("Y-m-d H:i:s"),
-										  'photo'		 =>	$this->upload->data()['file_name']);
-							$this->Mpertanyaan->add_pertanyaan($data);
-
-							$user = array('wids' => $wids_total);
-
-							$user_wids = array('id_user' => $wids['id'],
-											   'wids' => $wids_total,
-											   'tgl_update' => date("Y-m-d H:i:s"),
-											   'action' => 'kurang');
-
-
-							$this->Mpertanyaan->add_pertanyaan($data);
-							$this->Users->update($user, $this->session->userdata('nisn'));
-							$this->Muser_wids->transaksi($user_wids);
-
-
-							$this->session->set_userdata('wids', $wids_total);
-							$this->session->set_flashdata('msg_success', 'Pertanyaan berhasil ditambahkan');
-							redirect(base_url().'home','refresh');
-						}
-				}
 			}
 			else {
 						$this->session->set_flashdata('msg_error', 'Maaf Wids kamu tidak cukup untuk melakukan pertanyaan, minimal harus nya 2 wids.');

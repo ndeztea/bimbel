@@ -10,6 +10,7 @@
     z-index: -1;
     }
 </style>
+<link rel="stylesheet" href="<?php echo base_url() ?>assets/prettyphoto/css/prettyPhoto.css" type="text/css" media="screen" title="prettyPhoto main stylesheet" charset="utf-8" />
 
 <script src="<?php echo base_url() ?>assets/select2-4.0.2/vendor/jQuery-2.1.0.js"></script>
 
@@ -46,7 +47,8 @@
         <div class="box-body">
           <p><?php echo $pertanyaan['pertanyaan'] ?></p>
           <?php if($pertanyaan['gambar'] != NULL): ?>
-            <img class="img-responsive pad" src="<?php echo base_url() ?>assets/images/question/<?php echo $pertanyaan['gambar']?>" alt="Photo">
+            <!-- <img class="img-responsive pad" src="<?php echo base_url() ?>assets/images/question/<?php echo $pertanyaan['gambar']?>" alt="Photo"> -->
+            <a href="<?php echo base_url() ?>assets/images/question/<?php echo $pertanyaan['gambar']?>" rel="prettyPhoto" title="<?php echo $pertanyaan['pertanyaan'] ?>"><img src="<?php echo base_url() ?>assets/images/question/<?php echo $pertanyaan['gambar']?>" alt="Pertanyaan" style="max-width:100% ; max-height:100%" /></a>
           <?php endif; ?>
 
           <?php if($this->session->userdata('id') == $pertanyaan['id_penanya'] OR $this->session->userdata('level') == "1"): ?>
@@ -122,7 +124,7 @@
                   <span class="username">
                     <?php echo $r->nama_penjawab ?> - <small><?php echo count_wids($r->wids_penjawab) ?></small>
                     <span class="text-muted pull-right"><?php //$tgl_jawab = new DateTime($r->tgl_update); 
-                                                              echo date('Y-m-d H:i',strtotime($r->tgl_update)); ?></span>
+                                                              echo date('d M Y H:i',strtotime($r->tgl_update)); ?></span>
                   </span>
 
 
@@ -223,6 +225,14 @@
 </section>	
 <?php $this->load->view('template/footer-js'); ?>
 <!-- custom JS -->
+    <script src="<?php echo base_url() ?>assets/prettyphoto/js/jquery.prettyPhoto.js" type="text/javascript" charset="utf-8"></script>
+      <script type="text/javascript" charset="utf-8">
+      $(document).ready(function(){
+        $(".box-body a[rel^='prettyPhoto']").prettyPhoto({
+          social_tools:false
+        });
+      });
+      </script>
         <script type="text/javascript">
           $(document).ready(function() {
           $(window).keydown(function(event){
@@ -238,7 +248,6 @@
           $(function () {
             // Replace the <textarea id="editor1"> with a CKEditor
             // instance, using default configuration.
-            CKEDITOR.replace('editor1');
             CKEDITOR.replace('comment');
 
           });

@@ -37,7 +37,7 @@ class Reseller extends CI_Controller {
 
 				$this->Mreseller->add($data);
 				$this->session->set_flashdata('msg_success', 'Data berhasil ditambah');
-				redirect(base_url().'data_reseller','refresh');
+				redirect(base_url().'add_reseller','refresh');
 		}
 	}
 

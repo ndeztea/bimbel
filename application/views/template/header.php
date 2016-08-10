@@ -35,7 +35,7 @@
                   <ul class="dropdown-menu" role="menu">
                     <li><a href="<?php echo base_url() ?>buy_voucher">Pembelian Wids</a></li>
                     <li><a href="#">Penjualan Wids</a></li>
-                    <li><a href="add_reseller">Daftar Reseller</a></li>
+                    <li><a href="<?php echo base_url() ?>add_reseller">Daftar Reseller</a></li>
                   </ul>
                 </li>
               
