@@ -125,7 +125,7 @@
     </script>
 <script type="text/javascript">
 $(document).on('click','#loadmore',function () {
-  $(this).text('Loading...');
+  		$(this).text('Loading...');
   		var offset = $("#offset").val();
         $.ajax({
 		      url: "<?php echo base_url() ?>loadmore",

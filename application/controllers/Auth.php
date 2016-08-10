@@ -131,7 +131,7 @@ class Auth extends CI_Controller {
 	    redirect(base_url());
 	}
 
-	function forgot_password(){
+	function forgot_password_(){
 
 		$this->form_validation->set_rules('email', 'Email', 'required|xss_clean|callback_cek_email');
 
@@ -188,6 +188,55 @@ class Auth extends CI_Controller {
 					}
 		}
 
+	}
+
+
+	function forgot_password(){
+		$email = $this->input->post('email');
+		$get_data = $this->Login->cek_email($email);
+
+		if($get_data){
+			$nisn 			= $get_data->row_array()['nisn'];
+			$encrypted_nisn = $this->encrypt->encode($nisn);
+
+
+			$encrypted_nisn = str_replace(array('+', '/', '='), array('-', '_', '~'), $encrypted_nisn);
+
+			$data['nama'] = $get_data->row_array()['nama'];
+			$data['username'] = $nisn;
+
+			$data['link'] = base_url()."reset_password/".$encrypted_nisn;
+			$data['email'] = $this->input->post('email');
+
+			$message = $this->load->view('email_view',$data,TRUE);
+
+			
+			$this->load->library('email');
+			$config['mailtype'] = "html";
+
+			$this->email->initialize($config);
+
+			//masukkan email pengirim disini 
+			$this->email->from('', 'BMBimbel Account Recovery');
+
+			$this->email->to($email);
+			$this->email->cc('');
+			$this->email->bcc('');
+
+			$this->email->subject('BMBimbel Account Recovery');
+			$this->email->message($message);
+
+
+			if($this->email->send()){
+	        	echo "S";
+			}
+			else{
+				echo "E";
+			}
+		}
+		else{
+			echo "F";
+		}
 	}
 
 	function reset_password(){

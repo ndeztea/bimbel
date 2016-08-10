@@ -72,7 +72,7 @@
                         <input type="password" class="form-control" name="password" placeholder="Password">
                     </div>
                     <button type="submit" class="btn btn-default">Masuk !</button>
-                    <button type="button" class="btn btn-danger" onclick=location.href='<?php echo base_url() ?>forgot_password'>Lupa Password !!</button>
+                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal">Lupa Password !!</button>
 
                 </form>
 			</div>
@@ -224,6 +224,34 @@
             
         </div>
 
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Lupa Password</h4>
+              </div>
+              <div class="modal-body">
+                    <h1 class="response" style="display:none"></h1>
+                    <img style="width: 50px; height: 50px; display: none; margin: 20px auto;" id="loading" src="<?= base_url() ?>assets/loading.gif" class="img-responsive" />
+                    <form method="post" id="form_forgot">
+                        <div class="form-group">
+                            <div class="input-group">
+                              <input type="email" class="form-control" placeholder="Masukkan email anda..." id="email" name="email">
+                              <span class="input-group-btn">
+                                <button class="btn btn-default" type="submit" id="submit">Go!</button>
+                              </span>
+                            </div>
+                        </div>
+                    </form>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Tutup</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
 
         <!-- Javascript -->
         <script src="<?php echo base_url() ?>assets/login/form-1/assets/js/jquery-1.11.1.min.js"></script>
@@ -232,6 +260,55 @@
         <script src="<?php echo base_url() ?>assets/login/form-1/assets/js/retina-1.1.0.min.js"></script>
         <script src="<?php echo base_url() ?>assets/jquery-validation/dist/jquery.validate.min.js"></script>
         <!-- <script src="<?php echo base_url() ?>/assets/login/form-1/assets/js/scripts.js"></script> -->
+        <script type="text/javascript">
+        $(document).on('click', '#submit', function(e){
+            e.preventDefault();
+
+            $('#loading').css('display', 'block');
+
+            $('#form_forgot').css('display', 'none');
+
+            var email = $("input#email").val();
+
+            $.ajax({
+                url: '<?php echo base_url() ?>forgot_password',
+                type: 'POST',
+                data: {email:email},
+                // dataType:text,
+                success: function(response) {
+                    if(response){
+                        if(response == "S"){
+                            $('#loading').css('display', 'none');
+                            $('.response').css('display', 'block');
+                            $('.response').text("Silakan periksa email anda, jika tidak terdapat email dari sistem kami, silakan cek kotak spam.");
+                        }
+                        else if(response == "E"){
+                            $('#form_forgot').css('display', 'block');
+                            $('#loading').css('display', 'none');
+                            $('.response').css('display', 'block');
+                            $('.response').text('Oops ! Terjadi kesalahan, silakan coba lagi');
+                        }
+                        else{
+                            $('#form_forgot').css('display', 'block');
+                            $('#loading').css('display', 'none');
+                            $('.response').css('display', 'block');
+                            $('.response').text('Email tidak terdaftar, silakan cek kembali');
+                        }
+                    }
+                  
+                }
+              });
+
+        });
+
+        $('#myModal').on('hidden.bs.modal', function () {
+                  $('#form_forgot').css('display', 'block');
+                  $('#loading').css('display', 'none');
+                  $('.response').css('display', 'none');
+                  $('.response').text('');
+        })
+        </script>
+
         <script>
 
             jQuery(document).ready(function() {
