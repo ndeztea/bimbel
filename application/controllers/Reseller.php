@@ -26,8 +26,9 @@ class Reseller extends CI_Controller {
 		$this->form_validation->set_rules('alamat', 'Alamat', 'required|xss_clean');
 
 		if ($this->form_validation->run() == FALSE) {
-				$this->load->view('reseller/add_reseller');
-				$this->session->set_flashdata('msg_error', validation_errors());
+				$data['msg_error'] =  validation_errors();
+				$this->load->view('reseller/add_reseller',$data);
+				//$this->session->set_flashdata('msg_error', validation_errors());
 
 		} else {
 				$data = array('nama' => $this->input->post('nama'),
