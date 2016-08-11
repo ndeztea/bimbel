@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost:3306
--- Generation Time: Aug 06, 2016 at 11:25 PM
+-- Generation Time: Aug 12, 2016 at 01:36 AM
 -- Server version: 5.5.42
 -- PHP Version: 5.6.10
 
@@ -13,6 +13,27 @@ SET time_zone = "+00:00";
 --
 -- Database: `db_bimbel`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `level`
+--
+
+CREATE TABLE `level` (
+  `id_level` int(11) NOT NULL,
+  `nama_level` varchar(15) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `level`
+--
+
+INSERT INTO `level` (`id_level`, `nama_level`) VALUES
+(1, 'Superadmin'),
+(2, 'Administrator'),
+(3, 'Reseller'),
+(4, 'Member');
 
 -- --------------------------------------------------------
 
@@ -54,13 +75,6 @@ CREATE TABLE `pelajaran_jawaban` (
   `photo` text
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `pelajaran_jawaban`
---
-
-INSERT INTO `pelajaran_jawaban` (`id`, `id_pertanyaan`, `jawaban`, `wids`, `id_user`, `tgl_update`, `jml_like`, `jml_dislike`, `is_correct`, `photo`) VALUES
-(3, 1, '<p>Test</p>\r\n', NULL, 2, '2016-07-15 19:54:23', 0, 0, '1', NULL);
-
 -- --------------------------------------------------------
 
 --
@@ -92,13 +106,6 @@ CREATE TABLE `pelajaran_pertanyaan` (
   `photo` text
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `pelajaran_pertanyaan`
---
-
-INSERT INTO `pelajaran_pertanyaan` (`id`, `id_pelajaran`, `tingkat`, `pertanyaan`, `wids`, `id_user`, `tgl_update`, `jml_jawab`, `photo`) VALUES
-(1, 1, 'SD', '<p>Test</p>\r\n', 0, 1, '2016-07-16 02:20:55', 0, NULL);
-
 -- --------------------------------------------------------
 
 --
@@ -114,13 +121,6 @@ CREATE TABLE `reseller` (
   `is_approved` int(1) NOT NULL DEFAULT '0' COMMENT 'update ini jika telah di approve',
   `tgl_update` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `reseller`
---
-
-INSERT INTO `reseller` (`id`, `nama`, `alamat`, `no_hp`, `id_user`, `is_approved`, `tgl_update`) VALUES
-(1, 'Wow', 'Yes', '08122080204', NULL, 0, '2016-08-03 16:40:53');
 
 -- --------------------------------------------------------
 
@@ -147,13 +147,6 @@ CREATE TABLE `users` (
   `level` int(1) NOT NULL DEFAULT '2'
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `users`
---
-
-INSERT INTO `users` (`id`, `nisn`, `nama`, `gender`, `password`, `tingkat_sekolah`, `nama_sekolah`, `kelas`, `hp`, `email`, `rekening_bank`, `avatar`, `wids`, `is_active`, `activation_code`, `level`) VALUES
-(1, '111210096', 'Rizky Fauzy Tahir', 'l', '767b06fceddb23e9c6091f02049dfbd911afb52a', 'SMK', 'SMK PASIM Plus Sukabumi', 12, '08122080204', 'rizkytahir96@gmail.com', '', 'bdaad0d91cc05dd2ea8fe22a3aa726c9.jpg', 8, 1, NULL, 1);
-
 -- --------------------------------------------------------
 
 --
@@ -168,17 +161,6 @@ CREATE TABLE `users_wids` (
   `action` enum('tambah','kurang','','') NOT NULL,
   `keterangan` text NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `users_wids`
---
-
-INSERT INTO `users_wids` (`id`, `id_user`, `wids`, `tgl_update`, `action`, `keterangan`) VALUES
-(1, 1, 8, '2016-07-15 19:20:55', 'kurang', 'Bertanya'),
-(2, 2, 30, '2016-07-15 19:51:19', 'tambah', 'Menjawab Pertanyaan'),
-(3, 2, 50, '2016-07-15 19:53:44', 'tambah', 'Menjawab Pertanyaan'),
-(4, 2, 50, '2016-07-15 19:54:30', 'tambah', 'Menjawab Pertanyaan'),
-(5, 2, 100, '2016-07-15 19:55:35', 'tambah', 'Beli Online');
 
 -- --------------------------------------------------------
 
@@ -198,6 +180,12 @@ CREATE TABLE `vouchers_wids` (
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `level`
+--
+ALTER TABLE `level`
+  ADD PRIMARY KEY (`id_level`);
 
 --
 -- Indexes for table `pelajaran`
@@ -257,6 +245,11 @@ ALTER TABLE `vouchers_wids`
 --
 
 --
+-- AUTO_INCREMENT for table `level`
+--
+ALTER TABLE `level`
+  MODIFY `id_level` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+--
 -- AUTO_INCREMENT for table `pelajaran`
 --
 ALTER TABLE `pelajaran`
@@ -265,7 +258,7 @@ ALTER TABLE `pelajaran`
 -- AUTO_INCREMENT for table `pelajaran_jawaban`
 --
 ALTER TABLE `pelajaran_jawaban`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 --
 -- AUTO_INCREMENT for table `pelajaran_jawaban_reponse`
 --
@@ -275,98 +268,24 @@ ALTER TABLE `pelajaran_jawaban_reponse`
 -- AUTO_INCREMENT for table `pelajaran_pertanyaan`
 --
 ALTER TABLE `pelajaran_pertanyaan`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 --
 -- AUTO_INCREMENT for table `reseller`
 --
 ALTER TABLE `reseller`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 --
 -- AUTO_INCREMENT for table `users_wids`
 --
 ALTER TABLE `users_wids`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 --
 -- AUTO_INCREMENT for table `vouchers_wids`
 --
 ALTER TABLE `vouchers_wids`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
-
-
--- ***************************
--- ***************************
--- ***************************
---   DIMAS 8 aug 2016 ---
--- ***************************
--- ***************************
-ALTER TABLE `vouchers_wids` ADD `id_user` INT NOT NULL AFTER `keterangan`;
-
-DROP TABLE IF EXISTS `reseller`;
-CREATE TABLE `reseller` (
-  `id` int(11) NOT NULL,
-  `nama` varchar(100) DEFAULT NULL,
-  `alamat` text,
-  `no_hp` varchar(50) DEFAULT NULL,
-  `id_user` int(11) DEFAULT NULL,
-  `is_approved` int(1) NOT NULL DEFAULT '0' COMMENT 'update ini jika telah di approve',
-  `tgl_update` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Indexes for dumped tables
---
-
---
--- Indexes for table `reseller`
---
-ALTER TABLE `reseller`
-  ADD PRIMARY KEY (`id`);
-
---
--- AUTO_INCREMENT for dumped tables
---
-
---
--- AUTO_INCREMENT for table `reseller`
---
-ALTER TABLE `reseller`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
-
-CREATE TABLE `notifikasi` (
-  `id` int(11) NOT NULL,
-  `id_user_actor` int(11) NOT NULL,
-  `id_user_target` int(11) NOT NULL,
-  `type` varchar(100) NOT NULL COMMENT '"jawab","betul","wids"',
-  `konten` text NOT NULL,
-  `tgl_update` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP,
-  `is_emailed` int(11) NOT NULL DEFAULT '0',
-  `is_viewed` int(11) NOT NULL DEFAULT '0'
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Indexes for dumped tables
---
-
---
--- Indexes for table `notifikasi`
---
-ALTER TABLE `notifikasi`
-  ADD PRIMARY KEY (`id`);
-
---
--- AUTO_INCREMENT for dumped tables
---
-
---
--- AUTO_INCREMENT for table `notifikasi`
---
-ALTER TABLE `notifikasi`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
