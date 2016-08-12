@@ -39,7 +39,19 @@ class Jawaban extends CI_Controller {
 
 	function insert_jawaban() {
 
+		if($this->session->userdata('level') == "1" OR $this->session->userdata('level') == "2"){
+			$betul = "1";
+		}
+		else {
+			$betul = "0";
+		}
+
+
 		$pertanyaan = $this->Mpertanyaan->get_pertanyaan_by_id($this->uri->rsegment(3));
+
+
+
+
 			if($pertanyaan){
 				$this->form_validation->set_rules('jawaban', 'Jawaban', 'required|xss_clean');
 				if ($this->form_validation->run() == FALSE) {
@@ -65,7 +77,9 @@ class Jawaban extends CI_Controller {
 											 'id_pertanyaan' => $this->uri->rsegment(3),
 											 'id_user' => $this->session->userdata('id'),
 											 'tgl_update'	=> date('Y-m-d H:i:s'),
-											 'photo' => $this->upload->data()['file_name']);	
+											 'photo' => $this->upload->data()['file_name'],
+											 'is_correct' => $betul);	
+
 			    			$this->Mjawaban->insert_jawaban($jawaban);
 			    			$this->session->set_flashdata('msg_succes', 'Jawaban berhasil ditambahkan');
 			    			redirect($this->session->userdata('url_pertanyaan'),'refresh');
@@ -74,7 +88,9 @@ class Jawaban extends CI_Controller {
 						$jawaban = array('jawaban' => $this->input->post('jawaban'),
 										 'id_pertanyaan' => $this->uri->rsegment(3),
 										 'tgl_update'	=>  date('Y-m-d H:i:s'),
-										 'id_user' => $this->session->userdata('id'));	
+										 'id_user' => $this->session->userdata('id'),
+										 'is_correct' => $betul);	
+
 			    			$this->Mjawaban->insert_jawaban($jawaban);
 			    			$this->session->set_flashdata('msg_succes', 'Jawaban berhasil ditambahkan');
 			    			redirect($this->session->userdata('url_pertanyaan'),'refresh');
@@ -137,41 +153,59 @@ class Jawaban extends CI_Controller {
 
 
 	function betul(){
-		$this->form_validation->set_rules('wids', 'Wids', 'numeric|xss_clean|required');
 
-		if ($this->form_validation->run() == FALSE){
-			$this->session->set_flashdata('msg_error', validation_errors());
-			redirect($this->session->userdata('url_pertanyaan'),'refresh');
-		}
-		else{
-			$user_wids = $this->Users->get_user_by_id($this->input->post('id'));
+		if($this->session->userdata('level') == "1"){
+			$this->form_validation->set_rules('wids', 'Wids', 'numeric|xss_clean|required');
 
-			if($user_wids){
-
-				$wids = (int) $user_wids->row_array()['wids'] + (int) $this->input->post('wids');
-
-				$data = array("wids" => $this->input->post('wids'),
-							  "id_user" =>$user_wids->row_array()['id'],
-							  "action" => "tambah",
-							  "keterangan" => "Menjawab Pertanyaan");
-
-				$user = array("id" => $user_wids->row_array()['id'],
-							  "wids" => $wids);
-
-				$jawaban = array("is_correct" => "1");
-
-				$this->Mjawaban->edit_jawaban($jawaban, $this->uri->rsegment(3));
-				$this->Users->update($user, $this->input->post('id'));
-				$this->Mwids->add_wids($data, $user);
-
-
-				
-				$this->session->set_flashdata('msg_success', 'Wids berhasil ditambahkan');
+			if ($this->form_validation->run() == FALSE){
+				$this->session->set_flashdata('msg_error', validation_errors());
 				redirect($this->session->userdata('url_pertanyaan'),'refresh');
 			}
 			else{
-				redirect(base_url().'not_found','refresh');
+				$user_wids = $this->Users->get_user_by_id($this->input->post('id'));
+
+				if($user_wids){
+
+					$wids = (int) $user_wids->row_array()['wids'] + (int) $this->input->post('wids');
+
+					$data = array("wids" => $this->input->post('wids'),
+								  "id_user" =>$user_wids->row_array()['id'],
+								  "action" => "tambah",
+								  "keterangan" => "Menjawab Pertanyaan");
+
+					$user = array("id" => $user_wids->row_array()['id'],
+								  "wids" => $wids);
+
+					$jawaban = array("is_correct" => "1",
+									 "user_set_correct" => $this->session->userdata('id'),
+									 "level_set_correct" => $this->session->userdata('level'));
+
+					$this->Mjawaban->edit_jawaban($jawaban, $this->uri->rsegment(3));
+					$this->Users->update($user, $this->input->post('id'));
+					$this->Mwids->add_wids($data, $user);
+
+
+					
+					$this->session->set_flashdata('msg_success', 'Wids berhasil ditambahkan');
+					redirect($this->session->userdata('url_pertanyaan'),'refresh');
+				}
+				else{
+					redirect(base_url().'not_found','refresh');
+				}
 			}
+		}
+		elseif ($this->session->userdata('level') == 2){
+					$jawaban = array("is_correct" => "1", 
+									 "user_set_correct" => $this->session->userdata('id'),
+									 "level_set_correct" => $this->session->userdata('level'));
+
+					$this->Mjawaban->edit_jawaban($jawaban, $this->uri->rsegment(3));
+					
+					$this->session->set_flashdata('msg_success', 'Jawaban berhasil di set betul');
+					redirect($this->session->userdata('url_pertanyaan'),'refresh');
+		}
+		else{
+				redirect(base_url().'not_found','refresh');
 		}
 	}
 

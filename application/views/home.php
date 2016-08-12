@@ -77,7 +77,7 @@
         <br />
 		<div class="col-md-8">
 			<!-- List Pertanyaan -->
-			<div class="box box-primary table-responsive">
+			<div class="box box-primary">
 	          	<div class="box-header with-border">
 	          		<h2 class="box-title">Pertanyaan</h2>
 	            </div>
@@ -90,6 +90,7 @@
 	            				<span class="username">
 	            					<?php echo $r->nama_pelajaran ?>&middot;
 					         	 	<?php echo get_tingkat($r->tingkat) ?>
+	            					<span class="text-muted pull-right"><?php echo lapse_time(strtotime($r->tgl_update)) ?> </span>
 	            				</span>
 	            				<a href="<?php echo base_url() ?>detail_pertanyaan/<?php echo $r->id_pertanyaan ?>"><?php echo $r->pertanyaan ?></a>
           						<button class="btn btn-success btn-xs pull-right" onclick=location.href="<?php echo base_url() ?>detail_pertanyaan/<?php echo $r->id_pertanyaan ?>"><i class="fa fa-share"></i> Jawab</button>

@@ -74,11 +74,17 @@
 
                 <div class="comment-text">
                   <span class="username">
-                    <?php echo $r->nama_penjawab ?> - <small><?php echo count_wids($r->wids_penjawab) ?></small>
+                    <?php echo $r->nama_penjawab ?> - <small><?php echo count_wids($r->wids_penjawab) ?>
+                    <?php if($r->level_penjawab == "1"): ?>
+                        ( Jawaban dari <b>Superadmin</b> )
+                    <?php elseif ($r->level_penjawab == "2"): ?>
+                        ( Jawaban dari <b>Administrator</b> )
+                    <?php endif; ?>
+                    </small>
                     <span class="text-muted pull-right"><?php 
                                                             //$tgl_jawab = new DateTime($r->tgl_update); 
                                                             echo lapse_time(strtotime($r->tgl_update)) ?></span>
-                  </span>
+                    </span>
 
 
                   <?php echo $r->jawaban ?>
@@ -94,8 +100,37 @@
                   <div class="clearfix"></div>
                   <!-- <span class="pull-right text-muted"><?php echo $r->jml_like ?> likes - <?php echo $r->jml_dislike ?> Dislikes</span>
                   <br /> -->
-                  
-                  <?php if ($this->session->userdata('id') == $r->id_penjawab OR $this->session->userdata('level') == "1"): ?>
+                  <?php if($this->session->userdata('level') == "1"): ?>
+                            <?php if($r->level_penjawab != "1" AND $r->level_penjawab != "2" AND $r->level_penjawab != "3"  AND $r->level_set_correct == "NULL" OR $r->level_set_correct == "2" OR $r->level_set_correct == "3"): ?>
+                              <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal<?php echo $r->id ?>">
+                                <i class='fa fa-check-circle'></i> Set Wids</button>
+
+                              <div class="modal fade" id="myModal<?php echo $r->id ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                                  <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                    <form method="POST" action="<?php echo base_url() ?>betul/<?php echo $r->id ?>">
+                                      <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                        <h4 class="modal-title" id="myModalLabel">Beri Wids</h4>
+                                      </div>
+                                      <div class="modal-body">
+                                        <input type="hidden" name="id" value="<?php echo $r->nisn_penjawab ?>">
+                                        <div class="form-group">
+                                          <label>Tambah wids hadiah :</label>
+                                          <input type="text" name="wids" class="form-control">
+                                        </div>
+                                      </div>
+                                      <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Tutup</button>
+                                        <button type="submit" class="btn btn-primary">Simpan</button>
+                                      </div>
+                                    </form>
+                                    </div>
+                                  </div>
+                                </div>
+                            <?php endif; ?>
+                  <?php endif; ?>
+                  <?php if ($this->session->userdata('id') == $r->id_penjawab OR $this->session->userdata('level') == "1" ): ?>
                     <button class="btn btn-danger btn-xs pull-right" onclick=confirmHapus(<?php echo $r->id ?>)><i class="fa fa-trash"></i> Hapus</button>
                     <button type="button" class="btn btn-success btn-xs pull-right" onclick=ConfirmEdit(<?php echo $r->id ?>)><i class='fa fa-pencil'></i> Edit</button>
 
@@ -122,9 +157,15 @@
 
                 <div class="comment-text">
                   <span class="username">
-                    <?php echo $r->nama_penjawab ?> - <small><?php echo count_wids($r->wids_penjawab) ?></small>
-                    <span class="text-muted pull-right"><?php //$tgl_jawab = new DateTime($r->tgl_update); 
-                                                              //echo date('d M Y H:i',strtotime($r->tgl_update)); 
+                    <?php echo $r->nama_penjawab ?> - <small><?php echo count_wids($r->wids_penjawab) ?>
+                    <?php if($r->level_penjawab == "1"): ?>
+                        ( Jawaban dari <b>Superadmin</b> )
+                    <?php elseif ($r->level_penjawab == "2"): ?>
+                        ( Jawaban dari <b>Administrator</b> )
+                    <?php endif; ?>
+
+                    </small>
+                    <span class="text-muted pull-right"><?php 
                     echo lapse_time(strtotime($r->tgl_update))?></span>
                   </span>
 
@@ -168,6 +209,8 @@
                       }
                     </script>
                   <?php endif ?>
+
+
                   <?php if($this->session->userdata('level') == "1" AND $r->is_correct == "0"): ?>
                     <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal<?php echo $r->id ?>">
                     <i class='fa fa-check-circle'></i> Betul</button>
@@ -195,6 +238,9 @@
                         </div>
                       </div>
                     </div>
+                  <?php elseif($this->session->userdata('level') == "2" OR $this->session->userdata('level') == "3" AND $r->is_correct == "0"): ?>
+                       <button type="button" class="btn btn-primary btn-lg" onclick="location.href='<?php echo base_url() ?>betul/<?php echo $r->id ?>'">
+                    <i class='fa fa-check-circle'></i> Betul</button>
                   <?php endif; ?>
                 </div>
               </div>

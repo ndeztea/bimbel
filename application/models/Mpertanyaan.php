@@ -17,7 +17,8 @@ class Mpertanyaan extends CI_Model {
 					       pelajaran_pertanyaan.id AS id_pertanyaan,
 					       pelajaran_pertanyaan.pertanyaan AS pertanyaan,
 					       pelajaran_pertanyaan.tingkat,
-					       pelajaran_pertanyaan.wids as wids_pertanyaan');
+					       pelajaran_pertanyaan.wids as wids_pertanyaan,
+					       pelajaran_pertanyaan.tgl_update');
 
 		$this->db->join('pelajaran_pertanyaan', 'penanya.id = pelajaran_pertanyaan.id_user');
 		$this->db->join('pelajaran', 'pelajaran_pertanyaan.id_pelajaran = pelajaran.id');
