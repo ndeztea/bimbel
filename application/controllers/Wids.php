@@ -54,8 +54,50 @@ class Wids extends CI_Controller {
 							  'tgl_update'  => date('Y-m-d H:i:s'),
 							  'keterangan' => $this->input->post('keterangan'));
 
+
 				$this->Mwids->add_wids($data, $users);
 				$this->session->set_flashdata('msg_success', 'Wids berhasil di'.$this->input->post('aksi'));
+
+
+
+				if($this->input->post('aksi') == "tambah"){
+					// ------------- BEGIN EMAIL -------------
+			    			
+			    			$get_data =  $user;
+
+
+			    			$email = $get_data['email'];
+
+
+							$data['nama'] = $get_data['nama'];
+
+							$data['link'] = base_url();
+
+							$data['email'] = $get_data['email'];
+
+							$message = $this->load->view('email/notifikasi_tambah_wids',$data,TRUE);
+
+							
+							$this->load->library('email');
+							$config['mailtype'] = "html";
+
+							$this->email->initialize($config);
+
+							//masukkan email pengirim disini 
+							$this->email->from(EMAIL_SENDER, 'BMBimbel Notification System');
+
+							$this->email->to($email);
+							$this->email->cc('');
+							$this->email->bcc('');
+
+							$this->email->subject('Wids-mu telah ditambahkan !');
+							$this->email->message($message);
+
+							$this->email->send();
+
+			  		// ------------- END EMAIL -------------
+				}
+
 				redirect(base_url().'data_wids/'.$this->uri->rsegment(3) , 'refresh');
 			}
 			else {

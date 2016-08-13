@@ -13,7 +13,7 @@
 <link rel="stylesheet" href="<?php echo base_url() ?>assets/prettyphoto/css/prettyPhoto.css" type="text/css" media="screen" title="prettyPhoto main stylesheet" charset="utf-8" />
 
 <script src="<?php echo base_url() ?>assets/select2-4.0.2/vendor/jQuery-2.1.0.js"></script>
-
+<?php $this->session->set_userdata('id_pertanyaan', $this->uri->rsegment(3)); ?>
 <?php $this->load->view('template/header'); ?>
 <section class="content">
 	<div class="row">

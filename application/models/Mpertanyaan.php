@@ -29,7 +29,8 @@ class Mpertanyaan extends CI_Model {
 	}
  
 	function get_pertanyaan_by_id($id){
-		$query = $this->db->query("SELECT penanya.nama AS nama_penanya,
+		$query = $this->db->query("SELECT penanya.id as id_penanya,
+										  penanya.nama AS nama_penanya,
 										  penanya.wids AS wids_penanya,
 										  penanya.avatar AS avatar_penanya,
 									      pelajaran.pelajaran AS nama_pelajaran,

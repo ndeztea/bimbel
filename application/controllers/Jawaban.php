@@ -79,22 +79,59 @@ class Jawaban extends CI_Controller {
 											 'tgl_update'	=> date('Y-m-d H:i:s'),
 											 'photo' => $this->upload->data()['file_name'],
 											 'is_correct' => $betul);	
-
-			    			$this->Mjawaban->insert_jawaban($jawaban);
-			    			$this->session->set_flashdata('msg_succes', 'Jawaban berhasil ditambahkan');
-			    			redirect($this->session->userdata('url_pertanyaan'),'refresh');
-						}
+							}
 					}else{
-						$jawaban = array('jawaban' => $this->input->post('jawaban'),
+							$jawaban = array('jawaban' => $this->input->post('jawaban'),
 										 'id_pertanyaan' => $this->uri->rsegment(3),
 										 'tgl_update'	=>  date('Y-m-d H:i:s'),
 										 'id_user' => $this->session->userdata('id'),
 										 'is_correct' => $betul);	
 
-			    			$this->Mjawaban->insert_jawaban($jawaban);
-			    			$this->session->set_flashdata('msg_succes', 'Jawaban berhasil ditambahkan');
-			    			redirect($this->session->userdata('url_pertanyaan'),'refresh');
 					}
+							$this->Mjawaban->insert_jawaban($jawaban);
+			    			$this->session->set_flashdata('msg_succes', 'Jawaban berhasil ditambahkan');
+					// ------------- BEGIN EMAIL -------------
+			    			$this->db->select('email, nama');
+			    			$this->db->from('users');
+			    			$this->db->where('users.id', $pertanyaan->row_array()['id_penanya']);
+			    			$get_data =  $this->db->get();
+
+
+			    			$email = $get_data->row_array()['email'];
+
+
+							$data['nama'] = $get_data->row_array()['nama'];
+
+							$data['link'] = base_url()."detail_pertanyaan/".$this->uri->rsegment(3);
+
+							$data['email'] = $get_data->row_array()['email'];
+
+							$message = $this->load->view('email/notifikasi_jawab_pertanyaan',$data,TRUE);
+
+							
+							$this->load->library('email');
+							$config['mailtype'] = "html";
+
+							$this->email->initialize($config);
+
+							//masukkan email pengirim disini 
+							$this->email->from(EMAIL_SENDER, 'BMBimbel Notification System');
+
+							$this->email->to($email);
+							$this->email->cc('');
+							$this->email->bcc('');
+
+							$this->email->subject('Seseorang menjawab pertanyaanmu !');
+							$this->email->message($message);
+
+							$this->email->send();
+
+
+						
+			  // ------------- END EMAIL -------------
+
+			    			redirect($this->session->userdata('url_pertanyaan'),'refresh');
+
 				}
 			}
 			else{
@@ -144,6 +181,7 @@ class Jawaban extends CI_Controller {
 							redirect($this->session->userdata('url_pertanyaan'),'refresh');
 							}
 					}
+
 				}
 			}
 			else{
@@ -184,7 +222,44 @@ class Jawaban extends CI_Controller {
 					$this->Users->update($user, $this->input->post('id'));
 					$this->Mwids->add_wids($data, $user);
 
+					// ------------- BEGIN EMAIL -------------
+	    			$this->db->select('email, nama');
+	    			$this->db->from('users');
+	    			$this->db->where('users.id', $user_wids->row_array()['id']);
+	    			$get_data =  $this->db->get();
 
+
+	    			$email = $get_data->row_array()['email'];
+
+
+					$data['nama'] = $get_data->row_array()['nama'];
+
+					$data['link'] = base_url()."detail_pertanyaan/".$this->session->userdata('id_pertanyaan');
+
+					$data['email'] = $get_data->row_array()['email'];
+
+					$message = $this->load->view('email/notifikasi_jawaban_betul',$data,TRUE);
+
+					
+					$this->load->library('email');
+					$config['mailtype'] = "html";
+
+					$this->email->initialize($config);
+
+					//masukkan email pengirim disini 
+					$this->email->from(EMAIL_SENDER, 'BMBimbel Notification System');
+
+					$this->email->to($email);
+					$this->email->cc('');
+					$this->email->bcc('');
+
+					$this->email->subject('Jawaban kamu benar !');
+					$this->email->message($message);
+
+					$this->email->send();
+
+						
+			  // ------------- END EMAIL -------------
 					
 					$this->session->set_flashdata('msg_success', 'Wids berhasil ditambahkan');
 					redirect($this->session->userdata('url_pertanyaan'),'refresh');
@@ -200,6 +275,51 @@ class Jawaban extends CI_Controller {
 									 "level_set_correct" => $this->session->userdata('level'));
 
 					$this->Mjawaban->edit_jawaban($jawaban, $this->uri->rsegment(3));
+
+					// ------------- BEGIN EMAIL -------------
+					$this->db->select('id_user');
+					$this->db->from('pelajaran_jawaban');
+					$this->db->where('id', $this->uri->rsegment(3));
+					$id_user = $this->db->get();
+
+
+	    			$this->db->select('email, nama');
+	    			$this->db->from('users');
+	    			$this->db->where('users.id', $id_user->row_array()['id_user']);
+	    			$get_data =  $this->db->get();
+
+
+	    			$email = $get_data->row_array()['email'];
+
+
+					$data['nama'] = $get_data->row_array()['nama'];
+
+					$data['link'] = base_url()."detail_pertanyaan/".$this->session->userdata('id_pertanyaan');
+
+					$data['email'] = $get_data->row_array()['email'];
+
+					$message = $this->load->view('email/notifikasi_jawaban_betul',$data,TRUE);
+
+					
+					$this->load->library('email');
+					$config['mailtype'] = "html";
+
+					$this->email->initialize($config);
+
+					//masukkan email pengirim disini 
+					$this->email->from(EMAIL_SENDER, 'BMBimbel Notification System');
+
+					$this->email->to($email);
+					$this->email->cc('');
+					$this->email->bcc('');
+
+					$this->email->subject('Jawaban kamu benar !');
+					$this->email->message($message);
+
+					$this->email->send();
+
+						
+			  // ------------- END EMAIL -------------
 					
 					$this->session->set_flashdata('msg_success', 'Jawaban berhasil di set betul');
 					redirect($this->session->userdata('url_pertanyaan'),'refresh');
