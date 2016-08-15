@@ -38,16 +38,11 @@ class Auth extends CI_Controller {
 		$this->form_validation->set_rules('no_hp', 'Nomor HP', 'required|numeric|xss_clean');
 		$this->form_validation->set_rules('email', 'E-Mail', 'required|xss_clean|valid_email|is_unique[users.email]');
 		$this->form_validation->set_rules('no_rek', 'Nomor Rekening', 'xss_clean|numeric');
-<<<<<<< Updated upstream
+
 		$kode_daftar = $this->input->post('kode_daftar');
 		if($kode_daftar){
 			$this->form_validation->set_rules('kode_daftar', 'Kode Daftar', 'xss_clean|callback_cek_kode_daftar');
 		}
-		
-=======
-		$this->form_validation->set_rules('kode_daftar', 'Kode Daftar', 'xss_clean|callback_cek_kode_daftar');
->>>>>>> Stashed changes
-
 
 		if ($this->form_validation->run() == FALSE){
  			$this->load->view('login');
@@ -69,6 +64,38 @@ class Auth extends CI_Controller {
 					$wids = 10;
 					$user_kode_daftar = $this->Login->get_kode_daftar($kode_daftar);
 					$parent_id = $user_kode_daftar['id'];
+					// ------------- BEGIN EMAIL -------------
+	    			
+	    			$email = $user_kode_daftar['email'];
+
+
+					$data['nama'] = $get_data->row_array()['nama'];
+
+					$data['email'] = $email;
+					$data['link'] = base_url();
+
+					$message = $this->load->view('email/notifikasi_kode_daftar',$data,TRUE);
+
+					
+					$this->load->library('email');
+					$config['mailtype'] = "html";
+
+					$this->email->initialize($config);
+
+					//masukkan email pengirim disini 
+					$this->email->from(EMAIL_SENDER, 'BMBimbel Notification System');
+
+					$this->email->to($email);
+					$this->email->cc('');
+					$this->email->bcc('');
+
+					$this->email->subject('Seseorang mendaftar dengan kode daftar kamu !');
+					$this->email->message($message);
+
+					$this->email->send();
+
+						
+			  // ------------- END EMAIL -------------
 				}else{
 					$this->load->view('login');
 				}
@@ -256,20 +283,6 @@ class Auth extends CI_Controller {
 
 
 	}
-
-
-	function cek_kode_daftar(){
-		$kode_daftar = $this->input->post('kode_daftar');
-
-		if($kode_daftar != NULL){
-			$recomender = $this->users->get_users_by_id($this->input->post('nisn'));
-			
-		}
-		else {
-
-		}
-	}
 }
-
 /* End of file Auth.php */
 /* Location: ./application/controllers/Auth.php */

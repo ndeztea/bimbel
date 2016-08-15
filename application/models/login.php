@@ -55,7 +55,7 @@ class Login extends CI_Model {
 	}
 
 	function get_kode_daftar($kode_daftar){
-		$this->db->select('id');
+		$this->db->select('id, email, nama');
 		$this->db->from('users');
 		$this->db->where('kode_daftar', $kode_daftar);
 		$return = $this->db->get()->row_array();
