@@ -289,3 +289,6 @@ ALTER TABLE `users_wids`
 --
 ALTER TABLE `vouchers_wids`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+  ALTER TABLE `users` ADD `kode_daftar` VARCHAR(100) NOT NULL AFTER `level`;
+ALTER TABLE `users` ADD `user_parent` VARCHAR(100) NOT NULL AFTER `level`;
