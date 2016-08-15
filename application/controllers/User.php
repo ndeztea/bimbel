@@ -11,6 +11,8 @@ class User extends CI_Controller {
 		}
 		  $this->load->model('Mpelajaran');
 		$this->load->model('Users');
+		$this->load->helper('string');
+
 		
 	}
 
@@ -350,6 +352,24 @@ class User extends CI_Controller {
 	  	else{
 	  		redirect(base_url()."not_found",'refresh');
 	  	}
+	}
+
+	/**
+	* update kode daftar dari edit profile
+	*
+	*/
+	function update_kode_daftar(){
+		$data['kode_daftar'] = random_string('alnum',10);
+		$nisn = $this->session->userdata('nisn');
+		if($this->Users->update($data,$nisn)){
+			echo $data['kode_daftar'];
+			exit;
+		}else{
+			echo false;
+			exit;
+		}
+
+		
 	}
 
 

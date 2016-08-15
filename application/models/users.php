@@ -25,21 +25,21 @@ class Users extends CI_Model {
 	// Add a new item
 	function add($data)
 	{
-		$this->db->insert('users', $data);
+		return $this->db->insert('users', $data);
 	}
 
 	//Update one item
 	function update($data, $id)
 	{
 		$this->db->where('nisn', $id);
-		$this->db->update('users', $data);
+		return $this->db->update('users', $data);
 	}
 
 	//Delete one item
 	function delete_user($id)
 	{
 		$this->db->where('nisn',$id);
-		$this->db->delete('users');
+		return $this->db->delete('users');
 	}
 
 	function count_user(){

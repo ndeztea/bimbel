@@ -36,6 +36,15 @@
                   <div class="clearfix"></div>
                   <button class="btn btn-primary btn-block">Upload !</button>
                 </form>
+
+                <br>
+                <div class="form-group">
+                  <label>Kode Daftar</label>
+                  <input type="text" class="form-control" id="kode_daftar" style="text-align:center" readonly="true" value="<?php echo $users['kode_daftar']?>"/>
+                  <button class="btn btn-primary btn-block" id="btn_kode_daftar" onclick="update_kode_daftar()">Update</button>
+                  <i>Bagikan kode ini kepada calon anggota baru</i>
+                </div>
+                
               </div>
               <div class="col-md-9">
                 <form method="post" action="<?php echo base_url() ?>update_profil">
@@ -179,6 +188,18 @@
 	  });
 </script>
 <script type="text/javascript">
+        function update_kode_daftar(){
+          $('#btn_kode_daftar').val('loading...');
+         $.get( "<?php echo site_url('User/update_kode_daftar')?>", function( data ) {
+            $('#btn_kode_daftar').val('Update');
+            if(data==false){
+              alert('Update kode daftar gagal');
+            }else{
+              alert('Update kode daftar berhasil');
+              $('#kode_daftar').val(data);
+            }
+          });
+        }
         //<![CDATA[ 
          var pendidikan = new Array(4)
          pendidikan[""] = ["-- Pilih Kelas --"]; 
@@ -293,6 +314,8 @@
                     }
 
                 });
+
+
             </script>
 
 <?php $this->load->view('template/foot'); ?>
