@@ -18,6 +18,12 @@ class Mwids extends CI_Model {
 	}
 
 
+	function get_voucher_wids_reseller(){
+		$this->db->where('peruntukan', $this->session->userdata('id'));
+		return $this->db->get('vouchers_wids');
+	}
+
+
 	function get_jawaban_by_id($id){
 		$this->db->where('id', $id);
 		$query = $this->db->get('users_wids');

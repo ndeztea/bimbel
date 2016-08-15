@@ -83,6 +83,24 @@ class Reseller extends CI_Controller {
 			}
 	}
 	
+
+	function cari_reseller(){
+		  $search = strip_tags(trim($this->input->get('q')));
+	      $query = $this->Mreseller->search_reseller($search);
+
+          
+          if($query->num_rows() > 0){
+		        foreach ($query->result() as $r) {
+	            $data[] = array('id' => $r->id,
+	                          	'text' =>$r->nama."(".$r->nisn.")");   
+	          }
+	      }
+	      else {
+	        $data[] = array('id' => '-99',
+	                      	'text'=>'Reseller Tidak Ditemukan');
+	      }
+	      echo json_encode($data);
+	}
 }
 
 /* End of file Reseller.php */

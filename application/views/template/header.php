@@ -36,6 +36,9 @@
                     <li><a href="<?php echo base_url() ?>buy_voucher">Pembelian Wids</a></li>
                     <li><a href="#">Penjualan Wids</a></li>
                     <li><a href="<?php echo base_url() ?>add_reseller">Daftar Reseller</a></li>
+                    <?php if ($this->session->userdata('level') == "3"): ?>
+                      <li><a href="<?php echo base_url() ?>my_voucher">Voucher Saya</a></li>
+                    <?php endif ?>
                   </ul>
                 </li>
               

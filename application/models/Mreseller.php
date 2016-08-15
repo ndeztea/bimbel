@@ -22,6 +22,12 @@ class Mreseller extends CI_Model {
 		}
 	}	
 
+	function search_reseller($id){
+		$this->db->like('nama', $id);
+		$this->db->where('level', "3");
+		return $this->db->get('users');
+	}
+
 
 	function add($data)
 	{

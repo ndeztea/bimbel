@@ -74,7 +74,7 @@
 	</div>
 </section>
 
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<div class="modal fade" id="myModal" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
     <form method="POST" action="<?php echo base_url() ?>add_voucher">
@@ -95,6 +95,12 @@
         <div class="form-group">
           <label>Jumlah Wids</label>
           <input type="number" name="wids" class="form-control" placeholder="Wids">
+        </div>
+        <div class="form-group">
+          <label>Pilih Peruntukan <small>(jika untuk reseller)</small></label>
+          <select name="peruntukan" class="peruntukan form-control">
+              <option value="">Untuk user langsung</option>
+          </select>
         </div>
         <div class="form-group">
           <label>Keterangan</label>
@@ -123,6 +129,31 @@
               }
             }
       });
+
+      $(".peruntukan").select2({
+              width:'100%',
+              allowClear:true,
+              ajax: {
+                url: "<?php echo base_url() ?>reseller/cari_reseller",
+                dataType: 'json',
+                delay: 250,
+                data: function (params) {
+                  return {
+                    q: params.term
+                  };
+                },
+                processResults: function (data) {
+                  return {
+                    results: data
+                  };
+                },
+                cache: true
+              },
+              placeholder: {
+              id: '0', // the value of the option
+              text: 'Kosongkan jika untuk user'},
+              minimumInputLength: 1,
+      });
   });
 
   $("#reload").click(function(){
@@ -136,5 +167,6 @@
             }
       });
   });
+
 </script>
 <?php $this->load->view('template/foot'); ?>

@@ -128,7 +128,8 @@ class Wids extends CI_Controller {
 									  'wids' 			=> $this->input->post('wids'),
 									  'telah_ditukar' 	=> '0',
 									  'tgl_update' 		=> date('Y-m-d H:i:s'),
-									  'keterangan'		=> $this->input->post('keterangan'));
+									  'keterangan'		=> $this->input->post('keterangan'),
+									  'peruntukan'		=> $this->input->post('peruntukan'));
 
 				$this->Mwids->add_voucher_wids($voucher_wids);
 				$this->session->set_flashdata('msg_success', 'Vocuher berhasil ditambahkan');
@@ -197,6 +198,13 @@ class Wids extends CI_Controller {
 			$this->form_validation->set_message('cek_kode_voucher', 'Kode voucher tidak terdaftar');
 			return FALSE;
 		}
+	}
+
+
+	function my_voucher(){
+		$data['no'] = 1;
+		$data['wids'] = $this->Mwids->get_voucher_wids_reseller();
+		$this->load->view('wids/my_voucher', $data);
 	}
 }
 

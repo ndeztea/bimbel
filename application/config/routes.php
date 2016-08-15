@@ -128,4 +128,4 @@ $route['data_reseller'] = "Reseller/all_reseller";
 $route['add_reseller'] = "Reseller/add_reseller";
 $route['delete_reseller/(:any)'] = "Reseller/delete_reseller/$1";
 $route['set_active_reseller/(:any)'] = "Reseller/set_active_reseller/$1";
-
+$route['my_voucher'] = "Wids/my_voucher";
