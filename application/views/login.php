@@ -99,7 +99,7 @@
                         </div>
                         <div class="col-sm-7 form-box">
                         	<div class="form-top">
-                        		<div class="form-top-left">
+                        		<div style="margin-top:15px">
                                     <?php if($this->session->flashdata('msg') != NULL): ?>
                                         <div class="alert alert-info">
                                         <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
@@ -125,14 +125,14 @@
 			                    <form role="form" action="<?php echo base_url() ?>register" method="post" class="registration-form">
                                     <div class="col-md-12">
     			                    	<div class="form-group">
-    			                    		<label class="sr-only" for="form-first-name">Nama Lengkap</label>
-    			                        	<input type="text" name="nama_lengkap" placeholder="Nama Lengkap" class="form-control" value="<?php echo set_value('nama_lengkap') ?>">
+    			                    		<label class="sr-only" for="form-first-name">Nama Lengkap *</label>
+    			                        	<input type="text" name="nama_lengkap" placeholder="Nama Lengkap *" class="form-control" value="<?php echo set_value('nama_lengkap') ?>">
     			                        </div>
                                     </div>
                                     <div class="clearfix"></div>
                                     <div class="col-md-12">
     			                        <div class="form-group">
-    			                        	<label class="sr-only" for="form-jkel">Jenis Kelamin</label>
+    			                        	<label class="sr-only" for="form-jkel">Jenis Kelamin *</label>
     			                        	<div class="form-inline">
                                                 <div class="radio">
                                                     <label>
@@ -152,27 +152,27 @@
                                     <div class="clearfix"></div>
                                     <div class="col-md-12">
     			                        <div class="form-group">
-    			                        	<label class="sr-only" for="form-nisn">NISN</label>
-    			                        	<input type="text" name="NISN" placeholder="NISN" class="form-control" value="<?php echo set_value('NISN') ?>">
+    			                        	<label class="sr-only" for="form-nisn">NISN *</label>
+    			                        	<input type="text" name="NISN" placeholder="NISN *" class="form-control" value="<?php echo set_value('NISN') ?>">
     			                        </div>
                                     </div>
                                     <div class="clearfix"></div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label class="sr-only" for="form-password">Password</label>
-                                            <input type="password" name="password" placeholder="Password" class="form-control">
+                                            <label class="sr-only" for="form-password">Password *</label>
+                                            <input type="password" name="password" placeholder="Password *" class="form-control">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label class="sr-only" for="form-confirm-password">Password</label>
-                                            <input type="password" name="confirm_password" placeholder="Konfirmasi Password" class="form-control">
+                                            <label class="sr-only" for="form-confirm-password">Password *</label>
+                                            <input type="password" name="confirm_password" placeholder="Konfirmasi Password *" class="form-control">
                                         </div>
                                     </div>
                                     <div class="clearfix"></div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label class="sr-only" for="form-pendidikan">Tingkatan Sekolah</label>
+                                            <label class="sr-only" for="form-pendidikan">Tingkatan Sekolah *</label>
                                             <select name="pendidikan" class="form-control" id="pendidikan" onchange="changePendidikan(this)">
                                                 <option value="" <?php echo set_select('pendidikan', '', TRUE); ?>>-- Pilih Pendidikan--</option>
                                                 <option value="SD" <?php echo set_select('pendidikan', 'SD'); ?>>SD</option>
@@ -184,7 +184,7 @@
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label class="sr-only" for="form-kelas">Kelas</label>
+                                            <label class="sr-only" for="form-kelas">Kelas *</label>
                                             <select name="kelas" class="form-control" id="kelas">
                                                 <option value="">-- Pilih Kelas--</option>
                                             </select>
@@ -193,14 +193,14 @@
                                     <div class="clearfix"></div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label class="sr-only" for="form-no-hp">No HP</label>
-                                            <input type="text" name="no_hp" class="form-control" placeholder="Nomor HP" value="<?php echo set_value('no_hp') ?>">
+                                            <label class="sr-only" for="form-no-hp">No HP *</label>
+                                            <input type="text" name="no_hp" class="form-control" placeholder="Nomor HP *" value="<?php echo set_value('no_hp') ?>">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label class="sr-only" for="form-email">Email</label>
-                                            <input type="text" name="email" class="form-control" placeholder="E-Mail" value="<?php echo set_value('email') ?>">
+                                            <label class="sr-only" for="form-email">Email *</label>
+                                            <input type="text" name="email" class="form-control" placeholder="E-Mail *" value="<?php echo set_value('email') ?>">
                                         </div>
                                     </div>
                                     <div class="clearfix"></div>
@@ -211,10 +211,21 @@
                                         </div>
                                     </div>
                                     <div class="clearfix"></div>
+                                    <div class="clearfix"></div>
                                     <div class="col-md-12">
-                                         <button type="submit" class="btn">Daftar !!</button>
+                                        <div class="form-group">
+                                            <label class="sr-only" for="form-rekening">Kode Daftar</label>
+                                            <input type="text" name="kode_daftar" class="form-control" placeholder="Kode Daftar" value="<?php echo set_value('kode_daftar') ?>">
+                                        </div>
                                     </div>
                                     <div class="clearfix"></div>
+                                    <div class="col-md-12">
+                                        <p>*) wajib di isi</p>
+                                         <button type="submit" class="btn">Daftar !!</button>
+
+                                    </div>
+                                    <div class="clearfix"></div>
+
 			                    </form>
 		                    </div>
                         </div>
@@ -474,7 +485,7 @@
                                         nama_lengkap: "required",
                                         NISN: {
                                             required:true,
-                                            number:true
+                                            //number:true
                                         },
                                         jkel: "required",
                                         password: {

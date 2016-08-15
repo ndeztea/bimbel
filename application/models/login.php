@@ -40,6 +40,29 @@ class Login extends CI_Model {
 		}
 	}
 
+	function cek_kode_daftar($kode_daftar){
+		$this->db->select('nisn');
+		$this->db->from('users');
+		$this->db->where('kode_daftar', $kode_daftar);
+		$return = $this->db->get();
+
+		if($return->num_rows() > 0 AND $return->num_rows() == 1){
+			return true;
+		}
+		else{
+			return false;
+		}
+	}
+
+	function get_kode_daftar($kode_daftar){
+		$this->db->select('id');
+		$this->db->from('users');
+		$this->db->where('kode_daftar', $kode_daftar);
+		$return = $this->db->get()->row_array();
+
+		return $return;
+	}
+
 	function cek_email($email){
 		$this->db->select('email, nisn, nama');
 		$this->db->from('users');

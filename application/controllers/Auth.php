@@ -38,6 +38,11 @@ class Auth extends CI_Controller {
 		$this->form_validation->set_rules('no_hp', 'Nomor HP', 'required|numeric|xss_clean');
 		$this->form_validation->set_rules('email', 'E-Mail', 'required|xss_clean|valid_email|is_unique[users.email]');
 		$this->form_validation->set_rules('no_rek', 'Nomor Rekening', 'xss_clean|numeric');
+		$kode_daftar = $this->input->post('kode_daftar');
+		if($kode_daftar){
+			$this->form_validation->set_rules('kode_daftar', 'Kode Daftar', 'xss_clean|callback_cek_kode_daftar');
+		}
+		
 
 
 		if ($this->form_validation->run() == FALSE){
@@ -52,7 +57,19 @@ class Auth extends CI_Controller {
 				$photo = 'default-female.png';
 			}
 
-
+			// check code daftar
+			$wids = $parent_id= 0;
+			if(!empty($kode_daftar)){
+				// yang punya kode daftar dapat wids 10
+				if($this->Login->cek_kode_daftar($kode_daftar)){
+					$wids = 10;
+					$user_kode_daftar = $this->Login->get_kode_daftar($kode_daftar);
+					$parent_id = $user_kode_daftar['id'];
+				}else{
+					$this->load->view('login');
+				}
+			}
+			
 
 			$users = array('nisn' 			=> $this->input->post('NISN'),
 						   'nama' 			=> $this->input->post('nama_lengkap'),
@@ -63,11 +80,11 @@ class Auth extends CI_Controller {
 						   'hp' 			=> $this->input->post('no_hp'),
 						   'email' 			=> $this->input->post('email'),
 						   'rekening_bank' 	=> $this->input->post('no_rek'),
-						   'wids' 			=> '10',
+						   'wids' 			=> $wids,
 						   'avatar'			=> $photo,
 						   'is_active' 		=> '1',
+						   'user_parent'	=> $parent_id,
 						   'level'			=> '4');
-
 
 			$this->Users->add($users);
 			$this->session->set_flashdata('msg', 'Kamu berhasil mendaftar, Silakan login untuk mengakses menu selanjutnya ');
@@ -109,6 +126,21 @@ class Auth extends CI_Controller {
 
 		if($cek_nisn){
 			$this->form_validation->set_message('cek_nisn', 'NISN yang kamu masukkan sudah terdaftar, silakan cek kembali NISN kamu.');
+			return FALSE;
+		}
+		else{
+			return TRUE;
+		}
+
+	}
+
+	function cek_kode_daftar($kode_daftar){
+		$nisn = $this->input->post('NISN');
+
+		$cek_kode_daftar = $this->Login->cek_kode_daftar($kode_daftar);
+		
+		if($cek_kode_daftar==false){
+			$this->form_validation->set_message('cek_kode_daftar', 'Kode daftar yang dimasukan tidak tersedia, kosongkan jika tidak tahu kode daftar.');
 			return FALSE;
 		}
 		else{
