@@ -35,6 +35,14 @@ class Users extends CI_Model {
 		return $this->db->update('users', $data);
 	}
 
+	function update_by_id($data, $id)
+	{
+		$this->db->where('id', $id);
+		return $this->db->update('users', $data);
+	}
+
+
+
 	//Delete one item
 	function delete_user($id)
 	{

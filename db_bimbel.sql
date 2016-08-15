@@ -292,3 +292,4 @@ ALTER TABLE `vouchers_wids`
 
   ALTER TABLE `users` ADD `kode_daftar` VARCHAR(100) NOT NULL AFTER `level`;
 ALTER TABLE `users` ADD `user_parent` VARCHAR(100) NOT NULL AFTER `level`;
+ALTER TABLE `vouchers_wids` ADD `peruntukan` VARCHAR(20) NOT NULL AFTER `kode_voucher`;

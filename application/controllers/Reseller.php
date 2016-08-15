@@ -34,10 +34,10 @@ class Reseller extends CI_Controller {
 				$data = array('nama' => $this->input->post('nama'),
 							  'alamat' => $this->input->post('alamat'),
 							  'no_hp' => $this->input->post('no_hp'),
-							  'id_user' => $this->session->userdata('id_user'));
+							  'id_user' => $this->session->userdata('id'));
 
 				$this->Mreseller->add($data);
-				$this->session->set_flashdata('msg_success', 'Data berhasil ditambah');
+				$this->session->set_flashdata('msg_success', 'Kamu berhasil diajukan menjadi reseller');
 				redirect(base_url().'add_reseller','refresh');
 		}
 	}
@@ -56,6 +56,32 @@ class Reseller extends CI_Controller {
 		}
 	}
 
+
+	function set_active_reseller(){
+		$get = $this->Mreseller->get_by_id($this->uri->rsegment(3));
+
+			if ($get){
+				$status = $get->row_array()['is_approved'];
+
+				if ($status == 0) {
+					$data = array('is_approved' => "1");
+					$user = array('level' => "3");
+					$this->session->set_flashdata('msg_success', 'Reseller berhasil diaktifkan');
+				}
+				else{
+					$data = array('is_approved' => "0");
+					$user = array('level' => "4");
+					$this->session->set_flashdata('msg_success', 'Reseller berhasil dinon-aktifkan');
+				}
+
+				$this->Mreseller->update($data, $get->row_array()['id']);
+				$this->Users->update_by_id($user, $get->row_array()['id_user']);
+				redirect(base_url().'data_reseller','refresh');
+
+			}else{
+        		redirect(base_url().'not_found','refresh');
+			}
+	}
 	
 }
 

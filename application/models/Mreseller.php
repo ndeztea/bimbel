@@ -29,7 +29,7 @@ class Mreseller extends CI_Model {
 	}
 
 
-	function update( $id, $data )
+	function update( $data, $id )
 	{
 		$this->db->where('id', $id);
 		$this->db->update('reseller', $data);

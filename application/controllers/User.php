@@ -16,51 +16,16 @@ class User extends CI_Controller {
 		
 	}
 
-	function data_user_()
-	{
-		$this->load->library('pagination');
-		
-		$config['base_url'] = base_url().'users';
-		$config['total_rows'] = $this->Users->count_user()->row_array()['id'];
-
-		$config['per_page'] = 10;
-		$config['uri_segment'] = 2;
-		$config['num_links'] = 3;
-		$config['full_tag_open'] = '<p>';
-		$config['full_tag_close'] = '</p>';
-		$config['first_link'] = 'First';
-		$config['first_tag_open'] = '<div>';
-		$config['first_tag_close'] = '</div>';
-		$config['last_link'] = 'Last';
-		$config['last_tag_open'] = '<div>';
-		$config['last_tag_close'] = '</div>';
-		$config['next_link'] = '&gt;';
-		$config['next_tag_open'] = '<div>';
-		$config['next_tag_close'] = '</div>';
-		$config['prev_link'] = '&lt;';
-		$config['prev_tag_open'] = '<div>';
-		$config['prev_tag_close'] = '</div>';
-		$config['cur_tag_open'] = '<b>';
-		$config['cur_tag_close'] = '</b>';
-		
-		$this->pagination->initialize($config);
-		$page = ($this->uri->rsegment(3)) ? $this->uri->rsegment(3) : 0;
-
-
-		$data['pagination'] = $this->pagination->create_links();
-		$data['users'] = $this->Users->get_all_users($config['per_page'], $page);
-		$data['no'] = 1;
-
-		$this->load->view('user/data_user', $data);
-	}
-
-
 
 	function data_user(){
 		if($this->session->userdata('nisn') == NULL OR $this->session->userdata('nisn') == "" OR $this->session->userdata('level') != "1"){
 			redirect(base_url(),'refresh');
 		}
 		$this->load->view('user/data_user', NULL);
+	}
+
+	function user_child(){
+		$this->load->view('user/data_user_child');
 	}
 
 	function user_list(){
@@ -200,6 +165,98 @@ class User extends CI_Controller {
 		echo json_encode($output);
 	}
 
+	function user_child_list(){
+		/*Menagkap semua data yang dikirimkan oleh client*/
+
+		/*Sebagai token yang yang dikrimkan oleh client, dan nantinya akan
+		server kirimkan balik. Gunanya untuk memastikan bahwa user mengklik paging
+		sesuai dengan urutan yang sebenarnya */
+		$draw = $_REQUEST['draw'];
+
+		/*Jumlah baris yang akan ditampilkan pada setiap page*/
+		$length = $_REQUEST['length'];
+
+		/*Offset yang akan digunakan untuk memberitahu database
+		dari baris mana data yang harus ditampilkan untuk masing masing page
+		*/
+		$start = $_REQUEST['start'];
+
+		/*Keyword yang diketikan oleh user pada field pencarian*/
+		$search = $_REQUEST['search']["value"];
+
+
+		/*Menghitung total desa didalam database*/
+		$total=$this->db->count_all_results("users");
+
+		/*Mempersiapkan array tempat kita akan menampung semua data
+		yang nantinya akan server kirimkan ke client*/
+		$output = array();
+
+		/*Token yang dikrimkan client, akan dikirim balik ke client*/
+		$output['draw'] = $draw;
+
+		/*
+		$output['recordsTotal'] adalah total data sebelum difilter
+		$output['recordsFiltered'] adalah total data ketika difilter
+		Biasanya kedua duanya bernilai sama, maka kita assignment 
+		keduaduanya dengan nilai dari $total
+		*/
+		$output['recordsTotal']=$output['recordsFiltered']=$total;
+
+		/*disini nantinya akan memuat data yang akan kita tampilkan 
+		pada table client*/
+		$output['data']=array();
+
+
+		/*Jika $search mengandung nilai, berarti user sedang telah 
+		memasukan keyword didalam filed pencarian*/
+		if($search != ""){
+			$this->db->or_like("nisn", $search);
+			$this->db->or_like("nama", $search);
+			$this->db->or_like("kelas", $search);
+			$this->db->or_like("nama_sekolah", $search);
+		}
+		$this->db->select('users.nisn,
+						   users.nama,
+						   users.kelas,
+					       users.nama_sekolah,
+					       users.wids'); 
+		$this->db->from('users');
+		$this->db->where('user_parent', $this->session->userdata('nisn'));
+		$this->db->limit($length, $start);
+		$this->db->order_by('users.nama','DESC');
+		$query=$this->db->get();
+
+
+		/*Ketika dalam mode pencarian, berarti kita harus mengatur kembali nilai 
+		dari 'recordsTotal' dan 'recordsFiltered' sesuai dengan jumlah baris
+		yang mengandung keyword tertentu
+		*/
+		if($search != ""){
+			$this->db->from('users');  
+			$this->db->where('user_parent', $this->session->userdata('nisn'));
+			$jum=$this->db->get();
+			$output['recordsTotal'] = $output['recordsFiltered']=$jum->num_rows();
+		}
+
+
+		$nomor_urut=$start+1;
+
+		foreach ($query->result_array() as $r){
+			
+			$output['data'][]=array($nomor_urut,
+									$r['nisn'],
+									$r['nama'],
+									$r['kelas'],
+									$r['nama_sekolah'],
+									$r['wids']
+									);
+			$nomor_urut++;
+		}
+
+		echo json_encode($output);
+	}
+
 
 
 	function delete_user(){
@@ -266,6 +323,8 @@ class User extends CI_Controller {
         		redirect(base_url().'not_found','refresh');
 			}
 	}
+
+
 
 
 	function edit_user(){

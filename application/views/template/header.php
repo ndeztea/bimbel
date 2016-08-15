@@ -55,6 +55,14 @@
                     </ul>
                   </li>
               <?php endif ?> 
+              <?php if ($this->session->userdata('level') == "4"): ?>
+                  <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Lainnya <span class="caret"></span></a>
+                    <ul class="dropdown-menu" role="menu">
+                      <li><a href="<?php echo base_url() ?>member_below">Data Anggota</a></li>
+                    </ul>
+                  </li>
+              <?php endif ?> 
 
                 
 

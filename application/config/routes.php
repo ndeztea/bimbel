@@ -83,7 +83,7 @@ $route['set_level_user/(:any)'] = 'user/set_level/$1';
 $route['delete_user/(:any)'] = 'user/delete_user/$1';
 $route['edit_user/(:any)'] = 'user/edit_user/$1';
 $route['avatar_update/(:any)'] = 'user/upload_avatar/$1';
-
+$route['member_below'] = 'user/user_child';
 
 $route['add_pertanyaan'] = 'pertanyaan/add_pertanyaan';
 $route['pertanyaan'] = 'home/data_pertanyaan';
@@ -127,4 +127,5 @@ $route['about'] = "Home/tentang";
 $route['data_reseller'] = "Reseller/all_reseller";
 $route['add_reseller'] = "Reseller/add_reseller";
 $route['delete_reseller/(:any)'] = "Reseller/delete_reseller/$1";
+$route['set_active_reseller/(:any)'] = "Reseller/set_active_reseller/$1";
 

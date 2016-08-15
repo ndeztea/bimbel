@@ -48,7 +48,7 @@
                                                                <td><?php echo $r->no_hp; ?></td>
                                                                <td class="text-center"><?php if($r->is_approved == '1'): ?>
                                                                     <span class="label label-success">
-                                                                      <a href="javascript:;" style="color:#FFF" onclick="location.href='<?= base_url() ?>set_active_pelajaran/<?= $r->id ?>'">Aktif</a>
+                                                                      <a href="javascript:;" style="color:#FFF" onclick="location.href='<?= base_url() ?>set_active_reseller/<?= $r->id ?>'">Aktif</a>
                                                                     </span>
                                                                   <?php else: ?>
                                                                     <span class="label label-danger" >
