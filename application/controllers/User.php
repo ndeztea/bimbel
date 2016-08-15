@@ -10,6 +10,7 @@ class User extends CI_Controller {
 			redirect(base_url(),'refresh');
 		}
 		  $this->load->model('Mpelajaran');
+		  $this->load->model('Login');
 		$this->load->model('Users');
 		$this->load->helper('string');
 
@@ -258,6 +259,50 @@ class User extends CI_Controller {
 	}
 
 
+	function add_user(){
+		$this->form_validation->set_rules('nama_lengkap', 'Nama Lengkap', 'required|xss_clean');
+		$this->form_validation->set_rules('NISN', 'NISN', 'required|xss_clean|callback_cek_nisn');
+		$this->form_validation->set_rules('jkel', 'Jenis Kelamin', 'required|xss_clean');
+		$this->form_validation->set_rules('password', 'Password', 'required|xss_clean');
+		$this->form_validation->set_rules('confirm_password', 'Konfirmasi Password', 'required|xss_clean|matches[password]');
+		$this->form_validation->set_rules('pendidikan', 'Tingkatan Sekolah', 'required|xss_clean');
+		$this->form_validation->set_rules('kelas', 'Kelas', 'required|xss_clean');
+		$this->form_validation->set_rules('no_hp', 'Nomor HP', 'required|numeric|xss_clean');
+		$this->form_validation->set_rules('email', 'E-Mail', 'required|xss_clean|valid_email|is_unique[users.email]');
+		$this->form_validation->set_rules('no_rek', 'Nomor Rekening', 'xss_clean|numeric');
+
+
+		if ($this->form_validation->run() == FALSE) {
+			$this->load->view('user/add_user');
+		} 
+		else {
+			if($this->input->post('jkel') == 'l'){
+				$photo = 'default-male.png';
+			}
+			else if($this->input->post('jkel') == 'p'){
+				$photo = 'default-female.png';
+			}
+
+			$users = array('nisn' 			=> $this->input->post('NISN'),
+						   'nama' 			=> $this->input->post('nama_lengkap'),
+						   'gender' 		=> $this->input->post('jkel'),
+						   'password' 		=> sha1(md5(strrev($this->input->post('password')))),
+						   'tingkat_sekolah'=> $this->input->post('pendidikan'),
+						   'kelas' 			=> $this->input->post('kelas'),
+						   'hp' 			=> $this->input->post('no_hp'),
+						   'email' 			=> $this->input->post('email'),
+						   'rekening_bank' 	=> $this->input->post('no_rek'),
+						   'wids' 			=> "0",
+						   'avatar'			=> $photo,
+						   'is_active' 		=> '1',
+						   'level'			=> '4');
+
+			$this->Users->add($users);
+			$this->session->set_flashdata('msg', 'User Berhasil Ditambah');
+			redirect(base_url().'users','refresh');
+		}
+	}
+
 
 	function delete_user(){
 		$id = $this->uri->rsegment(3);
@@ -432,6 +477,33 @@ class User extends CI_Controller {
 	}
 
 
+	function cek_email(){
+		$email = $this->input->post('email');
+		$get_email = $this->Login->cek_email($email);
+
+		if($get_email){
+			return TRUE;
+		}
+		else{
+			$this->form_validation->set_message('cek_email', 'Maaf email yang anda input tidak terdaftar di sistem kami');
+			return FALSE;
+		}
+	}
+
+	function cek_nisn(){
+		$nisn = $this->input->post('NISN');
+
+		$cek_nisn = $this->Login->cek_nisn($nisn);
+
+		if($cek_nisn){
+			$this->form_validation->set_message('cek_nisn', 'NISN yang kamu masukkan sudah terdaftar, silakan cek kembali NISN kamu.');
+			return FALSE;
+		}
+		else{
+			return TRUE;
+		}
+
+	}
 }
 
 /* End of file User.php */

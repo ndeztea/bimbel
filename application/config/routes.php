@@ -77,6 +77,7 @@ $route['set_active_pelajaran/(:any)'] = 'pelajaran/set_active/$1';
 
 
 $route['users'] = 'user/data_user';
+$route['add_user'] = 'user/add_user';
 $route['users/(:any)'] = 'user/data_user/$1';
 $route['set_active_user/(:any)'] = 'user/set_active/$1';
 $route['set_level_user/(:any)'] = 'user/set_level/$1';

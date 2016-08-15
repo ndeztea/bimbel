@@ -23,7 +23,7 @@
         <div class="box box-primary table-responsive">
           <div class="box-header with-border">
             <h3 class="box-title">Table User</h3>
-            <button class="btn btn-success pull-right" href="#" data-toggle="modal" data-target="#myModal"><i class="fa fa-plus-circle" ></i> Tambah user </button>
+            <button class="btn btn-success pull-right" onclick=location.href="<?= base_url() ?>add_user"><i class="fa fa-plus-circle" ></i> Tambah user </button>
           </div>
           <div class="box-body">
             <table class="table table-bordered table-striped" id="data_user">
@@ -60,27 +60,6 @@
             </div>
         </div>
       </div>
-
-
-
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">Modal title</h4>
-      </div>
-      <div class="modal-body">
-        
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
-    </div>
-  </div>
-</div>
-</section>    
 
 
 <?php $this->load->view('template/footer-js'); ?>
