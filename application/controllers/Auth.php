@@ -38,11 +38,15 @@ class Auth extends CI_Controller {
 		$this->form_validation->set_rules('no_hp', 'Nomor HP', 'required|numeric|xss_clean');
 		$this->form_validation->set_rules('email', 'E-Mail', 'required|xss_clean|valid_email|is_unique[users.email]');
 		$this->form_validation->set_rules('no_rek', 'Nomor Rekening', 'xss_clean|numeric');
+<<<<<<< Updated upstream
 		$kode_daftar = $this->input->post('kode_daftar');
 		if($kode_daftar){
 			$this->form_validation->set_rules('kode_daftar', 'Kode Daftar', 'xss_clean|callback_cek_kode_daftar');
 		}
 		
+=======
+		$this->form_validation->set_rules('kode_daftar', 'Kode Daftar', 'xss_clean|callback_cek_kode_daftar');
+>>>>>>> Stashed changes
 
 
 		if ($this->form_validation->run() == FALSE){
@@ -251,6 +255,19 @@ class Auth extends CI_Controller {
 		}
 
 
+	}
+
+
+	function cek_kode_daftar(){
+		$kode_daftar = $this->input->post('kode_daftar');
+
+		if($kode_daftar != NULL){
+			$recomender = $this->users->get_users_by_id($this->input->post('nisn'));
+			
+		}
+		else {
+
+		}
 	}
 }
 

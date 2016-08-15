@@ -42,6 +42,21 @@ class Reseller extends CI_Controller {
 		}
 	}
 
+	function delete_reseller(){
+		$reseller = $this->Mreseller->get_by_id($this->uri->rsegment(3));
+
+		if($reseller){
+			$this->Mreseller->delete($this->uri->rsegment(3));
+			$this->session->set_flashdata('msg_success', 'Data berhasil dihapus');
+			redirect(base_url().'data_reseller','refresh');
+
+		}
+		else{
+			redirect(base_url().'not_found','refresh');
+		}
+	}
+
+	
 }
 
 /* End of file Reseller.php */

@@ -210,6 +210,12 @@
                                             <input type="text" name="no_rek" class="form-control" placeholder="Nomor Rekening" value="<?php echo set_value('no_rek') ?>">
                                         </div>
                                     </div>
+                                     <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label class="sr-only" for="form-rekening">Kode Daftar (jika ada)</label>
+                                            <input type="text" name="kode_daftar" class="form-control" placeholder="Kode Daftar" value="<?php echo set_value('kode_daftar') ?>">
+                                        </div>
+                                    </div>
                                     <div class="clearfix"></div>
                                     <div class="clearfix"></div>
                                     <div class="col-md-12">

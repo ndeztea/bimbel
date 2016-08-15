@@ -126,4 +126,5 @@ $route['about'] = "Home/tentang";
 
 $route['data_reseller'] = "Reseller/all_reseller";
 $route['add_reseller'] = "Reseller/add_reseller";
+$route['delete_reseller/(:any)'] = "Reseller/delete_reseller/$1";
 

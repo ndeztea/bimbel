@@ -52,12 +52,11 @@
                                                                     </span>
                                                                   <?php else: ?>
                                                                     <span class="label label-danger" >
-                                                                      <a href="javascript:;"  style="color:#FFF"  onclick="location.href='<?= base_url() ?>set_active_pelajaran/<?= $r->id ?>'">Tidak Aktif</a>
+                                                                      <a href="javascript:;"  style="color:#FFF"  onclick="location.href='<?= base_url() ?>set_active_reseller/<?= $r->id ?>'">Tidak Aktif</a>
                                                                     </span>
                                                                   <?php endif; ?>
                                                                 </td>
                                                                <td class="text-center">
-                                                                 <button onclick="location.href='<?= base_url() ?>edit_pelajaran/<?= $r->id ?>'" class="btn btn-success" ><i class="fa fa-pencil"></i></button>
                                                                  <button class="btn btn-danger" onclick="confirmDelete('<?= $r->id ?>')"><i class="fa fa-trash"></i></button>
                                                                </td>
                                                         </tr>
@@ -92,9 +91,9 @@
 <script type="text/javascript">
   function confirmDelete(id) {
 
-    if(confirm('Anda yakin untuk menghapus pertanyaan ini ?')){
+    if(confirm('Anda yakin untuk menghapus reseller ini ?')){
         <?php $this->session->set_userdata('url_delete', current_url()); ?>
-        window.location.href="<?php echo base_url() ?>delete_pertanyaan/"+id
+        window.location.href="<?php echo base_url() ?>delete_reseller/"+id
     }
   }
 </script>
