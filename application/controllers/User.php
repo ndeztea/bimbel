@@ -223,7 +223,7 @@ class User extends CI_Controller {
 					       users.nama_sekolah,
 					       users.wids'); 
 		$this->db->from('users');
-		$this->db->where('user_parent', $this->session->userdata('nisn'));
+		$this->db->where('user_parent', $this->session->userdata('id'));
 		$this->db->limit($length, $start);
 		$this->db->order_by('users.nama','DESC');
 		$query=$this->db->get();
