@@ -248,7 +248,7 @@
           
         </div>
 
-        <?php if($this->session->userdata('id') != $pertanyaan['id_penanya']): ?>
+        <?php //if($this->session->userdata('id') != $pertanyaan['id_penanya']): ?>
           <div class="box-footer">
                <img class="img-circle img-sm" src="<?php echo thumb_avatar($this->session->userdata('avatar'),$this->session->userdata('gender'))?>" alt="user image">
                 <div class="img-push">
@@ -262,7 +262,7 @@
                   </form>
                 </div>
           </div>
-        <?php endif; ?>
+        <?php //endif; ?>
       </div>
   </div>
   <div class="col-md-4">

@@ -214,7 +214,8 @@ class Jawaban extends CI_Controller {
 					$user = array("id" => $user_wids->row_array()['id'],
 								  "wids" => $wids);
 
-					$jawaban = array("is_correct" => "1",
+					$jawaban = array("wids" => $this->input->post('wids'),
+									"is_correct" => "1",
 									 "user_set_correct" => $this->session->userdata('id'),
 									 "level_set_correct" => $this->session->userdata('level'));
 
@@ -270,7 +271,8 @@ class Jawaban extends CI_Controller {
 			}
 		}
 		elseif ($this->session->userdata('level') == 2){
-					$jawaban = array("is_correct" => "1", 
+					$jawaban = array("wids" => 0,
+									"is_correct" => "1", 
 									 "user_set_correct" => $this->session->userdata('id'),
 									 "level_set_correct" => $this->session->userdata('level'));
 
