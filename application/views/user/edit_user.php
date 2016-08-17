@@ -26,7 +26,7 @@
           <div class="box box-primary table-responsive">
             <div class="box-body box-profile">
               <div class="col-md-3">
-                <img id="imageProfile" class="profile-user-img img-responsive img-circle" alt="User profile picture" src="<?php echo thumb_avatar($this->session->userdata('avatar'),$this->session->userdata('gender'))?>"
+                <img id="imageProfile" class="profile-user-img img-responsive img-circle" alt="User profile picture" src="<?php echo thumb_avatar($users['avatar'], $users['gender'])?>"
                 style="width: 150px; height: 150px; margin: 10px auto;">
                 <form method="post" action="<?php echo base_url() ?>avatar_update/<?php echo $users['nisn'] ?>" enctype="multipart/form-data">
                   <div class="form-group">
@@ -93,6 +93,11 @@
                               echo "selected";
                               endif;
                             ?>>SMA / Sederajat</option>
+                            <option value="SMK" 
+                            <?php if($users['tingkat_sekolah'] == 'SMK'):
+                              echo "selected";
+                              endif;
+                            ?>>SMK / Sederajat</option>
                           </select>
                     </tr>
                    
@@ -171,6 +176,7 @@
          pendidikan["SD"] = ["1", "2", "3", "4", "5", "6"]; 
          pendidikan["SMP"] = ["7", "8", "9"]; 
          pendidikan["SMA"] = ["10", "11", "12"]; 
+         pendidikan["SMK"] = ["10", "11", "12"]; 
          
          function changePendidikan(selectObj) { 
              var idx = selectObj.selectedIndex; 

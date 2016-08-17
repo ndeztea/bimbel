@@ -109,10 +109,21 @@
                         </div>
                     </div>
                     <div class="clearfix"></div>
-                    <div class="col-md-12">
+                    <div class="col-md-6">
                         <div class="form-group">
                             <label  for="form-rekening">No Rekening</label>
                             <input type="text" name="no_rek" class="form-control" placeholder="Nomor Rekening" value="<?php echo set_value('no_rek') ?>">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label  for="form-rekening">Level</label>
+                            <select name="level" class="form-control">
+                              <option value="1">SuperAdmin</option>
+                              <option value="2">Administrator</option>
+                              <option value="3">Reseller</option>
+                              <option value="4" selected="">Member</option>
+                            </select>
                         </div>
                     </div>
                     <div class="clearfix"></div>

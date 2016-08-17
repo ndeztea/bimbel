@@ -102,7 +102,8 @@
                               echo "selected";
                               endif;
                             ?>>SMA</option>
-                            <option <?php if($users['tingkat_sekolah'] == 'SMK'):
+                            <option value="SMK"
+                            <?php if($users['tingkat_sekolah'] == 'SMK'):
                               echo "selected";
                               endif;
                             ?>>SMK</option>
@@ -206,6 +207,7 @@
          pendidikan["SD"] = ["1", "2", "3", "4", "5", "6"]; 
          pendidikan["SMP"] = ["7", "8", "9"]; 
          pendidikan["SMA"] = ["10", "11", "12"]; 
+         pendidikan["SMK"] = ["10", "11", "12"]; 
          
          function changePendidikan(selectObj) { 
              var idx = selectObj.selectedIndex; 

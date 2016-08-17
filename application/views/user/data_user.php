@@ -84,14 +84,5 @@
         }
     });
 </script>
-<script type="text/javascript">
-  function confirmDelete(id) {
-
-    if(confirm('Anda yakin untuk menghapus pertanyaan ini ?')){
-        <?php $this->session->set_userdata('url_delete', current_url()); ?>
-        window.location.href="<?php echo base_url() ?>delete_user/"+id
-    }
-  }
-</script>
 
 <?php $this->load->view('template/foot'); ?>

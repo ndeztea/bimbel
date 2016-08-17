@@ -293,3 +293,7 @@ ALTER TABLE `vouchers_wids`
   ALTER TABLE `users` ADD `kode_daftar` VARCHAR(100) NOT NULL AFTER `level`;
 ALTER TABLE `users` ADD `user_parent` VARCHAR(100) NOT NULL AFTER `level`;
 ALTER TABLE `vouchers_wids` ADD `peruntukan` VARCHAR(20) NOT NULL AFTER `kode_voucher`;
+
+
+ALTER TABLE `pelajaran_jawaban` ADD `user_set_correct` VARCHAR(50) NULL AFTER `is_correct`;
+ALTER TABLE `pelajaran_jawaban` ADD `levl_set_correct` VARCHAR(1) NULL AFTER `is_correct`;

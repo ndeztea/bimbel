@@ -114,7 +114,7 @@ class User extends CI_Controller {
 		foreach ($query->result_array() as $r){
 			if($r['is_active'] == 1):
 				$active = " <span class='label label-success'>
-         		 			<a href='javascript:;'  onclick=location.href='".base_url()."set_active_user/".$r['nisn']."' style='color:#FFF'>Aktif</a>
+         		 			<a href='javascript:;' onclick=location.href='".base_url()."set_active_user/".$r['nisn']."' style='color:#FFF'>Aktif</a>
       			  			</span>";
 			else:
 				$active = " <span class='label label-danger'>
@@ -295,7 +295,7 @@ class User extends CI_Controller {
 						   'wids' 			=> "0",
 						   'avatar'			=> $photo,
 						   'is_active' 		=> '1',
-						   'level'			=> '4');
+						   'level'			=> $this->input->post('level'));
 
 			$this->Users->add($users);
 			$this->session->set_flashdata('msg', 'User Berhasil Ditambah');
@@ -406,17 +406,9 @@ class User extends CI_Controller {
 							   'email' 			=> $this->input->post('email'),
 							   'rekening_bank' 	=> $this->input->post('no_rek'));
 
-				// update session
-				$data_session['nama'] =  $this->input->post('nama');
-				$data_session['gender'] =  $this->input->post('jkel');
-				$data_session['pendidikan'] =  $this->input->post('pendidikan');
-				$data_session['kelas'] =  $this->input->post('kelas');
-				$data_session['nama'] =  $this->input->post('nama');
-				
-				update_session($data_session);
-				
-				$this->Users->update($users, $this->session->userdata('nisn'));
-				$this->session->set_flashdata('msg_success', 'Profil Berhasil Diubah');
+
+				$this->Users->update($users, $this->uri->rsegment(3));
+				$this->session->set_flashdata('msg_success', 'Data User Berhasil Diubah');
 				redirect(base_url().'user/data_user','refresh');
 			}
 			
@@ -445,7 +437,7 @@ class User extends CI_Controller {
 	        else{
 	            $this->session->set_userdata('error', "");
 	            $this->session->set_flashdata('msg_success', 'Photo profil berhasil diubah');
-		            if($this->session->userdata('avatar') AND $this->session->userdata('avatar') != "default-male.png" AND $this->session->userdata('avatar') != "default-female.png"){
+		            if($users['avatar'] AND $users['avatar'] != "default-male.png" AND $users['avatar'] != "default-female.png"){
 		                unlink(FCPATH."assets/images/avatar/".$users['avatar']);
 		            }
 		        $data = array('avatar' => $this->upload->data()['file_name']);

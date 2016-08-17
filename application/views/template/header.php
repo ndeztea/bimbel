@@ -83,7 +83,7 @@
             </div>
               <div class="navbar-custom-menu">
                 <ul class="nav navbar-nav">
-                  <li class="dropdown user user-menu">
+                <li class="dropdown user user-menu hidden-sm hidden-xs hidden-md ">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                       <?php echo $this->session->userdata('nama'); ?> <img src="<?php echo thumb_avatar($this->session->userdata('avatar'),$this->session->userdata('gender'))?>" 
                       alt="User Image" class="user-image image-profile">
@@ -92,9 +92,9 @@
                 <li class="dropdown user user-menu">
                   <li><a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-cog"> </i></a>
                     <ul class="dropdown-menu">
-                      <li><a href="<?php echo base_url()?>profil">Profile</a></li>
-                      <li><a href="<?php echo base_url() ?>update_profil">Edit Profile</a></li>
-                      <li><a href="<?php echo base_url() ?>update_password">Ubah Password</a></li>
+                      <li><a href="<?php echo base_url()?>profil" style="color:#000">Profile</a></li>
+                      <li><a href="<?php echo base_url() ?>update_profil" style="color:#000">Edit Profile</a></li>
+                      <li><a href="<?php echo base_url() ?>update_password" style="color:#000">Ubah Password</a></li>
                       
                     </ul>
                   </li>
