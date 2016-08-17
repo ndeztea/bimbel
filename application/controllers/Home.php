@@ -100,7 +100,6 @@ class Home extends CI_Controller {
 				$data_session['gender'] =  $this->input->post('jkel');
 				$data_session['pendidikan'] =  $this->input->post('pendidikan');
 				$data_session['kelas'] =  $this->input->post('kelas');
-				$data_session['nama'] =  $this->input->post('nama');
 				update_session($data_session);
 
 				$this->Users->update($users, $this->session->userdata('nisn'));

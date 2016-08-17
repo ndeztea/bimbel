@@ -68,21 +68,41 @@
 
 <script src="<?php echo base_url() ?>assets/AdminLTE-2.3.0/plugins/datatables/dataTables.bootstrap.min.js"></script>
 
-<script type="text/javascript">
+<!-- <script type="text/javascript">
     $('#data_user').DataTable({
         ordering:true,
         processing: true,
         serverSide: true,
         searchable:true,
-        "columnDefs": [ {
+        "columnDefs": [{
           "targets": 'no-sort',
           "orderable": false,
-    	} ],
+    	 }],
+       ajax: {
+          url: "<?php echo base_url('user/user_list') ?>",
+          type:'POST',
+       }
+    });
+</script> -->
+<script type="text/javascript">
+    $('#data_user').DataTable({
+        ordering:false,
+        processing: true,
+        serverSide: true,
+        searchable:true,
         ajax: {
           url: "<?php echo base_url('user/user_list') ?>",
           type:'POST',
         }
     });
+</script>
+<script type="text/javascript">
+  function confirmDelete(id) {
+
+    if(confirm('Anda yakin untuk menghapus user ini ?')){
+        window.location.href="<?php echo base_url() ?>delete_user/"+id
+    }
+  }
 </script>
 
 <?php $this->load->view('template/foot'); ?>

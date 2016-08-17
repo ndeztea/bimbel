@@ -114,7 +114,7 @@ class Pertanyaan extends CI_Controller {
 									substr($r['pertanyaan'], 0, 100),
 									$r['tingkat'],
 									"<button class='btn btn-danger' onclick=confirmDelete(".$r['id_pertanyaan'].")><i class='fa fa-trash'></i></button>".
-									"  <button class='btn btn-info' onclick=location.href='".base_url()."detail_pertanyaan/".$r['id_pertanyaan']."'><i class='fa fa-eye'></i></button>"
+									"<button class='btn btn-info' onclick=location.href='".base_url()."detail_pertanyaan/".$r['id_pertanyaan']."'><i class='fa fa-eye'></i></button>"
 									);
 			$nomor_urut++;
 		}
