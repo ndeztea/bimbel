@@ -4,9 +4,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Mreseller extends CI_Model {
 
 
-	function get_all()
+	function get_all($is_active='all')
 	{
+		if($is_active===true){
+			 $this->db->where('is_approved',1);
+		}
 		return $this->db->get('reseller');
+
+
 	}
 
 	function get_by_id($id)

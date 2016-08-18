@@ -16,9 +16,12 @@ class Reseller extends CI_Controller {
 	function all_reseller()
 	{
 		$data['no'] = 1;
-		$data['reseller'] = $this->Mreseller->get_all();
+		$is_active = $this->session->userdata('level')=="4"?true:'all';
+		$data['reseller'] = $this->Mreseller->get_all($is_active);
 		$this->load->view('reseller/data_reseller', $data);
 	}
+
+	
 
 	function add_reseller(){
 		$this->form_validation->set_rules('nama', 'Nama', 'required|xss_clean');

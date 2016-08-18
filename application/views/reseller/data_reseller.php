@@ -35,8 +35,10 @@
                                               <th>Nama</th>
                                               <th>Alamat</th>
                                               <th>No Hp</th>
+                                              <?php if ($this->session->userdata('level') == "1"):?>
                                               <th>Aktif</th>
                                               <th>Aksi</th>
+                                              <?php endif?>
                                             </tr>
                                           </thead>
                                           <tbody>
@@ -46,6 +48,7 @@
                                                                <td><?php echo $r->nama; ?></td>
                                                                <td><?php echo $r->alamat; ?></td>
                                                                <td><?php echo $r->no_hp; ?></td>
+                                                               <?php if ($this->session->userdata('level') == "1"):?>
                                                                <td class="text-center"><?php if($r->is_approved == '1'): ?>
                                                                     <span class="label label-success">
                                                                       <a href="javascript:;" style="color:#FFF" onclick="location.href='<?= base_url() ?>set_active_reseller/<?= $r->id ?>'">Aktif</a>
@@ -59,6 +62,7 @@
                                                                <td class="text-center">
                                                                  <button class="btn btn-danger" onclick="confirmDelete('<?= $r->id ?>')"><i class="fa fa-trash"></i></button>
                                                                </td>
+                                                             <?php endif?>
                                                         </tr>
                                                  <?php endforeach; ?>
                                           </tbody>
@@ -68,8 +72,10 @@
                                               <th>Nama</th>
                                               <th>Alamat</th>
                                               <th>No HP</th>
+                                              <?php if ($this->session->userdata('level') == "1"):?>
                                               <th>Aktif</th>
                                               <th>Aksi</th>
+                                              <?php endif?>
                                             </tr>
                                           </tfoot>
                                         </table>

@@ -34,8 +34,9 @@
                   <a href="#" class="dropdown-toggle" data-toggle="dropdown">Wids <span class="caret"></span></a>
                   <ul class="dropdown-menu" role="menu">
                     <li><a href="<?php echo base_url() ?>buy_voucher">Pembelian Wids</a></li>
-                    <li><a href="#">Penjualan Wids</a></li>
-                    <li><a href="<?php echo base_url() ?>add_reseller">Daftar Reseller</a></li>
+                    <!--li><a href="#">Penjualan Wids</a></li-->
+                    <li><a href="<?php echo base_url() ?>add_reseller">Menjadi Reseller</a></li>
+                    <li><a href="<?php echo base_url() ?>list_reseller">Daftar Reseller</a></li>
                     <?php if ($this->session->userdata('level') == "3"): ?>
                       <li><a href="<?php echo base_url() ?>my_voucher">Voucher Saya</a></li>
                     <?php endif ?>
