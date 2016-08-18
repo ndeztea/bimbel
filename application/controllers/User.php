@@ -156,9 +156,9 @@ class User extends CI_Controller {
 									$r['wids'],
 									$active,
 									$level,
-									"<button class='btn btn-success' onclick=location.href='".base_url()."edit_user/".$r['nisn']."'><i class='fa fa-pencil'></i></button>".
-                            		"<button class='btn btn-danger' onclick=confirmDelete('".$r['nisn']."')><i class='fa fa-trash'></i></button>".
-                             		"<button class='btn btn-primary' onclick=location.href='".base_url()."data_wids/".$r['nisn']."'>Wids</button>"
+									'<button class="btn btn-success" onclick="location.href=\''.base_url().'edit_user/'.$r['nisn'].'\'"><i class="fa fa-pencil"></i></button>'.
+                            		'<button class="btn btn-danger" onclick="confirmDelete(\''.$r['nisn'].'\')"><i class="fa fa-trash"></i></button>'.
+                             		'<button class="btn btn-primary" onclick="location.href=\''.base_url().'data_wids/'.$r['nisn'].'\'>Wids</button>'
 									);
 			$nomor_urut++;
 		}
@@ -306,6 +306,7 @@ class User extends CI_Controller {
 
 	function delete_user(){
 		$id = $this->uri->rsegment(3);
+		
         $this->Users->delete_user($id);
 		$this->session->set_flashdata('msg_success', 'Data berhasil dihapus');
         redirect(base_url().'user/data_user','refresh');

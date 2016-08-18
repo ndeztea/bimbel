@@ -58,7 +58,7 @@
                           </td>
                           <td  class="text-center">
                             <button class="btn btn-success" onclick="location.href='<?php echo base_url() ?>edit_user/<?= $r->nisn ?>'"><i class="fa fa-pencil"></i></button>
-                            <button class="btn btn-danger" onclick='confirmDelete(<?php echo $r->nisn ?>)'"><i class="fa fa-trash"></i></button>
+                            <button class="btn btn-danger" onclick="confirmDelete('<?php echo $r->nisn ?>')"><i class="fa fa-trash"></i></button>
 
                              <button class="btn btn-primary" onclick="location.href='<?php echo base_url() ?>data_wids/<?= $r->nisn?>'">Wids</button>
                          

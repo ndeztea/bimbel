@@ -100,7 +100,7 @@
   function confirmDelete(id) {
 
     if(confirm('Anda yakin untuk menghapus user ini ?')){
-        window.location.href="<?php echo base_url() ?>delete_user/"+id
+        window.location.href="<?php echo base_url() ?>delete_user/"+id;
     }
   }
 </script>
