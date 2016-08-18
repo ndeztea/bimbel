@@ -78,7 +78,7 @@ class Mpertanyaan extends CI_Model {
 									FROM  users penanya
 									JOIN  pelajaran_pertanyaan ON penanya.id = pelajaran_pertanyaan.id_user
 									JOIN  pelajaran ON pelajaran_pertanyaan.id_pelajaran = pelajaran.id
-									WHERE penanya.nisn = $nisn
+									WHERE penanya.nisn = '$nisn'
 									LIMIT $limit OFFSET $offset");
 		return $query;
 	}
@@ -99,7 +99,7 @@ class Mpertanyaan extends CI_Model {
 									FROM  users penanya
 									JOIN  pelajaran_pertanyaan ON penanya.id = pelajaran_pertanyaan.id_user
 									JOIN  pelajaran ON pelajaran_pertanyaan.id_pelajaran = pelajaran.id
-									WHERE pelajaran_pertanyaan.id = $id");
+									WHERE pelajaran_pertanyaan.id = '$id'");
 
 
 		if($query->num_rows() == 1){
