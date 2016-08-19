@@ -203,19 +203,31 @@ class Jawaban extends CI_Controller {
 				$user_wids = $this->Users->get_user_by_id($this->input->post('id'));
 
 				if($user_wids){
+					$user_downliner = $user_wids->row_array();
 
-					$wids = (int) $user_wids->row_array()['wids'] + (int) $this->input->post('wids');
+					$user_upliner = $this->Users->get_user_by_id($user_downliner['user_parent']);
+
+					if($user_upliner){
+						$wids_upliner = $user_upliner->row_array()['wids'];
+						$wids_for_upliner = ((int) $this->input->post('wids') / 100) * 10;
+						$persentase = round($wids_for_upliner, 0, PHP_ROUND_HALF_UP);
+						$bonus_upliner = (int) $wids_upliner + $persentase;
+						$user = array("wids" => $bonus_upliner);
+						$this->Users->update($user, $user_upliner->row_array()['nisn']);
+					}
+
+					$wids = (int) $user_downliner['wids'] + (int) $this->input->post('wids');
 
 					$data = array("wids" => $this->input->post('wids'),
-								  "id_user" =>$user_wids->row_array()['id'],
+								  "id_user" =>$user_downliner['id'],
 								  "action" => "tambah",
 								  "keterangan" => "Menjawab Pertanyaan");
 
-					$user = array("id" => $user_wids->row_array()['id'],
+					$user = array("id"	=> $user_downliner['id'],
 								  "wids" => $wids);
 
 					$jawaban = array("wids" => $this->input->post('wids'),
-									"is_correct" => "1",
+									 "is_correct" => "1",
 									 "user_set_correct" => $this->session->userdata('id'),
 									 "level_set_correct" => $this->session->userdata('level'));
 
@@ -226,7 +238,7 @@ class Jawaban extends CI_Controller {
 					// ------------- BEGIN EMAIL -------------
 	    			$this->db->select('email, nama');
 	    			$this->db->from('users');
-	    			$this->db->where('users.id', $user_wids->row_array()['id']);
+	    			$this->db->where('users.id', $user_downliner['id']);
 	    			$get_data =  $this->db->get();
 
 
@@ -270,7 +282,7 @@ class Jawaban extends CI_Controller {
 				}
 			}
 		}
-		elseif ($this->session->userdata('level') == 2){
+		elseif ($this->session->userdata('level') == 2 OR $this->session->userdata('level') == 3){
 					$jawaban = array("wids" => 0,
 									"is_correct" => "1", 
 									 "user_set_correct" => $this->session->userdata('id'),

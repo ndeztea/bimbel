@@ -101,9 +101,10 @@
                   <!-- <span class="pull-right text-muted"><?php echo $r->jml_like ?> likes - <?php echo $r->jml_dislike ?> Dislikes</span>
                   <br /> -->
                   <?php if($this->session->userdata('level') == "1"): ?>
-                            <?php if($r->level_penjawab != "1" AND $r->level_penjawab != "2" AND $r->level_penjawab != "3"  AND $r->level_set_correct == "NULL" OR $r->level_set_correct == "2" OR $r->level_set_correct == "3"): ?>
+                            <?php if($r->level_penjawab != "1" AND $r->level_penjawab != "2" AND $r->level_penjawab != "3"): ?>
                               <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal<?php echo $r->id ?>">
-                                <i class='fa fa-check-circle'></i> Set Wids</button>
+                                <i class='fa fa-check-circle'></i> Set Wids
+                              </button>
 
                               <div class="modal fade" id="myModal<?php echo $r->id ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                                   <div class="modal-dialog" role="document">
