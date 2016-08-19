@@ -40,6 +40,7 @@ class Mjawaban extends CI_Model {
 							penjawab.avatar AS avatar_penjawab,
 							penjawab.level AS level_penjawab,
 							pelajaran_jawaban.id,
+							pelajaran_jawaban.wids as wids_jawaban,
 							pelajaran_jawaban.user_set_correct,
 							pelajaran_jawaban.level_set_correct,
 							pelajaran_jawaban.photo as gambar_jawaban,

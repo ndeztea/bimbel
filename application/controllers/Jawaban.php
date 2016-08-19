@@ -209,9 +209,9 @@ class Jawaban extends CI_Controller {
 
 					if($user_upliner){
 						$wids_upliner = $user_upliner->row_array()['wids'];
-						$wids_for_upliner = ((int) $this->input->post('wids') / 100) * 10;
-						$persentase = round($wids_for_upliner, 0, PHP_ROUND_HALF_UP);
-						$bonus_upliner = (int) $wids_upliner + $persentase;
+						$persentase = ((int) $this->input->post('wids') / 100) * 10;
+						$wids_for_upliner = round($persentase, 0, PHP_ROUND_HALF_UP);
+						$bonus_upliner = (int) $wids_upliner + $wids_for_upliner;
 						$user = array("wids" => $bonus_upliner);
 						$this->Users->update($user, $user_upliner->row_array()['nisn']);
 					}
@@ -340,6 +340,137 @@ class Jawaban extends CI_Controller {
 		}
 		else{
 				redirect(base_url().'not_found','refresh');
+		}
+	}
+
+
+
+
+	function update_wids_betul(){
+		if($this->session->userdata('level') == "1"){
+			$this->form_validation->set_rules('wids', 'Wids', 'numeric|xss_clean|required');
+
+			if ($this->form_validation->run() == FALSE){
+				$this->session->set_flashdata('msg_error', validation_errors());
+				redirect($this->session->userdata('url_pertanyaan'),'refresh');
+			}
+			else{
+
+
+				$user_wids = $this->Users->get_user_by_id($this->input->post('id'));
+				if($user_wids){
+					$user_downliner = $user_wids->row_array();
+
+					$user_upliner = $this->Users->get_user_by_id($user_downliner['user_parent']);
+
+					$wids_jawaban = $this->Mjawaban->get_jawaban_by_id($this->uri->rsegment(3))->row_array()['wids'];
+
+					$wids_update = $this->input->post('wids');
+
+					$selisih_wids = abs($wids_jawaban - $wids_update);
+
+					$wids_downliner = $user_downliner['wids'];
+
+					if($user_upliner){
+						$wids_upliner = $user_upliner->row_array()['wids'];
+
+					}
+					else {
+						$wids_upliner = 0;
+					}
+
+
+
+					if($wids_update > $wids_jawaban){
+						$wids_baru = (int) $wids_jawaban + (int) $selisih_wids;
+						$wids_for_downliner = (int) $wids_downliner + (int) $selisih_wids;
+						$persentase = ($wids_baru / 100) * 10;
+						$wids_for_upliner = round($persentase, 0, PHP_ROUND_HALF_UP);
+						$bonus_upliner = (int) $wids_upliner + $wids_for_upliner;
+						$action = "tambah";
+					}
+					elseif($wids_update < $wids_jawaban){
+						$wids_baru = (int) $wids_jawaban - (int) $selisih_wids;
+						$wids_for_downliner = (int) $wids_downliner - (int) $selisih_wids;
+						$persentase = ($wids_baru / 100) * 10;
+						$wids_for_upliner = round($persentase, 0, PHP_ROUND_HALF_UP);
+						$bonus_upliner = (int) $wids_upliner - $wids_for_upliner;
+						$action = "kurang";
+					}
+					else {
+						$wids_baru = (int) $wids_jawaban;
+						$bonus_upliner = 0;
+						$action = "tetap";
+					}
+
+
+					$log_wids = array("wids" => $wids_baru,
+									  "id_user" =>$user_downliner['id'],
+									  "action" => $action,
+									  "keterangan" => "Update Wids Jawaban");
+
+					$user_downliner = array("id"	=> $user_downliner['id'],
+								  			"wids" => $wids_for_downliner);
+
+					$wids_jawab = array("wids" => $this->input->post('wids'));
+
+					$this->Mjawaban->edit_jawaban($wids_jawab, $this->uri->rsegment(3));
+					$this->Users->update($user_downliner, $this->input->post('id'));
+					$this->Mwids->add_wids($log_wids, $user_downliner);
+
+
+					if($user_upliner){
+						$user = array("wids" => $bonus_upliner);
+						$this->Users->update($user, $user_upliner->row_array()['nisn']);
+					}
+
+
+					// ------------- BEGIN EMAIL -------------
+	    // 			$this->db->select('email, nama');
+	    // 			$this->db->from('users');
+	    // 			$this->db->where('users.id', $user_downliner['id']);
+	    // 			$get_data =  $this->db->get();
+
+
+	    // 			$email = $get_data->row_array()['email'];
+
+
+					// $data['nama'] = $get_data->row_array()['nama'];
+
+					// $data['link'] = base_url()."detail_pertanyaan/".$this->session->userdata('id_pertanyaan');
+
+					// $data['email'] = $get_data->row_array()['email'];
+
+					// $message = $this->load->view('email/notifikasi_jawaban_betul',$data,TRUE);
+
+					
+					// $this->load->library('email');
+					// $config['mailtype'] = "html";
+
+					// $this->email->initialize($config);
+
+
+					// $this->email->from(EMAIL_SENDER, 'BMBimbel Notification System');
+
+					// $this->email->to($email);
+					// $this->email->cc('');
+					// $this->email->bcc('');
+
+					// $this->email->subject('Jawaban kamu benar !');
+					// $this->email->message($message);
+
+					// $this->email->send();
+
+						
+			  // ------------- END EMAIL -------------
+					
+					$this->session->set_flashdata('msg_success', 'Wids berhasil diupdate');
+					redirect($this->session->userdata('url_pertanyaan'),'refresh');
+				}
+				else{
+					redirect(base_url().'not_found','refresh');
+				}
+			}
 		}
 	}
 

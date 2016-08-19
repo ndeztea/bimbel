@@ -81,10 +81,13 @@
                         ( Jawaban dari <b>Administrator</b> )
                     <?php endif; ?>
                     </small>
-                    <span class="text-muted pull-right"><?php 
-                                                            //$tgl_jawab = new DateTime($r->tgl_update); 
-                                                            echo lapse_time(strtotime($r->tgl_update)) ?></span>
+                    <span class="text-muted pull-right">
+                          <?php 
+                               echo lapse_time(strtotime($r->tgl_update)) 
+                          ?>
+                        
                     </span>
+                  </span>
 
 
                   <?php echo $r->jawaban ?>
@@ -101,10 +104,9 @@
                   <!-- <span class="pull-right text-muted"><?php echo $r->jml_like ?> likes - <?php echo $r->jml_dislike ?> Dislikes</span>
                   <br /> -->
                   <?php if($this->session->userdata('level') == "1"): ?>
-                            <?php if($r->level_penjawab != "1" AND $r->level_penjawab != "2" AND $r->level_penjawab != "3"): ?>
+                            <?php if($r->level_penjawab != "1" AND $r->level_penjawab != "2" AND $r->level_penjawab != "3"  AND $r->level_set_correct == "NULL" OR $r->level_set_correct == "2" OR $r->level_set_correct == "3"): ?>
                               <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal<?php echo $r->id ?>">
-                                <i class='fa fa-check-circle'></i> Set Wids
-                              </button>
+                                <i class='fa fa-check-circle'></i> Set Wids</button>
 
                               <div class="modal fade" id="myModal<?php echo $r->id ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                                   <div class="modal-dialog" role="document">
@@ -113,6 +115,34 @@
                                       <div class="modal-header">
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                                         <h4 class="modal-title" id="myModalLabel">Beri Wids</h4>
+                                      </div>
+                                      <div class="modal-body">
+                                        <input type="hidden" name="id" value="<?php echo $r->nisn_penjawab ?>">
+                                        <div class="form-group">
+                                          <label>Tambah wids hadiah :</label>
+                                          <input type="text" name="wids" class="form-control">
+                                        </div>
+                                      </div>
+                                      <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Tutup</button>
+                                        <button type="submit" class="btn btn-primary">Simpan</button>
+                                      </div>
+                                    </form>
+                                    </div>
+                                  </div>
+                                </div>
+                            <?php endif; ?>
+                             <?php if($r->level_penjawab != "1" AND $r->level_penjawab != "2" AND $r->level_penjawab != "3"  AND $r->wids_jawaban != NULL): ?>
+                              <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal<?php echo $r->id ?>">
+                                <i class='fa fa-check-circle'></i> Update Wids</button> (Wids untuk jawaban ini, saat ini <strong><?php echo $r->wids_jawaban ?> </strong>)
+
+                              <div class="modal fade" id="myModal<?php echo $r->id ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                                  <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                    <form method="POST" action="<?php echo base_url() ?>update_wids_betul/<?php echo $r->id ?>">
+                                      <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                        <h4 class="modal-title" id="myModalLabel">Update Wids</h4>
                                       </div>
                                       <div class="modal-body">
                                         <input type="hidden" name="id" value="<?php echo $r->nisn_penjawab ?>">
