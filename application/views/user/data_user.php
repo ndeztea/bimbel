@@ -68,7 +68,7 @@
 
 <script src="<?php echo base_url() ?>assets/AdminLTE-2.3.0/plugins/datatables/dataTables.bootstrap.min.js"></script>
 
-<!-- <script type="text/javascript">
+<script type="text/javascript">
     $('#data_user').DataTable({
         ordering:true,
         processing: true,
@@ -82,18 +82,6 @@
           url: "<?php echo base_url('user/user_list') ?>",
           type:'POST',
        }
-    });
-</script> -->
-<script type="text/javascript">
-    $('#data_user').DataTable({
-        ordering:false,
-        processing: true,
-        serverSide: true,
-        searchable:true,
-        ajax: {
-          url: "<?php echo base_url('user/user_list') ?>",
-          type:'POST',
-        }
     });
 </script>
 <script type="text/javascript">

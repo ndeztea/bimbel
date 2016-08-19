@@ -48,7 +48,7 @@
           <p><?php echo $pertanyaan['pertanyaan'] ?></p>
           <?php if($pertanyaan['gambar'] != NULL): ?>
             <!-- <img class="img-responsive pad" src="<?php echo base_url() ?>assets/images/question/<?php echo $pertanyaan['gambar']?>" alt="Photo"> -->
-            <a href="<?php echo base_url() ?>assets/images/question/<?php echo $pertanyaan['gambar']?>" rel="prettyPhoto" title="<?php echo $pertanyaan['pertanyaan'] ?>"><img src="<?php echo base_url() ?>assets/images/question/<?php echo $pertanyaan['gambar']?>" alt="Pertanyaan" style="max-width:100% ; max-height:100%" /></a>
+            <a href="<?php echo base_url() ?>assets/images/question/<?php echo $pertanyaan['gambar']?>" rel="prettyPhoto" title="<?php echo $pertanyaan['pertanyaan'] ?>"><img src="<?php echo base_url() ?>assets/images/question/<?php echo $pertanyaan['gambar']?>" alt="Pertanyaan" style="max-width:100% ; max-height:100%" class="img-responsive"/></a>
           <?php endif; ?>
 
           <?php if($this->session->userdata('id') == $pertanyaan['id_penanya'] OR $this->session->userdata('level') == "1"): ?>
@@ -91,7 +91,7 @@
 
                   <div id="img-jawaban<?php echo $r->id ?>" class="col-md-6">
                     <?php if($r->gambar_jawaban != NULL): ?>
-                        <img src="<?php echo base_url() ?>/assets/images/answer/<?php echo $r->gambar_jawaban ?>" alt="Photo" style="width:100% !important; height:auto !important"> 
+                        <a href="<?php echo base_url() ?>/assets/images/answer/<?php echo $r->gambar_jawaban ?>" rel="jawaban" title="<?php echo $r->jawaban ?>"><img src="<?php echo base_url() ?>/assets/images/answer/<?php echo $r->gambar_jawaban ?>" alt="Jawaban" class="img-responsive" style="width:100% !important; height:auto !important"/></a>
                     <?php endif;?>
                   </div>
                   <br />
@@ -174,7 +174,7 @@
 
                   <div id="img-jawaban<?php echo $r->id ?>" class="col-md-6">
                     <?php if($r->gambar_jawaban != NULL): ?>
-                        <img src="<?php echo base_url() ?>/assets/images/answer/<?php echo $r->gambar_jawaban ?>" alt="Photo" style="width:100% !important; height:auto !important"> 
+                         <a href="<?php echo base_url() ?>/assets/images/answer/<?php echo $r->gambar_jawaban ?>" rel="jawaban" title="<?php echo $r->jawaban ?>"><img src="<?php echo base_url() ?>/assets/images/answer/<?php echo $r->gambar_jawaban ?>" alt="Jawaban" class="img-responsive" style="width:100% !important; height:auto !important"/></a>
                     <?php endif;?>
                   </div>
                   <div class="clearfix"></div>
@@ -272,14 +272,21 @@
 </section>	
 <?php $this->load->view('template/footer-js'); ?>
 <!-- custom JS -->
-    <script src="<?php echo base_url() ?>assets/prettyphoto/js/jquery.prettyPhoto.js" type="text/javascript" charset="utf-8"></script>
+    <script src="<?php echo base_url() ?>assets/prettyphoto/js/jquery.prettyPhoto.js" type="text/javascript" charset="utf-8">
+    </script>
+
+
       <script type="text/javascript" charset="utf-8">
       $(document).ready(function(){
         $(".box-body a[rel^='prettyPhoto']").prettyPhoto({
           social_tools:false
         });
+         $(".box-comment a[rel^='jawaban']").prettyPhoto({
+          social_tools:false
+        });
       });
       </script>
+
         <script type="text/javascript">
           $(document).ready(function() {
           $(window).keydown(function(event){
