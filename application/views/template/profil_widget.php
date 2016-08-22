@@ -1,5 +1,5 @@
 	<?php
-		$wids_total = $this->Users->get_user_by_id($this->session->userdata('nisn'))->row_array()['wids'];
+		$wids_total = $this->Users->get_user_by_nisn($this->session->userdata('nisn'))->row_array()['wids'];
 		$jumlah_pertanyaan	= $this->Mpertanyaan->get_count_pertanyaan($this->session->userdata('id'))->row_array()['jumlah'];
 		$jumlah_jawaban	= $this->Mjawaban->get_count_jawaban($this->session->userdata('id'))->row_array()['jumlah'];
 

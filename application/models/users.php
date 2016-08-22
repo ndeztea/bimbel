@@ -22,6 +22,19 @@ class Users extends CI_Model {
 
 	}
 
+	function get_user_by_nisn($nisn){
+		$this->db->where('nisn', $nisn);
+		$return = $this->db->get('users');
+
+		if($return->num_rows() > 0 and $return->num_rows() == 1){
+			return $return;
+		}
+		else{
+			return FALSE;
+		}
+
+	}
+
 	// Add a new item
 	function add($data)
 	{
