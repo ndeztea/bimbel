@@ -105,7 +105,7 @@
                   <br /> -->
                   <?php if($this->session->userdata('level') == "1"): ?>
                             <?php if($r->level_penjawab != "1" AND $r->level_penjawab != "2" AND $r->level_penjawab != "3"  AND $r->level_set_correct == "NULL" OR $r->level_set_correct == "2" OR $r->level_set_correct == "3"): ?>
-                              <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal<?php echo $r->id ?>">
+                              <button type="button" class="btn btn-primary btn-xs pull-right" data-toggle="modal" data-target="#myModal<?php echo $r->id ?>">
                                 <i class='fa fa-check-circle'></i> Set Wids</button>
 
                               <div class="modal fade" id="myModal<?php echo $r->id ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -133,8 +133,9 @@
                                 </div>
                             <?php endif; ?>
                              <?php if($r->level_penjawab != "1" AND $r->level_penjawab != "2" AND $r->level_penjawab != "3"  AND $r->wids_jawaban != NULL): ?>
-                              <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal<?php echo $r->id ?>">
-                                <i class='fa fa-check-circle'></i> Update Wids</button> (Wids untuk jawaban ini, saat ini <strong><?php echo $r->wids_jawaban ?> </strong>)
+                              (Wids untuk jawaban ini, saat ini <strong><?php echo $r->wids_jawaban ?> </strong>)
+                              <button type="button" class="btn btn-primary btn-xs pull-right" data-toggle="modal" data-target="#myModal<?php echo $r->id ?>">
+                                <i class='fa fa-check-circle'></i> Update Wids</button> 
 
                               <div class="modal fade" id="myModal<?php echo $r->id ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                                   <div class="modal-dialog" role="document">
@@ -243,7 +244,7 @@
 
 
                   <?php if($this->session->userdata('level') == "1" AND $r->is_correct == "0"): ?>
-                    <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal<?php echo $r->id ?>">
+                    <button type="button" class="btn btn-primary btn-xs pull-right" data-toggle="modal" data-target="#myModal<?php echo $r->id ?>">
                     <i class='fa fa-check-circle'></i> Betul</button>
 
                   <div class="modal fade" id="myModal<?php echo $r->id ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -270,7 +271,7 @@
                       </div>
                     </div>
                   <?php elseif($this->session->userdata('level') == "2" OR $this->session->userdata('level') == "3" AND $r->is_correct == "0"): ?>
-                       <button type="button" class="btn btn-primary btn-lg" onclick="location.href='<?php echo base_url() ?>betul/<?php echo $r->id ?>'">
+                       <button type="button" class="btn btn-primary btn-xs pull-right" onclick="location.href='<?php echo base_url() ?>betul/<?php echo $r->id ?>'">
                     <i class='fa fa-check-circle'></i> Betul</button>
                   <?php endif; ?>
                 </div>

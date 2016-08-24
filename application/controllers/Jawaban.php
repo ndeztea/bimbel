@@ -384,7 +384,7 @@ class Jawaban extends CI_Controller {
 					if($wids_update > $wids_jawaban){
 						$wids_baru = (int) $wids_jawaban + (int) $selisih_wids;
 						$wids_for_downliner = (int) $wids_downliner + (int) $selisih_wids;
-						$persentase = ($wids_baru / 100) * 10;
+						$persentase = ($selisih_wids / 100) * 10;
 						$wids_for_upliner = round($persentase, 0, PHP_ROUND_HALF_UP);
 						$bonus_upliner = (int) $wids_upliner + $wids_for_upliner;
 						$action = "tambah";
@@ -392,15 +392,16 @@ class Jawaban extends CI_Controller {
 					elseif($wids_update < $wids_jawaban){
 						$wids_baru = (int) $wids_jawaban - (int) $selisih_wids;
 						$wids_for_downliner = (int) $wids_downliner - (int) $selisih_wids;
-						$persentase = ($wids_baru / 100) * 10;
+						$persentase = ($selisih_wids / 100) * 10;
 						$wids_for_upliner = round($persentase, 0, PHP_ROUND_HALF_UP);
 						$bonus_upliner = (int) $wids_upliner - $wids_for_upliner;
 						$action = "kurang";
 					}
 					else {
+						$wids_for_downliner = $wids_downliner;
+						$bonus_upliner = $wids_upliner;
 						$wids_baru = (int) $wids_jawaban;
-						$bonus_upliner = 0;
-						$action = "tetap";
+						$action = "";
 					}
 
 
