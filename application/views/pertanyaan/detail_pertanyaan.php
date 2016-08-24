@@ -132,16 +132,9 @@
                                   </div>
                                 </div>
                             <?php endif; ?>
-<<<<<<< HEAD
-                             <?php if($r->level_penjawab != "1" AND $r->level_penjawab != "2" AND $r->level_penjawab != "3"  AND $r->wids_jawaban != NULL): ?>
-                              (Wids untuk jawaban ini, saat ini <strong><?php echo $r->wids_jawaban ?> </strong>)
-                              <button type="button" class="btn btn-primary btn-xs pull-right" data-toggle="modal" data-target="#myModal<?php echo $r->id ?>">
-                                <i class='fa fa-check-circle'></i> Update Wids</button> 
-=======
-                             <?php if(11==11): ?>
+                            <?php if(11==11): ?>
                               <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal<?php echo $r->id ?>">
                                 <i class='fa fa-check-circle'></i> Update Wids</button> (Wids untuk jawaban ini, saat ini <strong><?php echo $r->wids_jawaban>0?$r->wids_jawaban:0 ?> </strong>)
->>>>>>> origin/master
 
                               <div class="modal fade" id="myModal<?php echo $r->id ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                                   <div class="modal-dialog" role="document">
