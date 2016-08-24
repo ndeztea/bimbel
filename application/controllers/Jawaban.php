@@ -46,16 +46,11 @@ class Jawaban extends CI_Controller {
 			$betul = "0";
 		}
 
-
 		$pertanyaan = $this->Mpertanyaan->get_pertanyaan_by_id($this->uri->rsegment(3));
-
-
-
-
 			if($pertanyaan){
 				$this->form_validation->set_rules('jawaban', 'Jawaban', 'required|xss_clean');
 				if ($this->form_validation->run() == FALSE) {
-					$this->session->set_flashdata('msg_error', validation_error());
+					$this->session->set_flashdata('msg_error', 'Jawaban tidak boleh kosong, mohon di isi');
 					redirect($this->session->userdata('url_pertanyaan'),'refresh');
 				} else {
 					if($_FILES['gambar_jawaban']['size'] != NULL){
@@ -373,14 +368,13 @@ class Jawaban extends CI_Controller {
 
 					if($user_upliner){
 						$wids_upliner = $user_upliner->row_array()['wids'];
-
 					}
 					else {
 						$wids_upliner = 0;
 					}
 
 
-
+					$wids_for_downliner = 0;
 					if($wids_update > $wids_jawaban){
 						$wids_baru = (int) $wids_jawaban + (int) $selisih_wids;
 						$wids_for_downliner = (int) $wids_downliner + (int) $selisih_wids;
@@ -410,8 +404,11 @@ class Jawaban extends CI_Controller {
 									  "action" => $action,
 									  "keterangan" => "Update Wids Jawaban");
 
-					$user_downliner = array("id"	=> $user_downliner['id'],
+					if($wids_for_downliner!=0){
+						$user_downliner = array("id"	=> $user_downliner['id'],
 								  			"wids" => $wids_for_downliner);
+					}
+					
 
 					$wids_jawab = array("wids" => $this->input->post('wids'));
 
