@@ -392,9 +392,9 @@ class Jawaban extends CI_Controller {
 						$action = "kurang";
 					}
 					else {
+						$wids_baru = (int) $wids_jawaban;
 						$wids_for_downliner = $wids_downliner;
 						$bonus_upliner = $wids_upliner;
-						$wids_baru = (int) $wids_jawaban;
 						$action = "";
 					}
 
