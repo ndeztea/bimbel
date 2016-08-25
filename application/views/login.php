@@ -160,7 +160,7 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label class="sr-only" for="form-password">Password *</label>
-                                            <input type="password" name="password" placeholder="Password *" class="form-control">
+                                            <input type="password" name="password" id="password"  placeholder="Password *" class="form-control">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
@@ -500,6 +500,7 @@
                                         },
                                         confirm_password: {
                                             required: true,
+                                            equalTo: "#password",
                                             minlength: 5
                                         },
                                         pendidikan: "required",
@@ -531,6 +532,7 @@
                                         },
                                         confirm_password: {
                                             required: "Masukkan Konfirmasi Password",
+                                            equalTo : "Konfirmasi Password tidak sama",
                                             minlength: "Konfirmasi Password minimal 5 karakter"
                                         },
                                         pendidikan:{
