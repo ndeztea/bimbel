@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost:3306
--- Generation Time: Aug 12, 2016 at 01:36 AM
+-- Generation Time: Aug 25, 2016 at 03:07 PM
 -- Server version: 5.5.42
 -- PHP Version: 5.6.10
 
@@ -72,6 +72,8 @@ CREATE TABLE `pelajaran_jawaban` (
   `jml_like` int(11) DEFAULT '0',
   `jml_dislike` int(11) DEFAULT '0',
   `is_correct` enum('0','1') NOT NULL DEFAULT '0',
+  `user_set_correct` varchar(50) DEFAULT NULL,
+  `level_set_correct` int(1) DEFAULT NULL,
   `photo` text
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
@@ -144,7 +146,9 @@ CREATE TABLE `users` (
   `wids` int(11) NOT NULL DEFAULT '0',
   `is_active` int(1) NOT NULL,
   `activation_code` varchar(100) DEFAULT NULL,
-  `level` int(1) NOT NULL DEFAULT '2'
+  `level` int(1) NOT NULL DEFAULT '2',
+  `user_parent` varchar(100) NOT NULL,
+  `kode_daftar` varchar(100) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -171,6 +175,7 @@ CREATE TABLE `users_wids` (
 CREATE TABLE `vouchers_wids` (
   `id` int(11) NOT NULL,
   `kode_voucher` varchar(255) DEFAULT NULL,
+  `peruntukan` varchar(20) NOT NULL,
   `wids` int(11) DEFAULT NULL,
   `telah_ditukar` int(11) DEFAULT NULL,
   `tgl_update` datetime DEFAULT NULL,
@@ -258,7 +263,7 @@ ALTER TABLE `pelajaran`
 -- AUTO_INCREMENT for table `pelajaran_jawaban`
 --
 ALTER TABLE `pelajaran_jawaban`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
 --
 -- AUTO_INCREMENT for table `pelajaran_jawaban_reponse`
 --
@@ -273,27 +278,19 @@ ALTER TABLE `pelajaran_pertanyaan`
 -- AUTO_INCREMENT for table `reseller`
 --
 ALTER TABLE `reseller`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 --
 -- AUTO_INCREMENT for table `users_wids`
 --
 ALTER TABLE `users_wids`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
 --
 -- AUTO_INCREMENT for table `vouchers_wids`
 --
 ALTER TABLE `vouchers_wids`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
-  ALTER TABLE `users` ADD `kode_daftar` VARCHAR(100) NOT NULL AFTER `level`;
-ALTER TABLE `users` ADD `user_parent` VARCHAR(100) NOT NULL AFTER `level`;
-ALTER TABLE `vouchers_wids` ADD `peruntukan` VARCHAR(20) NOT NULL AFTER `kode_voucher`;
-
-
-ALTER TABLE `pelajaran_jawaban` ADD `user_set_correct` VARCHAR(50) NULL AFTER `is_correct`;
-ALTER TABLE `pelajaran_jawaban` ADD `levl_set_correct` VARCHAR(1) NULL AFTER `is_correct`;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
