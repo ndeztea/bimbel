@@ -37,16 +37,20 @@
                                           </div>
                                    </form>
                                    <ul>
-                                          <li>25 wids dengan voucher pulsa Rp. 10.000</li>
-                                          <li>50 wids dengan voucher pulsa Rp. 20.000</li>
-                                          <li>75 wids dengan voucher pulsa Rp. 30.000</li>
-                                          <li>100 wids dengan voucher pulsa Rp. 40.000</li>
-                                          <li>125 wids dengan voucher pulsa Rp. 50.000 atau transfer ke rekening bank member</li>
-                                          <li>150 wids dengan voucher pulsa Rp. 75.000 atau transfer ke rekening bank member</li>
-                                          <li>200  wids dengan voucher pulsa Rp. 100.000 atau transfer ke rekening bank member</li>
-                                          <li>300  wids dengan voucher pulsa Rp. 150.000 atau transfer ke rekening bank member</li>
-                                          <li>400  wids dengan voucher pulsa Rp. 200.000 atau transfer ke rekening bank member</li>
+                                          <li>Harga wids yang berlaku Rp. 12.000,-</li>
+                                          <li>Harga wids yang berlaku Rp. 22.000,-</li>
+                                          <li>Harga wids yang berlaku Rp. 32.000,-</li>
+                                          <li>Harga wids yang berlaku Rp. 42.000,-</li>
+                                          <li>Harga wids yang berlaku Rp. 52.000,-</li>
+                                          <li>Harga wids yang berlaku Rp. 102.000,-</li>
                                    </ul>
+                                   <p>Pembelian wids bisa transfer menggunakan rekening Bank atau melalui resseler resmi  kami, Adapun rekening yang digunakan :<br>
+                                   Bank Mandiri Atas nama <strong>Widiana Gumilar </strong> No. <strong>131-001-199-179-3  </strong>
+(di luar ini tidak berlaku)</p>
+<p>Hubungi <br>BBM  Pin : <strong>512CD555</strong><br>
+Whats up   : <strong>085220903259</strong><br>
+Line : <strong>widi_g</strong><br>
+Follow ig : <strong>bm_bimbel</strong></p>
                             </div>
                      </div>
               </div>
