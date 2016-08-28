@@ -37,12 +37,16 @@
                                           </div>
                                    </form>
                                    <ul>
-                                          <li>Harga wids yang berlaku Rp. 12.000,-</li>
-                                          <li>Harga wids yang berlaku Rp. 22.000,-</li>
-                                          <li>Harga wids yang berlaku Rp. 32.000,-</li>
-                                          <li>Harga wids yang berlaku Rp. 42.000,-</li>
-                                          <li>Harga wids yang berlaku Rp. 52.000,-</li>
-                                          <li>Harga wids yang berlaku Rp. 102.000,-</li>
+                                          <li>Harga wids yang berlaku Rp. 12.000,- untuk 16 wids </li>
+                                          <li>Harga wids yang berlaku Rp. 22.000,- untuk 32 wids</li>
+                                          <li>Harga wids yang berlaku Rp. 32.000,- untuk 48 wids</li>
+                                          <li>Harga wids yang berlaku Rp. 42.000,- untuk 64 wids</li>
+                                          <li>Harga wids yang berlaku Rp. 52.000,- untuk 80 wids</li>
+                                          <li>Harga wids yang berlaku Rp. 62.000,- untuk 96 wids</li>
+                                          <li>Harga wids yang berlaku Rp. 72.000,- untuk 112 wids</li>
+                                          <li>Harga wids yang berlaku Rp. 102.000,- untuk 160 wids</li>
+                                          <li>Harga wids yang berlaku Rp. 152.000,- untuk 240 wids</li>
+                                          <li>Harga wids yang berlaku Rp. 200.000,- untuk 320 wids</li>
                                    </ul>
                                    <p>Pembelian wids bisa transfer menggunakan rekening Bank atau melalui resseler resmi  kami, Adapun rekening yang digunakan :<br>
                                    Bank Mandiri Atas nama <strong>Widiana Gumilar </strong> No. <strong>131-001-199-179-3  </strong>
