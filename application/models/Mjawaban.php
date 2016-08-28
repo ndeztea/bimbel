@@ -3,7 +3,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Mjawaban extends CI_Model {
 
-	function get_jawaban_pertanyaan($id_pertanyaan){
+	function get_jawaban_pertanyaan($id_pertanyaan,$correct=0){
+		/*
 		$this->db->select('	pelajaran_pertanyaan.id,
 							penjawab.id AS id_penjawab,
 							penjawab.nama AS nama_penjawab,
@@ -26,8 +27,20 @@ class Mjawaban extends CI_Model {
 		$this->db->join('users penjawab', 'pelajaran_jawaban.id_user = penjawab.id');
 		$this->db->where('pelajaran_pertanyaan.id', $id_pertanyaan);
 		$this->db->where('is_correct', "0");
+	*/
+		// muncul jawaban hanya untuk admin, yg buat pertanyaan dan yg menjawab
+		$where = '';
+		$level = $this->session->userdata('level');
+		$id_user = $this->session->userdata('id');
+		if($level==3 || $level==4){
+			$where = "AND (`pelajaran_jawaban`.`id_user` = '$id_user' OR `pelajaran_pertanyaan`.`id_user` = '$id_user')";
+			//$this->db->where('pelajaran_jawaban.id_user', $id_user);
+			//$this->db->or_where('pelajaran_pertanyaan.id_user', $id_user);
+		}
+		$query = "SELECT `pelajaran_pertanyaan`.`id`, `penjawab`.`id` AS `id_penjawab`, `penjawab`.`nama` AS `nama_penjawab`, `penjawab`.`wids` AS `wids_penjawab`, `penjawab`.`nisn` AS `nisn_penjawab`, `penjawab`.`avatar` AS `avatar_penjawab`, `penjawab`.`level` AS `level_penjawab`, `pelajaran_jawaban`.`id`, `pelajaran_jawaban`.`photo` as `gambar_jawaban`, `pelajaran_jawaban`.`id_pertanyaan`, `pelajaran_jawaban`.`jawaban`, `pelajaran_jawaban`.`is_correct`, `pelajaran_jawaban`.`tgl_update`, `pelajaran_jawaban`.`jml_like`, `pelajaran_jawaban`.`jml_dislike`, `pelajaran_jawaban`.`tgl_update` AS `tanggal_jawab`,`penjawab`.`level` AS `level_penjawab`, `pelajaran_jawaban`.`wids` as `wids_jawaban`,`pelajaran_jawaban`.`user_set_correct`,`pelajaran_jawaban`.`level_set_correct` FROM `pelajaran_pertanyaan` JOIN `pelajaran_jawaban` ON `pelajaran_jawaban`.`id_pertanyaan` = `pelajaran_pertanyaan`.`id` JOIN `users` `penjawab` ON `pelajaran_jawaban`.`id_user` = `penjawab`.`id` WHERE `pelajaran_pertanyaan`.`id` = '$id_pertanyaan'  AND `is_correct` = '$correct' ".$where;
+		$get = $this->db->query($query);
 
-		return $this->db->get();
+		return $get;
 	}
 
 
@@ -55,8 +68,17 @@ class Mjawaban extends CI_Model {
 		$this->db->from('pelajaran_pertanyaan');
 		$this->db->join('pelajaran_jawaban', 'pelajaran_jawaban.id_pertanyaan = pelajaran_pertanyaan.id');
 		$this->db->join('users penjawab', 'pelajaran_jawaban.id_user = penjawab.id');
-		$this->db->where('pelajaran_pertanyaan.id', $id_pertanyaan);
 		$this->db->where('is_correct', "1");
+		$this->db->where('pelajaran_pertanyaan.id', $id_pertanyaan);
+		
+
+		// muncul jawaban hanya untuk admin, yg buat pertanyaan dan yg menjawab
+		$level = $this->session->userdata('level');
+		$id_user = $this->session->userdata('id');
+		if($level==3 || $level==4){
+			$this->db->where('pelajaran_jawaban.id_user', $id_user);
+			$this->db->or_where('pelajaran_pertanyaan.id_user', $id_user);
+		}
 
 		return $this->db->get();
 	}

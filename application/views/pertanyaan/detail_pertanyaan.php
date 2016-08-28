@@ -182,6 +182,8 @@
                 </div>
             </div>
             <?php endforeach?>
+
+
             <?php foreach ($jawaban_pertanyaan->result() as $r): ?>
               <div class="box-comment">
                 <img class="img-circle img-sm" src="<?php echo thumb_avatar($r->avatar_penjawab,$this->session->userdata('gender'))?>" alt="user image">

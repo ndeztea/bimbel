@@ -143,8 +143,8 @@ class Pertanyaan extends CI_Controller {
 				$data['pertanyaan'] = $pertanyaan->row_array();
 				$data['pelajaran'] 	  = $this->Mpelajaran->getdata()->result();
 				$data['wids'] 		  = count_wids($this->session->userdata('wids'));
-				$data['jawaban_pertanyaan'] = $this->Mjawaban->get_jawaban_pertanyaan($this->uri->rsegment(3));
-				$data['jawaban_pertanyaan_correct'] = $this->Mjawaban->get_correct_answer($this->uri->rsegment(3));
+				$data['jawaban_pertanyaan'] = $this->Mjawaban->get_jawaban_pertanyaan($this->uri->rsegment(3),0);
+				$data['jawaban_pertanyaan_correct'] = $this->Mjawaban->get_jawaban_pertanyaan($this->uri->rsegment(3),1);
 				$data['wids_penanya'] = count_wids($data['pertanyaan']['wids_penanya']);
 				$this->session->set_userdata('url_pertanyaan', base_url().'detail_pertanyaan/'.$this->uri->rsegment(3));
 				$this->load->view('pertanyaan/detail_pertanyaan', $data);
