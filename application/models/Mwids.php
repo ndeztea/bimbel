@@ -42,6 +42,10 @@ class Mwids extends CI_Model {
 		$this->db->insert('users_wids', $data);
 	}
 
+	function add_sell($data){
+		return $this->db->insert('tukar_wids', $data);
+	}
+
 	function add_voucher_wids($data){
 		$this->db->insert('vouchers_wids', $data);
 	}

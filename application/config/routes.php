@@ -115,8 +115,11 @@ $route['data_wids/(:any)'] = 'Wids/data_wids/$1';
 $route['wids_action/(:any)'] = 'Wids/wids_action/$1';
 
 $route['voucher'] = "wids/voucher_wids";
+$route['data_sell_wids'] = "wids/data_sell_wids";
+
 $route['add_voucher'] = "Wids/add_voucher";
 $route['buy_voucher'] = "Wids/beli_voucher";
+$route['sell_wids'] = "Wids/jual_wids";
 $route['buy']	= 'Wids/beli_wids';
 
 

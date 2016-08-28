@@ -19,6 +19,14 @@ class Wids extends CI_Controller {
 		$this->load->model('Users');
 	}
 
+	function data_sell_wids(){
+		if($this->session->userdata('level') != "1"){
+			redirect(base_url(),'refresh');
+		}
+
+		echo 'disini';
+
+	}
 
 	function data_wids()	{
 		$data['wids'] = $this->Mwids->get_wids($this->uri->rsegment(3));
@@ -163,6 +171,50 @@ class Wids extends CI_Controller {
 			$this->session->set_flashdata('msg_success', 'Wids berhasil ditambahkan');
 			redirect(base_url().'buy_voucher','refresh');
 		}
+	}
+
+	function jual_wids(){
+		$wids = $this->input->post('wids');
+		$user = $this->Users->get_user_by_nisn($this->session->userdata('nisn'))->row_array();
+				
+		if($wids){
+			$this->form_validation->set_rules('wids', 'Wids', 'required|xss_clean');
+			if ($this->form_validation->run() == FALSE) {
+				$this->session->set_flashdata('msg_error', validation_errors());
+				redirect(base_url().'sell_wids','refresh');
+			} else {
+				if($user['wids']<=10){
+					$this->session->set_flashdata('msg_error', 'Penukaran wids tidak cukup, minimal 10 wids');
+					redirect(base_url().'sell_wids','refresh');
+				}
+
+				// proses  request ke admin
+				$dataSell['id_user'] = $user['id'];
+				$dataSell['wids'] = $wids;
+				$dataSell['telah_ditukar'] = 0;
+				$this->Mwids->add_sell($dataSell);
+
+				// wids user di kurangi
+				$dataUser['wids'] = $user['wids'] - $wids;
+				$this->Users->update($dataUser, $this->session->userdata('nisn'));
+
+				// masukan ke log
+				$dataLog = array('id_user' 	 => $this->session->userdata('id'),
+								'wids' 	  	 => $wids,
+								'action'  	 => 'kurang',
+								'keterangan' => 'Penukaran wids');
+
+				$this->Muser_wids->transaksi($dataLog);
+
+				$this->session->set_flashdata('msg_success', 'Penukaran wids telah di kirim ke admin, mohon tunggu.');
+				redirect(base_url().'sell_wids','refresh');
+			}
+		}
+
+		$data['user'] = $user;
+
+
+		$this->load->view('wids/jual_wids',$data);
 	}
 
 	function cek_kode_voucher(){
