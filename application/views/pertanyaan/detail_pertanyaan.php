@@ -132,7 +132,7 @@
                                   </div>
                                 </div>
                             <?php endif; ?>
-                            <?php if(11==11): ?>
+                            <?php if($this->session->userdata('level')==1): ?>
                               <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal<?php echo $r->id ?>">
                                 <i class='fa fa-check-circle'></i> Update Wids</button> (Wids untuk jawaban ini, saat ini <strong><?php echo $r->wids_jawaban>0?$r->wids_jawaban:0 ?> </strong>)
 
