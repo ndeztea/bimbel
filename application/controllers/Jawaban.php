@@ -184,6 +184,23 @@ class Jawaban extends CI_Controller {
 			}
 		}
 
+	function salah(){
+		if($this->session->userdata('level') == "1"){
+			// set salah
+			$jawaban = array("wids" => 0,
+									 "is_correct" => "2",
+									 "user_set_correct" => $this->session->userdata('id'),
+									 "level_set_correct" => $this->session->userdata('level'));
+
+			$this->Mjawaban->edit_jawaban($jawaban, $this->uri->rsegment(3));
+			$this->session->set_flashdata('msg_success', 'Jawaban sudah di set salah');
+			redirect($this->session->userdata('url_pertanyaan'),'refresh');
+
+		}	
+		else{
+				redirect(base_url().'not_found','refresh');
+		}
+	}
 
 	function betul(){
 

@@ -104,6 +104,7 @@ $route['edit_jawaban/(:any)'] = 'jawaban/edit_jawaban/$1';
 $route['upload_gambar_jawaban'] = 'jawaban/tambah_gambar_jawaban';
 $route['jawab/(:any)'] = 'jawaban/insert_jawaban/$1';
 $route['betul/(:any)'] = 'jawaban/betul/$1';
+$route['salah/(:any)'] = 'jawaban/salah/$1';
 $route['update_wids_betul/(:any)'] = 'jawaban/update_wids_betul/$1';
 
 // $route['upload_gambar_jawaban/(:any)'] = 'jawaban/tambah_gambar_jawaban/$1';

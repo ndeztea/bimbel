@@ -185,7 +185,7 @@
 
 
             <?php foreach ($jawaban_pertanyaan->result() as $r): ?>
-              <div class="box-comment">
+              <div class="box-comment"  style="<?php echo $r->is_correct==2?'background-color:#ffe6be':''?>">
                 <img class="img-circle img-sm" src="<?php echo thumb_avatar($r->avatar_penjawab,$this->session->userdata('gender'))?>" alt="user image">
 
                 <div class="comment-text">
@@ -244,9 +244,11 @@
                   <?php endif ?>
 
 
-                  <?php if($this->session->userdata('level') == "1" AND $r->is_correct == "0"): ?>
+                  <?php if($this->session->userdata('level') == "1" AND $r->is_correct != "1"): ?>
                     <button type="button" class="btn btn-primary btn-xs pull-right" data-toggle="modal" data-target="#myModal<?php echo $r->id ?>">
                     <i class='fa fa-check-circle'></i> Betul</button>
+                    <button type="button" class="btn btn-warning btn-xs pull-right" onclick="location.href='<?php echo site_url('salah/'.$r->id)?>'">
+                    <i class='fa fa-close'></i> Salah</button>
 
                   <div class="modal fade" id="myModal<?php echo $r->id ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                       <div class="modal-dialog" role="document">

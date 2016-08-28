@@ -305,3 +305,5 @@ CREATE TABLE `tukar_wids` (
   `telah_ditukar` int(11) NOT NULL,
   `tgl_update` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+
+ALTER TABLE `pelajaran_jawaban` CHANGE `is_correct` `is_correct` INT(1) NOT NULL DEFAULT '0';
