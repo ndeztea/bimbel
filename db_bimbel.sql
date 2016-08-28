@@ -294,3 +294,14 @@ ALTER TABLE `users_wids`
 --
 ALTER TABLE `vouchers_wids`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+
+
+
+CREATE TABLE `tukar_wids` (
+  `id` int(11) NOT NULL,
+  `id_user` int(11) NOT NULL,
+  `wids` int(11) NOT NULL,
+  `telah_ditukar` int(11) NOT NULL,
+  `tgl_update` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
