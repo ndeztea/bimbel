@@ -229,3 +229,9 @@ only screen and (                min-resolution: 2dppx) {
     }
 	
 }
+
+label.sr-only {
+    position: inherit;
+    width: auto;
+    height: auto;
+}
