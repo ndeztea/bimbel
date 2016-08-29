@@ -46,6 +46,9 @@ class Reseller extends CI_Controller {
 	}
 
 	function delete_reseller(){
+		if($this->session->userdata('level') != "1"){
+			redirect(base_url(),'refresh');
+		}
 		$reseller = $this->Mreseller->get_by_id($this->uri->rsegment(3));
 
 		if($reseller){
@@ -61,6 +64,9 @@ class Reseller extends CI_Controller {
 
 
 	function set_active_reseller(){
+		if($this->session->userdata('level') != "1"){
+			redirect(base_url(),'refresh');
+		}
 		$get = $this->Mreseller->get_by_id($this->uri->rsegment(3));
 
 			if ($get){
@@ -88,6 +94,9 @@ class Reseller extends CI_Controller {
 	
 
 	function cari_reseller(){
+		if($this->session->userdata('level') != "1"){
+			redirect(base_url(),'refresh');
+		}
 		  $search = strip_tags(trim($this->input->get('q')));
 	      $query = $this->Mreseller->search_reseller($search);
 

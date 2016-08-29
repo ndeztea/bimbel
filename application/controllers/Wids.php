@@ -117,12 +117,18 @@ class Wids extends CI_Controller {
 
 
 	function voucher_wids(){
+		if($this->session->userdata('level') != "1"){
+			redirect(base_url(),'refresh');
+		}
 		$data['no'] = 1;
 		$data['wids'] = $this->Mwids->get_voucher_wids();
 		$this->load->view('wids/data_voucher', $data);
 	}
 
 	function add_voucher(){
+		if($this->session->userdata('level') != "1"){
+			redirect(base_url(),'refresh');
+		}
 		$this->form_validation->set_rules('kode_voucher', 'Kode Voucher', 'required|xss_clean');
 		$this->form_validation->set_rules('wids', 'Wids', 'required|numeric|xss_clean');
 		$this->form_validation->set_rules('keterangan', 'Keterangan', 'required|xss_clean');
