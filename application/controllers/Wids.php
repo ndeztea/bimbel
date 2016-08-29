@@ -19,20 +19,35 @@ class Wids extends CI_Controller {
 		$this->load->model('Users');
 	}
 
-	function data_sell_wids(){
+	function data_sell_wids($action='',$id=0,$flag=''){
 		if($this->session->userdata('level') != "1"){
 			redirect(base_url(),'refresh');
 		}
 
-		echo 'disini';
-
+		if($action=='process'){
+			$data['telah_ditukar'] = $flag;
+			$this->Mwids->update_request_wids($data,$id);
+			if($flag==1){
+				$this->session->set_flashdata('msg_success', 'Penukaran wids telah di proses.');
+			}
+			else{
+				$this->session->set_flashdata('msg_success', 'Penukaran wids telah di cancel.');
+			}
+			redirect(base_url().'data_sell_wids', 'refresh');
+		}elseif($action=='delete'){
+			$this->session->set_flashdata('msg_success', 'Penukaran wids telah di hapus.');
+			$this->Mwids->delete_request_wids($id);
+			redirect(base_url().'data_sell_wids', 'refresh');
+		}
+		
+		$data['request_wids'] = $this->Mwids->get_request_wids();
+		$this->load->view('wids/request_jual_wids', $data);	
 	}
 
 	function data_wids()	{
 		$data['wids'] = $this->Mwids->get_wids($this->uri->rsegment(3));
 		$this->load->view('wids/data_wids', $data);	
 	}
-
 
 	function wids_action(){
 		$this->form_validation->set_rules('wids', 'Wids', 'required|numeric|xss_clean');

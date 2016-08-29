@@ -23,6 +23,25 @@ class Mwids extends CI_Model {
 		return $this->db->get('vouchers_wids');
 	}
 
+	function get_request_wids(){
+		$this->db->select('tukar_wids.* ,  users.nama');
+		$this->db->from('tukar_wids');
+		$this->db->join('users', 'tukar_wids.id_user = users.id');
+		$this->db->order_by('tgl_update', 'desc');
+		return $this->db->get();
+	}
+
+	function update_request_wids($data,$id){
+		$this->db->where('id', $id);
+		return $this->db->update('tukar_wids', $data);
+	}
+
+	function delete_request_wids($id){
+		$this->db->where('id', $id);
+		return $this->db->delete('tukar_wids');
+	}
+
+
 
 	function get_jawaban_by_id($id){
 		$this->db->where('id', $id);
