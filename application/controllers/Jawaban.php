@@ -228,7 +228,7 @@ class Jawaban extends CI_Controller {
 			$this->email->cc('');
 			$this->email->bcc('');
 
-			$this->email->subject('Jawaban kamu benar !');
+			$this->email->subject('Jawaban kamu salah !');
 			$this->email->message($message);
 
 			$this->email->send();
