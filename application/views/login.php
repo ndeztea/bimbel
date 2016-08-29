@@ -216,14 +216,14 @@
                                             <input type="text" name="kode_daftar" class="form-control" placeholder="Kode Daftar" value="<?php echo set_value('kode_daftar') ?>">
                                         </div>
                                     </div>
-                                    <div class="clearfix"></div>
+                                    <!--div class="clearfix"></div>
                                     <div class="clearfix"></div>
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label class="sr-only" for="form-rekening">Kode Daftar</label>
                                             <input type="text" name="kode_daftar" class="form-control" placeholder="Kode Daftar" value="<?php echo set_value('kode_daftar') ?>">
                                         </div>
-                                    </div>
+                                    </div-->
                                     <div class="clearfix"></div>
                                     <div class="col-md-12">
                                         <p>*) wajib di isi</p>
