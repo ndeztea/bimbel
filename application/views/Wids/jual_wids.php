@@ -25,7 +25,7 @@
                                    <h3 class="box-title">Penukaran Wids</h3>
                             </div>
                             <div class="box-body">
-                                   <?php if($user['wids']>10):?>
+                                   <?php if($user['wids']>35):?>
                                    <form method="post" action="<?php echo base_url()?>/sell_wids">
                                           <div class="form-group">
                                                  <label>Pilih Penukaran Wids</label>
@@ -50,7 +50,7 @@
                                           </div>
                                    </form>
                                    <?php else:?>
-                                          <p>Untuk menukar wids harus punya minimal 25 wids</p>
+                                          <p>Untuk menukar wids harus punya minimal 35 wids</p>
                                    <?php endif?>
                                    <!--ul>
                                           <li>25 wids dengan voucher pulsa Rp. 10.000</li>

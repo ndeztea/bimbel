@@ -204,8 +204,9 @@ class Wids extends CI_Controller {
 				$this->session->set_flashdata('msg_error', validation_errors());
 				redirect(base_url().'sell_wids','refresh');
 			} else {
-				if($user['wids']<=10){
-					$this->session->set_flashdata('msg_error', 'Penukaran wids tidak cukup, minimal 10 wids');
+				$min_wids = $user['wids']-$wids;
+				if($min_wids<=10){
+					$this->session->set_flashdata('msg_error', 'Penukaran wids tidak cukup, harus menyisakan 10 wids setelah di tukar');
 					redirect(base_url().'sell_wids','refresh');
 				}
 				elseif($user['wids']<$wids){
