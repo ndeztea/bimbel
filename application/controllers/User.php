@@ -456,7 +456,7 @@ class User extends CI_Controller {
 	*
 	*/
 	function update_kode_daftar(){
-		$data['kode_daftar'] = random_string('alnum',10);
+		$data['kode_daftar'] = 'reg-'.random_string('alnum',10);
 		$nisn = $this->session->userdata('nisn');
 		if($this->Users->update($data,$nisn)){
 			echo $data['kode_daftar'];

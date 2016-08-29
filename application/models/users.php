@@ -9,6 +9,12 @@ class Users extends CI_Model {
 
 	}
 
+	function get_admin_list(){
+		$this->db->where('level',1);
+		return $this->db->get('users');
+
+	}
+
 	function get_user_by_id($id){
 		$this->db->where('nisn', $id);
 		$return = $this->db->get('users');

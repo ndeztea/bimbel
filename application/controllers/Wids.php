@@ -174,7 +174,7 @@ class Wids extends CI_Controller {
 	    for ($i = 0; $i < $length; $i++) {
 	        $randomString .= $characters[rand(0, $charactersLength - 1)];
 	    }
-	    echo $randomString;
+	    echo 'v-'.$randomString;
 	}
 
 
@@ -208,6 +208,10 @@ class Wids extends CI_Controller {
 					$this->session->set_flashdata('msg_error', 'Penukaran wids tidak cukup, minimal 10 wids');
 					redirect(base_url().'sell_wids','refresh');
 				}
+				elseif($user['wids']<$wids){
+					$this->session->set_flashdata('msg_error', 'Penukaran wids tidak cukup, wids kamu hanya punya '.$user['wids']);
+					redirect(base_url().'sell_wids','refresh');
+				}
 
 				// proses  request ke admin
 				$dataSell['id_user'] = $user['id'];
@@ -226,6 +230,30 @@ class Wids extends CI_Controller {
 								'keterangan' => 'Penukaran wids');
 
 				$this->Muser_wids->transaksi($dataLog);
+
+				// email ke admin
+				$this->load->library('email');
+				$config['mailtype'] = "html";
+
+				$this->email->initialize($config);
+
+				//masukkan email pengirim disini 
+				$message = $this->load->view('email/notifikasi_request_tukar_wids','',TRUE);
+				$this->email->from(EMAIL_SENDER, 'BMBimbel Notification System');
+
+				$admin_emails = $this->Users->get_admin_list();
+				$emails = '';
+				foreach ($admin_emails->result() as $val) {
+					$emails .= $val->email.',';
+				}
+				$this->email->to($emails);
+				$this->email->cc('');
+				$this->email->bcc('');
+
+				$this->email->subject('Request penukaran wids !');
+				$this->email->message($message);
+
+				$this->email->send();
 
 				$this->session->set_flashdata('msg_success', 'Penukaran wids telah di kirim ke admin, mohon tunggu.');
 				redirect(base_url().'sell_wids','refresh');

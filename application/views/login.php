@@ -153,20 +153,20 @@
                                     <div class="col-md-12">
     			                        <div class="form-group">
     			                        	<label class="sr-only" for="form-nisn">NISN *</label>
-    			                        	<input type="text" name="NISN" placeholder="NISN *" class="form-control" value="<?php echo set_value('NISN') ?>">
+    			                        	<input type="text" name="NISN"  class="form-control" value="<?php echo set_value('NISN') ?>">
     			                        </div>
                                     </div>
                                     <div class="clearfix"></div>
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label class="sr-only" for="form-password">Password *</label>
-                                            <input type="password" name="password" id="password"  placeholder="Password *" class="form-control">
+                                            <input type="password" name="password" id="password"  class="form-control">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label class="sr-only" for="form-confirm-password">Password *</label>
-                                            <input type="password" name="confirm_password" placeholder="Konfirmasi Password *" class="form-control">
+                                            <input type="password" name="confirm_password" class="form-control">
                                         </div>
                                     </div>
                                     <div class="clearfix"></div>
@@ -194,26 +194,26 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label class="sr-only" for="form-no-hp">No HP *</label>
-                                            <input type="text" name="no_hp" class="form-control" placeholder="Nomor HP *" value="<?php echo set_value('no_hp') ?>">
+                                            <input type="text" name="no_hp" class="form-control"  value="<?php echo set_value('no_hp') ?>">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label class="sr-only" for="form-email">Email *</label>
-                                            <input type="text" name="email" class="form-control" placeholder="E-Mail *" value="<?php echo set_value('email') ?>">
+                                            <input type="text" name="email" class="form-control"  value="<?php echo set_value('email') ?>">
                                         </div>
                                     </div>
                                     <div class="clearfix"></div>
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label class="sr-only" for="form-rekening">No Rekening</label>
-                                            <input type="text" name="no_rek" class="form-control" placeholder="Nomor Rekening" value="<?php echo set_value('no_rek') ?>">
+                                            <input type="text" name="no_rek" class="form-control"  value="<?php echo set_value('no_rek') ?>">
                                         </div>
                                     </div>
                                      <div class="col-md-12">
                                         <div class="form-group">
                                             <label class="sr-only" for="form-rekening">Kode Daftar (jika ada)</label>
-                                            <input type="text" name="kode_daftar" class="form-control" placeholder="Kode Daftar" value="<?php echo set_value('kode_daftar') ?>">
+                                            <input type="text" name="kode_daftar" class="form-control"  value="<?php echo set_value('kode_daftar') ?>">
                                         </div>
                                     </div>
                                     <!--div class="clearfix"></div>
@@ -253,8 +253,9 @@
                     <img style="width: 50px; height: 50px; display: none; margin: 20px auto;" id="loading" src="<?= base_url() ?>assets/loading.gif" class="img-responsive" />
                     <form method="post" id="form_forgot">
                         <div class="form-group">
+                            <label class="sr-only" >Email :</label>
                             <div class="input-group">
-                              <input type="email" class="form-control" placeholder="Masukkan email anda..." id="email" name="email">
+                              <input type="email" class="form-control" id="email" name="email">
                               <span class="input-group-btn">
                                 <button class="btn btn-default" type="submit" id="submit">Go!</button>
                               </span>
