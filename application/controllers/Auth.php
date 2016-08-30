@@ -69,7 +69,7 @@ class Auth extends CI_Controller {
 	    			$email = $user_kode_daftar['email'];
 
 
-					$data['nama'] = $get_data->row_array()['nama'];
+					$data['nama'] = $user_kode_daftar['nama'];
 
 					$data['email'] = $email;
 					$data['link'] = base_url();

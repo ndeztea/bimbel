@@ -126,7 +126,7 @@
                                     <div class="col-md-12">
     			                    	<div class="form-group">
     			                    		<label class="sr-only" for="form-first-name">Nama Lengkap *</label>
-    			                        	<input type="text" name="nama_lengkap" placeholder="Nama Lengkap *" class="form-control" value="<?php echo set_value('nama_lengkap') ?>">
+    			                        	<input type="text" name="nama_lengkap"  class="form-control" value="<?php echo set_value('nama_lengkap') ?>">
     			                        </div>
                                     </div>
                                     <div class="clearfix"></div>
