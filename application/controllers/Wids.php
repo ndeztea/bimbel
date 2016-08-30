@@ -206,12 +206,14 @@ class Wids extends CI_Controller {
 			} else {
 				$min_wids = $user['wids']-$wids;
 				if($min_wids<=10){
-					$this->session->set_flashdata('msg_error', 'Penukaran wids tidak cukup, harus menyisakan 10 wids setelah di tukar');
-					redirect(base_url().'sell_wids','refresh');
+					$data['msg_error'] = 'Penukaran wids tidak cukup, harus menyisakan 10 wids setelah di tukar';
+					//$this->session->set_flashdata('msg_error', 'Penukaran wids tidak cukup, harus menyisakan 10 wids setelah di tukar');
+					//redirect(base_url().'sell_wids','refresh');
 				}
 				elseif($user['wids']<$wids){
-					$this->session->set_flashdata('msg_error', 'Penukaran wids tidak cukup, wids kamu hanya punya '.$user['wids']);
-					redirect(base_url().'sell_wids','refresh');
+					$data['msg_error'] = 'Penukaran wids tidak cukup, wids kamu hanya punya '.$user['wids'];
+					//$this->session->set_flashdata('msg_error', 'Penukaran wids tidak cukup, wids kamu hanya punya '.$user['wids']);
+					//redirect(base_url().'sell_wids','refresh');
 				}
 
 				// proses  request ke admin
@@ -256,8 +258,9 @@ class Wids extends CI_Controller {
 
 				$this->email->send();
 
-				$this->session->set_flashdata('msg_success', 'Penukaran wids telah di kirim ke admin, mohon tunggu.');
-				redirect(base_url().'sell_wids','refresh');
+				$data['msg_success'] = 'Penukaran wids telah di kirim ke admin, mohon tunggu konfirmasi dari admin. ';
+				//$this->session->set_flashdata('msg_success', 'Penukaran wids telah di kirim ke admin, mohon tunggu konfirmasi dari admin. ');
+				//redirect(base_url().'sell_wids','refresh');
 			}
 		}
 

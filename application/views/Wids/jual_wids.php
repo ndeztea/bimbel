@@ -6,15 +6,15 @@
 	<div class="row">
 		<div class="col-xs-12">
 			<?php
-              if($this->session->flashdata('msg_error') != NULL){
+              if(isset($msg_error)){
               echo '<div class="alert alert-danger" role="alert" style="padding: 6px 12px;height:34px;">';
-              echo "<i class='fa fa-info-circle'></i> <strong><span style='margin-left:10px;'>".$this->session->flashdata('msg_error')."</span></strong>";
+              echo "<i class='fa fa-info-circle'></i> <strong><span style='margin-left:10px;'>".$msg_error."</span></strong>";
               echo '</div>';
               }?>
               <?php
-              if($this->session->flashdata('msg_success') != NULL){
+              if(isset($msg_success)){
               echo '<div class="alert alert-info" role="alert" style="padding: 6px 12px;height:34px;">';
-              echo "<i class='fa fa-info-circle'></i> <strong><span style='margin-left:10px;'>".$this->session->flashdata('msg_success')."</span></strong>";
+              echo "<i class='fa fa-info-circle'></i> <strong><span style='margin-left:10px;'>".$msg_success."</span></strong>";
               echo '</div>';
               }?>
 		</div>
@@ -26,7 +26,7 @@
                             </div>
                             <div class="box-body">
                                    <?php if($user['wids']>35):?>
-                                   <form method="post" action="<?php echo base_url()?>/sell_wids">
+                                   <form method="post" action="<?php echo base_url()?>sell_wids">
                                           <div class="form-group">
                                                  <label>Pilih Penukaran Wids</label>
                                                  <div class="input-group">
