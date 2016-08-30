@@ -133,9 +133,10 @@
                                 </div>
                             <?php endif; ?>
                             <?php if($this->session->userdata('level')==1): ?>
+                              <?php if($r->level==4):?>
                               <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal<?php echo $r->id ?>">
                                 <i class='fa fa-check-circle'></i> Update Wids</button> (Wids untuk jawaban ini, saat ini <strong><?php echo $r->wids_jawaban>0?$r->wids_jawaban:0 ?> </strong>)
-
+                              <?php endif?>
                               <div class="modal fade" id="myModal<?php echo $r->id ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                                   <div class="modal-dialog" role="document">
                                     <div class="modal-content">
