@@ -116,6 +116,7 @@ $route['data_wids/(:any)'] = 'Wids/data_wids/$1';
 $route['wids_action/(:any)'] = 'Wids/wids_action/$1';
 
 $route['voucher'] = "wids/voucher_wids";
+$route['voucher/{:any}/{:any}'] = "wids/voucher_wids/$1/$2";
 $route['data_sell_wids'] = "wids/data_sell_wids";
 $route['data_sell_wids/(:any)/(:any)'] = "wids/data_sell_wids/$1/$2";
 $route['data_sell_wids/(:any)/(:any)/(:any)'] = "wids/data_sell_wids/$1/$2/$3";

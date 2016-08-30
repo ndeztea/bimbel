@@ -131,9 +131,15 @@ class Wids extends CI_Controller {
 	}
 
 
-	function voucher_wids(){
+	function voucher_wids($action='',$id=''){
 		if($this->session->userdata('level') != "1"){
 			redirect(base_url(),'refresh');
+		}
+
+		if($action=='delete'){
+			$this->Mwids->delete_voucher_wids($id);
+			$this->session->set_flashdata('msg_success', 'Voucher berhasil dihapus');
+				redirect(base_url().'voucher','refresh');
 		}
 		$data['no'] = 1;
 		$data['wids'] = $this->Mwids->get_voucher_wids();

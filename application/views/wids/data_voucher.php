@@ -59,8 +59,7 @@
                                                         </td>
                                                         <td><?php echo $r->keterangan ?></td>
                                                         <td>
-                                                               <button class="btn btn-info"><i class="fa fa-pencil"></i></button>
-                                                               <button class="btn btn-danger"><i class="fa fa-trash"></i></button>
+                                                               <button class="btn btn-danger"  onclick="confirmDelete('<?= $r->id ?>')"><i class="fa fa-trash"></i></button>
                                                         </td>
                                                  </tr>
                                           <?php endforeach; ?>    
@@ -167,6 +166,14 @@
             }
       });
   });
+
+  function confirmDelete(id) {
+
+    if(confirm('Anda yakin untuk menghapus data ini ?')){
+        <?php $this->session->set_userdata('url_delete', current_url()); ?>
+        window.location.href="<?php echo site_url('wids/voucher_wids/delete') ?>/"+id
+    }
+  }
 
 </script>
 <?php $this->load->view('template/foot'); ?>

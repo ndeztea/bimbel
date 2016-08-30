@@ -41,7 +41,10 @@ class Mwids extends CI_Model {
 		return $this->db->delete('tukar_wids');
 	}
 
-
+	function delete_voucher_wids($id){
+		$this->db->where('id', $id);
+		return $this->db->delete('vouchers_wids');
+	}
 
 	function get_jawaban_by_id($id){
 		$this->db->where('id', $id);
