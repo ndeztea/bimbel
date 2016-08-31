@@ -14,8 +14,61 @@ class Pelajaran extends CI_Controller {
 
 
 	function data_pelajaran(){
-		$data['data_pelajaran'] = $this->Mpelajaran->getdata()->result();
-		$this->load->view('pelajaran/data_pelajaran', $data);
+		$this->load->view('pelajaran/data_pelajaran');
+	}
+
+	function list_data_pelajaran(){
+		$draw = $_REQUEST['draw'];
+		$length = $_REQUEST['length'];
+		$start = $_REQUEST['start'];
+		$search = $_REQUEST['search']["value"];
+
+
+		$total=$this->Mpelajaran->get_pelajaran()->num_rows();
+
+		
+		$output = array();
+
+
+		$output['draw'] = $draw;
+		$output['recordsTotal']=$output['recordsFiltered']=$total;
+		$output['data']=array();
+
+
+		$query=$this->Mpelajaran->get_pelajaran($length, $start, $search);
+
+		if($search != ""){
+			$jum=$this->Mpelajaran->get_pelajaran(NULL, NULL, $search);
+			$output['recordsTotal'] = $output['recordsFiltered']=$jum->num_rows();
+		}
+
+
+		$nomor_urut=$start+1;
+
+		foreach ($query->result_array() as $r){
+
+			if($r['is_active'] == "1"){
+				$aktif = '<span class="label label-success">
+                        	<a href="javascript:;" style="color:#FFF" onclick=location.href="'.base_url().'set_active_pelajaran/'.$r['id'].'">Aktif</a>
+                      	  </span>';
+			}
+			else{
+				$aktif = '<span class="label label-danger">
+                        	<a href="javascript:;" style="color:#FFF" onclick=location.href="'.base_url().'set_active_pelajaran/'.$r['id'].'">Tidak Aktif</a>
+                      	  </span>';
+			}
+
+			$output['data'][]=array($nomor_urut,
+									$r['pelajaran'],
+									$r['deskripsi'],
+									'<td  class="text-center"><i class="fa '.$r['params'].'"></i></td>',
+									$aktif,
+									'<button onclick=location.href="'.base_url().'edit_pelajaran/'.$r['id'].'" class="btn btn-success" ><i class="fa fa-pencil"></i></button>
+                    				<button class="btn btn-danger" onclick="confirmDelete('.$r['id'].')"><i class="fa fa-trash"></i></button>');
+			$nomor_urut++;
+		}
+
+		echo json_encode($output);
 	}
 
 

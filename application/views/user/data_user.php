@@ -20,6 +20,30 @@
               }?>
       </div>
       <div class="col-md-12">
+        <div class="box box-info">
+          <div class="box-header">
+            <h3 class="box-title">Pencarian</h3>
+          </div>
+          <div class="box-body">
+            <div class="col-md-4">
+              <label>Cari berdasarkan kata kunci :</label>
+              <input type="text" id="keyword" class="form-control">
+            </div>
+            <div class="col-md-4">
+              <label>Cari berdasarkan Level :</label>
+              <select name="pelajaran" class="form-control" id="level">
+                <option value="">Semua</option>
+                <option value="1">Superadmin</option>
+                <option value="2">Administrator</option>
+                <option value="3">Reseller</option>
+                <option value="4">Member</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+    <div class="clearfix"></div>
+      <div class="col-md-12">
         <div class="box box-primary table-responsive">
           <div class="box-header with-border">
             <h3 class="box-title">Table User</h3>
@@ -57,9 +81,11 @@
                 </tr>
               </tfoot>
             </table>
-            </div>
+          </div>
         </div>
       </div>
+    </div>
+</section>
 
 
 <?php $this->load->view('template/footer-js'); ?>
@@ -69,19 +95,31 @@
 <script src="<?php echo base_url() ?>assets/AdminLTE-2.3.0/plugins/datatables/dataTables.bootstrap.min.js"></script>
 
 <script type="text/javascript">
-    $('#data_user').DataTable({
-        ordering:true,
+    var table =  $('#data_user').DataTable({
+        ordering: false,
         processing: true,
         serverSide: true,
-        searchable:true,
-        "columnDefs": [{
+        "bFilter" : false,
+        responsive:true,
+        "columnDefs": [ {
           "targets": 'no-sort',
           "orderable": false,
-    	 }],
-       ajax: {
-          url: "<?php echo base_url('user/user_list') ?>",
+      } ],
+        "ajax": ({
+          url: "<?= base_url('user/user_list') ?>",
           type:'POST',
-       }
+          data:function(d){
+            d.keyword = $("#keyword").val();
+            d.level = $("#level").val();
+          }
+        })
+    });
+
+    $('#keyword').on('keyup change', function(){
+      table.ajax.reload();
+    });
+    $('#level').on('change', function(){
+      table.ajax.reload();
     });
 </script>
 <script type="text/javascript">

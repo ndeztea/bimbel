@@ -20,6 +20,29 @@
               }?>
       </div>
       <div class="col-md-12">
+       <div class="box box-info">
+          <div class="box-header">
+            <h3 class="box-title">Pencarian</h3>
+          </div>
+          <div class="box-body">
+            <div class="col-md-4">
+              <label>Cari berdasarkan kata kunci :</label>
+              <input type="text" id="keyword" class="form-control">
+            </div>
+            <div class="col-md-4">
+              <label>Cari berdasarkan Mata Pelajaran :</label>
+              <select name="pelajaran" class="form-control" id="mapel">
+                <option value="">Semua</option>
+                <?php foreach ($pelajaran->result() as $r): ?> 
+                  <option value="<?php echo $r->id ?>"><?php echo $r->pelajaran ?></option>
+                <?php endforeach ?>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+    <div class="clearfix"></div>
+      <div class="col-md-12">
         <div class="box box-primary table-responsive">
           <div class="box-header with-border">
             <h3 class="box-title">Table Pertanyaan</h3>
@@ -65,15 +88,31 @@
 <script src="<?php echo base_url() ?>assets/AdminLTE-2.3.0/plugins/datatables/dataTables.bootstrap.min.js"></script>
 
 <script type="text/javascript">
-    $('#data_pertanyaan').DataTable({
-        ordering:false,
+   var table =  $('#data_pertanyaan').DataTable({
+        ordering: false,
         processing: true,
         serverSide: true,
-        searchable:true,
-        ajax: {
-          url: "<?php echo base_url('pertanyaan/pertanyaan_list') ?>",
+        "bFilter" : false,
+        responsive:true,
+        "columnDefs": [ {
+          "targets": 'no-sort',
+          "orderable": false,
+      } ],
+        "ajax": ({
+          url: "<?= base_url('pertanyaan/pertanyaan_list') ?>",
           type:'POST',
-        }
+          data:function(d){
+            d.keyword = $("#keyword").val();
+            d.mapel = $("#mapel").val();
+          }
+        })
+    });
+
+    $('#keyword').on('keyup change', function(){
+      table.ajax.reload();
+    });
+    $('#mapel').on('change', function(){
+      table.ajax.reload();
     });
 </script>
 <script type="text/javascript">

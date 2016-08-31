@@ -13,6 +13,18 @@ class Mwids extends CI_Model {
 			return $this->db->get();
 	}
 
+
+	function data_voucher($limit = NULL, $offset = NULL, $search = NULL, $status = NULL){
+		if($search != NULL){
+			$this->db->like('kode_voucher', $search);
+		}
+		if($status != NULL){
+			$this->db->where('telah_ditukar', $status);
+		}
+
+		return $this->db->get('vouchers_wids', $limit, $offset);
+	}
+
 	function get_voucher_wids(){
 		return $this->db->get('vouchers_wids');
 	}

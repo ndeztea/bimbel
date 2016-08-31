@@ -19,6 +19,7 @@
                 echo '</div>';
               }?>
       </div>
+   
       <div class="col-md-12">
         <div class="box box-primary table-responsive">
           <div class="box-header with-border">
@@ -38,34 +39,7 @@
                 </tr>
               </thead>
               <tbody>
-              <?php
-                  $no = 1;
-                  foreach ($data_pelajaran as $r):
-              ?>
-              <tr>
-                <td><?php echo $no++; ?></td>
-                <td><?php echo $r->pelajaran ?></td>
-                <td><?php echo $r->deskripsi ?></td>
-                <td  class="text-center"><i class="fa <?php echo $r->params ?>"></i></td>
-                <td class="text-center">
-                    <?php if($r->is_active == '1'): ?>
-                      <span class="label label-success">
-                        <a href="javascript:;" style="color:#FFF" onclick="location.href='<?= base_url() ?>set_active_pelajaran/<?= $r->id ?>'">Aktif</a>
-                      </span>
-                    <?php else: ?>
-                      <span class="label label-danger" >
-                        <a href="javascript:;"  style="color:#FFF"  onclick="location.href='<?= base_url() ?>set_active_pelajaran/<?= $r->id ?>'">Tidak Aktif</a>
-                      </span>
-                    <?php endif; ?>
-                </td>
-                <td  class="text-center">
-                    <button onclick="location.href='<?= base_url() ?>edit_pelajaran/<?= $r->id ?>'" class="btn btn-success" ><i class="fa fa-pencil"></i></button>
-                    <button class="btn btn-danger" onclick="confirmDelete('<?= $r->id ?>')"><i class="fa fa-trash"></i></button>
-
-                   
-                </td>
-              </tr>
-              <?php endforeach; ?>
+              
               </tbody>
               </table>
             </div><!-- /.box-body -->
@@ -80,20 +54,17 @@
 <script src="<?php echo base_url() ?>assets/AdminLTE-2.3.0/plugins/datatables/jquery.dataTables.min.js"></script>
 <script src="<?php echo base_url() ?>assets/AdminLTE-2.3.0/plugins/datatables/dataTables.bootstrap.min.js"></script>
 <script>
-      $(function () {
-        $('#data_pelajaran').DataTable({
-          "paging": true,
-          "lengthChange": true,
-          "searching": true,
-          "ordering": true,
-          "info": true,
-          "autoWidth": true,
-          "aoColumnDefs": [
-                            { 'bSortable': false, 
-                              'aTargets': [ 0, 2, 3, 4, 5 ] },
-                              ]
-        });
-      });
+    var table =  $('#data_pelajaran').DataTable({
+        ordering: false,
+        processing: true,
+        serverSide: true,
+        "bFilter" : false,
+        responsive:true,
+        "ajax": ({
+          url: "<?= base_url('pelajaran/list_data_pelajaran') ?>",
+          type:'POST'
+        })
+    });
 </script>
 <script type="text/javascript">
           function confirmDelete(id) {

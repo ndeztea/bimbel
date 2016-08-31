@@ -1,5 +1,6 @@
 <?php $this->load->view('template/top'); ?>
 <!-- Custom CSS -->
+<link rel="stylesheet" href="<?php echo base_url() ?>assets/AdminLTE-2.3.0/plugins/datatables/dataTables.bootstrap.css">
 
 <?php $this->load->view('template/header'); ?>
 <section class="content">
@@ -20,56 +21,56 @@
 		</div>
 
 		<!-- Custom Content Here -->
-              <div class="box box-primary table-responsive">
-                     <div class="box-header">
-                            <h3 class="box-title">Data Voucher Wids</h3>
-                            <button type="button" class="btn btn-primary pull-right" id="modal-trigger" data-toggle="modal" data-target="#myModal">
-                              <i class="fa fa-plus-circle"></i> Tambah Data
-                            </button>
-                     </div>
-                     <div class="box-body">
-                            <table class="table">
-                                   <thead>
-                                          <tr>
-                                                 <td>No</td>
-                                                 <td>Kode Voucher</td>
-                                                 <td>Jumlah Wids</td>
-                                                 <td>Status</td>
-                                                 <td>Keterangan</td>
-                                                 <td>Aksi</td>
-                                          </tr>
-                                   </thead>
-                                   <tbody>
-                                          <?php foreach ($wids->result() as $r): ?>
-                                                 <tr>
-                                                        <td><?php echo $no++ ?></td>
-                                                        <td><?php echo $r->kode_voucher ?></td>
-                                                        <td><?php echo $r->wids ?></td>
-                                                        <td>
-                                                               <?php if($r->telah_ditukar == "0"): ?>
-                                                                 <span class="label label-success">
-                                                                      Belum Ditukar
-                                                                 </span>     
-                                                               <?php else: ?>
-                                                                 <span class="label label-danger">
-                                                                      Sudah Ditukar
-                                                                 </span>
-                                                               <?php endif; ?>
-                                                               
-                                                        </td>
-                                                        <td><?php echo $r->keterangan ?></td>
-                                                        <td>
-                                                               <button class="btn btn-danger"  onclick="confirmDelete('<?= $r->id ?>')"><i class="fa fa-trash"></i></button>
-                                                        </td>
-                                                 </tr>
-                                          <?php endforeach; ?>    
-                                   </tbody>
-                            </table>
-                     </div>
-                     <div class="box-footer">
-                            <button class="btn btn-success pull-right" onclick=self.history.back()>Kembali</button>
-                     </div>
-              </div>
+    <div class="col-md-12">
+        <div class="box box-info">
+          <div class="box-header">
+            <h3 class="box-title">Pencarian</h3>
+          </div>
+          <div class="box-body">
+            <div class="col-md-4">
+              <label>Cari berdasarkan kata kunci :</label>
+              <input type="text" id="keyword" class="form-control">
+            </div>
+            <div class="col-md-4">
+              <label>Cari berdasarkan Level :</label>
+              <select name="pelajaran" class="form-control" id="status">
+                <option value="">Semua</option>
+                <option value="1">Sudah Ditukar</option>
+                <option value="0">Belum Ditukar</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+    <div class="clearfix"></div>
+    <div class="box box-primary table-responsive">
+           <div class="box-header">
+                  <h3 class="box-title">Data Voucher Wids</h3>
+                  <button type="button" class="btn btn-primary pull-right" id="modal-trigger" data-toggle="modal" data-target="#myModal">
+                    <i class="fa fa-plus-circle"></i> Tambah Data
+                  </button>
+           </div>
+           <div class="box-body">
+                  <table class="table" id="data_voucher">
+                         <thead>
+                                <tr>
+                                       <td>No</td>
+                                       <td>Kode Voucher</td>
+                                       <td>Jumlah Wids</td>
+                                       <td>Status</td>
+                                       <td>Keterangan</td>
+                                       <td>Aksi</td>
+                                </tr>
+                         </thead>
+                         <tbody>
+                                 
+                         </tbody>
+                  </table>
+           </div>
+           <div class="box-footer">
+                  <button class="btn btn-success pull-right" onclick=self.history.back()>Kembali</button>
+           </div>
+    </div>
 	</div>
 </section>
 
@@ -117,6 +118,39 @@
 
 <?php $this->load->view('template/footer-js'); ?>
 <!-- custom JS -->
+<script src="<?php echo base_url() ?>assets/AdminLTE-2.3.0/plugins/datatables/jquery.dataTables.min.js"></script>
+
+<script src="<?php echo base_url() ?>assets/AdminLTE-2.3.0/plugins/datatables/dataTables.bootstrap.min.js"></script>
+
+<script type="text/javascript">
+  var table =  $('#data_voucher').DataTable({
+        ordering: false,
+        processing: true,
+        serverSide: true,
+        "bFilter" : false,
+        responsive:true,
+        "columnDefs": [ {
+          "targets": 'no-sort',
+          "orderable": false,
+      } ],
+        "ajax": ({
+          url: "<?= base_url('wids/list_wids') ?>",
+          type:'POST',
+          data:function(d){
+            d.keyword = $("#keyword").val();
+            d.status = $("#status").val();
+          }
+        })
+    });
+
+    $('#keyword').on('keyup change', function(){
+      table.ajax.reload();
+    });
+    $('#status').on('change', function(){
+      table.ajax.reload();
+    });
+
+</script>
 <script type="text/javascript">
   $(document).on('click', '#modal-trigger',function() {
       $.ajax({
@@ -129,29 +163,30 @@
             }
       });
 
-      $(".peruntukan").select2({
-              width:'100%',
-              allowClear:true,
-              ajax: {
-                url: "<?php echo base_url() ?>reseller/cari_reseller",
-                dataType: 'json',
-                delay: 250,
-                data: function (params) {
-                  return {
-                    q: params.term
-                  };
-                },
-                processResults: function (data) {
-                  return {
-                    results: data
-                  };
-                },
-                cache: true
-              },
-              placeholder: {
-              id: '0', // the value of the option
-              text: 'Kosongkan jika untuk user'},
-              minimumInputLength: 1,
+    
+    $(".peruntukan").select2({
+        width:'100%',
+        allowClear:true,
+        ajax: {
+          url: "<?php echo base_url() ?>reseller/cari_reseller",
+          dataType: 'json',
+          delay: 250,
+          data: function (params) {
+            return {
+              q: params.term
+            };
+          },
+          processResults: function (data) {
+            return {
+              results: data
+            };
+          },
+          cache: true
+        },
+        placeholder: {
+        id: '0', // the value of the option
+        text: 'Kosongkan jika untuk user'},
+        minimumInputLength: 1,
       });
   });
 

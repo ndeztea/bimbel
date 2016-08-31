@@ -3,7 +3,17 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Users extends CI_Model {
 
-	function get_all_users($limit = NULL, $offset = NULL){
+	function get_all_users($limit = NULL, $offset = NULL, $search = NULL, $level = NULL){
+
+		if($search != NULL){
+			$this->db->or_like("nisn", $search);
+			$this->db->or_like("nama", $search);
+			$this->db->or_like("kelas", $search);
+			$this->db->or_like("nama_sekolah", $search);
+		}
+		if($level != NULL){
+			$this->db->where('level', $level);
+		}
 
 		return $this->db->get('users', $limit, $offset);
 

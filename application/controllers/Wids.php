@@ -49,6 +49,79 @@ class Wids extends CI_Controller {
 		$this->load->view('wids/data_wids', $data);	
 	}
 
+
+	function voucher_wids($action='',$id=''){
+		if($this->session->userdata('level') != "1"){
+			redirect(base_url(),'refresh');
+		}
+
+		if($action=='delete'){
+			$this->Mwids->delete_voucher_wids($id);
+			$this->session->set_flashdata('msg_success', 'Voucher berhasil dihapus');
+				redirect(base_url().'voucher','refresh');
+		}
+		$data['no'] = 1;
+		$this->load->view('wids/data_voucher', $data);
+	}
+
+
+	function list_wids($action='',$id=''){
+		$draw = $_REQUEST['draw'];
+		$length = $_REQUEST['length'];
+		$start = $_REQUEST['start'];
+		$search = $this->input->post('keyword');
+		$status = $this->input->post('status');
+
+		$total=$this->db->count_all_results("vouchers_wids");
+		$output = array();
+
+		$output['draw'] = $draw;
+		$output['recordsTotal']=$output['recordsFiltered']=$total;
+		$output['data']=array();
+
+		$query=$this->Mwids->data_voucher($length, $start, $search, $status);
+
+		if($search != ""){
+			$jum=$this->Mwids->data_voucher(NULL, NULL, $search);
+			$output['recordsTotal'] = $output['recordsFiltered']=$jum->num_rows();
+		}
+		if($status != ""){
+			$jum=$this->Mwids->data_voucher(NULL, NULL, NULL, $status);
+			$output['recordsTotal'] = $output['recordsFiltered']=$jum->num_rows();
+		}
+		if($search != "" AND $status != ""){
+			$jum=$this->Mwids->data_voucher(NULL, NULL, $search, $status);
+			$output['recordsTotal'] = $output['recordsFiltered']=$jum->num_rows();
+		}
+
+		$nomor_urut=$start+1;
+
+		foreach ($query->result_array() as $r){
+			if($r['telah_ditukar'] == "0"):
+	             $status_tukar = '<span class="label label-success">
+			                  Belum Ditukar
+			                </span>';     
+	       else:
+	             $status_tukar = '<span class="label label-danger">
+	             	          Sudah Ditukar
+	             	        </span>';
+           endif;
+
+
+
+			$output['data'][]=array($nomor_urut,
+									$r['kode_voucher'],
+									$r['wids'],
+									$status_tukar,
+									$r['keterangan'],
+                            		'<button class="btn btn-danger" onclick="confirmDelete(\''.$r['id'].'\')"><i class="fa fa-trash"></i></button>'
+									);
+			$nomor_urut++;
+		}
+
+		echo json_encode($output);
+	}
+
 	function wids_action(){
 		$this->form_validation->set_rules('wids', 'Wids', 'required|numeric|xss_clean');
 		$this->form_validation->set_rules('aksi', 'Wids', 'required|xss_clean');
@@ -131,20 +204,6 @@ class Wids extends CI_Controller {
 	}
 
 
-	function voucher_wids($action='',$id=''){
-		if($this->session->userdata('level') != "1"){
-			redirect(base_url(),'refresh');
-		}
-
-		if($action=='delete'){
-			$this->Mwids->delete_voucher_wids($id);
-			$this->session->set_flashdata('msg_success', 'Voucher berhasil dihapus');
-				redirect(base_url().'voucher','refresh');
-		}
-		$data['no'] = 1;
-		$data['wids'] = $this->Mwids->get_voucher_wids();
-		$this->load->view('wids/data_voucher', $data);
-	}
 
 	function add_voucher(){
 		if($this->session->userdata('level') != "1"){

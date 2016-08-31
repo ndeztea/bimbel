@@ -9,7 +9,7 @@ class Mpertanyaan extends CI_Model {
      return $this->db->get("pelajaran_pertanyaan");
 	}
 
-	function get_pertanyaan($limit, $offset){
+	function get_pertanyaan($limit = NULL, $offset = NULL, $search = NULL, $mapel = NULL){
 		$this->db->select('penanya.nama AS nama_penanya,
 						   penanya.wids AS wids_penanya,
 						   penanya.avatar AS avatar_penanya,
@@ -20,12 +20,20 @@ class Mpertanyaan extends CI_Model {
 					       pelajaran_pertanyaan.wids as wids_pertanyaan,
 					       pelajaran_pertanyaan.tgl_update');
 
-		$this->db->join('pelajaran_pertanyaan', 'penanya.id = pelajaran_pertanyaan.id_user');
+		$this->db->from('users penanya');  
+	    $this->db->join('pelajaran_pertanyaan', 'penanya.id = pelajaran_pertanyaan.id_user');
 		$this->db->join('pelajaran', 'pelajaran_pertanyaan.id_pelajaran = pelajaran.id');
-		$this->db->order_by('pelajaran_pertanyaan.tgl_update', 'desc');
 
-		
-		return $this->db->get('users penanya', $limit, $offset);
+		if($search != NULL){
+			$this->db->like("pertanyaan", $search);
+		}
+		if($mapel != NULL){
+			$this->db->where('pelajaran_pertanyaan.id_pelajaran', $mapel);
+		}
+
+		$this->db->limit($limit, $offset);
+		$this->db->order_by('pertanyaan','DESC');
+		return $this->db->get();
 	}
  
 	function get_pertanyaan_by_id($id){

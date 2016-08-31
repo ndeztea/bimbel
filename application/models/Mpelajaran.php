@@ -19,6 +19,16 @@ class Mpelajaran extends CI_Model {
      return $this->db->get("pelajaran");
 	}
 
+	function get_pelajaran($length = NULL, $start = NULL, $search = NULL){
+		$this->db->select('*');
+
+	     if($search != NULL){
+	     	$this->db->like('pelajaran', $search); 
+	     }
+
+	     return $this->db->get('pelajaran', $length, $start);
+	 }
+
 	function get_first_12(){
      	return $this->db->get("pelajaran", 11, 0);
 	}
