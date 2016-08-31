@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <title><?php echo TITLE ?></title>
+    <title>BMBimbel</title>
     <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
     <!-- Bootstrap 3.3.2 -->
     <link href="<?php echo base_url() ?>assets/AdminLTE-2.3.0/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
@@ -18,6 +18,16 @@
     <link href="<?php echo base_url() ?>assets/select2-4.0.2/dist/css/select2.css" rel="stylesheet" type="text/css" />
 
     <link href="<?php echo base_url() ?>assets/css/responsive.css" rel="stylesheet" type="text/css" />
+
+    <meta property="description"   content="BM Bimbel cari kunci jawaban pekerjaan rumah untuk SD, SMP, SMA dan SMK" />
+    <meta name="description" content="BM Bimbel cari kunci jawaban pekerjaan rumah untuk SD, SMP, SMA dan SMK">
+    <meta property="keywords"   content="Sekolah, SD, SMP, SMA, SMK, PR, Pekerjaan Rumah,kunci jawaban, IPA, IPS, Bahasa, Indonesia, Inggris, Fisika, Kimia, Biologi, PPKN" />
+    <meta name="keywords"   content="Sekolah, SD, SMP, SMA, SMK, PR, Pekerjaan Rumah,kunci jawaban, IPA, IPS, Bahasa, Indonesia, Inggris, Fisika, Kimia, Biologi, PPKN" />
+    <meta property="title"         content="BMBimbel" />
+    <meta property="og:type"          content="website" />
+    <meta property="og:title"         content="BMBimbel" />
+    <meta property="og:description"   content="BM Bimbel cari kunci jawaban pekerjaan rumah untuk SD, SMP, SMA dan SMK" />
+    <meta property="og:tag"   content="Sekolah, SD, SMP, SMA, SMK, PR, Pekerjaan Rumah,kunci jawaban, IPA, IPS, Bahasa, Indonesia, Inggris, Fisika, Kimia, Biologi, PPKN" />
 
 
 
