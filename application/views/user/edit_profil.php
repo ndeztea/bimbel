@@ -69,13 +69,13 @@
                       <td style="border-top: 0px solid #f4f4f4;"> 
                         <input type="radio" name="jkel" value="l" <?php echo set_radio('jkel', 'l', TRUE); ?>
                         <?php if($users['gender'] == 'l'):
-                                echo "selected";
+                                echo "checked";
                               endif;
                         ?>>
                         Laki - laki
                         <input type="radio" name="jkel" value="p" <?php echo set_radio('jkel', 'p') ?> 
                         <?php if($users['gender'] == 'p'):
-                              echo "selected";
+                              echo "checked";
                               endif;
                         ?>>
                         Perempuan
