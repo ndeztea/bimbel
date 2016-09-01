@@ -259,7 +259,7 @@ class Jawaban extends CI_Controller {
 				if($user_wids){
 					$user_downliner = $user_wids->row_array();
 
-					$user_upliner = $this->Users->get_user_by_id($user_downliner['user_parent']);
+					$user_upliner = $this->Users->get_user_by_id2($user_downliner['user_parent']);
 
 					if($user_upliner){
 						$wids_upliner = $user_upliner->row_array()['wids'];

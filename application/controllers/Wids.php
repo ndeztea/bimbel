@@ -362,6 +362,17 @@ class Wids extends CI_Controller {
 
 			$this->session->set_userdata('wids', $this->Users->get_user_by_id($this->session->userdata('nisn'))->row_array()['wids']);
 
+			// update upliner
+			$user_upliner = $this->Users->get_user_by_id2($users->row_array()['user_parent']);
+			if($user_upliner){
+				$wids_upliner = $user_upliner->row_array()['wids'];
+				$persentase = ((int) $voucher->row_array()['wids'] / 100) * 10;
+				$wids_for_upliner = round($persentase, 0, PHP_ROUND_HALF_UP);
+				$bonus_upliner = (int) $wids_upliner + $wids_for_upliner;
+				$share = array("wids" => $bonus_upliner);
+				$this->Users->update($share, $user_upliner->row_array()['nisn']);
+			}
+			
 			return True;
 		}
 		else {
