@@ -61,7 +61,7 @@ class Auth extends CI_Controller {
 			if(!empty($kode_daftar)){
 				// yang punya kode daftar dapat wids 10
 				if($this->Login->cek_kode_daftar($kode_daftar)){
-					$wids = 10;
+					$wids = 0;
 					$user_kode_daftar = $this->Login->get_kode_daftar($kode_daftar);
 					$parent_id = $user_kode_daftar['id'];
 					// ------------- BEGIN EMAIL -------------
