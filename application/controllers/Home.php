@@ -169,6 +169,7 @@ class Home extends CI_Controller {
 		            				<span class='username'>"
 		            					.$r->nama_pelajaran."&middot;"
 						         	 	.get_tingkat($r->tingkat).
+						         	 	'<span class="text-muted pull-right">'.lapse_time(strtotime($r->tgl_update)).'</span>'.
 		            				"</span>
 		            				<a href='".base_url()."detail_pertanyaan/".$r->id_pertanyaan."'>".$r->pertanyaan."</a>
 	          						<button class='btn btn-success btn-xs pull-right' onclick=location.href='".base_url()."detail_pertanyaan/".$r->id_pertanyaan."'><i class='fa fa-share'></i> Jawab</button>

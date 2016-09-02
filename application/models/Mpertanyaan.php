@@ -32,7 +32,7 @@ class Mpertanyaan extends CI_Model {
 		}
 
 		$this->db->limit($limit, $offset);
-		$this->db->order_by('pertanyaan','DESC');
+		$this->db->order_by('pelajaran_pertanyaan.id','DESC');
 		return $this->db->get();
 	}
  
