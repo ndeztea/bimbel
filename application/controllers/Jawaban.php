@@ -39,7 +39,7 @@ class Jawaban extends CI_Controller {
 
 	function insert_jawaban() {
 
-		if($this->session->userdata('level') == "1" OR $this->session->userdata('level') == "2"){
+		if($this->session->userdata('level') == "1" || $this->session->userdata('level') == "2"){
 			$betul = "1";
 		}
 		else {
@@ -120,6 +120,23 @@ class Jawaban extends CI_Controller {
 							$this->email->message($message);
 
 							$this->email->send();
+
+							if($this->session->userdata('level') == "2"){
+								// send email ke super admin
+								$detailWebAdmin = $this->Users->get_user_by_id2($this->session->userdata('id'))->row_array();
+								$dataWebAdmin['nama'] = $detailWebAdmin['nama'];
+								$dataWebAdmin['link'] = base_url()."detail_pertanyaan/".$this->session->userdata('id_pertanyaan');
+								$message2 = $this->load->view('email/notifikasi_jawaban_betul_web_admin',$dataWebAdmin,TRUE);
+								$this->email->from(EMAIL_SENDER, 'BMBimbel Notification System');
+
+								$this->email->to($email);
+
+								$this->email->subject('Web-Admin set betul pertanyaan !');
+								$this->email->message($message2);
+
+								$this->email->send();
+							}
+							
 
 
 						
@@ -325,6 +342,7 @@ class Jawaban extends CI_Controller {
 
 					$this->email->send();
 
+
 						
 			  // ------------- END EMAIL -------------
 					
@@ -377,14 +395,33 @@ class Jawaban extends CI_Controller {
 					//masukkan email pengirim disini 
 					$this->email->from(EMAIL_SENDER, 'BMBimbel Notification System');
 
-					$this->email->to($email);
-					$this->email->cc('');
-					$this->email->bcc('');
+					$adminList = $this->Users->get_admin_list();
+					$emails = array();
+					foreach ($adminList->result() as $row) {
+						$emails[] = $row->email;
+					}
+					$emails = implode($emails, ',');
+					$this->email->to($emails);
 
 					$this->email->subject('Jawaban kamu benar !');
 					$this->email->message($message);
 
 					$this->email->send();
+
+					// send email ke super admin
+					$detailWebAdmin = $this->Users->get_user_by_id2($this->session->userdata('id'))->row_array();
+					$dataWebAdmin['nama'] = $detailWebAdmin['nama'];
+					$dataWebAdmin['link'] = base_url()."detail_pertanyaan/".$this->session->userdata('id_pertanyaan');
+					$message2 = $this->load->view('email/notifikasi_jawaban_betul_web_admin',$dataWebAdmin,TRUE);
+					$this->email->from(EMAIL_SENDER, 'BMBimbel Notification System');
+
+					$this->email->to($email);
+
+					$this->email->subject('Web-Admin set betul pertanyaan !');
+					$this->email->message($message2);
+
+					$this->email->send();
+
 
 						
 			  // ------------- END EMAIL -------------
