@@ -124,6 +124,8 @@ class Jawaban extends CI_Controller {
 							if($this->session->userdata('level') == "2"){
 								// send email ke super admin
 								$detailWebAdmin = $this->Users->get_user_by_id2($this->session->userdata('id'))->row_array();
+
+
 								$dataWebAdmin['nama'] = $detailWebAdmin['nama'];
 								$dataWebAdmin['link'] = base_url()."detail_pertanyaan/".$this->session->userdata('id_pertanyaan');
 								$message2 = $this->load->view('email/notifikasi_jawaban_betul_web_admin',$dataWebAdmin,TRUE);
@@ -135,6 +137,19 @@ class Jawaban extends CI_Controller {
 								$this->email->message($message2);
 
 								$this->email->send();
+
+								$wids = $detailWebAdmin['wids'] + 1;
+								
+								$data = array("wids" => 1,
+											  "id_user" =>$this->session->userdata('id'),
+											  "action" => "tambah",
+											  "keterangan" => "Set betul jawaban");
+
+								$user = array("id"	=> $this->session->userdata('id'),
+											  "wids" => $wids);
+
+								$this->Users->update($user, $this->input->post('id'));
+								$this->Mwids->add_wids($data, $user);
 							}
 							
 
@@ -421,6 +436,18 @@ class Jawaban extends CI_Controller {
 					$this->email->message($message2);
 
 					$this->email->send();
+
+					$wids = (int) $detailWebAdmin['wids'] + 1;
+					$data = array("wids" => 1,
+								  "id_user" =>$this->session->userdata('id'),
+								  "action" => "tambah",
+								  "keterangan" => "Set betul jawaban");
+
+					$user = array("id"	=> $this->session->userdata('id'),
+								  "wids" => $wids);
+
+					$this->Users->update($user, $this->input->post('id'));
+					$this->Mwids->add_wids($data, $user);
 
 
 						
