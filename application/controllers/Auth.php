@@ -134,7 +134,6 @@ class Auth extends CI_Controller {
 		} 
 		else {
 			$login = $this->Login->login();
-
 			if($login){
 				$data = $login->row_array();
 				update_session($data);

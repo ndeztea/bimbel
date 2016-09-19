@@ -79,10 +79,10 @@ function update_session($data_session){
 function level($level){
 	switch ($level) {
 		case 1:
-			$nama_level = "SuperAdmin";
+			$nama_level = "Admin";
 			break;
 		case 2:
-			$nama_level = "Administrator";
+			$nama_level = "Tim Penilai";
 			break;
 		case 3:
 			$nama_level = "Reseller";
