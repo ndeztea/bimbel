@@ -131,8 +131,8 @@ $route['loadmore'] = "Home/load_more";
 $route['loadmore_mapel'] = "Pertanyaan/load_more";
 
 
-$route['guide'] = "Home/panduan";
-$route['about'] = "Home/tentang";
+$route['guide'] = "Content/panduan";
+$route['about'] = "Content/tentang";
 
 
 $route['data_reseller'] = "Reseller/all_reseller";

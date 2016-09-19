@@ -19,7 +19,7 @@
               }?>
 		</div>
 
-              <div class="col-md-8">
+              <div class="col-md-<?php echo $this->session->userdata('level')!=''?'8':'12'?>">
                      <div class="box">
                             <div class="box-header  with-border box-primary">
                                    <h3 class="box-title">Tentang Bimbel</h3>
@@ -89,11 +89,12 @@
                             </div>
                      </div>
               </div>
-
+              <?php if ($this->session->userdata('level')!=''): ?>
               <div class="col-md-4">
                      <?php $this->load->view('template/ajukan_pertanyaan'); ?>
                      <?php $this->load->view('template/profil_widget');?>
               </div>
+              <?php endif?>
 
 	</div>
 </section>	

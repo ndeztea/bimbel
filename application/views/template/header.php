@@ -1,12 +1,9 @@
-<?php 
-
-  $pelajaran        = $this->Mpelajaran->getdata()->result();
-?>
 </head>
   <!-- ADD THE CLASS layout-top-nav TO REMOVE THE SIDEBAR. -->
   <body class="hold-transition skin-blue layout-top-nav">
     <div class="wrapper">
-
+    <?php if($this->session->userdata('id')!=''):?>
+      <?php $pelajaran        = $this->Mpelajaran->getdata()->result();?>
       <header class="main-header">
         <nav class="navbar navbar-static-top">
           <div class="container">
@@ -109,6 +106,53 @@
           </div>
         </nav>
       </header>
+    <?php else:?>
+      <!-- Top menu -->
+    <nav class="navbar navbar-inverse navbar-no-bg"  style="background-color: #408DBC;margin-bottom:0px;border:0px" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#top-navbar-1">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="<?php echo base_url() ?>" style="color:#FFFFFF"><b>BIMBEL</b>  Online</a>
+        </div>
+        <!-- <div class="collapse navbar-collapse" id="top-navbar-1">
+          <ul class="nav navbar-nav navbar-right">
+            <li>
+              <span class="li-text">
+                Put some text or
+              </span> 
+              <a href="#"><strong>links</strong></a> 
+              <span class="li-text">
+                here, or some icons: 
+              </span> 
+              <span class="li-social">
+                <a href="#"><i class="fa fa-facebook"></i></a> 
+                <a href="#"><i class="fa fa-twitter"></i></a> 
+                <a href="#"><i class="fa fa-envelope"></i></a> 
+                <a href="#"><i class="fa fa-skype"></i></a>
+              </span>
+            </li>
+          </ul>
+        </div> -->
+                <form method="post" action="<?php echo base_url() ?>login" class="navbar-form navbar-right" role="search">
+                    <div class="form-group">
+                        <input type="text" class="form-control" name="username" placeholder="NISN / Email">
+                    </div>
+                    <div class="form-group">
+                        <input type="password" class="form-control" name="password" placeholder="Password">
+                    </div>
+                    <button type="submit" class="btn btn-default">Masuk !</button>
+                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal">Lupa Password !!</button>
+
+                </form>
+      </div>
+    </nav>
+
+    <?php endif?>
      <!-- Full Width Column -->
       <div class="content-wrapper">
           <div class="container">

@@ -240,7 +240,14 @@
             </div>
             
         </div>
-
+         <footer class="main-footer" style="background: #fff;padding: 15px;color: #444;border-top: 1px solid #d2d6de;font-size:10pt">
+            <div class="container" style="text-align: left;">
+                <div class="pull-right hidden-xs">
+                    <b>Copyright &copy;</b> 2016
+                </div>
+                <strong><a href="<?php echo base_url()?>">Beranda</a>  &bull; <a href="<?php echo base_url()?>guide">Tentang Bimbel</a> &bull; <a href="<?php echo base_url()?>about">Panduan Member</a>  &bull; <a href="<?php echo base_url()?>about">Kontak Kami</a>
+                </div><!-- /.container -->
+        </footer>
         <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
           <div class="modal-dialog" role="document">
             <div class="modal-content">
