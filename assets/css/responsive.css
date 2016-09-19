@@ -52,3 +52,14 @@
    		margin: 10px 0;
 	}
 }
+
+.list-answered{
+	color: #de9d00;
+}
+.answered{
+	color: #de9d00;
+    position: absolute;
+    top: 4px;
+    left: 80%;
+    font-size: 60px;
+}

@@ -307,3 +307,5 @@ CREATE TABLE `tukar_wids` (
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
 ALTER TABLE `pelajaran_jawaban` CHANGE `is_correct` `is_correct` INT(1) NOT NULL DEFAULT '0';
+
+ALTER TABLE `pelajaran_pertanyaan`  ADD `terjawab` INT(1) NULL DEFAULT '0';

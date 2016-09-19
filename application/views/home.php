@@ -90,8 +90,12 @@
 	            				<span class="username">
 	            					<?php echo $r->nama_pelajaran ?>&middot;
 					         	 	<?php echo get_tingkat($r->tingkat) ?>
+					         	 	<?php if($r->terjawab==1):?>
+              <i class="fa fa-star list-answered"></i>
+              <?php endif ?>
 	            					<span class="text-muted pull-right"><?php echo lapse_time(strtotime($r->tgl_update)) ?> </span>
 	            				</span>
+
 	            				<a href="<?php echo base_url() ?>detail_pertanyaan/<?php echo $r->id_pertanyaan ?>"><?php echo $r->pertanyaan ?></a>
           						<button class="btn btn-success btn-xs pull-right" onclick=location.href="<?php echo base_url() ?>detail_pertanyaan/<?php echo $r->id_pertanyaan ?>"><i class="fa fa-share"></i> Jawab</button>
 	            			</div>

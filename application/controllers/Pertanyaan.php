@@ -317,13 +317,15 @@ class Pertanyaan extends CI_Controller {
 		$get = $this->Mpertanyaan->get_pertanyaan_by_mapel($this->input->post('id'), 5, $this->input->post('offset'));
 		if($get->num_rows() >= 1){
 			foreach ($get->result() as $r) {
+				$terjawab = $r->terjawab==1?'<i class="fa fa-star"></i>':'';
 				echo "<div class='box-comment'> 
 		            			<img class='img-circle img-sm' src='".
 		            			base_url('assets/images/avatar')."/".$r->avatar_penanya."'>
 		            			<div class='comment-text'>
 		            				<span class='username'>"
 		            					.$r->nama_pelajaran."&middot;"
-						         	 	.get_tingkat($r->tingkat).
+						         	 	.get_tingkat($r->tingkat)
+						         	 	.$terjawab.
 						         	 	'<span class="text-muted pull-right">'.lapse_time(strtotime($r->tgl_update)).'</span>'.
 		            				"</span>
 		            				<a href='".base_url()."detail_pertanyaan/".$r->id_pertanyaan."'>".$r->pertanyaan."</a>
@@ -335,5 +337,14 @@ class Pertanyaan extends CI_Controller {
 		else{
 			echo "Tidak ada data lagi";
 		}
+	}
+
+	public function answered($id){
+		if($this->session->userdata('level')==1 || $this->session->userdata('level')==2){
+			$this->Mpertanyaan->update_terjawab($id);
+
+		}
+
+		redirect(base_url().'detail_pertanyaan/'.$id,'refresh');
 	}
 }

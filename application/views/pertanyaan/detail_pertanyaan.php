@@ -37,8 +37,13 @@
           <div class="user-block">
             <img class="img-circle" src="<?php echo thumb_avatar($pertanyaan['avatar_penanya'],$this->session->userdata('gender'))?>"
             alt="user image">
-            <span class="username"><a href="#"><?php echo $pertanyaan['nama_penanya'] ?> - <small><?php echo $wids_penanya ?></small></a></span>
-            <span class="description"><?php echo get_tingkat($pertanyaan['tingkat']) ?> &middot; <?php echo $pertanyaan['nama_pelajaran'] ?></span>
+            <span class="username"><a href="#"><?php echo $pertanyaan['nama_penanya'] ?> - <small><?php echo $wids_penanya ?></small></a>
+            </span>
+
+
+            <span class="description"><?php echo get_tingkat($pertanyaan['tingkat']) ?> &middot; <?php echo $pertanyaan['nama_pelajaran'] ?> <?php if($pertanyaan['terjawab']==1):?>
+              <i class="fa fa-star answered"></i>
+              <?php endif ?></span>
           </div>
           <div class="box-tools">
                 <?php   echo lapse_time(strtotime($pertanyaan['tgl_update'])); ?>
@@ -50,8 +55,12 @@
             <!-- <img class="img-responsive pad" src="<?php echo base_url() ?>assets/images/question/<?php echo $pertanyaan['gambar']?>" alt="Photo"> -->
             <a href="<?php echo base_url() ?>assets/images/question/<?php echo $pertanyaan['gambar']?>" rel="prettyPhoto" title="<?php echo $pertanyaan['pertanyaan'] ?>"><img src="<?php echo base_url() ?>assets/images/question/<?php echo $pertanyaan['gambar']?>" alt="Pertanyaan" style="max-width:100% ; max-height:100%" class="img-responsive"/></a>
           <?php endif; ?>
+          
+          <?php if($this->session->userdata('level') == "2"|| $this->session->userdata('level') == "1"):?>
+            <button class="btn btn-primary btn-xs pull-right" onclick="location.href='<?php echo base_url() ?>Pertanyaan/answered/<?php echo $pertanyaan['id_pertanyaan'] ?>'"><i class="fa fa-star<?php echo $pertanyaan['terjawab']==1?'':'-o'?>"></i> <?php echo $pertanyaan['terjawab']==1?'Sudah':'Belum'?> Terjawab</button>
+          <?php endif?>
 
-          <?php if($this->session->userdata('id') == $pertanyaan['id_penanya'] OR $this->session->userdata('level') == "1"): ?>
+          <?php if($this->session->userdata('id') == $pertanyaan['id_penanya'] || $this->session->userdata('level') == "1"): ?>
                   <button class="btn btn-danger btn-xs pull-right" onclick=confirmDelete(<?php echo $pertanyaan['id_pertanyaan'] ?>)><i class="fa fa-trash"></i> Hapus</button>
                   <button class="btn btn-success btn-xs pull-right" onclick="location.href='<?php echo base_url() ?>edit_pertanyaan_saya/<?php echo $pertanyaan['id_pertanyaan'] ?>'"><i class="fa fa-pencil"></i> Edit</button>
 
@@ -66,6 +75,7 @@
 
                   </script>
           <?php endif; ?>
+
         </div>
         <div class="box-footer box-comments">
             <?php foreach($jawaban_pertanyaan_correct->result() as $r): ?>

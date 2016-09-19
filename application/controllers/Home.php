@@ -154,6 +154,7 @@ class Home extends CI_Controller {
 		$get = $this->Mpertanyaan->get_pertanyaan(5, $this->input->post('offset'));
 		if($get->num_rows() >= 1){
 			foreach ($get->result() as $r) {
+				$terjawab = $r->terjawab==1?" <i class='fa fa-star list-answered'  aria-hidden='true'></i>":'';
 				echo "<div class='box-comment'> 
 		            			<img class='img-circle img-sm' src='".
 		            			base_url('assets/images/avatar')."/".$r->avatar_penanya."'>
@@ -161,10 +162,12 @@ class Home extends CI_Controller {
 		            				<span class='username'>"
 		            					.$r->nama_pelajaran."&middot;"
 						         	 	.get_tingkat($r->tingkat).
+						         	 	$terjawab.
 						         	 	'<span class="text-muted pull-right">'.lapse_time(strtotime($r->tgl_update)).'</span>'.
 		            				"</span>
-		            				<a href='".base_url()."detail_pertanyaan/".$r->id_pertanyaan."'>".$r->pertanyaan."</a>
+		            				<a href='".base_url()."detail_pertanyaan/".$r->id_pertanyaan."'>".$r->pertanyaan." </a> 
 	          						<button class='btn btn-success btn-xs pull-right' onclick=location.href='".base_url()."detail_pertanyaan/".$r->id_pertanyaan."'><i class='fa fa-share'></i> Jawab</button>
+
 		            			</div>
 						    </div>";
 			}

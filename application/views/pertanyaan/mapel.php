@@ -101,6 +101,8 @@
 									</span>
 									<a href="<?php echo base_url() ?>detail_pertanyaan/<?php echo $r->id_pertanyaan ?>"><?php echo $r->pertanyaan ?></a>
 									<button class="btn btn-success btn-xs pull-right" onclick=location.href="<?php echo base_url() ?>detail_pertanyaan/<?php echo $r->id_pertanyaan ?>"><i class="fa fa-share"></i> Jawab</button>
+									<i class="fa fa-star" aria-hidden="true"></i>
+
 								</div>
 							</div>
 							<?php endforeach; ?>

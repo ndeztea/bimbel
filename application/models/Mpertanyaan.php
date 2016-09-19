@@ -11,12 +11,14 @@ class Mpertanyaan extends CI_Model {
 
 	function get_pertanyaan($limit = NULL, $offset = NULL, $search = NULL, $mapel = NULL){
 		$this->db->select('penanya.nama AS nama_penanya,
+							pelajaran_pertanyaan.terjawab as terjawab,
 						   penanya.wids AS wids_penanya,
 						   penanya.avatar AS avatar_penanya,
 					       pelajaran.pelajaran AS nama_pelajaran,
 					       pelajaran_pertanyaan.id AS id_pertanyaan,
 					       pelajaran_pertanyaan.pertanyaan AS pertanyaan,
 					       pelajaran_pertanyaan.tingkat,
+					       pelajaran_pertanyaan.terjawab AS terjawab,
 					       pelajaran_pertanyaan.wids as wids_pertanyaan,
 					       pelajaran_pertanyaan.tgl_update');
 
@@ -42,6 +44,7 @@ class Mpertanyaan extends CI_Model {
 										  penanya.wids AS wids_penanya,
 										  penanya.avatar AS avatar_penanya,
 									      pelajaran.pelajaran AS nama_pelajaran,
+									      pelajaran_pertanyaan.terjawab AS terjawab,
 									      pelajaran.id AS id_pelajaran,
 									      pelajaran_pertanyaan.id AS id_pertanyaan,
 									      pelajaran_pertanyaan.pertanyaan AS pertanyaan,
@@ -62,6 +65,7 @@ class Mpertanyaan extends CI_Model {
 					       pelajaran.pelajaran AS nama_pelajaran,
 					       pelajaran_pertanyaan.id AS id_pertanyaan,
 					       pelajaran_pertanyaan.pertanyaan AS pertanyaan,
+					       pelajaran_pertanyaan.terjawab AS terjawab,
 					       pelajaran_pertanyaan.tingkat,
 					       pelajaran_pertanyaan.wids as wids_pertanyaan');
 
@@ -101,6 +105,7 @@ class Mpertanyaan extends CI_Model {
 									      pelajaran_pertanyaan.id AS id_pertanyaan,
 									      pelajaran_pertanyaan.pertanyaan AS pertanyaan,
 									      pelajaran_pertanyaan.tingkat,
+									      pelajaran_pertanyaan.terjawab,
 									      pelajaran_pertanyaan.wids as wids_pertanyaan,
 									      pelajaran_pertanyaan.tgl_update as tgl_update,
 									      pelajaran_pertanyaan.photo as gambar
@@ -154,4 +159,12 @@ class Mpertanyaan extends CI_Model {
 		$this->db->update('pelajaran_pertanyaan', $data);
 	}
 
+	function  update_terjawab($id){
+		$detail = $this->get_pertanyaan_by_id($id)->row_array();
+		$data['terjawab'] = $detail['terjawab']==1?0:1;
+
+		$this->db->where('id',$id);
+		return $this->db->update('pelajaran_pertanyaan',$data);
+
+	}
 }
