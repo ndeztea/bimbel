@@ -9,15 +9,15 @@ class Login extends CI_Model {
 
 
 
-		$this->db->select('*');
+		/*$this->db->select('*');
 		$this->db->from('users');
 		$this->db->where('nisn', $username);
 		$this->db->or_where('email', $username);
-		$this->db->where('password', $password);
+		$this->db->where('password', $password);*/
+		$return = $this->db->query("SELECT * FROM users WHERE ( nisn='".$this->db->escape_str($username)."' OR email='".$this->db->escape_str($username)."' ) AND password='".$this->db->escape_str($password)."'");
 
-		$return = $this->db->get();
-
-		if($return->num_rows() > 0 AND $return->num_rows() == 1){
+		$result = $return->row_array();
+		if(count($result)>=1){
 			return $return;
 		}
 		else{
