@@ -22,6 +22,10 @@ class Content extends CI_Controller {
 	function tentang(){
 		$this->load->view('tentang_bimbel');
 	}
+
+	function contact(){
+		$this->load->view('content_contact');
+	}
 }
 
 /* End of file Home.php */

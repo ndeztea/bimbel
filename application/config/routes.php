@@ -133,7 +133,7 @@ $route['loadmore_mapel'] = "Pertanyaan/load_more";
 
 $route['guide'] = "Content/panduan";
 $route['about'] = "Content/tentang";
-
+$route['contact'] = "Content/contact";
 
 $route['data_reseller'] = "Reseller/all_reseller";
 $route['add_reseller'] = "Reseller/add_reseller";
