@@ -114,7 +114,7 @@
                   <!-- <span class="pull-right text-muted"><?php echo $r->jml_like ?> likes - <?php echo $r->jml_dislike ?> Dislikes</span>
                   <br /> -->
                   <?php if($this->session->userdata('level') == "1"): ?>
-                            <?php if($r->level_penjawab != "1" AND $r->level_penjawab != "2" AND $r->level_penjawab != "3"  AND $r->level_set_correct == "NULL" OR $r->level_set_correct == "2" OR $r->level_set_correct == "3"): ?>
+                            <?php //if($r->level_penjawab != "1" AND $r->level_penjawab != "2" AND $r->level_penjawab != "3"  AND $r->level_set_correct == "NULL" OR $r->level_set_correct == "2" OR $r->level_set_correct == "3"): ?>
                               <button type="button" class="btn btn-primary btn-xs pull-right" data-toggle="modal" data-target="#myModal<?php echo $r->id ?>">
                                 <i class='fa fa-check-circle'></i> Set Wids</button>
 
@@ -141,12 +141,12 @@
                                     </div>
                                   </div>
                                 </div>
-                            <?php endif; ?>
+                            <?php //endif; ?>
                             <?php if($this->session->userdata('level')==1): ?>
-                              <?php if($r->level==4):?>
-                              <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal<?php echo $r->id ?>">
-                                <i class='fa fa-check-circle'></i> Update Wids</button> (Wids untuk jawaban ini, saat ini <strong><?php echo $r->wids_jawaban>0?$r->wids_jawaban:0 ?> </strong>)
-                              <?php endif?>
+                              <?php //if($r->level==4):?>
+                              <!--button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal<?php echo $r->id ?>">
+                                <i class='fa fa-check-circle'></i> Update Wids</button--> (Wids untuk jawaban ini, saat ini <strong><?php echo $r->wids_jawaban>0?$r->wids_jawaban:0 ?> </strong>)
+                              <?php //endif?>
                               <div class="modal fade" id="myModal<?php echo $r->id ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                                   <div class="modal-dialog" role="document">
                                     <div class="modal-content">
@@ -190,6 +190,10 @@
                       }
                     </script>
                   <?php endif ?>
+                   <?php if($this->session->userdata('level') == "2" || $this->session->userdata('level') == "1"): ?>
+                  <button type="button" class="btn btn-warning btn-xs pull-right" onclick="location.href='<?php echo site_url('salah/'.$r->id)?>'">
+                    <i class='fa fa-close'></i> Salah</button>
+                  <?php endif?>
                 </div>
             </div>
             <?php endforeach?>
@@ -255,7 +259,7 @@
                   <?php endif ?>
 
 
-                  <?php if($this->session->userdata('level') == "1" AND $r->is_correct != "1"): ?>
+                  <?php if($this->session->userdata('level') == "1"  && $r->is_correct != "1"): ?>
                     <button type="button" class="btn btn-primary btn-xs pull-right" data-toggle="modal" data-target="#myModal<?php echo $r->id ?>">
                     <i class='fa fa-check-circle'></i> Betul</button>
                     <button type="button" class="btn btn-warning btn-xs pull-right" onclick="location.href='<?php echo site_url('salah/'.$r->id)?>'">
@@ -287,6 +291,7 @@
                   <?php elseif($this->session->userdata('level') == "2" OR $this->session->userdata('level') == "3" AND $r->is_correct == "0"): ?>
                        <button type="button" class="btn btn-primary btn-xs pull-right" onclick="location.href='<?php echo base_url() ?>betul/<?php echo $r->id ?>'">
                     <i class='fa fa-check-circle'></i> Betul</button>
+
                   <?php endif; ?>
                 </div>
               </div>

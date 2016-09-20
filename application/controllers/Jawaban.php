@@ -217,7 +217,7 @@ class Jawaban extends CI_Controller {
 		}
 
 	function salah(){
-		if($this->session->userdata('level') == "1"){
+		if($this->session->userdata('level') == "1" || $this->session->userdata('level') == "2"){
 			// set salah
 			$jawaban = array("wids" => 0,
 									 "is_correct" => "2",
