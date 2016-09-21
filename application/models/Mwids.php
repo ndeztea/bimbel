@@ -97,6 +97,19 @@ class Mwids extends CI_Model {
 		}
 	}
 
+	function cek_wids_pertanyaan($id_user,$id_pertanyaan){
+		$this->db->where('id_user', $id_user);
+		$this->db->where('id_pertanyaan', $id_pertanyaan);
+		$return = $this->db->get('users_wids');
+
+		if($return->num_rows() > 0){
+			return true;
+		}
+		else{
+			return false;
+		}
+	}
+
 	function update_voucher_wids($id, $data){
 		$this->db->where('id', $id);
 		$this->db->update('vouchers_wids', $data);

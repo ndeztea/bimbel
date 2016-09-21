@@ -24,7 +24,7 @@ class Jawaban extends CI_Controller {
 
 		if($jawaban){
 			if($jawaban->row_array()['photo'] != NULL)
-    		{
+			{
 				unlink(FCPATH."assets/images/answer/".$jawaban->row_array()['photo']);
 			}
 			$this->Mjawaban->hapus_jawaban($this->uri->rsegment(3));
@@ -47,182 +47,189 @@ class Jawaban extends CI_Controller {
 		}
 
 		$pertanyaan = $this->Mpertanyaan->get_pertanyaan_by_id($this->uri->rsegment(3));
-			if($pertanyaan){
-				$this->form_validation->set_rules('jawaban', 'Jawaban', 'required|xss_clean');
-				if ($this->form_validation->run() == FALSE) {
-					$this->session->set_flashdata('msg_error', 'Jawaban tidak boleh kosong, mohon di isi');
-					redirect($this->session->userdata('url_pertanyaan'),'refresh');
-				} else {
-					if($_FILES['gambar_jawaban']['size'] != NULL){
-						$config['upload_path'] = 'assets/images/answer';
-						$config['allowed_types'] = 'jpg|png|jpeg|JPEG|JPG|PNG';
-						$config['max_size']  = '5000';
-						$config['encrypt_name'] = true;
+		if($pertanyaan){
+			$this->form_validation->set_rules('jawaban', 'Jawaban', 'required|xss_clean');
+			if ($this->form_validation->run() == FALSE) {
+				$this->session->set_flashdata('msg_error', 'Jawaban tidak boleh kosong, mohon di isi');
+				redirect($this->session->userdata('url_pertanyaan'),'refresh');
+			} else {
+				if($_FILES['gambar_jawaban']['size'] != NULL){
+					$config['upload_path'] = 'assets/images/answer';
+					$config['allowed_types'] = 'jpg|png|jpeg|JPEG|JPG|PNG';
+					$config['max_size']  = '5000';
+					$config['encrypt_name'] = true;
 
 
-						$this->load->library('upload', $config);
-						
-						if ( ! $this->upload->do_upload('gambar_jawaban')){
-							$error = array('error' => $this->upload->display_errors());
-							$this->session->set_flashdata('msg_error', $error['error']);
-							redirect($this->session->userdata('url_pertanyaan'),'refresh');
-						}
-						else{
-							$jawaban = array('jawaban' => $this->input->post('jawaban'),
-											 'id_pertanyaan' => $this->uri->rsegment(3),
-											 'id_user' => $this->session->userdata('id'),
-											 'tgl_update'	=> date('Y-m-d H:i:s'),
-											 'photo' => $this->upload->data()['file_name'],
-											 'is_correct' => $betul);	
-							}
-					}else{
-							$jawaban = array('jawaban' => $this->input->post('jawaban'),
-										 'id_pertanyaan' => $this->uri->rsegment(3),
-										 'tgl_update'	=>  date('Y-m-d H:i:s'),
-										 'id_user' => $this->session->userdata('id'),
-										 'is_correct' => $betul);	
+					$this->load->library('upload', $config);
 
+					if ( ! $this->upload->do_upload('gambar_jawaban')){
+						$error = array('error' => $this->upload->display_errors());
+						$this->session->set_flashdata('msg_error', $error['error']);
+						redirect($this->session->userdata('url_pertanyaan'),'refresh');
 					}
-							$this->Mjawaban->insert_jawaban($jawaban);
-			    			$this->session->set_flashdata('msg_succes', 'Jawaban berhasil ditambahkan');
-					// ------------- BEGIN EMAIL -------------
-			    			$this->db->select('email, nama');
-			    			$this->db->from('users');
-			    			$this->db->where('users.id', $pertanyaan->row_array()['id_penanya']);
-			    			$get_data =  $this->db->get();
+					else{
+						$jawaban = array('jawaban' => $this->input->post('jawaban'),
+							'id_pertanyaan' => $this->uri->rsegment(3),
+							'id_user' => $this->session->userdata('id'),
+							'tgl_update'	=> date('Y-m-d H:i:s'),
+							'photo' => $this->upload->data()['file_name'],
+							'is_correct' => $betul);	
+					}
+				}else{
+					$jawaban = array('jawaban' => $this->input->post('jawaban'),
+						'id_pertanyaan' => $this->uri->rsegment(3),
+						'tgl_update'	=>  date('Y-m-d H:i:s'),
+						'id_user' => $this->session->userdata('id'),
+						'is_correct' => $betul);	
+
+				}
+				$this->Mjawaban->insert_jawaban($jawaban);
+				$this->session->set_flashdata('msg_succes', 'Jawaban berhasil ditambahkan');
+
+									// ------------- BEGIN EMAIL -------------
+				$this->db->select('email, nama');
+				$this->db->from('users');
+				$this->db->where('users.id', $pertanyaan->row_array()['id_penanya']);
+				$get_data =  $this->db->get();
 
 
-			    			$email = $get_data->row_array()['email'];
+				$email = $get_data->row_array()['email'];
 
 
-							$data['nama'] = $get_data->row_array()['nama'];
+				$data['nama'] = $get_data->row_array()['nama'];
 
-							$data['link'] = base_url()."detail_pertanyaan/".$this->uri->rsegment(3);
+				$data['link'] = base_url()."detail_pertanyaan/".$this->uri->rsegment(3);
 
-							$data['email'] = $get_data->row_array()['email'];
+				$data['email'] = $get_data->row_array()['email'];
 
-							$message = $this->load->view('email/notifikasi_jawab_pertanyaan',$data,TRUE);
+				$message = $this->load->view('email/notifikasi_jawab_pertanyaan',$data,TRUE);
 
-							
-							$this->load->library('email');
-							$config['mailtype'] = "html";
 
-							$this->email->initialize($config);
+				$this->load->library('email');
+				$config['mailtype'] = "html";
+
+				$this->email->initialize($config);
 
 							//masukkan email pengirim disini 
-							$this->email->from(EMAIL_SENDER, 'BMBimbel Notification System');
+				$this->email->from(EMAIL_SENDER, 'BMBimbel Notification System');
 
-							$this->email->to($email);
-							$this->email->cc('');
-							$this->email->bcc('');
+				$this->email->to($email);
+				$this->email->cc('');
+				$this->email->bcc('');
 
-							$this->email->subject('Seseorang menjawab pertanyaanmu !');
-							$this->email->message($message);
+				$this->email->subject('Seseorang menjawab pertanyaanmu !');
+				$this->email->message($message);
 
-							$this->email->send();
+				$this->email->send();
 
-							if($this->session->userdata('level') == "2"){
+				if($this->session->userdata('level') == "2"){
 								// send email ke super admin
-								$detailWebAdmin = $this->Users->get_user_by_id2($this->session->userdata('id'))->row_array();
+					$detailWebAdmin = $this->Users->get_user_by_id2($this->session->userdata('id'))->row_array();
 
 
-								$dataWebAdmin['nama'] = $detailWebAdmin['nama'];
-								$dataWebAdmin['link'] = base_url()."detail_pertanyaan/".$this->session->userdata('id_pertanyaan');
-								$message2 = $this->load->view('email/notifikasi_jawaban_betul_web_admin',$dataWebAdmin,TRUE);
-								$this->email->from(EMAIL_SENDER, 'BMBimbel Notification System');
+					$dataWebAdmin['nama'] = $detailWebAdmin['nama'];
+					$dataWebAdmin['link'] = base_url()."detail_pertanyaan/".$this->session->userdata('id_pertanyaan');
+					$message2 = $this->load->view('email/notifikasi_jawaban_betul_web_admin',$dataWebAdmin,TRUE);
+					$this->email->from(EMAIL_SENDER, 'BMBimbel Notification System');
 
-								$this->email->to($email);
+					$this->email->to($email);
 
-								$this->email->subject('Web-Admin set betul pertanyaan !');
-								$this->email->message($message2);
+					$this->email->subject('Web-Admin set betul pertanyaan !');
+					$this->email->message($message2);
 
-								$this->email->send();
+					$this->email->send();
 
-								$wids = $detailWebAdmin['wids'] + 1;
-								
-								$data = array("wids" => 1,
-											  "id_user" =>$this->session->userdata('id'),
-											  "action" => "tambah",
-											  "keterangan" => "Set betul jawaban");
+					// tambah wids untuk web admin
+					$checkWids = $this->Mwids->cek_wids_pertanyaan($this->session->userdata('id'),$this->uri->rsegment(3));
+					if($checkWids==false){
+						$wids = $detailWebAdmin['wids'] + 2;
 
-								$user = array("id"	=> $this->session->userdata('id'),
-											  "wids" => $wids);
+						$data = array("wids" => 2,
+							"id_user" =>$this->session->userdata('id'),
+							"action" => "tambah",
+							"keterangan" => "Menjawab Pertanyaan Langsung ID#".$this->uri->rsegment(3),
+							"id_pertanyaan" => $this->uri->rsegment(3));
 
-								$this->Users->update($user, $this->input->post('id'));
-								$this->Mwids->add_wids($data, $user);
-							}
-							
+						$user = array("id"	=> $this->session->userdata('id'),
+							"wids" => $wids);
+
+						$this->Users->update($user, $this->input->post('id'));
+						$this->Mwids->add_wids($data, $user);
+					}
+					
+				}
 
 
-						
+
+
 			  // ------------- END EMAIL -------------
 
-			    			redirect($this->session->userdata('url_pertanyaan'),'refresh');
+				redirect($this->session->userdata('url_pertanyaan'),'refresh');
 
-				}
+			}
+		}
+		else{
+			redirect(base_url().'not_found','refresh');
+		}
+	}
+
+
+	function edit_jawaban(){
+		$get = $this->Mjawaban->get_jawaban_by_id($this->uri->rsegment(3));
+
+		if ($get){
+			$this->form_validation->set_rules('jawaban', "Jawaban", "required|xss_clean");
+			if($this->form_validation->run() == FALSE){
+				$data['edit_jawaban'] = $get->row_array();
+				$this->load->view('jawaban/edit_jawaban', $data);
 			}
 			else{
-				redirect(base_url().'not_found','refresh');
-			}
-    }
+				if($_FILES['gambar']['size'] == NULL){
+					$data = array('jawaban' => $this->input->post('jawaban')
+						);
+					$this->Mjawaban->edit_jawaban($data, $get->row_array()['id']);
+					$this->session->set_flashdata('msg_success', 'Data berhasil di update');
+					redirect($this->session->userdata('url_pertanyaan'),'refresh');
+				}else{
+					$config['upload_path'] = 'assets/images/answer';
+					$config['allowed_types'] = 'jpg|png|jpeg|JPEG|JPG|PNG';
+					$config['max_size']  = '5000';
+					$config['encrypt_name'] = true;
 
+					$this->load->library('upload', $config);
 
-    function edit_jawaban(){
-    	$get = $this->Mjawaban->get_jawaban_by_id($this->uri->rsegment(3));
-
-			if ($get){
-	    		$this->form_validation->set_rules('jawaban', "Jawaban", "required|xss_clean");
-				if($this->form_validation->run() == FALSE){
-					$data['edit_jawaban'] = $get->row_array();
-					$this->load->view('jawaban/edit_jawaban', $data);
-				}
-				else{
-					if($_FILES['gambar']['size'] == NULL){
-						$data = array('jawaban' => $this->input->post('jawaban')
-							  );
+					if ( !$this->upload->do_upload('gambar')){
+						$error = array('error' => $this->upload->display_errors());
+						$this->session->set_flashdata('msg_error', $error);
+						redirect(base_url().'edit_jawaban/'.$this->uri->rsegment(3),'refresh');
+					}
+					else{
+						if($get->row_array()['photo'] != NULL){
+							unlink(FCPATH.'assets/images/answer/'.$get->row_array()['photo']);
+						}
+						$data = array('jawaban' => $this->input->post('jawaban'),
+							'photo' =>$this->upload->data()['file_name']
+							);
 						$this->Mjawaban->edit_jawaban($data, $get->row_array()['id']);
 						$this->session->set_flashdata('msg_success', 'Data berhasil di update');
 						redirect($this->session->userdata('url_pertanyaan'),'refresh');
-					}else{
-						$config['upload_path'] = 'assets/images/answer';
-						$config['allowed_types'] = 'jpg|png|jpeg|JPEG|JPG|PNG';
-						$config['max_size']  = '5000';
-						$config['encrypt_name'] = true;
-						
-						$this->load->library('upload', $config);
-						
-						if ( !$this->upload->do_upload('gambar')){
-							$error = array('error' => $this->upload->display_errors());
-							$this->session->set_flashdata('msg_error', $error);
-							redirect(base_url().'edit_jawaban/'.$this->uri->rsegment(3),'refresh');
-						}
-						else{
-							if($get->row_array()['photo'] != NULL){
-								unlink(FCPATH.'assets/images/answer/'.$get->row_array()['photo']);
-							}
-							$data = array('jawaban' => $this->input->post('jawaban'),
-										  'photo' =>$this->upload->data()['file_name']
-							  );
-							$this->Mjawaban->edit_jawaban($data, $get->row_array()['id']);
-							$this->session->set_flashdata('msg_success', 'Data berhasil di update');
-							redirect($this->session->userdata('url_pertanyaan'),'refresh');
-							}
 					}
-
 				}
-			}
-			else{
-        		redirect(base_url().'not_found','refresh');
+
 			}
 		}
+		else{
+			redirect(base_url().'not_found','refresh');
+		}
+	}
 
 	function salah(){
 		if($this->session->userdata('level') == "1" || $this->session->userdata('level') == "2"){
 			// set salah
 			$jawaban = array("wids" => 0,
-									 "is_correct" => "2",
-									 "user_set_correct" => $this->session->userdata('id'),
-									 "level_set_correct" => $this->session->userdata('level'));
+				"is_correct" => "2",
+				"user_set_correct" => $this->session->userdata('id'),
+				"level_set_correct" => $this->session->userdata('level'));
 
 			$this->Mjawaban->edit_jawaban($jawaban, $this->uri->rsegment(3));
 			$this->session->set_flashdata('msg_success', 'Jawaban sudah di set salah');
@@ -265,14 +272,14 @@ class Jawaban extends CI_Controller {
 
 			$this->email->send();
 
-						
+
 			  // ------------- END EMAIL -------------
 
 			redirect($this->session->userdata('url_pertanyaan'),'refresh');
 
 		}	
 		else{
-				redirect(base_url().'not_found','refresh');
+			redirect(base_url().'not_found','refresh');
 		}
 	}
 
@@ -305,30 +312,30 @@ class Jawaban extends CI_Controller {
 					$wids = (int) $user_downliner['wids'] + (int) $this->input->post('wids');
 
 					$data = array("wids" => $this->input->post('wids'),
-								  "id_user" =>$user_downliner['id'],
-								  "action" => "tambah",
-								  "keterangan" => "Menjawab Pertanyaan");
+						"id_user" =>$user_downliner['id'],
+						"action" => "tambah",
+						"keterangan" => "Menjawab Pertanyaan");
 
 					$user = array("id"	=> $user_downliner['id'],
-								  "wids" => $wids);
+						"wids" => $wids);
 
 					$jawaban = array("wids" => $this->input->post('wids'),
-									 "is_correct" => "1",
-									 "user_set_correct" => $this->session->userdata('id'),
-									 "level_set_correct" => $this->session->userdata('level'));
+						"is_correct" => "1",
+						"user_set_correct" => $this->session->userdata('id'),
+						"level_set_correct" => $this->session->userdata('level'));
 
 					$this->Mjawaban->edit_jawaban($jawaban, $this->uri->rsegment(3));
 					$this->Users->update($user, $this->input->post('id'));
 					$this->Mwids->add_wids($data, $user);
 
 					// ------------- BEGIN EMAIL -------------
-	    			$this->db->select('email, nama');
-	    			$this->db->from('users');
-	    			$this->db->where('users.id', $user_downliner['id']);
-	    			$get_data =  $this->db->get();
+					$this->db->select('email, nama');
+					$this->db->from('users');
+					$this->db->where('users.id', $user_downliner['id']);
+					$get_data =  $this->db->get();
 
 
-	    			$email = $get_data->row_array()['email'];
+					$email = $get_data->row_array()['email'];
 
 
 					$data['nama'] = $get_data->row_array()['nama'];
@@ -358,7 +365,7 @@ class Jawaban extends CI_Controller {
 					$this->email->send();
 
 
-						
+
 			  // ------------- END EMAIL -------------
 					
 					$this->session->set_flashdata('msg_success', 'Wids berhasil ditambahkan');
@@ -370,94 +377,94 @@ class Jawaban extends CI_Controller {
 			}
 		}
 		elseif ($this->session->userdata('level') == 2 OR $this->session->userdata('level') == 3){
-					$jawaban = array("wids" => 0,
-									"is_correct" => "1", 
-									 "user_set_correct" => $this->session->userdata('id'),
-									 "level_set_correct" => $this->session->userdata('level'));
+			$jawaban = array("wids" => 0,
+				"is_correct" => "1", 
+				"user_set_correct" => $this->session->userdata('id'),
+				"level_set_correct" => $this->session->userdata('level'));
 
-					$this->Mjawaban->edit_jawaban($jawaban, $this->uri->rsegment(3));
+			$this->Mjawaban->edit_jawaban($jawaban, $this->uri->rsegment(3));
 
 					// ------------- BEGIN EMAIL -------------
-					$this->db->select('id_user');
-					$this->db->from('pelajaran_jawaban');
-					$this->db->where('id', $this->uri->rsegment(3));
-					$id_user = $this->db->get();
+			$this->db->select('id_user');
+			$this->db->from('pelajaran_jawaban');
+			$this->db->where('id', $this->uri->rsegment(3));
+			$id_user = $this->db->get();
 
 
-	    			$this->db->select('email, nama');
-	    			$this->db->from('users');
-	    			$this->db->where('users.id', $id_user->row_array()['id_user']);
-	    			$get_data =  $this->db->get();
+			$this->db->select('email, nama');
+			$this->db->from('users');
+			$this->db->where('users.id', $id_user->row_array()['id_user']);
+			$get_data =  $this->db->get();
 
 
-	    			$email = $get_data->row_array()['email'];
+			$email = $get_data->row_array()['email'];
 
 
-					$data['nama'] = $get_data->row_array()['nama'];
+			$data['nama'] = $get_data->row_array()['nama'];
 
-					$data['link'] = base_url()."detail_pertanyaan/".$this->session->userdata('id_pertanyaan');
+			$data['link'] = base_url()."detail_pertanyaan/".$this->session->userdata('id_pertanyaan');
 
-					$data['email'] = $get_data->row_array()['email'];
+			$data['email'] = $get_data->row_array()['email'];
 
-					$message = $this->load->view('email/notifikasi_jawaban_betul',$data,TRUE);
+			$message = $this->load->view('email/notifikasi_jawaban_betul',$data,TRUE);
 
-					
-					$this->load->library('email');
-					$config['mailtype'] = "html";
 
-					$this->email->initialize($config);
+			$this->load->library('email');
+			$config['mailtype'] = "html";
+
+			$this->email->initialize($config);
 
 					//masukkan email pengirim disini 
-					$this->email->from(EMAIL_SENDER, 'BMBimbel Notification System');
+			$this->email->from(EMAIL_SENDER, 'BMBimbel Notification System');
 
-					$adminList = $this->Users->get_admin_list();
-					$emails = array();
-					foreach ($adminList->result() as $row) {
-						$emails[] = $row->email;
-					}
-					$emails = implode($emails, ',');
-					$this->email->to($emails);
+			$adminList = $this->Users->get_admin_list();
+			$emails = array();
+			foreach ($adminList->result() as $row) {
+				$emails[] = $row->email;
+			}
+			$emails = implode($emails, ',');
+			$this->email->to($emails);
 
-					$this->email->subject('Jawaban kamu benar !');
-					$this->email->message($message);
+			$this->email->subject('Jawaban kamu benar !');
+			$this->email->message($message);
 
-					$this->email->send();
+			$this->email->send();
 
 					// send email ke super admin
-					$detailWebAdmin = $this->Users->get_user_by_id2($this->session->userdata('id'))->row_array();
-					$dataWebAdmin['nama'] = $detailWebAdmin['nama'];
-					$dataWebAdmin['link'] = base_url()."detail_pertanyaan/".$this->session->userdata('id_pertanyaan');
-					$message2 = $this->load->view('email/notifikasi_jawaban_betul_web_admin',$dataWebAdmin,TRUE);
-					$this->email->from(EMAIL_SENDER, 'BMBimbel Notification System');
+			$detailWebAdmin = $this->Users->get_user_by_id2($this->session->userdata('id'))->row_array();
+			$dataWebAdmin['nama'] = $detailWebAdmin['nama'];
+			$dataWebAdmin['link'] = base_url()."detail_pertanyaan/".$this->session->userdata('id_pertanyaan');
+			$message2 = $this->load->view('email/notifikasi_jawaban_betul_web_admin',$dataWebAdmin,TRUE);
+			$this->email->from(EMAIL_SENDER, 'BMBimbel Notification System');
 
-					$this->email->to($email);
+			$this->email->to($email);
 
-					$this->email->subject('Web-Admin set betul pertanyaan !');
-					$this->email->message($message2);
+			$this->email->subject('Web-Admin set betul pertanyaan !');
+			$this->email->message($message2);
 
-					$this->email->send();
+			$this->email->send();
 
-					$wids = (int) $detailWebAdmin['wids'] + 1;
-					$data = array("wids" => 1,
-								  "id_user" =>$this->session->userdata('id'),
-								  "action" => "tambah",
-								  "keterangan" => "Set betul jawaban");
+			$wids = (int) $detailWebAdmin['wids'] + 1;
+			$data = array("wids" => 1,
+				"id_user" =>$this->session->userdata('id'),
+				"action" => "tambah",
+				"keterangan" => "Set betul jawaban");
 
-					$user = array("id"	=> $this->session->userdata('id'),
-								  "wids" => $wids);
+			$user = array("id"	=> $this->session->userdata('id'),
+				"wids" => $wids);
 
-					$this->Users->update($user, $this->input->post('id'));
-					$this->Mwids->add_wids($data, $user);
+			$this->Users->update($user, $this->input->post('id'));
+			$this->Mwids->add_wids($data, $user);
 
 
-						
+
 			  // ------------- END EMAIL -------------
-					
-					$this->session->set_flashdata('msg_success', 'Jawaban berhasil di set betul');
-					redirect($this->session->userdata('url_pertanyaan'),'refresh');
+
+			$this->session->set_flashdata('msg_success', 'Jawaban berhasil di set betul');
+			redirect($this->session->userdata('url_pertanyaan'),'refresh');
 		}
 		else{
-				redirect(base_url().'not_found','refresh');
+			redirect(base_url().'not_found','refresh');
 		}
 	}
 
@@ -523,13 +530,13 @@ class Jawaban extends CI_Controller {
 
 
 					$log_wids = array("wids" => $wids_baru,
-									  "id_user" =>$user_downliner['id'],
-									  "action" => $action,
-									  "keterangan" => "Update Wids Jawaban");
+						"id_user" =>$user_downliner['id'],
+						"action" => $action,
+						"keterangan" => "Update Wids Jawaban");
 
 					if($wids_for_downliner!=0){
 						$user_downliner = array("id"	=> $user_downliner['id'],
-								  			"wids" => $wids_for_downliner);
+							"wids" => $wids_for_downliner);
 					}
 					
 
@@ -582,7 +589,7 @@ class Jawaban extends CI_Controller {
 
 					// $this->email->send();
 
-						
+
 			  // ------------- END EMAIL -------------
 					
 					$this->session->set_flashdata('msg_success', 'Wids berhasil diupdate');
@@ -596,8 +603,8 @@ class Jawaban extends CI_Controller {
 	}
 
 	function jawaban_saya(){
-	    	$data['jawaban'] = $this->Mjawaban->get_jawaban_by_nisn($this->session->userdata('nisn'));
-	    	$this->load->view('jawaban/jawaban_saya', $data);
+		$data['jawaban'] = $this->Mjawaban->get_jawaban_by_nisn($this->session->userdata('nisn'));
+		$this->load->view('jawaban/jawaban_saya', $data);
 	}
 }
 
