@@ -38,15 +38,12 @@ class Jawaban extends CI_Controller {
 
 
 	function insert_jawaban() {
-
-		if($this->session->userdata('level') == "1" || $this->session->userdata('level') == "2"){
+		$pertanyaan = $this->Mpertanyaan->get_pertanyaan_by_id($this->uri->rsegment(3));
+		$betul = "0";
+		if(($this->session->userdata('level') == "1" || $this->session->userdata('level') == "2") && $pertanyaan->row_array()['terjawab']!=1){
 			$betul = "1";
 		}
-		else {
-			$betul = "0";
-		}
 
-		$pertanyaan = $this->Mpertanyaan->get_pertanyaan_by_id($this->uri->rsegment(3));
 		if($pertanyaan){
 			$this->form_validation->set_rules('jawaban', 'Jawaban', 'required|xss_clean');
 			if ($this->form_validation->run() == FALSE) {
@@ -85,6 +82,10 @@ class Jawaban extends CI_Controller {
 				}
 				$this->Mjawaban->insert_jawaban($jawaban);
 				$this->session->set_flashdata('msg_succes', 'Jawaban berhasil ditambahkan');
+
+				if($betul==1){
+					$this->Mpertanyaan->update_terjawab($this->uri->rsegment(3));
+				}
 
 									// ------------- BEGIN EMAIL -------------
 				$this->db->select('email, nama');
@@ -328,6 +329,10 @@ class Jawaban extends CI_Controller {
 					$this->Users->update($user, $this->input->post('id'));
 					$this->Mwids->add_wids($data, $user);
 
+					// set sudah terjawab
+					$detailJawaban = $this->Mjawaban->get_jawaban_by_id($this->uri->rsegment(3))->row_array();
+					$this->Mpertanyaan->update_terjawab($detailJawaban['id_pertanyaan']);
+
 					// ------------- BEGIN EMAIL -------------
 					$this->db->select('email, nama');
 					$this->db->from('users');
@@ -376,13 +381,17 @@ class Jawaban extends CI_Controller {
 				}
 			}
 		}
-		elseif ($this->session->userdata('level') == 2 OR $this->session->userdata('level') == 3){
+		elseif ($this->session->userdata('level') == 2 || $this->session->userdata('level') == 3){
 			$jawaban = array("wids" => 0,
 				"is_correct" => "1", 
 				"user_set_correct" => $this->session->userdata('id'),
 				"level_set_correct" => $this->session->userdata('level'));
 
 			$this->Mjawaban->edit_jawaban($jawaban, $this->uri->rsegment(3));
+
+			// set sudah terjawab
+			$detailJawaban = $this->Mjawaban->get_jawaban_by_id($this->uri->rsegment(3))->row_array();
+			$this->Mpertanyaan->update_terjawab($detailJawaban['id_pertanyaan']);
 
 					// ------------- BEGIN EMAIL -------------
 			$this->db->select('id_user');

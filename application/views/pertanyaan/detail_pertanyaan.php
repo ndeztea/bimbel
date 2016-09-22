@@ -260,8 +260,10 @@
 
 
                   <?php if($this->session->userdata('level') == "1"  && $r->is_correct != "1"): ?>
+                    <?php if($pertanyaan['terjawab']!=1):?>
                     <button type="button" class="btn btn-primary btn-xs pull-right" data-toggle="modal" data-target="#myModal<?php echo $r->id ?>">
                     <i class='fa fa-check-circle'></i> Betul</button>
+                    <?php endif?>
                     <button type="button" class="btn btn-warning btn-xs pull-right" onclick="location.href='<?php echo site_url('salah/'.$r->id)?>'">
                     <i class='fa fa-close'></i> Salah</button>
 
@@ -288,9 +290,11 @@
                         </div>
                       </div>
                     </div>
-                  <?php elseif($this->session->userdata('level') == "2" OR $this->session->userdata('level') == "3" AND $r->is_correct == "0"): ?>
+                  <?php elseif($this->session->userdata('level') == "2" || $this->session->userdata('level') == "3" && $r->is_correct == "0"): ?>
+                      <?php if($pertanyaan['terjawab']!=1):?>
                        <button type="button" class="btn btn-primary btn-xs pull-right" onclick="location.href='<?php echo base_url() ?>betul/<?php echo $r->id ?>'">
                     <i class='fa fa-check-circle'></i> Betul</button>
+                      <?php endif?>
 
                   <?php endif; ?>
                 </div>
