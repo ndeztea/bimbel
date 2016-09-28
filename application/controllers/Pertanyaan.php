@@ -317,7 +317,7 @@ class Pertanyaan extends CI_Controller {
 		$get = $this->Mpertanyaan->get_pertanyaan_by_mapel($this->input->post('id'), 5, $this->input->post('offset'));
 		if($get->num_rows() >= 1){
 			foreach ($get->result() as $r) {
-				$terjawab = $r->terjawab==1?'<i class="fa fa-star"></i>':'';
+				$terjawab = $r->terjawab==1?'<i class="fa fa-star list-answered"></i>':'';
 				echo "<div class='box-comment'> 
 		            			<img class='img-circle img-sm' src='".
 		            			base_url('assets/images/avatar')."/".$r->avatar_penanya."'>

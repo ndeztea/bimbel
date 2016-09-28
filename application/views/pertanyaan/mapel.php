@@ -98,11 +98,13 @@
 									<span class="username">
 										<?php echo $r->nama_pelajaran ?>&middot;
 										<?php echo get_tingkat($r->tingkat) ?>
+										<?php if($r->terjawab==1):?>
+										<i class="fa fa-star  list-answered" aria-hidden="true"></i>
+										<?php endif?>
 									</span>
 									<a href="<?php echo base_url() ?>detail_pertanyaan/<?php echo $r->id_pertanyaan ?>"><?php echo $r->pertanyaan ?></a>
 									<button class="btn btn-success btn-xs pull-right" onclick=location.href="<?php echo base_url() ?>detail_pertanyaan/<?php echo $r->id_pertanyaan ?>"><i class="fa fa-share"></i> Jawab</button>
-									<i class="fa fa-star" aria-hidden="true"></i>
-
+									
 								</div>
 							</div>
 							<?php endforeach; ?>
